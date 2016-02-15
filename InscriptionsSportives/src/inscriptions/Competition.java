@@ -49,7 +49,8 @@ public class Competition implements Comparable<Competition>, Serializable
 	public boolean inscriptionsOuvertes()
 	{
 		// TODO retourner vrai si et seulement si la date système est antérieure à la date de clôture.
-		return true;
+		
+		return (LocalDate.now().isEqual(this.dateCloture) || LocalDate.now().isBefore(this.dateCloture));
 	}
 	
 	/**
@@ -81,7 +82,8 @@ public class Competition implements Comparable<Competition>, Serializable
 	public void setDateCloture(LocalDate dateCloture)
 	{
 		// TODO vérifier que l'on avance pas la date.
-		this.dateCloture = dateCloture;
+		if(this.getDateCloture().isBefore(dateCloture))
+			this.dateCloture = dateCloture;
 	}
 	
 	/**
@@ -105,7 +107,8 @@ public class Competition implements Comparable<Competition>, Serializable
 	public boolean add(Personne personne)
 	{
 		// TODO vérifier que la date de clôture n'est pas passée
-		if (enEquipe)
+		
+		if (enEquipe || !inscriptionsOuvertes())
 			throw new RuntimeException();
 		personne.add(this);
 		return candidats.add(personne);
@@ -122,7 +125,7 @@ public class Competition implements Comparable<Competition>, Serializable
 	public boolean add(Equipe equipe)
 	{
 		// TODO vérifier que la date de clôture n'est pas passée
-		if (!enEquipe)
+		if (!enEquipe || !inscriptionsOuvertes())
 			throw new RuntimeException();
 		equipe.add(this);
 		return candidats.add(equipe);

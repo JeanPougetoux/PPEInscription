@@ -31,8 +31,8 @@ public class CompetitionTest {
 		LocalDate dateCloture1 = LocalDate.parse("2015-01-10");
 		LocalDate dateCloture2 = LocalDate.parse("2018-04-20");
 		Inscriptions inscriptions = Inscriptions.getInscriptions();
-		Competition testCompetVrai = inscriptions.createCompetition("test", dateCloture1, false);
-		Competition testCompetFaux = inscriptions.createCompetition("test", dateCloture2, false);
+		Competition testCompetFaux = inscriptions.createCompetition("test", dateCloture1, false);
+		Competition testCompetVrai = inscriptions.createCompetition("test", dateCloture2, false);
 		assertEquals(true, testCompetVrai.inscriptionsOuvertes());
 		assertEquals(false, testCompetFaux.inscriptionsOuvertes());
 	}
