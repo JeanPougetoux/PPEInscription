@@ -14,7 +14,7 @@ import java.util.TreeSet;
 /**
  * Point d'entrée dans l'application, un seul objet de type Inscription
  * permet de gérer les compétitions, candidats (de type equipe ou personne)
- * ainsi que d'inscrire des candidats à des compétition.
+ * ainsi que d'inscrire des candidats à  des compétition.
  */
 
 public class Inscriptions implements Serializable
@@ -112,7 +112,7 @@ public class Inscriptions implements Serializable
 	
 	/**
 	 * Retourne l'unique instance de cette classe.
-	 * Crée cet objet s'il n'existe déjà.
+	 * Crée cet objet s'il n'existe déjà .
 	 * @return l'unique objet de type {@link Inscriptions}.
 	 */
 	
@@ -130,7 +130,7 @@ public class Inscriptions implements Serializable
 
 	/**
 	 * Retourne un object inscriptions vide. Ne modifie pas les compétitions
-	 * et candidats déjà existants.
+	 * et candidats déjà  existants.
 	 */
 	
 	public Inscriptions reinitialiser()
@@ -140,8 +140,8 @@ public class Inscriptions implements Serializable
 	}
 
 	/**
-	 * Efface toutes les modifications sur Inscriptions depuis la dernière sauvegarde.
-	 * Ne modifie pas les compétitions et candidats déjà existants.
+	 * Efface toutes les modifications sur Inscriptions depuis la dernià¨re sauvegarde.
+	 * Ne modifie pas les compétitions et candidats déjà  existants.
 	 */
 	
 	public Inscriptions recharger()
