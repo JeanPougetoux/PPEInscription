@@ -2,7 +2,12 @@ package tests;
 
 import static org.junit.Assert.*;
 
+import java.time.LocalDate;
+
 import org.junit.Test;
+
+import inscriptions.Competition;
+import inscriptions.Inscriptions;
 
 public class CompetitionTest {
 
@@ -18,7 +23,14 @@ public class CompetitionTest {
 
 	@Test
 	public void testInscriptionsOuvertes() {
-		fail("Not yet implemented");
+		LocalDate dateCloture1, dateCloture2;
+		dateCloture1 = LocalDate.parse("2015-01-10");
+		dateCloture2 = LocalDate.parse("2018-04-20");
+		Inscriptions inscriptions = Inscriptions.getInscriptions();
+		Competition testCompetVrai = inscriptions.createCompetition("test", dateCloture1, false);
+		Competition testCompetFaux = inscriptions.createCompetition("test", dateCloture2, false);
+		assertEquals(true, testCompetVrai.inscriptionsOuvertes());
+		assertEquals(false, testCompetFaux.inscriptionsOuvertes());
 	}
 
 	@Test
