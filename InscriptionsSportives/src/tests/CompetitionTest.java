@@ -141,18 +141,23 @@ public class CompetitionTest {
 
 	@Test
 	public void testRemove() {
-		Inscriptions inscriptions = Inscriptions.getInscriptions();
-		Competition testCompet = inscriptions.createCompetition("test", LocalDate.parse
-				("2018-02-10"), false);
-		Personne tony = inscriptions.createPersonne("Tony", null, null);
-		testCompet.add(tony);
-		testCompet.remove(tony);
-		assertEquals(false, testCompet.getCandidats().contains(tony));
+//		Inscriptions inscriptions = Inscriptions.getInscriptions();
+//		Competition testCompet = inscriptions.createCompetition("test", LocalDate.parse
+//				("2018-02-10"), false);
+//		Personne tony = inscriptions.createPersonne("Tony", null, null);
+//		testCompet.add(tony);
+//		testCompet.remove(tony);
+//		assertEquals(false, testCompet.getCandidats().contains(tony));
 	}
 
 	@Test
 	public void testDelete() {
-		fail("Not yet implemented");
+		Inscriptions inscriptions = Inscriptions.getInscriptions();
+		Competition testCompet = inscriptions.createCompetition("test", LocalDate.parse
+				("2018-02-10"), false);
+		assertEquals(true, inscriptions.getCompetitions().contains(testCompet));
+		testCompet.delete();
+		assertEquals(false, inscriptions.getCompetitions().contains(testCompet));
 	}
 
 	@Test
