@@ -162,7 +162,12 @@ public class CompetitionTest {
 
 	@Test
 	public void testCompareTo() {
-		fail("Not yet implemented");
+		Inscriptions inscription = Inscriptions.getInscriptions();
+		Competition a = inscription.createCompetition("abcd", LocalDate.parse
+				("2018-02-10"), true);
+		Competition b = inscription.createCompetition("efgh", LocalDate.parse
+				("2018-02-10"), true);
+		assertEquals(-4, a.compareTo(b));
 	}
 
 	@Test
