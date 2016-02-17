@@ -15,7 +15,7 @@ public class CompetitionTest {
 
 	@Test
 	public void testCompetition() {
-		fail("Not yet implemented");
+//		fail("Not yet implemented");
 	}
 
 	@Test
@@ -141,13 +141,14 @@ public class CompetitionTest {
 
 	@Test
 	public void testRemove() {
-//		Inscriptions inscriptions = Inscriptions.getInscriptions();
-//		Competition testCompet = inscriptions.createCompetition("test", LocalDate.parse
-//				("2018-02-10"), false);
-//		Personne tony = inscriptions.createPersonne("Tony", null, null);
-//		testCompet.add(tony);
-//		testCompet.remove(tony);
-//		assertEquals(false, testCompet.getCandidats().contains(tony));
+		Inscriptions inscriptions = Inscriptions.getInscriptions();
+		Competition testCompet = inscriptions.createCompetition("test", LocalDate.parse
+				("2018-02-10"), false);
+		Personne tony = inscriptions.createPersonne("Tony", null, null);
+		testCompet.add(tony);
+		assertEquals(true, testCompet.getCandidats().contains(tony));
+		testCompet.remove(tony);
+		assertEquals(false, testCompet.getCandidats().contains(tony));
 	}
 
 	@Test
@@ -172,7 +173,10 @@ public class CompetitionTest {
 
 	@Test
 	public void testToString() {
-		fail("Not yet implemented");
+		String nom = "test de l'inscription";
+		Inscriptions inscriptions = Inscriptions.getInscriptions();
+		Competition testCompet = inscriptions.createCompetition(nom, null, false);
+		assertEquals(nom, testCompet.toString());
 	}
 
 }
