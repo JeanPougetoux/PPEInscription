@@ -6,13 +6,21 @@ import java.time.LocalDate;
 
 import org.junit.Test;
 
-import com.sun.corba.se.impl.orb.ParserTable.TestContactInfoListFactory;
-
 import inscriptions.Competition;
 import inscriptions.Inscriptions;
 import inscriptions.Personne;
 
 public class CandidatTest {
+
+	String nomTony = "Tony";
+	String nomRobert = "Robert";
+	Inscriptions inscriptions = Inscriptions.getInscriptions();
+	Personne tony = inscriptions.createPersonne(nomTony, null, null);
+	Competition testCompet = inscriptions.createCompetition("test", LocalDate.parse
+			("2018-02-10"), false);
+	Competition testCompet2 = inscriptions.createCompetition("test", LocalDate.parse
+			("2018-02-10"), false);
+
 
 //	@Test
 //	public void testCandidat() {
@@ -21,49 +29,31 @@ public class CandidatTest {
 
 	@Test
 	public void testGetNom() {
-		Inscriptions inscriptions = Inscriptions.getInscriptions();
-		Personne tony = inscriptions.createPersonne("Tony", null, null);
-		assertEquals("Tony", tony.getNom());
+		assertEquals(nomTony, tony.getNom());
 	}
 
 	@Test
 	public void testSetNom() {
-		Inscriptions inscriptions = Inscriptions.getInscriptions();
-		Personne tony = inscriptions.createPersonne("Tony", null, null);
-		tony.setNom("Robert");
-		assertEquals("Robert", tony.getNom());
+		tony.setNom(nomRobert);
+		assertEquals(nomRobert, tony.getNom());
 	}
 
 	@Test
 	public void testGetCompetitions() {
-		Inscriptions inscriptions = Inscriptions.getInscriptions();
-		Competition testCompet1 = inscriptions.createCompetition("test", LocalDate.parse
-				("2018-02-10"), false);
-		Competition testCompet2 = inscriptions.createCompetition("test", LocalDate.parse
-				("2018-02-10"), false);
-		Personne tony = inscriptions.createPersonne("Tony", null, null);
-		testCompet1.add(tony);
+		testCompet.add(tony);
 		testCompet2.add(tony);
-		assertEquals(true, tony.getCompetitions().contains(testCompet1));
+		assertEquals(true, tony.getCompetitions().contains(testCompet));
 		assertEquals(true, tony.getCompetitions().contains(testCompet2));
 	}
 
 	@Test
 	public void testAdd() {
-		Inscriptions inscriptions = Inscriptions.getInscriptions();
-		Competition testCompet = inscriptions.createCompetition("test", LocalDate.parse
-				("2018-02-10"), false);
-		Personne tony = inscriptions.createPersonne("Tony", null, null);
 		testCompet.add(tony);
 		assertEquals(true, tony.getCompetitions().contains(testCompet));
 	}
 
 	@Test
 	public void testRemove() {
-		Inscriptions inscriptions = Inscriptions.getInscriptions();
-		Competition testCompet = inscriptions.createCompetition("test", LocalDate.parse
-				("2018-02-10"), false);
-		Personne tony = inscriptions.createPersonne("Tony", null, null);
 		testCompet.add(tony);
 		assertEquals(true, tony.getCompetitions().contains(testCompet));
 		testCompet.remove(tony);
@@ -72,10 +62,6 @@ public class CandidatTest {
 
 	@Test
 	public void testDelete() {
-		Inscriptions inscriptions = Inscriptions.getInscriptions();
-		Personne tony = inscriptions.createPersonne("Tony", null, null);
-		Competition testCompet = inscriptions.createCompetition("test", LocalDate.parse
-				("2018-02-10"), false);
 		testCompet.add(tony);
 		assertEquals(true, inscriptions.getCandidats().contains(tony));
 		tony.delete();
@@ -85,19 +71,17 @@ public class CandidatTest {
 
 	@Test
 	public void testCompareTo() {
-		Inscriptions inscription = Inscriptions.getInscriptions();
-		Personne a = inscription.createPersonne("abcd", null, null);
-		Personne b = inscription.createPersonne("efgh", null, null);
+		Personne a = inscriptions.createPersonne("abcd", null, null);
+		Personne b = inscriptions.createPersonne("efgh", null, null);
 		assertEquals(-4, a.compareTo(b));
 	}
 
 	@Test
 	public void testToString() {
-		String nom = "george";
 		Inscriptions inscriptions = Inscriptions.getInscriptions();
-		Personne george = inscriptions.createPersonne(nom, null, null);
-		assertEquals("\n" + nom + " -> inscrit à " + george.getCompetitions() + " membre de " + 
-					george.getEquipes().toString(), george.toString());
+		Personne george = inscriptions.createPersonne(nomRobert, null, null);
+		assertEquals("\n" + nomRobert + " -> inscrit à " + george.getCompetitions() + 
+				" membre de " + george.getEquipes().toString(), george.toString());
 	}
 
 }
