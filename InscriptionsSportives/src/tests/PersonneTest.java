@@ -4,11 +4,20 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import inscriptions.Equipe;
+import inscriptions.Inscriptions;
+import inscriptions.Personne;
+
 public class PersonneTest {
 
+	Inscriptions inscription = Inscriptions.getInscriptions();
+	Personne a = inscription.createPersonne("ecalle", "thomas", "thomasecalle@hotmail.fr");
+	Equipe equipe = inscription.createEquipe("les semis-croustillants");
+	
 	@Test
 	public void testDelete() {
-		fail("Not yet implemented");
+		a.delete();
+		assertEquals(false,inscription.getCandidats().contains(a));
 	}
 
 	@Test
@@ -23,32 +32,35 @@ public class PersonneTest {
 
 	@Test
 	public void testGetPrenom() {
-		fail("Not yet implemented");
+		assertEquals("thomas", a.getPrenom());
 	}
 
 	@Test
 	public void testSetPrenom() {
-		fail("Not yet implemented");
+		a.setPrenom("george");
+		assertEquals("george",a.getPrenom());
 	}
 
 	@Test
 	public void testGetMail() {
-		fail("Not yet implemented");
+		assertEquals("thomasecalle@hotmail.fr",a.getMail());
 	}
 
 	@Test
 	public void testSetMail() {
-		fail("Not yet implemented");
+		a.setMail("test@hotmail.com");
+		assertEquals("test@hotmail.com",a.getMail());
 	}
 
 	@Test
 	public void testGetEquipes() {
-		fail("Not yet implemented");
+		equipe.add(a);
+		assertEquals(true,a.getEquipes().contains(equipe));
 	}
 
 	@Test
 	public void testAddEquipe() {
-		fail("Not yet implemented");
+		fail("not yet implemented");
 	}
 
 	@Test
