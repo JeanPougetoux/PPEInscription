@@ -27,11 +27,6 @@ public class CompetitionTest {
 	Competition testCompetSolo = inscriptions.createCompetition(nom, dateClotureFaux, false);
 
 	@Test
-	public void testCompetition() {
-//		fail("Not yet implemented");
-	}
-
-	@Test
 	public void testGetNom() {
 		assertEquals(nom, testCompetVrai.getNom());
 	}

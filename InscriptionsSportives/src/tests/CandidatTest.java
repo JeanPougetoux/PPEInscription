@@ -20,13 +20,7 @@ public class CandidatTest {
 			("2018-02-10"), false);
 	Competition testCompet2 = inscriptions.createCompetition("test", LocalDate.parse
 			("2018-02-10"), false);
-
-
-//	@Test
-//	public void testCandidat() {
-//		fail("Not yet implemented");
-//	}
-
+	
 	@Test
 	public void testGetNom() {
 		assertEquals(nomTony, tony.getNom());

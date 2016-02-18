@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import inscriptions.Competition;
 import inscriptions.Equipe;
 import inscriptions.Inscriptions;
 import inscriptions.Personne;
@@ -16,11 +15,6 @@ public class EquipeTest {
 	Personne boris = inscriptions.createPersonne("Boris", "le Hachoir", "ytreza");
 	Equipe lesManouches = inscriptions.createEquipe("Les Manouches");
 
-//	@Test
-//	public void testEquipe() {
-//		fail("Not yet implemented");
-//	}
-	
 	@Test
 	public void testDelete() {
 		assertEquals(true, inscriptions.getCandidats().contains(lesManouches));
