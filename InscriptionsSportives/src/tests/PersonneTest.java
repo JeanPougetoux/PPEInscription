@@ -15,19 +15,18 @@ public class PersonneTest {
 	Equipe equipe = inscription.createEquipe("les semis-croustillants");
 	
 	@Test
+	public void testPersonne() {
+		Personne thomas = inscription.createPersonne("ecalle", "thomas", "thomasecalle@hotmail.fr");
+		assertEquals("ecalle", thomas.getNom());
+		assertEquals("thomas", thomas.getPrenom());
+		assertEquals("thomasecalle@hotmail.fr", thomas.getMail());
+		assertEquals(true, thomas.getCompetitions().isEmpty());
+	}
+	
+	@Test
 	public void testDelete() {
 		a.delete();
 		assertEquals(false,inscription.getCandidats().contains(a));
-	}
-
-	@Test
-	public void testToString() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testPersonne() {
-		fail("Not yet implemented");
 	}
 
 	@Test
@@ -56,16 +55,6 @@ public class PersonneTest {
 	public void testGetEquipes() {
 		equipe.add(a);
 		assertEquals(true,a.getEquipes().contains(equipe));
-	}
-
-	@Test
-	public void testAddEquipe() {
-		fail("not yet implemented");
-	}
-
-	@Test
-	public void testRemoveEquipe() {
-		fail("Not yet implemented");
 	}
 
 }

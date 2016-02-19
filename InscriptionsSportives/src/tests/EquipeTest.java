@@ -16,6 +16,12 @@ public class EquipeTest {
 	Equipe lesManouches = inscriptions.createEquipe("Les Manouches");
 
 	@Test
+	public void testEquipe() {
+		Equipe lesPatriks = inscriptions.createEquipe("Les patriks");
+		assertEquals("Les patriks", lesPatriks.getNom());
+	}
+	
+	@Test
 	public void testDelete() {
 		assertEquals(true, inscriptions.getCandidats().contains(lesManouches));
 		lesManouches.delete();

@@ -27,6 +27,15 @@ public class CompetitionTest {
 	Competition testCompetSolo = inscriptions.createCompetition(nom, dateClotureFaux, false);
 
 	@Test
+	public void testCompetition() {
+		Competition testCompet = inscriptions.createCompetition("flechette", dateClotureVrai, true);
+		assertEquals("flechette", testCompet.getNom());
+		assertEquals(dateClotureVrai, testCompet.getDateCloture());
+		assertEquals(true, testCompet.estEnEquipe());
+		assertEquals(true, testCompet.getCandidats().isEmpty());
+	}
+	
+	@Test
 	public void testGetNom() {
 		assertEquals(nom, testCompetVrai.getNom());
 	}

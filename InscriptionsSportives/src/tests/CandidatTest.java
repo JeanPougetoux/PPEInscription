@@ -22,6 +22,13 @@ public class CandidatTest {
 			("2018-02-10"), false);
 	
 	@Test
+	public void testCandidat() {
+		Personne jean = inscriptions.createPersonne("pougetoux", "jean", "spyroo913@hotmail.com");
+		assertEquals("pougetoux", jean.getNom());
+		
+	}
+	
+	@Test
 	public void testGetNom() {
 		assertEquals(nomTony, tony.getNom());
 	}
@@ -38,20 +45,6 @@ public class CandidatTest {
 		testCompet2.add(tony);
 		assertEquals(true, tony.getCompetitions().contains(testCompet));
 		assertEquals(true, tony.getCompetitions().contains(testCompet2));
-	}
-
-	@Test
-	public void testAdd() {
-		testCompet.add(tony);
-		assertEquals(true, tony.getCompetitions().contains(testCompet));
-	}
-
-	@Test
-	public void testRemove() {
-		testCompet.add(tony);
-		assertEquals(true, tony.getCompetitions().contains(testCompet));
-		testCompet.remove(tony);
-		assertEquals(false, tony.getCompetitions().contains(testCompet));
 	}
 
 	@Test

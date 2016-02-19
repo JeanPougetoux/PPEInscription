@@ -41,6 +41,7 @@ public class Equipe extends Candidat
 		return membres.add(membre);
 	}
 
+	
 	/**
 	 * Supprime une personne de l'équipe. 
 	 * @param membre
@@ -52,7 +53,7 @@ public class Equipe extends Candidat
 		membre.remove(this);
 		return membres.remove(membre);
 	}
-
+	
 	@Override
 	public void delete()
 	{

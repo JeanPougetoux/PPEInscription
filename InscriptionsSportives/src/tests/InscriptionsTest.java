@@ -46,42 +46,6 @@ public class InscriptionsTest {
 	}
 
 	@Test
-	public void testRemoveCompetition() {
-		Competition billard = inscriptions.createCompetition("billard", null, true);
-		billard.delete();
-		assertEquals(false, inscriptions.getCompetitions().contains(billard));
-		fail("A voir car methode inaccessible directement");
-	}
-
-	@Test
-	public void testRemoveCandidat() {
-		Personne robert = inscriptions.createPersonne("Robert", null, null);
-		robert.delete();
-		assertEquals(false, inscriptions.getCandidats().contains(robert));
-		fail("A voir car methode inaccessible directement");
-	}
-
-	@Test
-	public void testGetInscriptions() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testReinitialiser() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testRecharger() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSauvegarder() {
-		fail("Not yet implemented");
-	}
-
-	@Test
 	public void testToString() {
 		assertEquals("Candidats : " + inscriptions.getCandidats().toString()
 			+ "\nCompetitions  " + inscriptions.getCompetitions().toString(), 
