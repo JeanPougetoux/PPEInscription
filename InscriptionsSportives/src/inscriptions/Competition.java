@@ -49,8 +49,11 @@ public class Competition implements Comparable<Competition>, Serializable
 	public boolean inscriptionsOuvertes()
 	{
 		// TODO retourner vrai si et seulement si la date système est antérieure à la date de clôture.
+		if(this.dateCloture != null)
+			return (LocalDate.now().isEqual(this.dateCloture) || LocalDate.now().isBefore(this.dateCloture));
 		
-		return (LocalDate.now().isEqual(this.dateCloture) || LocalDate.now().isBefore(this.dateCloture));
+		else
+			return false;
 	}
 	
 	/**

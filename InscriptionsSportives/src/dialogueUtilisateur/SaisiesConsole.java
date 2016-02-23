@@ -1,10 +1,10 @@
-package inscriptions;
+package dialogueUtilisateur;
 
 import java.time.LocalDate;
 
 import utilitaires.EntreesSorties;
 
-public class Saisies {
+public class SaisiesConsole {
 
 	public static LocalDate saisieDateCompetition(){
 		do
@@ -27,17 +27,29 @@ public class Saisies {
 	public static boolean saisieEquipeCompetition(){
 		do
 		{
-			String reponse = EntreesSorties.getString("La compétition est-elle pour les équipes ou les personnes seules ?\n" 
-														+ " (tapez 'e' pour équipes ou 'p' pour personnes)");
-			if(reponse == Character.toString('e')){
+			char choix = (EntreesSorties.getString("La compétition est-elle pour les équipes ou les personnes seules ?\n" 
+														+ "(tapez 'e' pour équipes ou 'p' pour personnes)")).charAt(0);
+			if(choix == 'e'){
 				return true;
 			}
-			else if(reponse == Character.toString('p')){
+			else if(choix == 'p'){
 				return false;
 			}
 			else{
 				System.out.println("Veuillez saisir 'e' ou 'p'.");
 			}	
+		}
+		while(true);
+	}
+	
+	public static char saisieSuppressionCompetition(){
+		do
+		{
+			char reponse = EntreesSorties.getString("Etes-vous sûr de vouloir supprimer la compétition ?\n"
+													+ "Saisir 'o' ou 'n'.").charAt(0);
+			if(reponse == 'o' || reponse == 'n'){
+				return reponse;
+			}
 		}
 		while(true);
 	}
