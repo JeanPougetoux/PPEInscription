@@ -6,15 +6,26 @@ import utilitaires.EntreesSorties;
 
 public class SaisiesConsole {
 
-	public static LocalDate saisieDateCompetition(){
+	public static Object saisieDateCompetition(String texte, LocalDate compet){
 		do
 		{
-			String message = EntreesSorties.getString("Saisir la date de clôture de la compétition (au format"
-														+ " yyyy-MM-dd)");
+			String message = EntreesSorties.getString(texte);
+			if(compet != null)
+				if(message.isEmpty())
+					return message;
+			
 			try
 			{
 				LocalDate dateCloture = LocalDate.parse(message);
-				return dateCloture;
+				if(compet != null){
+					if(dateCloture.isAfter(compet))
+						return dateCloture;
+					else
+						System.out.println("Vous ne pouvez pas avancer la date de cloture.");
+				}
+				else{
+					return dateCloture;
+				}
 			}
 			catch(Exception e)
 			{
@@ -24,16 +35,18 @@ public class SaisiesConsole {
 		while(true);
 	}
 	
-	public static boolean saisieEquipeCompetition(){
+	public static Object saisieEquipeCompetition(String message, boolean modif){
 		do
 		{
-			char choix = (EntreesSorties.getString("La compétition est-elle pour les équipes ou les personnes seules ?\n" 
-														+ "(tapez 'e' pour équipes ou 'p' pour personnes)")).charAt(0);
+			char choix = (EntreesSorties.getString(message)).charAt(0);
 			if(choix == 'e'){
 				return true;
 			}
 			else if(choix == 'p'){
 				return false;
+			}
+			else if(modif && choix == 0){
+				return "";
 			}
 			else{
 				System.out.println("Veuillez saisir 'e' ou 'p'.");

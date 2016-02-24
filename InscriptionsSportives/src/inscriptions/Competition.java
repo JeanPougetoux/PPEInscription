@@ -41,6 +41,14 @@ public class Competition implements Comparable<Competition>, Serializable
 	}
 	
 	/**
+	 * Permet de changer le nom de la compétition.
+	 * @param nom
+	 */
+	public void setNom(String nom){
+		this.nom = nom;
+	}
+	
+	/**
 	 * Retourne vrai si les inscriptions sont encore ouvertes, 
 	 * faux si les inscriptions sont closes.
 	 * @return
@@ -49,11 +57,7 @@ public class Competition implements Comparable<Competition>, Serializable
 	public boolean inscriptionsOuvertes()
 	{
 		// TODO retourner vrai si et seulement si la date système est antérieure à la date de clôture.
-		if(this.dateCloture != null)
-			return (LocalDate.now().isEqual(this.dateCloture) || LocalDate.now().isBefore(this.dateCloture));
-		
-		else
-			return false;
+		return (LocalDate.now().isEqual(this.dateCloture) || LocalDate.now().isBefore(this.dateCloture));
 	}
 	
 	/**
@@ -74,6 +78,14 @@ public class Competition implements Comparable<Competition>, Serializable
 	public boolean estEnEquipe()
 	{
 		return enEquipe;
+	}
+	
+	/**
+	 * Permet de changer le boolean correspondant au fait que la compétition autorise les équipes ou non.
+	 * @param enEquipe
+	 */
+	public void setEstEnEquipe(boolean enEquipe){
+		this.enEquipe = enEquipe;
 	}
 	
 	/**

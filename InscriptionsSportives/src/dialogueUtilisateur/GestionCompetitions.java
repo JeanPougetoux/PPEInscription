@@ -63,8 +63,10 @@ public class GestionCompetitions {
 		return new Action(){
 			public void optionSelectionnee(){
 				String nomCompetition = EntreesSorties.getString("Saisir le nom de la compétition.");
-				LocalDate dateCloture = SaisiesConsole.saisieDateCompetition();
-				boolean estEnEquipe = SaisiesConsole.saisieEquipeCompetition();
+				LocalDate dateCloture = (LocalDate)SaisiesConsole.saisieDateCompetition("Saisir la date de clôture de la "
+						+ "compétition (au format yyyy-MM-dd)", null);
+				boolean estEnEquipe = (boolean)SaisiesConsole.saisieEquipeCompetition("La compétition est-elle pour les équipes "
+						+ "ou les personnes seules ?\n(tapez 'e' pour équipes ou 'p' pour personnes)", false);
 				inscriptions.createCompetition(nomCompetition, dateCloture, estEnEquipe);
 				try {
 					inscriptions.sauvegarder();
@@ -117,7 +119,7 @@ public class GestionCompetitions {
 		selectionCompetitions.setRetourAuto(true);
 		selectionCompetitions.ajoute(new Option("Ajouter un candidat", "a", getActionAjoutCandidat(element)));
 		selectionCompetitions.ajoute(new Option("Supprimer un candidat", "s", getActionSuppressionCandidat(element)));
-		selectionCompetitions.ajoute(new Option("Modifier la compétition", "m", null));
+		selectionCompetitions.ajoute(new Option("Modifier la compétition", "m", getActionModificationCompetition(element)));
 		selectionCompetitions.ajoute(new Option("Supprimer la compétition", "d", getActionSuppressionCompetition(element)));
 		selectionCompetitions.ajouteRevenir("r");
 		return selectionCompetitions;
@@ -181,7 +183,11 @@ public class GestionCompetitions {
 		};
 	}
 	
-	
+	/**
+	 * Permet la suppresion d'un candidat de la compétition. 
+	 * @param la compétition sélectionnée.
+	 * @return l'action de suppression du candidat.
+	 */
 	public Action getActionSuppressionCandidat(final Competition competition){
 		return new Action(){
 			public void optionSelectionnee() {
@@ -219,6 +225,11 @@ public class GestionCompetitions {
 		};
 	}
 	
+	/**
+	 * Permet de supprimer la compétition.
+	 * @param competition la compétition sélectionnée.
+	 * @return
+	 */
 	public Action getActionSuppressionCompetition(final Competition competition){
 		return new Action(){
 			public void optionSelectionnee() {
@@ -231,6 +242,54 @@ public class GestionCompetitions {
 					inscriptions.sauvegarder();
 				} catch (IOException e) {
 					System.out.println("Sauvegarde impossible.");
+				}
+			}
+		};
+	}
+
+	/**
+	 * Permet de modifier chaque champ de la compétition.
+	 * @param competition
+	 * @return
+	 */
+	public Action getActionModificationCompetition(final Competition competition){
+		return new Action(){
+			public void optionSelectionnee() {
+				String nom = EntreesSorties.getString("Voulez-vous changer le nom de la compétition ?\n" +
+														"Le nom actuel est " + competition.getNom() + ".\n" +
+														"Laissez l'espace vide pour ne rien changer.");
+				if(!nom.isEmpty()){
+					competition.setNom(nom);
+					System.out.println("Le nom a bien été changé.");
+				}
+				
+				Object date = SaisiesConsole.saisieDateCompetition("Saisir la date de clôture de la "
+																+ "compétition (au format yyyy-MM-dd).\nLa date actuelle est " +
+																competition.getDateCloture() + ".\nLaissez l'espace" +
+																" vide pour ne rien changer.", competition.getDateCloture());
+				if(date instanceof LocalDate){
+					competition.setDateCloture((LocalDate)date);
+					System.out.println("La date de cloture a bien été changée.");
+				}
+				
+				Object estEnEquipe = SaisiesConsole.saisieEquipeCompetition("La compétition est-elle pour les équipes "
+						+ "ou les personnes seules ?\n(tapez 'e' pour équipes ou 'p' pour personnes)\nLa compétition "
+						+ "autorise-elle actuellement les équipes : " + competition.estEnEquipe() + ".\n"
+								+ "Laissez l'espace vide pour ne rien changer.", true);
+				
+				if(estEnEquipe instanceof Boolean){
+					if(competition.getCandidats().isEmpty()){
+						competition.setEstEnEquipe((boolean)estEnEquipe);
+					}
+					else{
+						System.out.println("Vous devez enlever tous les candidats de la compétition avant de changer "
+								+ "son statut.");
+					}
+				}
+				try {
+					inscriptions.sauvegarder();
+				} catch (IOException e) {
+					System.out.println("La sauvegarde n'a pas fonctionné.");
 				}
 			}
 		};

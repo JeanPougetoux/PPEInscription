@@ -1,5 +1,6 @@
 package dialogueUtilisateur;
 
+
 public class Main {
 	
 	public static final int CONSOLE = 1,
