@@ -8,15 +8,11 @@ import utilitaires.ligneDeCommande.Option;
 
 public class DialogueConsole {
 
-	public final static int SERIALIZATION = 1, 
-							BDD = 2;
-	private Inscriptions inscriptions;
 	private Menu menuPrincipal;
 	private GestionCompetitions g;
 	
-	public DialogueConsole(int persistance){
-		inscriptions = Inscriptions.getInscriptions();
-		g = new GestionCompetitions(persistance, inscriptions);
+	public DialogueConsole(){
+		g = new GestionCompetitions(Inscriptions.getInscriptions());
 		menuPrincipal = buildMenuPrincipal();
 	}
 	

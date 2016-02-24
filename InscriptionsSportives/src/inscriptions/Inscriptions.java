@@ -19,6 +19,9 @@ import java.util.TreeSet;
 
 public class Inscriptions implements Serializable
 {
+	public static final int SERIALIZATION = 0,
+							BDD = 1;
+	private int persistance = SERIALIZATION;
 	private static final long serialVersionUID = -3095339436048473524L;
 	private static final String FILE_NAME = "Inscriptions.srz";
 	private static Inscriptions inscriptions;

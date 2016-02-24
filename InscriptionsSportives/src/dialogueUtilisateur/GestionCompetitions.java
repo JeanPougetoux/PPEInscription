@@ -19,14 +19,8 @@ import utilitaires.ligneDeCommande.Option;
 
 public class GestionCompetitions {
 
-	private int persistance;
 	private Inscriptions inscriptions;
-	public GestionCompetitions(int persistance){
-		this.persistance = persistance;
-	}
-	
-	public GestionCompetitions(int persistance, Inscriptions inscriptions){
-		this.persistance = persistance;
+	public GestionCompetitions(Inscriptions inscriptions){
 		this.inscriptions = inscriptions;
 	}
 	
@@ -52,12 +46,10 @@ public class GestionCompetitions {
 	public Action getActionVoirCompetitions(){
 		return new Action(){
 			public void optionSelectionnee(){
-				if(persistance == DialogueConsole.SERIALIZATION){
-					for(Competition c : inscriptions.getCompetitions()){
-						System.out.println("Nom : " + c.toString() + "\n" +
-										   "Date de cloture : " + c.getDateCloture() + "\n" +
-										   "En équipe : " + c.estEnEquipe() + "\n");
-					}
+				for(Competition c : inscriptions.getCompetitions()){
+					System.out.println("Nom : " + c.toString() + "\n" +
+									   "Date de cloture : " + c.getDateCloture() + "\n" +
+									   "En équipe : " + c.estEnEquipe() + "\n");
 				}
 			}
 		};
@@ -73,14 +65,12 @@ public class GestionCompetitions {
 				String nomCompetition = EntreesSorties.getString("Saisir le nom de la compétition.");
 				LocalDate dateCloture = SaisiesConsole.saisieDateCompetition();
 				boolean estEnEquipe = SaisiesConsole.saisieEquipeCompetition();
-				if(persistance == DialogueConsole.SERIALIZATION){
-					inscriptions.createCompetition(nomCompetition, dateCloture, estEnEquipe);
-					try {
-						inscriptions.sauvegarder();
-						System.out.println("La compétition est bien ajoutée.");
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
+				inscriptions.createCompetition(nomCompetition, dateCloture, estEnEquipe);
+				try {
+					inscriptions.sauvegarder();
+					System.out.println("La compétition est bien ajoutée.");
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
 			}
 		};
@@ -93,27 +83,25 @@ public class GestionCompetitions {
 	public Action getActionSelectionCompetition(){
 		return new Action(){
 			public void optionSelectionnee(){
-				final ArrayList<Competition> competitions = new ArrayList<>();
-				if(persistance == DialogueConsole.SERIALIZATION){
-					for(Competition c : inscriptions.getCompetitions()){
-						competitions.add(c);
-					}
-				}
-				Liste<Competition> menu = new Liste<Competition>("Liste des compétitions", 
-						new ActionListe<Competition>()
+			final ArrayList<Competition> competitions = new ArrayList<>();
+			for(Competition c : inscriptions.getCompetitions()){
+				competitions.add(c);
+			}
+			Liste<Competition> menu = new Liste<Competition>("Liste des compétitions", 
+					new ActionListe<Competition>()
+			{
+				public List<Competition> getListe()
 				{
-					public List<Competition> getListe()
-					{
-						return competitions;
-					}
-					public void elementSelectionne(int indice, Competition element)
-					{
-						getMenuSelectionCompetition(element).start();
-					}
-				});
-				
-				menu.ajouteRevenir("r");
-				menu.start();
+					return competitions;
+				}
+				public void elementSelectionne(int indice, Competition element)
+				{
+					getMenuSelectionCompetition(element).start();
+				}
+			});
+			
+			menu.ajouteRevenir("r");
+			menu.start();
 			}
 		};
 	}
@@ -144,12 +132,69 @@ public class GestionCompetitions {
 		return new Action(){
 			public void optionSelectionnee() {
 				final ArrayList<Candidat> candidats = new ArrayList<>();
-				if(persistance == DialogueConsole.SERIALIZATION){
-					for(Candidat c : inscriptions.getCandidats()){
-						candidats.add(c);
+				for(Candidat c : inscriptions.getCandidats()){
+					candidats.add(c);
+				}
+				Liste<Candidat> menu = new Liste<Candidat>("Quel candidat voulez-vous ajouter "
+																	+ "à la compétition?", 
+						new ActionListe<Candidat>()
+				{
+					public List<Candidat> getListe()
+					{
+						return candidats;
 					}
-					Liste<Candidat> menu = new Liste<Candidat>("Quel candidat voulez-vous ajouter "
-																		+ "à la compétition?", 
+					public void elementSelectionne(int indice, Candidat candidat)
+					{
+						if(!competition.inscriptionsOuvertes()){
+							System.out.println("Les inscriptions ne sont pas ouvertes.");
+						}
+						else{
+							if(candidat instanceof Personne){
+								try{
+									competition.add((Personne)candidat);
+									System.out.println("La personne est bien ajoutée à la compétition");
+								}
+								catch(Exception e){
+									System.out.println("La compétition n'est pas autorisée aux personnes seules");
+								}
+							}
+							else if(candidat instanceof Equipe){
+								try{
+									competition.add((Equipe)candidat);
+									System.out.println("L'équipe est bien ajoutée à la compétition");
+								}
+								catch(Exception e){
+									System.out.println("La compétition n'est pas autorisée aux équipes");
+								}
+							}
+							try {
+								inscriptions.sauvegarder();
+							} catch (IOException e) {
+								System.out.println("Sauvegarde impossible");
+							}
+						}
+					}
+				});
+				menu.ajouteRevenir("r");
+				menu.start();
+			}
+		};
+	}
+	
+	
+	public Action getActionSuppressionCandidat(final Competition competition){
+		return new Action(){
+			public void optionSelectionnee() {
+				final ArrayList<Candidat> candidats = new ArrayList<>();
+				for(Candidat c : competition.getCandidats()){
+					candidats.add(c);
+				}
+				if(competition.getCandidats().isEmpty()){
+					System.out.println("Aucun candidats.");
+				}
+				else{
+					Liste<Candidat> menu = new Liste<Candidat>("Quel candidat voulez-vous supprimer "
+																		+ "de la compétition?", 
 							new ActionListe<Candidat>()
 					{
 						public List<Candidat> getListe()
@@ -158,77 +203,17 @@ public class GestionCompetitions {
 						}
 						public void elementSelectionne(int indice, Candidat candidat)
 						{
-							if(!competition.inscriptionsOuvertes()){
-								System.out.println("Les inscriptions ne sont pas ouvertes.");
-							}
-							else{
-								if(candidat instanceof Personne){
-									try{
-										competition.add((Personne)candidat);
-										System.out.println("La personne est bien ajoutée à la compétition");
-									}
-									catch(Exception e){
-										System.out.println("La compétition n'est pas autorisée aux personnes seules");
-									}
-								}
-								else if(candidat instanceof Equipe){
-									try{
-										competition.add((Equipe)candidat);
-										System.out.println("L'équipe est bien ajoutée à la compétition");
-									}
-									catch(Exception e){
-										System.out.println("La compétition n'est pas autorisée aux équipes");
-									}
-								}
-								try {
-									inscriptions.sauvegarder();
-								} catch (IOException e) {
-									System.out.println("Sauvegarde impossible");
-								}
+							competition.remove(candidat);
+							System.out.println("Candidat bien supprimé de la compétition");
+							try {
+								inscriptions.sauvegarder();
+							} catch (IOException e) {
+								System.out.println("Sauvegarde impossible");
 							}
 						}
 					});
 					menu.ajouteRevenir("r");
 					menu.start();
-				}
-			}
-		};
-	}
-	
-	public Action getActionSuppressionCandidat(final Competition competition){
-		return new Action(){
-			public void optionSelectionnee() {
-				final ArrayList<Candidat> candidats = new ArrayList<>();
-				if(persistance == DialogueConsole.SERIALIZATION){
-					for(Candidat c : competition.getCandidats()){
-						candidats.add(c);
-					}
-					if(competition.getCandidats().isEmpty()){
-						System.out.println("Aucun candidats.");
-					}
-					else{
-						Liste<Candidat> menu = new Liste<Candidat>("Quel candidat voulez-vous supprimer "
-																			+ "de la compétition?", 
-								new ActionListe<Candidat>()
-						{
-							public List<Candidat> getListe()
-							{
-								return candidats;
-							}
-							public void elementSelectionne(int indice, Candidat candidat)
-							{
-								competition.remove(candidat);
-								System.out.println("Candidat bien supprimé de la compétition");
-								try {
-									inscriptions.sauvegarder();
-								} catch (IOException e) {
-									System.out.println("Sauvegarde impossible");
-								}
-							}
-						});
-						menu.ajouteRevenir("r");
-						menu.start();
-					}
 				}
 			}
 		};

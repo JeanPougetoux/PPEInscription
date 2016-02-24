@@ -9,7 +9,7 @@ public class Main {
 	
 	public static void main(String[] args) {
 		if(choixDialogue == CONSOLE){
-			DialogueConsole start = new DialogueConsole(DialogueConsole.SERIALIZATION);
+			DialogueConsole start = new DialogueConsole();
 			start.getMenuPrincipal().start();
 		}
 		else if(choixDialogue == GRAPHIQUE){
