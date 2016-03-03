@@ -86,6 +86,8 @@ public class Inscriptions implements Serializable
 	public Personne createPersonne(String nom, String prenom, String mail)
 	{
 		Personne personne = new Personne(this, nom, prenom, mail);
+		if (persistance == BDD)
+			pers.ajoutPersonne(nom,prenom,mail);
 		candidats.add(personne);
 		return personne;
 	}
@@ -102,6 +104,8 @@ public class Inscriptions implements Serializable
 	public Equipe createEquipe(String nom)
 	{
 		Equipe equipe = new Equipe(this, nom);
+		if (persistance == BDD)
+			pers.ajoutEquipe(nom);
 		candidats.add(equipe);
 		return equipe;
 	}
@@ -244,14 +248,16 @@ public class Inscriptions implements Serializable
 		lesManouches.add(tony);
 		*/
 		System.out.println(inscriptions.getCandidats());
-		System.out.println(inscriptions.getCompetitions());
-		try
+		inscriptions.createPersonne("leblanc", "gandalf", "gandalf@hotmail.fr");
+		System.out.println("******************");
+		System.out.println(inscriptions.getCandidats());
+		/*try
 		{
 			inscriptions.sauvegarder();
 		} 
 		catch (IOException e)
 		{
 			System.out.println("Sauvegarde impossible." + e);
-		}
+		}*/
 	}
 }

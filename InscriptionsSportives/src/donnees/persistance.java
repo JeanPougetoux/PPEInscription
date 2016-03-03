@@ -9,6 +9,8 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import com.mysql.jdbc.PreparedStatement;
+
 import inscriptions.Candidat;
 import inscriptions.Competition;
 import inscriptions.Equipe;
@@ -103,8 +105,40 @@ public class persistance {
 		while (result.next()) {
 			LocalDate date = LocalDate.parse(result.getString("competition_date_cloture"), formatter);
 			Competition c = inscription.createCompetition(result.getString("competition_nom"), date, result.getBoolean("competition_equipe"));
+			
 		}
 		return inscription;
+	}
+	
+	
+	public void ajoutEquipe(String nom)
+	{
+		try 
+		{
+			String query = "call insertEquipe(?)";
+			java.sql.PreparedStatement prepare = conn.prepareStatement(query);
+			prepare.setString(1, nom);
+			prepare.executeQuery();
+		} catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+	}
+
+	public void ajoutPersonne(String nom, String prenom, String mail) {
+		try 
+		{
+			String query = "call insertPersonne(?,?,?)";
+			java.sql.PreparedStatement prepare = conn.prepareStatement(query);
+			prepare.setString(1, nom);
+			prepare.setString(2, prenom);
+			prepare.setString(3, mail);
+			prepare.executeQuery();
+		} catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		
 	}
 	
 	
