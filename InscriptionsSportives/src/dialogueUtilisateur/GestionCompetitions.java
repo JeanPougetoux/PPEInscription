@@ -30,7 +30,7 @@ public class GestionCompetitions {
 	 * @return le menu compétition de type menu.
 	 */
 	public Menu getMenu(){
-		Menu competitions = new Menu("Gestion des compétitions\nQue voulez-vous faire ?",
+		Menu competitions = new Menu("\nGestion des compétitions\nQue voulez-vous faire ?",
 				"Gérer les compétitions", "c");
 		competitions.ajoute(new Option("Détails des compétitions", "v", getActionVoirCompetitions()));
 		competitions.ajoute(new Option("Ajouter une compétition", "a", getActionAjoutCompetition()));
@@ -62,15 +62,15 @@ public class GestionCompetitions {
 	public Action getActionAjoutCompetition(){
 		return new Action(){
 			public void optionSelectionnee(){
-				String nomCompetition = EntreesSorties.getString("Saisir le nom de la compétition.");
-				LocalDate dateCloture = (LocalDate)SaisiesConsole.saisieDateCompetition("Saisir la date de clôture de la "
+				String nomCompetition = EntreesSorties.getString("\nSaisir le nom de la compétition.");
+				LocalDate dateCloture = (LocalDate)SaisiesConsole.saisieDateCompetition("\nSaisir la date de clôture de la "
 						+ "compétition (au format yyyy-MM-dd)", null);
-				boolean estEnEquipe = (boolean)SaisiesConsole.saisieEquipeCompetition("La compétition est-elle pour les équipes "
+				boolean estEnEquipe = (boolean)SaisiesConsole.saisieEquipeCompetition("\nLa compétition est-elle pour les équipes "
 						+ "ou les personnes seules ?\n(tapez 'e' pour équipes ou 'p' pour personnes)", false);
 				inscriptions.createCompetition(nomCompetition, dateCloture, estEnEquipe);
 				try {
 					inscriptions.sauvegarder();
-					System.out.println("La compétition est bien ajoutée.");
+					System.out.println("\nLa compétition est bien ajoutée.");
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -89,7 +89,7 @@ public class GestionCompetitions {
 			for(Competition c : inscriptions.getCompetitions()){
 				competitions.add(c);
 			}
-			Liste<Competition> menu = new Liste<Competition>("Liste des compétitions", 
+			Liste<Competition> menu = new Liste<Competition>("\nListe des compétitions", 
 					new ActionListe<Competition>()
 			{
 				public List<Competition> getListe()
@@ -114,7 +114,7 @@ public class GestionCompetitions {
 	 * @return le menu compétition de type Menu.
 	 */
 	public Menu getMenuSelectionCompetition(Competition element){
-		Menu selectionCompetitions = new Menu("Gestion des compétitions\nQue voulez-vous faire ?",
+		Menu selectionCompetitions = new Menu("\nGestion d'une compétitions\nQue voulez-vous faire ?",
 				"Gérer les compétitions", "c");
 		selectionCompetitions.setRetourAuto(true);
 		selectionCompetitions.ajoute(new Option("Ajouter un candidat", "a", getActionAjoutCandidat(element)));
@@ -137,7 +137,7 @@ public class GestionCompetitions {
 				for(Candidat c : inscriptions.getCandidats()){
 					candidats.add(c);
 				}
-				Liste<Candidat> menu = new Liste<Candidat>("Quel candidat voulez-vous ajouter "
+				Liste<Candidat> menu = new Liste<Candidat>("\nQuel candidat voulez-vous ajouter "
 																	+ "à la compétition?", 
 						new ActionListe<Candidat>()
 				{
@@ -199,7 +199,7 @@ public class GestionCompetitions {
 					System.out.println("Aucun candidats.");
 				}
 				else{
-					Liste<Candidat> menu = new Liste<Candidat>("Quel candidat voulez-vous supprimer "
+					Liste<Candidat> menu = new Liste<Candidat>("\nQuel candidat voulez-vous supprimer "
 																		+ "de la compétition?", 
 							new ActionListe<Candidat>()
 					{
@@ -255,37 +255,67 @@ public class GestionCompetitions {
 	public Action getActionModificationCompetition(final Competition competition){
 		return new Action(){
 			public void optionSelectionnee() {
-				String nom = EntreesSorties.getString("Voulez-vous changer le nom de la compétition ?\n" +
-														"Le nom actuel est " + competition.getNom() + ".\n" +
-														"Laissez l'espace vide pour ne rien changer.");
-				if(!nom.isEmpty()){
-					competition.setNom(nom);
-					System.out.println("Le nom a bien été changé.");
-				}
-				
-				Object date = SaisiesConsole.saisieDateCompetition("Saisir la date de clôture de la "
-																+ "compétition (au format yyyy-MM-dd).\nLa date actuelle est " +
-																competition.getDateCloture() + ".\nLaissez l'espace" +
-																" vide pour ne rien changer.", competition.getDateCloture());
-				if(date instanceof LocalDate){
-					competition.setDateCloture((LocalDate)date);
-					System.out.println("La date de cloture a bien été changée.");
-				}
-				
-				Object estEnEquipe = SaisiesConsole.saisieEquipeCompetition("La compétition est-elle pour les équipes "
-						+ "ou les personnes seules ?\n(tapez 'e' pour équipes ou 'p' pour personnes)\nLa compétition "
-						+ "autorise-elle actuellement les équipes : " + competition.estEnEquipe() + ".\n"
-								+ "Laissez l'espace vide pour ne rien changer.", true);
-				
-				if(estEnEquipe instanceof Boolean){
-					if(competition.getCandidats().isEmpty()){
-						competition.setEstEnEquipe((boolean)estEnEquipe);
+				int mod = 0;
+				do{
+					mod++;
+					switch(mod){
+						case 1:
+							String nom = EntreesSorties.getString("\nVoulez-vous changer le nom de la compétition ?\n" +
+									"Le nom actuel est " + competition.getNom() + ".\n" +
+									"Laissez l'espace vide pour ne rien changer, 'q' pour quitter.");
+							if(!nom.isEmpty() && !nom.equals("q")){
+								competition.setNom(nom);
+								System.out.println("Le nom a bien été changé.");
+							}
+							if(nom.equals("q")){
+								mod = 4;
+							}
+							break;
+						case 2: 
+							Object date = SaisiesConsole.saisieDateCompetition("\nSaisir la date de clôture de la "
+									+ "compétition (au format yyyy-MM-dd).\nLa date actuelle est " +
+									competition.getDateCloture() + ".\nLaissez l'espace" +
+									" vide pour ne rien changer, 'q' pour quitter, 'r' pour revenir.", 
+									competition.getDateCloture());
+							if(date instanceof LocalDate){
+								competition.setDateCloture((LocalDate)date);
+								System.out.println("La date de cloture a bien été changée.");
+							} 
+							else if(date.equals("q")){
+								mod = 4;
+							}
+							else if(date.equals("r")){
+								mod = mod - 2;
+							}
+							break;
+						case 3:
+							Object estEnEquipe = SaisiesConsole.saisieEquipeCompetition("\nLa compétition est-elle pour "
+									+ "les équipes ou les personnes seules ?\n(tapez 'e' pour équipes ou 'p' pour "
+									+ "personnes)\nLa compétition autorise-elle actuellement les équipes : " 
+									+ competition.estEnEquipe() + ".\n" + "Laissez l'espace vide pour ne rien changer, "
+									+ "'q' pour quitter, 'r' pour revenir.", true);
+							
+							if(estEnEquipe instanceof Boolean){
+								if(competition.getCandidats().isEmpty()){
+									competition.setEstEnEquipe((boolean)estEnEquipe);
+									System.out.println("Le mode de compétition est bien changé.");
+								}
+								else{
+									System.out.println("Vous devez enlever tous les candidats de la compétition avant "
+											+ "de changer son statut.");
+								}
+							}
+							else if(estEnEquipe instanceof String){
+								if(estEnEquipe.equals("q")){
+									mod = 4;
+								}
+								else if(estEnEquipe.equals("r")){
+									mod = mod - 2;
+								}
+							}
+							break;
 					}
-					else{
-						System.out.println("Vous devez enlever tous les candidats de la compétition avant de changer "
-								+ "son statut.");
-					}
-				}
+				}while(mod < 4);
 				try {
 					inscriptions.sauvegarder();
 				} catch (IOException e) {

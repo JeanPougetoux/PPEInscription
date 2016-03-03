@@ -13,6 +13,9 @@ public class SaisiesConsole {
 			if(compet != null)
 				if(message.isEmpty())
 					return message;
+				else if(message.equals("q") || message.equals("r")){
+					return message;
+				}
 			
 			try
 			{
@@ -38,15 +41,18 @@ public class SaisiesConsole {
 	public static Object saisieEquipeCompetition(String message, boolean modif){
 		do
 		{
-			char choix = (EntreesSorties.getString(message)).charAt(0);
-			if(choix == 'e'){
+			String choix = (EntreesSorties.getString(message));
+			if(modif && choix.isEmpty()){
+				return null;
+			}
+			else if(choix.equals("r") || choix.equals("q")){
+				return choix;
+			}
+			else if(choix.equals("e")){
 				return true;
 			}
-			else if(choix == 'p'){
+			else if(choix.equals("p")){
 				return false;
-			}
-			else if(modif && choix == 0){
-				return "";
 			}
 			else{
 				System.out.println("Veuillez saisir 'e' ou 'p'.");
