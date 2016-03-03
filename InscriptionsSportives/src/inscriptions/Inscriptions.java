@@ -6,11 +6,12 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.Collections;
 import java.time.LocalDate;
 import java.util.SortedSet;
 import java.util.TreeSet;
-
+import donnees.persistance;
 /**
  * Point d'entrée dans l'application, un seul objet de type Inscription
  * permet de gérer les compétitions, candidats (de type equipe ou personne)
@@ -21,7 +22,9 @@ public class Inscriptions implements Serializable
 {
 	public static final int SERIALIZATION = 0,
 							BDD = 1;
-	private int persistance = SERIALIZATION;
+	private static int persistance = BDD;
+	private static persistance pers = null;
+	
 	private static final long serialVersionUID = -3095339436048473524L;
 	private static final String FILE_NAME = "Inscriptions.srz";
 	private static Inscriptions inscriptions;
@@ -121,14 +124,29 @@ public class Inscriptions implements Serializable
 	
 	public static Inscriptions getInscriptions()
 	{
-		
-		if (inscriptions == null)
+		if (persistance == BDD)
 		{
-			inscriptions = readObject();
-			if (inscriptions == null)
-				inscriptions = new Inscriptions();
+			pers = new persistance();
+			try 
+			{
+				inscriptions = pers.getBase(new Inscriptions());
+			} catch (Exception e) 
+			{
+				e.printStackTrace();
+			}
+			return  inscriptions;
 		}
-		return inscriptions;
+		else
+		{
+			if (inscriptions == null)
+			{
+				inscriptions = readObject();
+				if (inscriptions == null)
+					inscriptions = new Inscriptions();
+			}
+			return inscriptions;
+		}
+		
 	}
 
 	/**
@@ -217,14 +235,16 @@ public class Inscriptions implements Serializable
 	public static void main(String[] args)
 	{
 		Inscriptions inscriptions = Inscriptions.getInscriptions();
-		Competition flechettes = inscriptions.createCompetition("Mondial de fléchettes", LocalDate.parse("2016-05-25"), false);
+		/*Competition flechettes = inscriptions.createCompetition("Mondial de fléchettes", LocalDate.parse("2016-05-25"), false);
 		Personne tony = inscriptions.createPersonne("Tony", "Dent de plomb", "azerty"), 
 				boris = inscriptions.createPersonne("Boris", "le Hachoir", "ytreza");
 		flechettes.add(tony);
 		Equipe lesManouches = inscriptions.createEquipe("Les Manouches");
 		lesManouches.add(boris);
 		lesManouches.add(tony);
+		*/
 		System.out.println(inscriptions.getCandidats());
+		System.out.println(inscriptions.getCompetitions());
 		try
 		{
 			inscriptions.sauvegarder();
