@@ -1,6 +1,7 @@
 package donnees;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSet;
@@ -8,6 +9,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import com.mysql.jdbc.PreparedStatement;
 
@@ -15,6 +18,7 @@ import inscriptions.Candidat;
 import inscriptions.Competition;
 import inscriptions.Equipe;
 import inscriptions.Inscriptions;
+import inscriptions.Personne;
 
 public class persistance {
 
@@ -23,7 +27,14 @@ public class persistance {
 	private String passwd = "";
 	private Connection conn = null;
 	private Statement statement = null;
+	java.sql.PreparedStatement prepare = null;
 	ResultSet result = null;
+	String query;
+	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	
+	
+	
+	
     
     /**
      * Cree une connexion à la base de données
@@ -52,6 +63,8 @@ public class persistance {
 		inscription = getPersonnes(inscription);
 		inscription = getEquipes(inscription);
 		inscription = getCompetitions(inscription);
+		//inscription = getParticipantsCompetitions(inscription);
+		
 		return inscription;
 		
 	}
@@ -67,7 +80,8 @@ public class persistance {
 	{
 		result = statement.executeQuery("select * from personnes");
 		while (result.next()) {
-			Candidat c = inscription.createPersonne(result.getString("candidat_nom"), result.getString("personne_prenom"), result.getString("personne_mail"));
+			
+			inscription.createPersonne(result.getString("candidat_nom"), result.getString("personne_prenom"), result.getString("personne_mail"));
 		}
 		return inscription;
 	}
@@ -83,7 +97,8 @@ public class persistance {
 	{
 		result = statement.executeQuery("select * from equipes");
 		while (result.next()) {
-			Equipe e = inscription.createEquipe(result.getString("candidat_nom"));
+			
+			inscription.createEquipe(result.getString("candidat_nom"));
 			
 		}
 		return inscription;
@@ -99,24 +114,25 @@ public class persistance {
 	public Inscriptions getCompetitions(Inscriptions inscription) throws SQLException
 	
 	{
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		
 		result = statement.executeQuery("select * from competition");
 		while (result.next()) {
 			LocalDate date = LocalDate.parse(result.getString("competition_date_cloture"), formatter);
-			Competition c = inscription.createCompetition(result.getString("competition_nom"), date, result.getBoolean("competition_equipe"));
+			inscription.createCompetition(result.getString("competition_nom"), date, result.getBoolean("competition_equipe"));
 			
 		}
 		return inscription;
 	}
 	
-	
+	/**
+	 * Ajoute une équipe dans la base de données
+	 * @param nom
+	 */
 	public void ajoutEquipe(String nom)
 	{
 		try 
 		{
-			String query = "call insertEquipe(?)";
-			java.sql.PreparedStatement prepare = conn.prepareStatement(query);
+			query = "call insertEquipe(?)";
+			prepare = conn.prepareStatement(query);
 			prepare.setString(1, nom);
 			prepare.executeQuery();
 		} catch (SQLException e) 
@@ -125,16 +141,92 @@ public class persistance {
 		}
 	}
 
-	public void ajoutPersonne(String nom, String prenom, String mail) {
+	/**
+	 * Ajoute une personne dans la base de données
+	 * @param nom
+	 * @param prenom
+	 * @param mail
+	 */
+	public void ajoutPersonne(String nom, String prenom, String mail) 
+	{
 		try 
 		{
-			String query = "call insertPersonne(?,?,?)";
-			java.sql.PreparedStatement prepare = conn.prepareStatement(query);
+			query = "call insertPersonne(?,?,?)";
+			prepare = conn.prepareStatement(query);
 			prepare.setString(1, nom);
 			prepare.setString(2, prenom);
 			prepare.setString(3, mail);
 			prepare.executeQuery();
 		} catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		
+	}
+
+	/**
+	 * Ajoute une compétiton dans la base de données
+	 * @param nom
+	 * @param dateCloture
+	 * @param enEquipe
+	 */
+	public void ajoutCompetition(String nom, LocalDate dateCloture, boolean enEquipe) 
+	{
+		try 
+		{ 
+			query = "call insertCompetition(?,?,?)";
+			prepare = conn.prepareStatement(query);
+			prepare.setString(1, nom);
+			prepare.setDate(2,Date.valueOf(dateCloture));
+			prepare.setBoolean(3,enEquipe);
+			prepare.executeQuery();
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+
+	public void retirerCompetition(String nom) 
+	{
+		try 
+		{
+			query = "call retirerCompetition('"+nom+"')";
+			statement.executeQuery(query);
+			
+		} 
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	public void retirerPersonne(String mail) {
+		
+		query = "call retirerPersonne('"+mail+"')";
+		try 
+		{
+			statement.executeQuery(query);
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+	}
+
+	public void retirerEquipe(String nom) {
+		
+		query = "call retirerEquipe('"+nom+"')";
+		try 
+		{
+			statement.executeQuery(query);
+		} 
+		catch (SQLException e) 
 		{
 			e.printStackTrace();
 		}

@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.sql.SQLException;
 import java.util.Collections;
 import java.time.LocalDate;
 import java.util.SortedSet;
@@ -69,6 +68,8 @@ public class Inscriptions implements Serializable
 			LocalDate dateCloture, boolean enEquipe)
 	{
 		Competition competition = new Competition(this, nom, dateCloture, enEquipe);
+		if (persistance == BDD)
+			pers.ajoutCompetition(nom,dateCloture,enEquipe);
 		competitions.add(competition);
 		return competition;
 	}
@@ -113,11 +114,20 @@ public class Inscriptions implements Serializable
 	void remove(Competition competition)
 	{
 		competitions.remove(competition);
+		if (persistance == BDD)
+			pers.retirerCompetition(competition.getNom());
 	}
 	
 	void remove(Candidat candidat)
 	{
 		candidats.remove(candidat);
+		if (persistance == BDD)
+		{
+			if (candidat instanceof Personne)
+				pers.retirerPersonne(((Personne) candidat).getMail());
+			else
+				pers.retirerEquipe(candidat.getNom());
+		}
 	}
 	
 	/**
@@ -247,10 +257,16 @@ public class Inscriptions implements Serializable
 		lesManouches.add(boris);
 		lesManouches.add(tony);
 		*/
+		Equipe truands = inscriptions.createEquipe("les truands");
 		System.out.println(inscriptions.getCandidats());
-		inscriptions.createPersonne("leblanc", "gandalf", "gandalf@hotmail.fr");
-		System.out.println("******************");
+		System.out.println(inscriptions.getCompetitions());
+	
+		inscriptions.remove(truands);
+		System.out.println("\n**************\n");
+		
 		System.out.println(inscriptions.getCandidats());
+		System.out.println("\n**************\n");
+		System.out.println(inscriptions.getCompetitions());
 		/*try
 		{
 			inscriptions.sauvegarder();
