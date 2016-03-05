@@ -21,7 +21,7 @@ public class Inscriptions implements Serializable
 {
 	public static final int SERIALIZATION = 0,
 							BDD = 1;
-	private static int persistance = SERIALIZATION;
+	private static int persistance = BDD;
 	private static persistance pers = null;
 	
 	private static final long serialVersionUID = -3095339436048473524L;
@@ -248,7 +248,7 @@ public class Inscriptions implements Serializable
 	
 	public static void main(String[] args)
 	{
-		Inscriptions inscriptions = Inscriptions.getInscriptions();
+	
 		/*Competition flechettes = inscriptions.createCompetition("Mondial de fléchettes", LocalDate.parse("2016-05-25"), false);
 		Personne tony = inscriptions.createPersonne("Tony", "Dent de plomb", "azerty"), 
 				boris = inscriptions.createPersonne("Boris", "le Hachoir", "ytreza");
@@ -257,11 +257,19 @@ public class Inscriptions implements Serializable
 		lesManouches.add(boris);
 		lesManouches.add(tony);
 		*/
-		Equipe truands = inscriptions.createEquipe("les truands");
+		//Equipe truands = inscriptions.createEquipe("les truands");
+		
+		Inscriptions inscriptions = Inscriptions.getInscriptions();
+		
 		System.out.println(inscriptions.getCandidats());
 		System.out.println(inscriptions.getCompetitions());
+		
+		System.out.println("\n**************\n");
+		System.out.println(inscriptions.getCandidats());
+		System.out.println(inscriptions.getCompetitions());
+		
 	
-		inscriptions.remove(truands);
+		/*inscriptions.remove(truands);
 		System.out.println("\n**************\n");
 		
 		System.out.println(inscriptions.getCandidats());

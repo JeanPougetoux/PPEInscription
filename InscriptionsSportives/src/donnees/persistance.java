@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Iterator;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -63,19 +64,84 @@ public class persistance {
 		inscription = getPersonnes(inscription);
 		inscription = getEquipes(inscription);
 		inscription = getCompetitions(inscription);
-		//inscription = getParticipantsCompetitions(inscription);
+		inscription = getParticipantsCompetitions(inscription);
 		
 		return inscription;
 		
 	}
 	
+	private Inscriptions getParticipantsCompetitions(Inscriptions inscription) {
+		
+		try 
+		{
+			result = statement.executeQuery("select candidat_nom,competition_nom,competition_equipe from participer,candidat,competition WHERE id_competition IN ("
+					+ "SELECT participer_id_competition FROM participer) AND id_candidat IN (SELECT participer_id_candidat FROM participer)"
+					+ "AND candidat.id_candidat = participer_id_candidat AND competition.id_competition = participer_id_competition");
+			
+			// On parcours toutes les lignes de PARTICIPER
+			while(result.next())
+			{
+				
+				for (Competition comp : inscription.getCompetitions()) 
+				{
+					System.out.println(result.getString(2));
+					if (result.getString(2) == "petanque")
+					{
+						System.out.println("ok");
+						//System.out.println(result.getString("competition_nom")+ "   "+ comp.getNom());
+						/* Si la compétition se joue en équipe alors nous reconnaissons une équipe par son nom
+						if (result.getBoolean("competition_equipe"))
+						{
+							for (Candidat c : inscription.getCandidats()) 
+							{
+								if (c.getNom() == result.getString("candidat_nom") && c instanceof Equipe)
+									comp.add((Equipe) c);
+									
+							}	
+						}
+						else
+						{
+							ResultSet result2 = statement.executeQuery("SELECT personne_mail FROM personne WHERE id_personne = ("
+									+ "SELECT id_candidat FROM candidat WHERE candidat_nom = '"+result.getString("candidat_nom")+"')");
+							
+							while(result2.next())
+							{
+								for (Candidat c : inscription.getCandidats()) 
+								{
+									if (((Personne) c).getMail() == result2.getString("personne_mail") )
+										comp.add((Personne) c);
+									
+								}
+							}
+							
+						}*/
+					}
+						
+				}
+				
+				
+				
+				// Si la compétition est solitaire alors nous allons rechercher les mails
+				/**/
+				
+				
+			}
+		}
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		System.out.println("***************************************** test ****************");
+		return inscription;
+	}
+
 	/**
 	 * Remplis le tableau de candidats avec les personnes simples
 	 * @param inscription
 	 * @return
 	 * @throws SQLException
 	 */
-	public Inscriptions getPersonnes(Inscriptions inscription) throws SQLException
+	private Inscriptions getPersonnes(Inscriptions inscription) throws SQLException
 	
 	{
 		result = statement.executeQuery("select * from personnes");
@@ -92,7 +158,7 @@ public class persistance {
 	 * @return
 	 * @throws SQLException
 	 */
-	public Inscriptions getEquipes(Inscriptions inscription) throws SQLException
+	private Inscriptions getEquipes(Inscriptions inscription) throws SQLException
 	
 	{
 		result = statement.executeQuery("select * from equipes");
@@ -111,7 +177,7 @@ public class persistance {
 	 * @return
 	 * @throws SQLException
 	 */
-	public Inscriptions getCompetitions(Inscriptions inscription) throws SQLException
+	private Inscriptions getCompetitions(Inscriptions inscription) throws SQLException
 	
 	{
 		result = statement.executeQuery("select * from competition");
