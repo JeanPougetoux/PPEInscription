@@ -64,19 +64,20 @@ public class persistance {
 		inscription = getPersonnes(inscription);
 		inscription = getEquipes(inscription);
 		inscription = getCompetitions(inscription);
+		inscription = getJoueursEquipes(inscription);
 		inscription = getParticipantsCompetitions(inscription);
 		
 		return inscription;
 		
 	}
 	
+	
+
 	private Inscriptions getParticipantsCompetitions(Inscriptions inscription) {
 		
 		try 
 		{
-			result = statement.executeQuery("select candidat_nom,competition_nom,competition_equipe from participer,candidat,competition WHERE id_competition IN ("
-					+ "SELECT participer_id_competition FROM participer) AND id_candidat IN (SELECT participer_id_candidat FROM participer)"
-					+ "AND candidat.id_candidat = participer_id_candidat AND competition.id_competition = participer_id_competition");
+			result = statement.executeQuery("select candidat_nom,competition_nom,competition_equipe from participants_competitions");
 			
 			// On parcours toutes les lignes de PARTICIPER
 			while(result.next())
@@ -132,6 +133,33 @@ public class persistance {
 			e.printStackTrace();
 		}
 		System.out.println("***************************************** test ****************");
+		return inscription;
+	}
+	
+	/**
+	 * Nous mettons les candidats dans leurs équipes respectives
+	 * @param inscription
+	 * @return
+	 */
+	private Inscriptions getJoueursEquipes(Inscriptions inscription) {
+		try 
+		{
+			result = statement.executeQuery("SELECT joueur, equipe FROM joueurs_equipes ");
+			
+			while(result.next())
+			{
+				for (Candidat c : inscription.getCandidats())
+				{
+					if(c.getNom() == result.getString("joueur"))
+						System.out.println("ok");
+				}
+				//System.out.println(result.getString("joueur") + " / "+ result.getString("equipe"));
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
 		return inscription;
 	}
 
