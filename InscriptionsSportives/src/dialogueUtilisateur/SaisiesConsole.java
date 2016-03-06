@@ -61,11 +61,11 @@ public class SaisiesConsole {
 		while(true);
 	}
 	
-	public static char saisieSuppressionCompetition(){
+	public static char saisieSuppression(String texte){
 		do
 		{
-			char reponse = EntreesSorties.getString("Etes-vous sûr de vouloir supprimer la compétition ?\n"
-													+ "Saisir 'o' ou 'n'.").charAt(0);
+			char reponse = EntreesSorties.getString("Etes-vous sûr de vouloir supprimer " + texte + " ?\n"
+													+ "Saisir 'o' ou 'n' : ").charAt(0);
 			if(reponse == 'o' || reponse == 'n'){
 				return reponse;
 			}

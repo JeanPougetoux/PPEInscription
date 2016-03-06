@@ -54,7 +54,7 @@ public class GestionCompetitions {
 						else if(ca instanceof Personne)
 							membres += ((Personne)ca).getPrenom() + " " + ca.getNom() + " | ";
 					}
-					System.out.println("Nom : " + c.toString() + "\n" +
+					System.out.println("\nNom : " + c.toString() + "\n" +
 									   "Date de cloture : " + c.getDateCloture() + "\n" +
 									   "En équipe : " + c.estEnEquipe() + "\n" +
 									   "Candidats : " + membres);
@@ -122,16 +122,42 @@ public class GestionCompetitions {
 	 * @return le menu compétition de type Menu.
 	 */
 	public Menu getMenuSelectionCompetition(Competition element){
-		Menu selectionCompetitions = new Menu("\nGestion d'une compétitions\nQue voulez-vous faire ?",
-				"Gérer les compétitions", "c");
-		selectionCompetitions.setRetourAuto(true);
+		Menu selectionCompetitions = new Menu("\nGestion de la compétition '" + element.getNom() + "'\n"
+				+ "Date de clôture : " + element.getDateCloture() + "\nEn équipe : " + element.estEnEquipe()
+				+ "\nQue voulez-vous faire ?", "Gérer les compétitions", "c");
+		selectionCompetitions.ajoute(new Option("Voir les candidats", "v", getActionVoirCandidats(element)));
 		selectionCompetitions.ajoute(new Option("Ajouter un candidat", "a", getActionAjoutCandidat(element)));
 		selectionCompetitions.ajoute(new Option("Supprimer un candidat", "s", getActionSuppressionCandidat(element)));
-		selectionCompetitions.ajoute(new Option("Modifier la compétition", "m", getActionModificationCompetition(element)));
-		selectionCompetitions.ajoute(new Option("Supprimer la compétition", "d", getActionSuppressionCompetition(element)));
+		selectionCompetitions.ajoute(new Option("Modifier la compétition", "m", getActionModificationCompetition(element, selectionCompetitions)));
+		selectionCompetitions.ajoute(new Option("Supprimer la compétition", "d", getActionSuppressionCompetition(element, selectionCompetitions)));
 		selectionCompetitions.ajouteRevenir("r");
 		return selectionCompetitions;
 	}	
+	
+	/**
+	 * Permet de voir les candidats inscris à la compétition
+	 * @param la compétition sélectionnée.
+	 * @return l'action de voir les candidats.
+	 */
+	public Action getActionVoirCandidats(final Competition competition){
+		return new Action(){
+			public void optionSelectionnee(){
+				if(competition.getCandidats().isEmpty()){
+					System.out.println("Pas de candidats à cette compétition");
+				}
+				else{
+					System.out.println("Candidats à la compétition " + competition.getNom());
+					int i = 1;
+					for(Candidat c : competition.getCandidats()){
+						if(c instanceof Equipe)
+							System.out.println("\n" + i + " : " + c.getNom());
+						else
+							System.out.println("\n" + i + " : " + c.getNom() + " " + ((Personne)c).getPrenom());
+					}
+				}
+			}
+		};
+	}
 	
 	/**
 	 * Permet l'ajout d'un candidat à la compétition après avoir vérifier qu'il correspond bien.
@@ -225,14 +251,16 @@ public class GestionCompetitions {
 	
 	/**
 	 * Permet de supprimer la compétition.
+	 * @param le menu
 	 * @param competition la compétition sélectionnée.
 	 * @return
 	 */
-	public Action getActionSuppressionCompetition(final Competition competition){
+	public Action getActionSuppressionCompetition(final Competition competition, final Menu selection){
 		return new Action(){
 			public void optionSelectionnee() {
-				char reponse = SaisiesConsole.saisieSuppressionCompetition();
+				char reponse = SaisiesConsole.saisieSuppression("la compétition");
 				if(reponse == 'o'){
+					selection.setRetourAuto(true);
 					competition.delete();
 					System.out.println("Compétition bien effacée.");
 				}
@@ -248,11 +276,13 @@ public class GestionCompetitions {
 	/**
 	 * Permet de modifier chaque champ de la compétition.
 	 * @param competition
+	 * @param le menu
 	 * @return
 	 */
-	public Action getActionModificationCompetition(final Competition competition){
+	public Action getActionModificationCompetition(final Competition competition, final Menu selection){
 		return new Action(){
 			public void optionSelectionnee() {
+				selection.setRetourAuto(true);
 				int mod = 0;
 				do{
 					mod++;
