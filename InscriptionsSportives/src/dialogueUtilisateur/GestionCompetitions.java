@@ -47,9 +47,17 @@ public class GestionCompetitions {
 		return new Action(){
 			public void optionSelectionnee(){
 				for(Competition c : inscriptions.getCompetitions()){
+					String membres = "";
+					for(Candidat ca : c.getCandidats()){
+						if(ca instanceof Equipe)
+							membres += ca.getNom() + " | ";
+						else if(ca instanceof Personne)
+							membres += ((Personne)ca).getPrenom() + " " + ca.getNom() + " | ";
+					}
 					System.out.println("Nom : " + c.toString() + "\n" +
 									   "Date de cloture : " + c.getDateCloture() + "\n" +
-									   "En équipe : " + c.estEnEquipe() + "\n");
+									   "En équipe : " + c.estEnEquipe() + "\n" +
+									   "Candidats : " + membres);
 				}
 			}
 		};
@@ -135,7 +143,10 @@ public class GestionCompetitions {
 			public void optionSelectionnee() {
 				final ArrayList<Candidat> candidats = new ArrayList<>();
 				for(Candidat c : inscriptions.getCandidats()){
-					candidats.add(c);
+					if((c instanceof Equipe && competition.estEnEquipe()) ||
+							(c instanceof Personne && !competition.estEnEquipe())){	
+						candidats.add(c);
+					}
 				}
 				Liste<Candidat> menu = new Liste<Candidat>("\nQuel candidat voulez-vous ajouter "
 																	+ "à la compétition?", 
@@ -151,24 +162,11 @@ public class GestionCompetitions {
 							System.out.println("Les inscriptions ne sont pas ouvertes.");
 						}
 						else{
-							if(candidat instanceof Personne){
-								try{
-									competition.add((Personne)candidat);
-									System.out.println("La personne est bien ajoutée à la compétition");
-								}
-								catch(Exception e){
-									System.out.println("La compétition n'est pas autorisée aux personnes seules");
-								}
-							}
-							else if(candidat instanceof Equipe){
-								try{
-									competition.add((Equipe)candidat);
-									System.out.println("L'équipe est bien ajoutée à la compétition");
-								}
-								catch(Exception e){
-									System.out.println("La compétition n'est pas autorisée aux équipes");
-								}
-							}
+							if(competition.estEnEquipe())
+								competition.add((Equipe)candidat);
+							else
+								competition.add((Personne)candidat);
+							System.out.println("Le candidat est bien ajouté à la compétition.");
 							try {
 								inscriptions.sauvegarder();
 							} catch (IOException e) {
