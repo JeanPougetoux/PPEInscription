@@ -64,6 +64,6 @@ public class Equipe extends Candidat
 	@Override
 	public String toString()
 	{
-		return "Equipe " + super.toString();
+		return "Equipe '" + super.toString() + "'";
 	}
 }

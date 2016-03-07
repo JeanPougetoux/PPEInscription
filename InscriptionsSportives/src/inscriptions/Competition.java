@@ -6,6 +6,8 @@ import java.time.LocalDate;
 import java.util.Set;
 import java.util.TreeSet;
 
+import dialogueUtilisateur.SaisiesConsole;
+
 /**
  * Représente une compétition, c'est-à-dire un ensemble de candidats 
  * inscrits à un événement, les inscriptions sont closes à la date dateCloture.
@@ -178,6 +180,6 @@ public class Competition implements Comparable<Competition>, Serializable
 	@Override
 	public String toString()
 	{
-		return getNom();
+		return SaisiesConsole.getMajuscule(getNom());
 	}
 }

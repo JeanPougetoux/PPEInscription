@@ -155,7 +155,7 @@ public class GestionPersonnes {
 		selectionPersonne.ajoute(new Option("Voir ses équipes", "v", getActionVoirMembres(element)));
 		selectionPersonne.ajoute(new Option("Ajouter à une équipe", "a", getActionAjoutEquipe(element)));
 		selectionPersonne.ajoute(new Option("Supprimer d'une équipe", "s", getActionSuppressionEquipe(element)));
-//		selectionEquipe.ajoute(new Option("Modifier la personne", "m", getActionModificationPersonne(element, selectionEquipe)));
+		selectionPersonne.ajoute(new Option("Modifier la personne", "m", getActionModificationPersonne(element, selectionPersonne)));
 		selectionPersonne.ajoute(new Option("Supprimer la personne", "d", getActionSuppressionPersonne(element, selectionPersonne)));
 		selectionPersonne.ajouteRevenir("r");
 		return selectionPersonne;
@@ -282,6 +282,63 @@ public class GestionPersonnes {
 					inscriptions.sauvegarder();
 				} catch (IOException e) {
 					System.out.println("Sauvegarde impossible.");
+				}
+			}
+		};
+	}
+	
+	public Action getActionModificationPersonne(final Personne personne, final Menu selection){
+		return new Action(){
+			public void optionSelectionnee(){
+				selection.setRetourAuto(true);
+				int mod = 0;
+				String nom = "", prenom = "", mail = "";
+				do{
+					mod++;
+					switch(mod){
+					case 1:
+						nom = EntreesSorties.getString("\nVeuillez saisir le nouveau nom. Ancien nom : " + 
+											personne.getNom() + "\n'q' pour quitter, laissez vide pour ne rien changer.");
+						if(nom.equals("q"))
+							mod = 4;
+						else if(!nom.isEmpty()){
+							personne.setNom(nom);
+							System.out.println("Le nom est bien changé en : " + personne.getNom());
+						}
+						break;
+					case 2:
+						prenom = EntreesSorties.getString("\nVeuillez saisir le prénom. Ancien prénom : " +
+											personne.getPrenom() + "\n'q' pour quitter, 'r' pour revenir,"
+													+ " laissez vide pour ne rien changer.");
+						if(prenom.equals("r"))
+							mod = mod - 2;
+						else if(prenom.equals("q"))
+							mod = 4;
+						else if(!nom.isEmpty()){
+							personne.setPrenom(prenom);
+							System.out.println("Le prénom a bien été changé en : " + personne.getPrenom());
+						}
+						break;
+					case 3:
+						mail = EntreesSorties.getString("\nVeuillez saisir le mail. Ancien mail : " +
+											personne.getMail() + "\n'q' pour quitter, 'r' pour revenir,"
+													+ " laissez vide pour ne rien changer.");
+						if(mail.equals("r"))
+							mod = mod - 2;
+						else if(mail.equals("q"))
+							mod = 4;
+						else if(!mail.isEmpty()){
+							personne.setMail(mail);
+							System.out.println("Le mail a bien été changé en : " + personne.getMail());
+						}
+						break;
+					}
+				}while(mod < 4);
+				try{
+					inscriptions.sauvegarder();
+				}
+				catch(Exception e){
+					System.out.println("Erreur lors de la sauvegarde.");
 				}
 			}
 		};
