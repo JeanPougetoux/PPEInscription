@@ -429,8 +429,28 @@ public class persistance {
 		
 		catch (SQLException e) 
 		{
-			e.printStackTrace();
+			//e.printStackTrace();
 		}*/
+	}
+
+	public void insererCandidatDansEquipe(String mail, String nom) {
+		try 
+		{ 
+			
+			query = "call insererCandidatDansEquipe(?,?)";
+			prepare = conn.prepareStatement(query);
+			prepare.setString(1, mail);
+			prepare.setString(2,nom);
+		
+		
+			
+			prepare.executeQuery();
+		} 
+		catch (SQLException e) 
+		{
+			//e.printStackTrace();
+		}
+		
 	}
 	
 	

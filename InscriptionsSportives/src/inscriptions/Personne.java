@@ -76,11 +76,15 @@ public class Personne extends Candidat
 	
 	boolean add(Equipe equipe)
 	{
+		if(super.getInscription().persistance == super.getInscription().BDD)
+			super.getInscription().pers.insererCandidatDansEquipe(this.getMail(),equipe.getNom());
 		return equipes.add(equipe);
 	}
 
 	boolean remove(Equipe equipe)
 	{
+		if(super.getInscription().persistance == super.getInscription().BDD)
+			super.getInscription().pers.retirerPersonneEquipe(this.getMail(),this.getNom());
 		return equipes.remove(equipe);
 	}
 	

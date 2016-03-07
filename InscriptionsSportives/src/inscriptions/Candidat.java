@@ -25,6 +25,11 @@ public abstract class Candidat implements Comparable<Candidat>, Serializable
 		this.nom = nom;
 		competitions = new TreeSet<>();
 	}
+	
+	public Inscriptions getInscription()
+	{
+		return this.inscriptions;
+	}
 
 	/**
 	 * Retourne le nom du candidat.
