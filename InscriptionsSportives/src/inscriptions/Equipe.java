@@ -38,6 +38,7 @@ public class Equipe extends Candidat
 	public boolean add(Personne membre)
 	{
 		membre.add(this);
+			
 		return membres.add(membre);
 	}
 
@@ -49,7 +50,7 @@ public class Equipe extends Candidat
 	 */
 	
 	public boolean remove(Personne membre)
-	{
+	{		
 		membre.remove(this);
 		return membres.remove(membre);
 	}

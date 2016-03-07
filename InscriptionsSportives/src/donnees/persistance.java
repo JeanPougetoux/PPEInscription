@@ -85,8 +85,8 @@ public class persistance {
 				
 				for (Competition comp : inscription.getCompetitions()) 
 				{
-					System.out.println(result.getString(2));
-					if (result.getString(2) == "petanque")
+					
+					if (result.getString("competition_nom") == "le petit test magique")
 					{
 						System.out.println("ok");
 						//System.out.println(result.getString("competition_nom")+ "   "+ comp.getNom());
@@ -150,7 +150,7 @@ public class persistance {
 			{
 				for (Candidat c : inscription.getCandidats())
 				{
-					if(c.getNom() == result.getString("joueur"))
+					if(c.getNom().equals(result.getString("joueur"))&& c instanceof Personne)
 						System.out.println("ok");
 				}
 				//System.out.println(result.getString("joueur") + " / "+ result.getString("equipe"));
@@ -313,7 +313,8 @@ public class persistance {
 		}
 	}
 
-	public void retirerEquipe(String nom) {
+	public void retirerEquipe(String nom) 
+	{
 		
 		query = "call retirerEquipe('"+nom+"')";
 		try 
@@ -325,6 +326,49 @@ public class persistance {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public void retirerPersonneEquipe(String mail, String nom)
+	{
+		query = "call retirerPersonneEquipe('"+mail+"','"+nom+"')";
+		try 
+		{
+			statement.executeQuery(query);
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+	}
+
+	
+
+	public void retirerCandidatCompetition(Candidat candidat, Competition competition) {
+		
+		try 
+		{ 
+			
+			
+			if(candidat instanceof Personne)
+			{
+				query = "call retirerPersonneCompetition(?,?)";
+				prepare = conn.prepareStatement(query);
+				prepare.setString(1, ((Personne) candidat).getMail());
+				prepare.setString(2,competition.getNom());
+			}
+			else
+			{
+				query = "call retirerEquipeCompetition(?,?)";
+				prepare = conn.prepareStatement(query);
+				prepare.setString(1, candidat.getNom());
+				prepare.setString(2,competition.getNom());
+			}
+			prepare.executeQuery();
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
 	}
 	
 	

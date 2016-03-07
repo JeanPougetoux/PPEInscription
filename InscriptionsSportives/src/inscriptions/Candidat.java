@@ -61,6 +61,8 @@ public abstract class Candidat implements Comparable<Candidat>, Serializable
 
 	boolean remove(Competition competition)
 	{
+		if (inscriptions.persistance == inscriptions.BDD)
+			 inscriptions.pers.retirerCandidatCompetition(this,competition);
 		return competitions.remove(competition);
 	}
 
