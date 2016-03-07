@@ -21,7 +21,7 @@ public class Inscriptions implements Serializable
 {
 	public static final int SERIALIZATION = 0,
 							BDD = 1;
-	public static int persistance = SERIALIZATION;
+	public static int persistance = BDD;
 	public static persistance pers = null;
 	
 	private static final long serialVersionUID = -3095339436048473524L;

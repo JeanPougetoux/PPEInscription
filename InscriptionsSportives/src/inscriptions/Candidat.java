@@ -58,7 +58,11 @@ public abstract class Candidat implements Comparable<Candidat>, Serializable
 	
 	boolean add(Competition competition)
 	{
+		if(this.inscriptions.persistance == this.inscriptions.BDD)
+			this.inscriptions.pers.ajouterCompetitionCandidat(this,competition);
+			
 		return competitions.add(competition);
+		
 	}
 
 	boolean remove(Competition competition)
@@ -77,6 +81,11 @@ public abstract class Candidat implements Comparable<Candidat>, Serializable
 		for (Competition c : competitions)
 			c.remove(this);
 		inscriptions.remove(this);
+		if(this.inscriptions.persistance == this.inscriptions.BDD && this instanceof Personne)
+			this.inscriptions.pers.retirerPersonne(((Personne) this).getMail());
+		else if (this.inscriptions.persistance == this.inscriptions.BDD && this instanceof Equipe)
+			this.inscriptions.pers.retirerEquipe(((Equipe) this).getNom());
+			
 	}
 	
 	@Override

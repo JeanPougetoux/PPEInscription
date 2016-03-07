@@ -72,7 +72,11 @@ public class persistance {
 	}
 	
 	
-
+	/**
+	 * Nous allons récuperer toutes les compétitions et leurs participants respectifs, équipes ou personnes seules
+	 * @param inscription
+	 * @return
+	 */
 	private Inscriptions getParticipantsCompetitions(Inscriptions inscription) {
 		
 		try 
@@ -86,44 +90,40 @@ public class persistance {
 				for (Competition comp : inscription.getCompetitions()) 
 				{
 					
-					if (result.getString("competition_nom") == "le petit test magique")
+					if (comp.getNom().equals(result.getString("competition_nom")))
 					{
-						System.out.println("ok");
-						//System.out.println(result.getString("competition_nom")+ "   "+ comp.getNom());
-						/* Si la compétition se joue en équipe alors nous reconnaissons une équipe par son nom
+						
+						//Si la compétition se joue en équipe alors nous reconnaissons une équipe par son nom
 						if (result.getBoolean("competition_equipe"))
 						{
 							for (Candidat c : inscription.getCandidats()) 
 							{
-								if (c.getNom() == result.getString("candidat_nom") && c instanceof Equipe)
+								if (c.getNom().equals(result.getString("candidat_nom")) && c instanceof Equipe)
 									comp.add((Equipe) c);
 									
 							}	
 						}
+						// Si la compétition est solitaire, npous allons rechercher ses candidats via leur adresse E-mail
 						else
 						{
-							ResultSet result2 = statement.executeQuery("SELECT personne_mail FROM personne WHERE id_personne = ("
-									+ "SELECT id_candidat FROM candidat WHERE candidat_nom = '"+result.getString("candidat_nom")+"')");
+							Statement statement2 = conn.createStatement();
+							ResultSet result2 = statement2.executeQuery("SELECT personne_mail FROM personne WHERE id_personne = ("
+									+ "SELECT id_personne FROM personnes WHERE candidat_nom = '"+result.getString("candidat_nom")+"')");
 							
 							while(result2.next())
 							{
 								for (Candidat c : inscription.getCandidats()) 
 								{
-									if (((Personne) c).getMail() == result2.getString("personne_mail") )
+									if ( c instanceof Personne && ((Personne) c).getMail().equals(result2.getString("personne_mail")))
 										comp.add((Personne) c);
 									
 								}
 							}
 							
-						}*/
+						}
 					}
 						
 				}
-				
-				
-				
-				// Si la compétition est solitaire alors nous allons rechercher les mails
-				/**/
 				
 				
 			}
@@ -132,7 +132,6 @@ public class persistance {
 		{
 			e.printStackTrace();
 		}
-		System.out.println("***************************************** test ****************");
 		return inscription;
 	}
 	
@@ -151,9 +150,15 @@ public class persistance {
 				for (Candidat c : inscription.getCandidats())
 				{
 					if(c.getNom().equals(result.getString("joueur"))&& c instanceof Personne)
-						System.out.println("ok");
+					{
+						for (Candidat equipe : inscription.getCandidats())
+						{
+							if(equipe.getNom().equals(result.getString("equipe")) && equipe instanceof Equipe)
+								((Equipe) equipe).add((Personne) c);
+									
+						}
+					}
 				}
-				//System.out.println(result.getString("joueur") + " / "+ result.getString("equipe"));
 			}
 		} 
 		catch (SQLException e) 
@@ -283,7 +288,10 @@ public class persistance {
 	}
 	
 	
-
+	/**
+	 * Permet de retirer une compétition de l'application, supprime alors tous les liens avec les participants
+	 * @param nom
+	 */
 	public void retirerCompetition(String nom) 
 	{
 		try 
@@ -299,7 +307,10 @@ public class persistance {
 		}
 		
 	}
-
+	/**
+	 * Supprime une personne de l'application, la retire alors de ses possibles équipes et compétitions
+	 * @param mail
+	 */
 	public void retirerPersonne(String mail) {
 		
 		query = "call retirerPersonne('"+mail+"')";
@@ -313,6 +324,10 @@ public class persistance {
 		}
 	}
 
+	/**
+	 * Supprime une équipe de l'application, retire automatiquement les joueurs de cette équipe et les compétitions associées
+	 * @param nom
+	 */
 	public void retirerEquipe(String nom) 
 	{
 		
@@ -328,6 +343,11 @@ public class persistance {
 		
 	}
 	
+	/**
+	 * Retire une personne d'une équipe, si l'équie est alors vide, celle ci est désinscrite des compétitions
+	 * @param mail
+	 * @param nom
+	 */
 	public void retirerPersonneEquipe(String mail, String nom)
 	{
 		query = "call retirerPersonneEquipe('"+mail+"','"+nom+"')";
@@ -342,7 +362,11 @@ public class persistance {
 	}
 
 	
-
+	/**
+	 * Retire un candidat (équipe ou personne) d'une compétitions
+	 * @param candidat
+	 * @param competition
+	 */
 	public void retirerCandidatCompetition(Candidat candidat, Competition competition) {
 		
 		try 
@@ -369,6 +393,36 @@ public class persistance {
 		{
 			e.printStackTrace();
 		}
+	}
+
+	/** 
+	 * Nous ajoutons une compétitions au candidat
+	 * @param candidat
+	 */
+	public void ajouterCompetitionCandidat(Candidat candidat, Competition competition) {
+		
+		/*try 
+		{ 
+			if(candidat instanceof Personne)
+			{
+				result = statement.executeQuery("SELECT id_personne as id_candidat,id_competition FROM personne p,competition c"
+						+ " WHERE p.personne_mail = '"+((Personne) candidat).getMail()+"'"
+								+ " AND c.competition_nom = '"+competition.getNom()+"'");
+				
+			}
+			else
+			{
+				result = statement.executeQuery("SELECT id_candidat,id_competition FROM equipes,competition"
+						+ " WHERE equipes.candidat_nom = '"+candidat.getNom()+"'"
+								+ " AND competition.competition_nom = '"+competition.getNom()+"'");
+			}
+			statement.executeQuery("call insertParticiper("+result.getString("id_candidat")+","+result.getString("id_competition")+")");
+			
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}*/
 	}
 	
 	
