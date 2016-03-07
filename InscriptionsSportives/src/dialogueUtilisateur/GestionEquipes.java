@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import inscriptions.Candidat;
-import inscriptions.Competition;
 import inscriptions.Equipe;
 import inscriptions.Inscriptions;
 import inscriptions.Personne;
@@ -125,7 +124,6 @@ public class GestionEquipes {
 		selectionEquipe.ajoute(new Option("Voir les membres de l'équipe", "v", getActionVoirMembres(element)));
 		selectionEquipe.ajoute(new Option("Ajouter une personne à l'équipe", "a", getActionAjoutPersonne(element)));
 		selectionEquipe.ajoute(new Option("Supprimer une personne de l'équipe", "s", getActionSuppressionPersonne(element)));
-		selectionEquipe.ajoute(new Option("Ajouter à une compétition", "c", getActionAjoutCompetition(element)));
 		selectionEquipe.ajoute(new Option("Modifier le nom de l'équipe", "m", getActionModificationEquipe(element, selectionEquipe)));
 		selectionEquipe.ajoute(new Option("Supprimer l'équipe", "d", getActionSuppressionEquipe(element, selectionEquipe)));
 		selectionEquipe.ajouteRevenir("r");
@@ -230,43 +228,6 @@ public class GestionEquipes {
 		};
 	}
 	
-	/**
-	 * Permet d'ajouter l'équipe à une compétition
-	 * @param l'équipe sélectionnée
-	 * @return l'action d'ajout de l'équipe
-	 */
-	public Action getActionAjoutCompetition(final Equipe equipe){
-		return new Action(){
-			public void optionSelectionnee(){
-				final ArrayList<Competition> competitions = new ArrayList<Competition>();
-				for(Competition c : inscriptions.getCompetitions()){
-					if(!equipe.getCompetitions().contains(c) && c.estEnEquipe()){
-						competitions.add(c);
-					}
-				}
-				Liste<Competition> menu = new Liste<Competition>("\nListe des compétitions", 
-						new ActionListe<Competition>(){
-					public List<Competition> getListe()
-					{
-						return competitions;
-					}
-					public void elementSelectionne(int indice, Competition competition)
-					{
-						competition.add(equipe);
-						System.out.println("Equipe bien ajoutée à la compétition.");
-						try{
-							inscriptions.sauvegarder();
-						}
-						catch(Exception e){
-							System.out.println("Erreur lors de la sauvegarde");
-						}
-					}
-				});
-				menu.ajouteRevenir("r");
-				menu.start();
-			}
-		};
-	}
 	/**
 	 * Permet de modifier le nom de l'équipe
 	 * @param l'équipe sélectionnée
