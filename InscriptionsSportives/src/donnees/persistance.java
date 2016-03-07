@@ -400,25 +400,33 @@ public class persistance {
 	 * @param candidat
 	 */
 	public void ajouterCompetitionCandidat(Candidat candidat, Competition competition) {
-		
+		int id_candidat = 0,id_competition = 0;
 		/*try 
 		{ 
+			
 			if(candidat instanceof Personne)
 			{
 				result = statement.executeQuery("SELECT id_personne as id_candidat,id_competition FROM personne p,competition c"
-						+ " WHERE p.personne_mail = '"+((Personne) candidat).getMail()+"'"
-								+ " AND c.competition_nom = '"+competition.getNom()+"'");
+				+ " WHERE p.personne_mail = '"+((Personne) candidat).getMail()+"'"
+				+ " AND c.competition_nom = '"+competition.getNom()+"'");
 				
 			}
 			else
 			{
 				result = statement.executeQuery("SELECT id_candidat,id_competition FROM equipes,competition"
-						+ " WHERE equipes.candidat_nom = '"+candidat.getNom()+"'"
-								+ " AND competition.competition_nom = '"+competition.getNom()+"'");
+				+ " WHERE equipes.candidat_nom = '"+candidat.getNom()+"'"
+				+ " AND competition.competition_nom = '"+competition.getNom()+"'");
 			}
-			statement.executeQuery("call insertParticiper("+result.getString("id_candidat")+","+result.getString("id_competition")+")");
+			while(result.next())
+			{
+				id_candidat = result.getInt("id_candidat");
+				id_competition = result.getInt("id_competition");
+			}
+			Statement statement2 = conn.createStatement();
+			statement2.executeQuery("call insertParticiper("+id_candidat+","+id_competition+")");
 			
 		} 
+		
 		catch (SQLException e) 
 		{
 			e.printStackTrace();
