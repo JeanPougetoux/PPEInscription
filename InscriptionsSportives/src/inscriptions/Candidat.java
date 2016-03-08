@@ -66,6 +66,8 @@ public abstract class Candidat implements Comparable<Candidat>, Serializable
 	
 	boolean add(Competition competition)
 	{	
+		if(inscriptions.persistance == inscriptions.BDD)
+			inscriptions.pers.ajouterCompetitionCandidat(this, competition);
 		return competitions.add(competition);
 		
 	}

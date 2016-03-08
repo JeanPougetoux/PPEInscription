@@ -131,8 +131,6 @@ public class Competition implements Comparable<Competition>, Serializable
 		if (enEquipe || !inscriptionsOuvertes())
 			throw new RuntimeException();
 		personne.add(this);
-		if(this.inscriptions.persistance == this.inscriptions.BDD )
-			this.inscriptions.pers.ajouterCompetitionPersonne(personne,this);
 		return candidats.add(personne);
 	}
 
@@ -150,8 +148,6 @@ public class Competition implements Comparable<Competition>, Serializable
 		if (!enEquipe || !inscriptionsOuvertes())
 			throw new RuntimeException();
 		equipe.add(this);
-		if(this.inscriptions.persistance == this.inscriptions.BDD )
-			this.inscriptions.pers.ajouterCompetitionEquipe(equipe,this);
 		return candidats.add(equipe);
 	}
 

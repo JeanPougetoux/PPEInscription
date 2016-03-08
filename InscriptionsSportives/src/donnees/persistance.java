@@ -350,10 +350,16 @@ public class persistance {
 	 */
 	public void retirerPersonneEquipe(String mail, String nom)
 	{
-		query = "call retirerPersonneEquipe('"+mail+"','"+nom+"')";
+		
 		try 
 		{
-			statement.executeQuery(query);
+
+			query = "call retirerPersonneEquipe(?,?)";
+			prepare = conn.prepareStatement(query);
+			prepare.setString(1,mail);
+			prepare.setString(2,nom);
+		
+			prepare.executeQuery();
 		} 
 		catch (SQLException e) 
 		{
@@ -401,7 +407,7 @@ public class persistance {
 	 */
 	public void ajouterCompetitionCandidat(Candidat candidat, Competition competition) {
 		int id_candidat = 0,id_competition = 0;
-		/*try 
+		try 
 		{ 
 			
 			if(candidat instanceof Personne)
@@ -430,7 +436,7 @@ public class persistance {
 		catch (SQLException e) 
 		{
 			//e.printStackTrace();
-		}*/
+		}
 	}
 
 	public void insererCandidatDansEquipe(String mail, String nom) {
@@ -497,58 +503,4 @@ public class persistance {
 		}
 		
 	}
-
-	public void ajouterCompetitionPersonne(Personne personne, Competition competition) {
-		int id_candidat = 0;
-		int id_competition = 0;
-		try 
-		{
-			result = statement.executeQuery("SELECT id_personne as id_candidat,id_competition FROM personne p,competition c"
-					+ " WHERE p.personne_mail = '"+personne.getMail()+"'"
-					+ " AND c.competition_nom = '"+competition.getNom()+"'");
-			
-			
-				id_candidat = result.getInt("id_candidat");
-				id_competition = result.getInt("id_competition");
-			
-			
-			Statement statement2 = conn.createStatement();
-			statement2.executeQuery("call insertParticiper("+id_candidat+","+id_competition+")");
-		} 
-		catch (SQLException e) 
-		{
-			//e.printStackTrace();
-		}
-		
-		
-		
-	}
-
-	public void ajouterCompetitionEquipe(Equipe equipe, Competition competition) {
-		int id_candidat = 0;
-		int id_competition = 0;
-		try 
-		{
-			result = statement.executeQuery("SELECT id_candidat,id_competition FROM equipes e,competition c"
-			+ " WHERE e.candidat_nom = '"+equipe.getNom()+"'"
-			+ " AND c.competition_nom = '"+competition.getNom()+"'");
-		
-		
-			id_candidat = result.getInt("id_candidat");
-			id_competition = result.getInt("id_competition");
-			
-			
-			Statement statement2 = conn.createStatement();
-			statement2.executeQuery("call insertParticiper("+id_candidat+","+id_competition+")");
-		} 
-		catch (SQLException e) 
-		{
-			//e.printStackTrace();
-		}
-		
-	}
-	
-	
-	
-	
 }
