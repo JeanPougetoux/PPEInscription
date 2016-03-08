@@ -1,7 +1,6 @@
 package dialogueUtilisateur;
 
 import java.time.LocalDate;
-import java.util.regex.Pattern;
 
 import utilitaires.EntreesSorties;
 

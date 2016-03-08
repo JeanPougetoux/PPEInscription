@@ -9,11 +9,12 @@ public class DialogueConsole {
 	private GestionCompetitions c;
 	private GestionEquipes e;
 	private GestionPersonnes p;
+	private Inscriptions inscriptions = Inscriptions.getInscriptions();
 	
 	public DialogueConsole(){
-		c = new GestionCompetitions(Inscriptions.getInscriptions());
-		e = new GestionEquipes(Inscriptions.getInscriptions());
-		p = new GestionPersonnes(Inscriptions.getInscriptions());
+		c = new GestionCompetitions(inscriptions);
+		e = new GestionEquipes(inscriptions);
+		p = new GestionPersonnes(inscriptions);
 	}
 	
 	/**

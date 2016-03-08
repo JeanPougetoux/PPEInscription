@@ -10,6 +10,8 @@ import java.util.Collections;
 import java.time.LocalDate;
 import java.util.SortedSet;
 import java.util.TreeSet;
+
+import dialogueUtilisateur.Main;
 import donnees.persistance;
 /**
  * Point d'entrée dans l'application, un seul objet de type Inscription
@@ -21,7 +23,7 @@ public class Inscriptions implements Serializable
 {
 	public static final int SERIALIZATION = 0,
 							BDD = 1;
-	public static int persistance = BDD;
+	public static int persistance = Main.choixPersistance;
 	public static persistance pers = null;
 	
 	private static final long serialVersionUID = -3095339436048473524L;
@@ -217,25 +219,28 @@ public class Inscriptions implements Serializable
 	
 	public void sauvegarder() throws IOException
 	{
-		ObjectOutputStream oos = null;
-		try
+		if (persistance == SERIALIZATION)
 		{
-			FileOutputStream fis = new FileOutputStream(FILE_NAME);
-			oos = new ObjectOutputStream(fis);
-			oos.writeObject(this);
-		}
-		catch (IOException e)
-		{
-			throw e;
-		}
-		finally
-		{
+			ObjectOutputStream oos = null;
 			try
 			{
-				if (oos != null)
-					oos.close();
-			} 
-			catch (IOException e){}
+				FileOutputStream fis = new FileOutputStream(FILE_NAME);
+				oos = new ObjectOutputStream(fis);
+				oos.writeObject(this);
+			}
+			catch (IOException e)
+			{
+				throw e;
+			}
+			finally
+			{
+				try
+				{
+					if (oos != null)
+						oos.close();
+				} 
+				catch (IOException e){}
+			}
 		}
 	}
 	

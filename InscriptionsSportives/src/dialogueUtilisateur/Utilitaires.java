@@ -1,8 +1,12 @@
 package dialogueUtilisateur;
 
+import java.io.IOException;
 import java.util.regex.Pattern;
 
+import inscriptions.Inscriptions;
+
 public class Utilitaires {
+	
 	/**
 	 * Retourne la chaîne avec une majuscule au début de chaque mot.
 	 * @param texte
@@ -23,5 +27,17 @@ public class Utilitaires {
           }  
         }
 		return chaine2;
+	}
+	
+	/**
+	 * Permet de tenter de sauvegarder l'inscription sinon renvoie une erreur
+	 * @param inscription
+	 */
+	public static void sauvegarde(Inscriptions inscriptions){
+		try {
+			inscriptions.sauvegarder();
+		} catch (IOException e) {
+			System.out.println("Sauvegarde impossible");
+		}
 	}
 }

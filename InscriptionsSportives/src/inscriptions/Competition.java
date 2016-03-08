@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import dialogueUtilisateur.SaisiesConsole;
+import dialogueUtilisateur.Utilitaires;
 
 /**
  * Représente une compétition, c'est-à-dire un ensemble de candidats 
@@ -182,6 +183,6 @@ public class Competition implements Comparable<Competition>, Serializable
 	@Override
 	public String toString()
 	{
-		return SaisiesConsole.getMajuscule(getNom());
+		return Utilitaires.getMajuscule(getNom());
 	}
 }

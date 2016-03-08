@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import dialogueUtilisateur.SaisiesConsole;
+import dialogueUtilisateur.Utilitaires;
 
 /**
  * Candidat à  un événement sportif, soit une personne physique, soit une équipe.
@@ -107,6 +108,6 @@ public abstract class Candidat implements Comparable<Candidat>, Serializable
 	@Override
 	public String toString()
 	{
-		return SaisiesConsole.getMajuscule(getNom());
+		return Utilitaires.getMajuscule(getNom());
 	}
 }
