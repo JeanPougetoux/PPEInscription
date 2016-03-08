@@ -47,6 +47,8 @@ public class Competition implements Comparable<Competition>, Serializable
 	 * @param nom
 	 */
 	public void setNom(String nom){
+		if (inscriptions.persistance == inscriptions.BDD)
+			inscriptions.pers.updateNomCompetition(this,nom);
 		this.nom = nom;
 	}
 	

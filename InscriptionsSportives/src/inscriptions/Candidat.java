@@ -48,6 +48,8 @@ public abstract class Candidat implements Comparable<Candidat>, Serializable
 	
 	public void setNom(String nom)
 	{
+		if (inscriptions.persistance == inscriptions.BDD)
+			inscriptions.pers.updateNomCandidat(this,nom);
 		this.nom = nom;
 	}
 
@@ -63,8 +65,11 @@ public abstract class Candidat implements Comparable<Candidat>, Serializable
 	
 	boolean add(Competition competition)
 	{
-		if(this.inscriptions.persistance == this.inscriptions.BDD)
-			this.inscriptions.pers.ajouterCompetitionCandidat(this,competition);
+		if(this.inscriptions.persistance == this.inscriptions.BDD && this instanceof Personne)
+			this.inscriptions.pers.ajouterCompetitionPersonne(this,competition);
+		if(this.inscriptions.persistance == this.inscriptions.BDD && this instanceof Equipe)
+			this.inscriptions.pers.ajouterCompetitionEquipe(this,competition);
+		
 			
 		return competitions.add(competition);
 		
