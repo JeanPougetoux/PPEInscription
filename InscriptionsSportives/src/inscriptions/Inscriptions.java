@@ -217,26 +217,30 @@ public class Inscriptions implements Serializable
 	
 	public void sauvegarder() throws IOException
 	{
-		ObjectOutputStream oos = null;
-		try
+		if (persistance == SERIALIZATION)
 		{
-			FileOutputStream fis = new FileOutputStream(FILE_NAME);
-			oos = new ObjectOutputStream(fis);
-			oos.writeObject(this);
-		}
-		catch (IOException e)
-		{
-			throw e;
-		}
-		finally
-		{
+			ObjectOutputStream oos = null;
 			try
 			{
-				if (oos != null)
-					oos.close();
-			} 
-			catch (IOException e){}
+				FileOutputStream fis = new FileOutputStream(FILE_NAME);
+				oos = new ObjectOutputStream(fis);
+				oos.writeObject(this);
+			}
+			catch (IOException e)
+			{
+				throw e;
+			}
+			finally
+			{
+				try
+				{
+					if (oos != null)
+						oos.close();
+				} 
+				catch (IOException e){}
+			}
 		}
+		
 	}
 	
 	@Override
