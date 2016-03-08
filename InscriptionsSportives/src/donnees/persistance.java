@@ -500,13 +500,13 @@ public class persistance {
 		
 	}
 
-	public void ajouterCompetitionPersonne(Candidat candidat, Competition competition) {
+	public void ajouterCompetitionPersonne(Personne personne, Competition competition) {
 		int id_candidat = 0;
 		int id_competition = 0;
 		try 
 		{
 			result = statement.executeQuery("SELECT id_personne as id_candidat,id_competition FROM personne p,competition c"
-					+ " WHERE p.personne_mail = '"+((Personne) candidat).getMail()+"'"
+					+ " WHERE p.personne_mail = '"+personne.getMail()+"'"
 					+ " AND c.competition_nom = '"+competition.getNom()+"'");
 			
 			
@@ -526,13 +526,13 @@ public class persistance {
 		
 	}
 
-	public void ajouterCompetitionEquipe(Candidat candidat, Competition competition) {
+	public void ajouterCompetitionEquipe(Equipe equipe, Competition competition) {
 		int id_candidat = 0;
 		int id_competition = 0;
 		try 
 		{
 			result = statement.executeQuery("SELECT id_candidat,id_competition FROM equipes e,competition c"
-					+ " WHERE e.candidat_nom = '"+candidat.getNom()+"'"
+					+ " WHERE e.candidat_nom = '"+equipe.getNom()+"'"
 					+ " AND c.competition_nom = '"+competition.getNom()+"'");
 			
 			

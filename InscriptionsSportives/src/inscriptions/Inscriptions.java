@@ -242,6 +242,7 @@ public class Inscriptions implements Serializable
 				catch (IOException e){}
 			}
 		}
+		
 	}
 	
 	@Override
