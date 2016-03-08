@@ -1,6 +1,5 @@
 package dialogueUtilisateur;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -75,14 +74,34 @@ public class GestionCompetitions {
 	public Action getActionAjoutCompetition(){
 		return new Action(){
 			public void optionSelectionnee(){
-				String nomCompetition = EntreesSorties.getString("\nSaisir le nom de la compétition.");
-				LocalDate dateCloture = (LocalDate)SaisiesConsole.saisieDateCompetition("\nSaisir la date de clôture de la "
-						+ "compétition (au format yyyy-MM-dd)", null);
-				boolean estEnEquipe = (boolean)SaisiesConsole.saisieEquipeCompetition("\nLa compétition est-elle pour les équipes "
-						+ "ou les personnes seules ?\n(tapez 'e' pour équipes ou 'p' pour personnes)", false);
-				inscriptions.createCompetition(nomCompetition, dateCloture, estEnEquipe);
-				System.out.println("\nLa compétition est bien ajoutée.");
-				Utilitaires.sauvegarde(inscriptions);
+				int mod = 0;
+				String nomCompetition = null;
+				Object dateCloture = null, estEnEquipe = null;
+				do{
+					mod++;
+					switch(mod){
+					case 1:
+						nomCompetition = EntreesSorties.getString("\nSaisir le nom de la compétition.'q' pour quitter.");
+						mod = Utilitaires.getMod(mod, nomCompetition);
+						break;
+					case 2:
+						dateCloture = SaisiesConsole.saisieDateCompetition("\nSaisir la date de clôture de la "
+								+ "compétition (au format yyyy-MM-dd)\n'q' pour quitter, 'r' pour revenir.", null);
+						mod = Utilitaires.getMod(mod, dateCloture);
+						break;
+					case 3:
+						estEnEquipe = SaisiesConsole.saisieEquipeCompetition("\nLa compétition est-elle pour les équipes "
+								+ "ou les personnes seules ?\n(tapez 'e' pour équipes ou 'p' pour personnes)\n"
+								+ "'q' pour quitter, 'r' pour revenir.", false);
+						mod = Utilitaires.getMod(mod, estEnEquipe);
+						break;
+					}
+				}while(mod < 4);
+				if(mod < 5){
+					inscriptions.createCompetition(nomCompetition, (LocalDate)dateCloture, (boolean)estEnEquipe);
+					System.out.println("\nLa compétition est bien ajoutée.");
+					Utilitaires.sauvegarde(inscriptions);
+				}
 			}
 		};
 	}

@@ -1,6 +1,5 @@
 package dialogueUtilisateur;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,29 +83,22 @@ public class GestionPersonnes {
 					switch(mod){
 					case 1:
 						nom = EntreesSorties.getString("Veuillez saisir le nom. 'q' pour quitter.");
-						if(nom.equals("q"))
-							mod = 5;
-						break;
+						mod = Utilitaires.getMod(mod, nom);
 					case 2:
 						prenom = EntreesSorties.getString("Veuillez saisir le prénom. 'q' pour quitter, 'r' pour revenir.");
-						if(prenom.equals("r"))
-							mod = mod - 2;
-						else if(prenom.equals("q"))
-							mod = 5;
+						mod = Utilitaires.getMod(mod, prenom);
 						break;
 					case 3:
 						mail = EntreesSorties.getString("Veuillez saisir le mail. 'q' pour quitter, 'r' pour revenir.");
-						if(mail.equals("r"))
-							mod = mod - 2;
-						else if(mail.equals("q"))
-							mod = 5;
+						mod = Utilitaires.getMod(mod, mail);
 						break;
 					}
 				}while(mod < 4);
-				if(mod < 5)
+				if(mod < 5){
 					inscriptions.createPersonne(nom, prenom, mail);
 					System.out.println("La personne vient bien d'être créée.");
-				Utilitaires.sauvegarde(inscriptions);
+					Utilitaires.sauvegarde(inscriptions);
+				}
 			}
 		};
 	}

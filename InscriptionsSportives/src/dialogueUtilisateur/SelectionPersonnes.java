@@ -3,6 +3,8 @@ package dialogueUtilisateur;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mysql.jdbc.Util;
+
 import inscriptions.Candidat;
 import inscriptions.Equipe;
 import inscriptions.Inscriptions;
@@ -167,9 +169,8 @@ public class SelectionPersonnes {
 					case 1:
 						nom = EntreesSorties.getString("\nVeuillez saisir le nouveau nom. Ancien nom : " + 
 											personne.getNom() + "\n'q' pour quitter, laissez vide pour ne rien changer.");
-						if(nom.equals("q"))
-							mod = 4;
-						else if(!nom.isEmpty()){
+						mod = Utilitaires.getMod(mod, nom);
+						if(!nom.isEmpty() && mod == 1){
 							personne.setNom(nom);
 							System.out.println("Le nom est bien changé en : " + personne.getNom());
 						}
@@ -178,11 +179,8 @@ public class SelectionPersonnes {
 						prenom = EntreesSorties.getString("\nVeuillez saisir le prénom. Ancien prénom : " +
 											personne.getPrenom() + "\n'q' pour quitter, 'r' pour revenir,"
 													+ " laissez vide pour ne rien changer.");
-						if(prenom.equals("r"))
-							mod = mod - 2;
-						else if(prenom.equals("q"))
-							mod = 4;
-						else if(!nom.isEmpty()){
+						mod = Utilitaires.getMod(mod, prenom);
+						if(!nom.isEmpty() && mod == 2){
 							personne.setPrenom(prenom);
 							System.out.println("Le prénom a bien été changé en : " + personne.getPrenom());
 						}
@@ -191,17 +189,14 @@ public class SelectionPersonnes {
 						mail = EntreesSorties.getString("\nVeuillez saisir le mail. Ancien mail : " +
 											personne.getMail() + "\n'q' pour quitter, 'r' pour revenir,"
 													+ " laissez vide pour ne rien changer.");
-						if(mail.equals("r"))
-							mod = mod - 2;
-						else if(mail.equals("q"))
-							mod = 4;
-						else if(!mail.isEmpty()){
+						mod = Utilitaires.getMod(mod, mail);
+						if(!mail.isEmpty() && mod == 3){
 							personne.setMail(mail);
 							System.out.println("Le mail a bien été changé en : " + personne.getMail());
 						}
 						break;
 					}
-				}while(mod < 4);
+				}while(mod < 5);
 				Utilitaires.sauvegarde(inscriptions);
 			}
 		};

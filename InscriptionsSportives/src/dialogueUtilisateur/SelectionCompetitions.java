@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mysql.jdbc.Util;
+
 import inscriptions.Candidat;
 import inscriptions.Competition;
 import inscriptions.Equipe;
@@ -194,8 +196,8 @@ public class SelectionCompetitions{
 								competition.setNom(nom);
 								System.out.println("Le nom a bien été changé.");
 							}
-							if(nom.equals("q")){
-								mod = 4;
+							else{
+								mod = Utilitaires.getMod(mod, nom);
 							}
 							break;
 						case 2: 
@@ -208,11 +210,8 @@ public class SelectionCompetitions{
 								competition.setDateCloture((LocalDate)date);
 								System.out.println("La date de cloture a bien été changée.");
 							} 
-							else if(date.equals("q")){
-								mod = 4;
-							}
-							else if(date.equals("r")){
-								mod = mod - 2;
+							else{
+								mod = Utilitaires.getMod(mod, date);
 							}
 							break;
 						case 3:
@@ -233,16 +232,11 @@ public class SelectionCompetitions{
 								}
 							}
 							else if(estEnEquipe instanceof String){
-								if(estEnEquipe.equals("q")){
-									mod = 4;
-								}
-								else if(estEnEquipe.equals("r")){
-									mod = mod - 2;
-								}
+								mod = Utilitaires.getMod(mod, estEnEquipe);
 							}
 							break;
 					}
-				}while(mod < 4);
+				}while(mod < 5);
 				Utilitaires.sauvegarde(inscriptions);
 			}
 		};

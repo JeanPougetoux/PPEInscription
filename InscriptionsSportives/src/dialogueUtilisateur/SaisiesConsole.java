@@ -10,12 +10,10 @@ public class SaisiesConsole {
 		do
 		{
 			String message = EntreesSorties.getString(texte);
-			if(compet != null)
-				if(message.isEmpty())
-					return message;
-				else if(message.equals("q") || message.equals("r")){
-					return message;
-				}
+			if(compet != null && message.isEmpty())
+				return message;
+			else if(message.equals("q") || message.equals("r"))
+				return message;
 			
 			try
 			{

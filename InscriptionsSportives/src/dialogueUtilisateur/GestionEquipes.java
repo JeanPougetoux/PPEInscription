@@ -75,8 +75,8 @@ public class GestionEquipes {
 				if(!nomEquipe.isEmpty() && !nomEquipe.equals("a")){
 					inscriptions.createEquipe(nomEquipe);
 					System.out.println("Equipe bien ajoutée.");
+					Utilitaires.sauvegarde(inscriptions);
 				}
-				Utilitaires.sauvegarde(inscriptions);
 			}
 		};
 	}

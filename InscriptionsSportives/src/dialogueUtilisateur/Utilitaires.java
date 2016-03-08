@@ -40,4 +40,16 @@ public class Utilitaires {
 			System.out.println("Sauvegarde impossible");
 		}
 	}
+	
+	/**
+	 * Retourne le mod selon le choix effectué
+	 * @param mod
+	 */
+	public static int getMod(int mod, Object content){
+		if(content.toString().equals("q"))
+			return 5;
+		else if(mod > 1 && content.toString().equals("r"))
+			return mod - 2;
+		return mod;
+	}
 }
