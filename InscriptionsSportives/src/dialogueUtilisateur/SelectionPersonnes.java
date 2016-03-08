@@ -24,6 +24,8 @@ public class SelectionPersonnes {
 	public SelectionPersonnes(Inscriptions inscriptions, Personne personne){
 		this.inscriptions = inscriptions;
 		this.personne = personne;
+		selectionPersonne = new Menu("\nGestion de la personne '" + personne.getNom() + " " + personne.getPrenom() +
+				"'\nQue voulez-vous faire ?", "Gérer la personne", "p");
 	}
 	
 	/**
@@ -32,8 +34,6 @@ public class SelectionPersonnes {
 	 * @return le menu personne de type Menu.
 	 */
 	public Menu getMenuSelectionPersonne(){
-		Menu selectionPersonne = new Menu("\nGestion de la personne '" + personne.getNom() + " " + personne.getPrenom() +
-									"'\nQue voulez-vous faire ?", "Gérer la personne", "p");
 		selectionPersonne.ajoute(new Option("Voir ses équipes", "v", getActionVoirMembres()));
 		selectionPersonne.ajoute(new Option("Ajouter à une équipe", "a", getActionAjoutEquipe()));
 		selectionPersonne.ajoute(new Option("Supprimer d'une équipe", "s", getActionSuppressionEquipe()));

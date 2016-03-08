@@ -24,6 +24,8 @@ public class SelectionEquipes {
 	public SelectionEquipes(Inscriptions inscriptions, Equipe equipe){
 		this.inscriptions = inscriptions;
 		this.equipe = equipe;
+		selectionEquipe = new Menu("\nGestion de l'équipe '" + equipe.getNom() + "'\nQue voulez-vous faire ?",
+				"Gérer les équipes", "e");
 	}
 	/**
 	 * Fabrique et récupère le menu qui fait suite à la sélection d'une équipe.
@@ -31,8 +33,6 @@ public class SelectionEquipes {
 	 * @return le menu équiê de type Menu.
 	 */
 	public Menu getMenuSelectionEquipe(){
-		selectionEquipe = new Menu("\nGestion de l'équipe '" + equipe.getNom() + "'\nQue voulez-vous faire ?",
-				"Gérer les équipes", "e");
 		selectionEquipe.ajoute(new Option("Voir les membres de l'équipe", "v", getActionVoirMembres()));
 		selectionEquipe.ajoute(new Option("Ajouter une personne à l'équipe", "a", getActionAjoutPersonne()));
 		selectionEquipe.ajoute(new Option("Supprimer une personne de l'équipe", "s", getActionSuppressionPersonne()));
