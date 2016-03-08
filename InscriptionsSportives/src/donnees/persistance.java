@@ -532,12 +532,12 @@ public class persistance {
 		try 
 		{
 			result = statement.executeQuery("SELECT id_candidat,id_competition FROM equipes e,competition c"
-					+ " WHERE e.candidat_nom = '"+equipe.getNom()+"'"
-					+ " AND c.competition_nom = '"+competition.getNom()+"'");
-			
-			
-				id_candidat = result.getInt("id_candidat");
-				id_competition = result.getInt("id_competition");
+			+ " WHERE e.candidat_nom = '"+equipe.getNom()+"'"
+			+ " AND c.competition_nom = '"+competition.getNom()+"'");
+		
+		
+			id_candidat = result.getInt("id_candidat");
+			id_competition = result.getInt("id_competition");
 			
 			
 			Statement statement2 = conn.createStatement();
