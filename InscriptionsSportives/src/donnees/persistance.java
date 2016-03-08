@@ -442,8 +442,6 @@ public class persistance {
 			prepare.setString(1, mail);
 			prepare.setString(2,nom);
 		
-		
-			
 			prepare.executeQuery();
 		} 
 		catch (SQLException e) 

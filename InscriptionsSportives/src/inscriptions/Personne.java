@@ -85,7 +85,7 @@ public class Personne extends Candidat
 	boolean remove(Equipe equipe)
 	{
 		if(super.getInscription().persistance == super.getInscription().BDD)
-			super.getInscription().pers.retirerPersonneEquipe(this.getMail(),this.getNom());
+			super.getInscription().pers.retirerPersonneEquipe(this.getMail(),equipe.getNom());
 		return equipes.remove(equipe);
 	}
 	

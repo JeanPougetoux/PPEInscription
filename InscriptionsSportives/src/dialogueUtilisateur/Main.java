@@ -9,7 +9,7 @@ public class Main {
 							GRAPHIQUE = 3;
 	
 	public static int choixDialogue = CONSOLE;
-	public static int choixPersistance = SERIALIZATION;
+	public static int choixPersistance = BDD;
 	
 	public static void main(String[] args) {
 		if(choixDialogue == CONSOLE){
