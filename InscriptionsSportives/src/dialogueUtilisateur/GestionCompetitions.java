@@ -59,7 +59,7 @@ public class GestionCompetitions {
 						}
 						System.out.println("\nNom : " + c.toString() + "\n" +
 										   "Date de cloture : " + c.getDateCloture() + "\n" +
-										   "En équipe : " + c.estEnEquipe() + "\n" +
+										   "En équipe : " + Utilitaires.getOuiNon(c.estEnEquipe()) + "\n" +
 										   "Candidats : " + membres);
 					}
 				}

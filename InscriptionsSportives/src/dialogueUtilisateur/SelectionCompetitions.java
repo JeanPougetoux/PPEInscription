@@ -4,8 +4,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mysql.jdbc.Util;
-
 import inscriptions.Candidat;
 import inscriptions.Competition;
 import inscriptions.Equipe;
@@ -28,7 +26,8 @@ public class SelectionCompetitions{
 		this.inscriptions = inscriptions;
 		this.competition = competition;
 		selectionCompetitions = new Menu("\nGestion de la compétition '" + competition.getNom() + "'\n"
-				+ "Date de clôture : " + competition.getDateCloture() + "\nEn équipe : " + competition.estEnEquipe()
+				+ "Date de clôture : " + competition.getDateCloture() + "\nEn équipe : " 
+				+ Utilitaires.getOuiNon(competition.estEnEquipe()) 
 				+ "\nQue voulez-vous faire ?", "Gérer les compétitions", "c");
 	}
 	
@@ -218,7 +217,7 @@ public class SelectionCompetitions{
 							Object estEnEquipe = SaisiesConsole.saisieEquipeCompetition("\nLa compétition est-elle pour "
 									+ "les équipes ou les personnes seules ?\n(tapez 'e' pour équipes ou 'p' pour "
 									+ "personnes)\nLa compétition autorise-elle actuellement les équipes : " 
-									+ competition.estEnEquipe() + ".\n" + "Laissez l'espace vide pour ne rien changer, "
+									+ Utilitaires.getOuiNon(competition.estEnEquipe()) + ".\n" + "Laissez l'espace vide pour ne rien changer, "
 									+ "'q' pour quitter, 'r' pour revenir.", true);
 							
 							if(estEnEquipe instanceof Boolean){

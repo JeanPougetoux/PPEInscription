@@ -52,4 +52,17 @@ public class Utilitaires {
 			return mod - 2;
 		return mod;
 	}
+	
+	/**
+	 * Retourne oui si true non si false
+	 * @param reponse
+	 * @return oui ou non
+	 */
+	public static String getOuiNon(boolean reponse){
+		if(reponse)
+			return "oui";
+		else if(!reponse)
+			return "non";
+		return null;
+	}
 }

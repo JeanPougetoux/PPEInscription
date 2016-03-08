@@ -3,8 +3,6 @@ package dialogueUtilisateur;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mysql.jdbc.Util;
-
 import inscriptions.Candidat;
 import inscriptions.Equipe;
 import inscriptions.Inscriptions;
