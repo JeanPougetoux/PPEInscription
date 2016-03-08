@@ -46,18 +46,23 @@ public class GestionCompetitions {
 	public Action getActionVoirCompetitions(){
 		return new Action(){
 			public void optionSelectionnee(){
-				for(Competition c : inscriptions.getCompetitions()){
-					String membres = "";
-					for(Candidat ca : c.getCandidats()){
-						if(ca instanceof Equipe)
-							membres += ca.getNom() + " | ";
-						else if(ca instanceof Personne)
-							membres += ((Personne)ca).getPrenom() + " " + ca.getNom() + " | ";
+				if(inscriptions.getCompetitions().isEmpty()){
+					System.out.println("Il n'y a pas de compétition enregistrée.");
+				}
+				else{
+					for(Competition c : inscriptions.getCompetitions()){
+						String membres = "";
+						for(Candidat ca : c.getCandidats()){
+							if(ca instanceof Equipe)
+								membres += ca.getNom() + " | ";
+							else if(ca instanceof Personne)
+								membres += ((Personne)ca).getPrenom() + " " + ca.getNom() + " | ";
+						}
+						System.out.println("\nNom : " + c.toString() + "\n" +
+										   "Date de cloture : " + c.getDateCloture() + "\n" +
+										   "En équipe : " + c.estEnEquipe() + "\n" +
+										   "Candidats : " + membres);
 					}
-					System.out.println("\nNom : " + c.toString() + "\n" +
-									   "Date de cloture : " + c.getDateCloture() + "\n" +
-									   "En équipe : " + c.estEnEquipe() + "\n" +
-									   "Candidats : " + membres);
 				}
 			}
 		};

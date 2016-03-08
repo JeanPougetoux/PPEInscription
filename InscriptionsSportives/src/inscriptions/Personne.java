@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import dialogueUtilisateur.SaisiesConsole;
+import dialogueUtilisateur.Utilitaires;
 
 /**
  * Représente une personne physique pouvant s'inscrire à une compétition.
@@ -100,6 +101,6 @@ public class Personne extends Candidat
 	@Override
 	public String toString()
 	{
-		return super.toString() + " " + SaisiesConsole.getMajuscule(this.getPrenom());
+		return super.toString() + " " + Utilitaires.getMajuscule(this.getPrenom());
 	}
 }

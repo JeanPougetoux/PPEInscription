@@ -44,6 +44,7 @@ public class GestionEquipes {
 	public Action getActionVoirEquipe(){
 		return new Action(){
 			public void optionSelectionnee(){
+				if(inscriptions.getCandidats().contains(Object instanceof Equipe)){
 				for(Candidat c : inscriptions.getCandidats()){
 					if(c instanceof Equipe){
 						String membre = "";
