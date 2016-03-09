@@ -412,19 +412,10 @@ public class persistance {
 			
 			if(candidat instanceof Personne)
 			{
-				/*result = statement.executeQuery("SELECT id_personne as id_candidat,id_competition FROM personne p,competition c"
-				+ " WHERE p.personne_mail = '"+((Personne) candidat).getMail()+"'"
-				+ " AND c.competition_nom = '"+competition.getNom()+"'");*/
-				
 				result = statement.executeQuery("call selectIdPersonneCompetition('"+((Personne) candidat).getMail()+"','"+competition.getNom()+"')");
-				
 			}
 			else
 			{
-				/*result = statement.executeQuery("SELECT id_candidat,id_competition FROM equipes,competition"
-				+ " WHERE equipes.candidat_nom = '"+candidat.getNom()+"'"
-				+ " AND competition.competition_nom = '"+competition.getNom()+"'");*/
-			
 				result = statement.executeQuery("call selectIdEquipeCompetition('"+candidat.getNom()+"','"+competition.getNom()+"')");
 			
 			}

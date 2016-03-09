@@ -44,7 +44,8 @@ public class Equipe extends Candidat
 
 	
 	/**
-	 * Supprime une personne de l'équipe. 
+	 * Supprime une personne de l'équipe.
+	 * Si l'équipe devient alors vide, elle est désinscrite des compétitions  
 	 * @param membre
 	 * @return
 	 */
