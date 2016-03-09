@@ -82,7 +82,7 @@ public class persistance {
 		try 
 		{
 			Statement statement = conn.createStatement();
-			ResultSet result = statement.executeQuery("select candidat_nom,competition_nom from participants_competitions");
+			ResultSet result = statement.executeQuery("call selectParticipantsCompetitions()");
 			
 			// On parcours toutes les lignes de participants_competition
 			while(result.next())
@@ -108,7 +108,7 @@ public class persistance {
 						else
 						{
 							Statement statement2 = conn.createStatement();
-							ResultSet result2 = statement2.executeQuery("SELECT personne_mail FROM personnes WHERE candidat_nom = '"+result.getString("candidat_nom")+"'");
+							ResultSet result2 = statement2.executeQuery("call selectMail('"+result.getString("candidat_nom")+"')");
 							
 							while(result2.next())
 							{
@@ -143,7 +143,7 @@ public class persistance {
 	private Inscriptions getJoueursEquipes(Inscriptions inscription) {
 		try 
 		{
-			result = statement.executeQuery("SELECT joueur, equipe FROM joueurs_equipes ");
+			result = statement.executeQuery("call selectJoueursEquipes() ");
 			
 			while(result.next())
 			{
@@ -177,7 +177,7 @@ public class persistance {
 	private Inscriptions getPersonnes(Inscriptions inscription) throws SQLException
 	
 	{
-		result = statement.executeQuery("select * from personnes");
+		result = statement.executeQuery("call selectPersonnes()");
 		while (result.next()) {
 			
 			inscription.createPersonne(result.getString("candidat_nom"), result.getString("personne_prenom"), result.getString("personne_mail"));
@@ -194,7 +194,7 @@ public class persistance {
 	private Inscriptions getEquipes(Inscriptions inscription) throws SQLException
 	
 	{
-		result = statement.executeQuery("select * from equipes");
+		result = statement.executeQuery("call selectEquipes()");
 		while (result.next()) {
 			
 			inscription.createEquipe(result.getString("candidat_nom"));
@@ -213,7 +213,7 @@ public class persistance {
 	private Inscriptions getCompetitions(Inscriptions inscription) throws SQLException
 	
 	{
-		result = statement.executeQuery("select * from competition");
+		result = statement.executeQuery("call selectCompetitions()");
 		while (result.next()) {
 			LocalDate date = LocalDate.parse(result.getString("competition_date_cloture"), formatter);
 			inscription.createCompetition(result.getString("competition_nom"), date, result.getBoolean("competition_equipe"));
@@ -412,16 +412,21 @@ public class persistance {
 			
 			if(candidat instanceof Personne)
 			{
-				result = statement.executeQuery("SELECT id_personne as id_candidat,id_competition FROM personne p,competition c"
+				/*result = statement.executeQuery("SELECT id_personne as id_candidat,id_competition FROM personne p,competition c"
 				+ " WHERE p.personne_mail = '"+((Personne) candidat).getMail()+"'"
-				+ " AND c.competition_nom = '"+competition.getNom()+"'");
+				+ " AND c.competition_nom = '"+competition.getNom()+"'");*/
+				
+				result = statement.executeQuery("call selectIdPersonneCompetition('"+((Personne) candidat).getMail()+"','"+competition.getNom()+"')");
 				
 			}
 			else
 			{
-				result = statement.executeQuery("SELECT id_candidat,id_competition FROM equipes,competition"
+				/*result = statement.executeQuery("SELECT id_candidat,id_competition FROM equipes,competition"
 				+ " WHERE equipes.candidat_nom = '"+candidat.getNom()+"'"
-				+ " AND competition.competition_nom = '"+competition.getNom()+"'");
+				+ " AND competition.competition_nom = '"+competition.getNom()+"'");*/
+			
+				result = statement.executeQuery("call selectIdEquipeCompetition('"+candidat.getNom()+"','"+competition.getNom()+"')");
+			
 			}
 			while(result.next())
 			{
