@@ -52,7 +52,15 @@ public class Equipe extends Candidat
 	public boolean remove(Personne membre)
 	{		
 		membre.remove(this);
-		return membres.remove(membre);
+		membres.remove(membre);
+		if(this.getMembres().isEmpty())
+		{
+			for (Competition c : this.getCompetitions())
+			{
+				c.remove(this);
+			}
+		}
+		return true;
 	}
 	
 	@Override

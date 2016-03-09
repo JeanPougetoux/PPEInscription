@@ -150,7 +150,7 @@ public class Inscriptions implements Serializable
 			{
 				e.printStackTrace();
 			}
-			return  inscriptions;
+			
 		}
 		else
 		{
@@ -160,8 +160,9 @@ public class Inscriptions implements Serializable
 				if (inscriptions == null)
 					inscriptions = new Inscriptions();
 			}
-			return inscriptions;
+			
 		}
+		return  inscriptions;
 		
 	}
 
@@ -265,14 +266,14 @@ public class Inscriptions implements Serializable
 		*/
 		//Equipe truands = inscriptions.createEquipe("les truands");
 		
-		Inscriptions inscriptions = Inscriptions.getInscriptions();
+		/*Inscriptions inscriptions = Inscriptions.getInscriptions();
 		
 		System.out.println(inscriptions.getCandidats());
 		System.out.println(inscriptions.getCompetitions());
 		
 		System.out.println("\n**************\n");
 		System.out.println(inscriptions.getCandidats());
-		System.out.println(inscriptions.getCompetitions());
+		System.out.println(inscriptions.getCompetitions());*/
 		
 	
 		/*inscriptions.remove(truands);

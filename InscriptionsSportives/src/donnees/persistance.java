@@ -81,9 +81,10 @@ public class persistance {
 		
 		try 
 		{
-			result = statement.executeQuery("select candidat_nom,competition_nom,competition_equipe from participants_competitions");
+			Statement statement = conn.createStatement();
+			ResultSet result = statement.executeQuery("select candidat_nom,competition_nom from participants_competitions");
 			
-			// On parcours toutes les lignes de PARTICIPER
+			// On parcours toutes les lignes de participants_competition
 			while(result.next())
 			{
 				
@@ -94,7 +95,7 @@ public class persistance {
 					{
 						
 						//Si la compétition se joue en équipe alors nous reconnaissons une équipe par son nom
-						if (result.getBoolean("competition_equipe"))
+						if (comp.estEnEquipe())
 						{
 							for (Candidat c : inscription.getCandidats()) 
 							{
@@ -103,12 +104,11 @@ public class persistance {
 									
 							}	
 						}
-						// Si la compétition est solitaire, npous allons rechercher ses candidats via leur adresse E-mail
+						// Si la compétition est solitaire, nous allons rechercher ses candidats via leur adresse E-mail
 						else
 						{
 							Statement statement2 = conn.createStatement();
-							ResultSet result2 = statement2.executeQuery("SELECT personne_mail FROM personne WHERE id_personne = ("
-									+ "SELECT id_personne FROM personnes WHERE candidat_nom = '"+result.getString("candidat_nom")+"')");
+							ResultSet result2 = statement2.executeQuery("SELECT personne_mail FROM personnes WHERE candidat_nom = '"+result.getString("candidat_nom")+"'");
 							
 							while(result2.next())
 							{
