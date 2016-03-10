@@ -11,11 +11,11 @@ public class MenuGestionCompetitions extends Menu{
 	public MenuGestionCompetitions(Inscriptions inscriptions){
 		super("\nGestion des compétitions\nQue voulez-vous faire ?",
 				"Gérer les compétitions", "c");
+		this.inscriptions = inscriptions;
 		this.ajoute(new Option("Détails des compétitions", "v", new ActionVoirCompetitions(this)));
 		this.ajoute(new Option("Ajouter une compétition", "a", new ActionAjoutCompetition(this)));
 		this.ajoute(new Option("Sélectionner une compétition", "s", new ActionSelectionCompetition(this)));
 		this.ajouteRevenir("r");
-		this.inscriptions = inscriptions;
 	}
 	
 	/**

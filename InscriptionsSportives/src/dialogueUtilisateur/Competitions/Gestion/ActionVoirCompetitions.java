@@ -20,6 +20,8 @@ public class ActionVoirCompetitions implements Action{
 	}
 	
 	public void optionSelectionnee(){
+		System.out.println(inscriptions.getCandidats());
+		System.out.println("ok");
 		if(inscriptions.getCompetitions().isEmpty()){
 			System.out.println("\nIl n'y a pas de compétition enregistrée.");
 		}

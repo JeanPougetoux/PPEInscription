@@ -7,6 +7,7 @@ import utilitaires.ligneDeCommande.Option;
 public class MenuGestionEquipes extends Menu{
 
 	private Inscriptions inscriptions;
+	
 	public MenuGestionEquipes(Inscriptions inscriptions){
 		super("\nGestion des équipes\nQue-voulez-vous faire ?",
 				"Gérer les équipes", "e");
