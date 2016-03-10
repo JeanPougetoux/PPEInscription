@@ -6,6 +6,7 @@ import java.time.LocalDate;
 
 import org.junit.Test;
 
+import dialogueUtilisateur.Utilitaires;
 import inscriptions.Competition;
 import inscriptions.Inscriptions;
 import inscriptions.Personne;
@@ -67,8 +68,7 @@ public class CandidatTest {
 	public void testToString() {
 		Inscriptions inscriptions = Inscriptions.getInscriptions();
 		Personne george = inscriptions.createPersonne(nomRobert, null, null);
-		assertEquals("\n" + nomRobert + " -> inscrit à " + george.getCompetitions() + 
-				" membre de " + george.getEquipes().toString(), george.toString());
+		assertEquals(Utilitaires.getMajuscule(george.getNom())+ " " + Utilitaires.getMajuscule(george.getPrenom()), george.toString());
 	}
 
 }

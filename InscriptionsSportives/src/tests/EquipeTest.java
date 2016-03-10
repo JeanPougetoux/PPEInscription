@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import dialogueUtilisateur.Utilitaires;
 import inscriptions.Equipe;
 import inscriptions.Inscriptions;
 import inscriptions.Personne;
@@ -30,8 +31,7 @@ public class EquipeTest {
 
 	@Test
 	public void testToString() {
-		assertEquals("Equipe " + "\n" + lesManouches.getNom() + " -> inscrit à " + 
-					lesManouches.getCompetitions() , lesManouches.toString());
+		assertEquals("Equipe '" + Utilitaires.getMajuscule(lesManouches.getNom()) + "'" , lesManouches.toString());
 	}
 
 	@Test

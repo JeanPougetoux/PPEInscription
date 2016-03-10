@@ -6,6 +6,7 @@ import java.time.LocalDate;
 
 import org.junit.Test;
 
+import dialogueUtilisateur.Utilitaires;
 import inscriptions.Competition;
 import inscriptions.Equipe;
 import inscriptions.Inscriptions;
@@ -135,7 +136,7 @@ public class CompetitionTest {
 
 	@Test
 	public void testToString() {
-		assertEquals(nom, testCompetVrai.toString());
+		assertEquals(Utilitaires.getMajuscule(nom), testCompetVrai.toString());
 	}
 
 }
