@@ -1,8 +1,10 @@
-package dialogueUtilisateur;
+package dialogueUtilisateur.Personnes.Gestion;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import dialogueUtilisateur.Utilitaires;
+import dialogueUtilisateur.Personnes.Selection.SelectionPersonnes;
 import inscriptions.Candidat;
 import inscriptions.Competition;
 import inscriptions.Equipe;
@@ -15,26 +17,17 @@ import utilitaires.ligneDeCommande.Liste;
 import utilitaires.ligneDeCommande.Menu;
 import utilitaires.ligneDeCommande.Option;
 
-public class GestionPersonnes {
+public class GestionPersonnes extends Menu{
 
 	private Inscriptions inscriptions;
 	public GestionPersonnes(Inscriptions inscriptions){
-		this.inscriptions = inscriptions;
-	}
-	
-	/**
-	 * Permet de créer le menu Personne et y ajout les différentes options
-	 * ainsi que l'action 'revenir'.
-	 * @return le menu Personne de type menu.
-	 */
-	public Menu getMenu(){
-		Menu Equipe = new Menu("\nGestion des personnes\nQue-voulez-vous faire ?",
+		super("\nGestion des personnes\nQue-voulez-vous faire ?",
 				"Gérer les personnes", "p");
-		Equipe.ajoute(new Option("Détails des personnes", "v", getActionVoirPersonne()));
-		Equipe.ajoute(new Option("Ajouter une personne", "a", getActionAjoutPersonne()));
-		Equipe.ajoute(new Option("Sélectionner une personne", "s", getActionSelectionPersonne()));
-		Equipe.ajouteRevenir("r");
-		return Equipe;
+		this.inscriptions = inscriptions;
+		this.ajoute(new Option("Détails des personnes", "v", getActionVoirPersonne()));
+		this.ajoute(new Option("Ajouter une personne", "a", getActionAjoutPersonne()));
+		this.ajoute(new Option("Sélectionner une personne", "s", getActionSelectionPersonne()));
+		this.ajouteRevenir("r");
 	}
 	
 	/**
@@ -63,7 +56,7 @@ public class GestionPersonnes {
 					}
 				}
 				if(nul)
-					System.out.println("Il n'y a pas de personne inscrite.");
+					System.out.println("\nIl n'y a pas de personne inscrite.");
 			}
 			
 		};
@@ -83,20 +76,21 @@ public class GestionPersonnes {
 					switch(mod){
 					case 1:
 						nom = EntreesSorties.getString("Veuillez saisir le nom. 'q' pour quitter.");
-						mod = Utilitaires.getMod(mod, nom);
+						mod = Utilitaires.getMod(mod, nom, false);
+						break;
 					case 2:
 						prenom = EntreesSorties.getString("Veuillez saisir le prénom. 'q' pour quitter, 'r' pour revenir.");
-						mod = Utilitaires.getMod(mod, prenom);
+						mod = Utilitaires.getMod(mod, prenom, false);
 						break;
 					case 3:
 						mail = EntreesSorties.getString("Veuillez saisir le mail. 'q' pour quitter, 'r' pour revenir.");
-						mod = Utilitaires.getMod(mod, mail);
+						mod = Utilitaires.getMod(mod, mail, false);
 						break;
 					}
 				}while(mod < 4);
 				if(mod < 5){
 					inscriptions.createPersonne(nom, prenom, mail);
-					System.out.println("La personne vient bien d'être créée.");
+					System.out.println("\nLa personne vient bien d'être créée.");
 					Utilitaires.sauvegarde(inscriptions);
 				}
 			}
@@ -116,7 +110,7 @@ public class GestionPersonnes {
 					if(e instanceof Personne)
 						personnes.add((Personne)e);
 				}
-				Liste<Personne> menu = new Liste<Personne>("\nListe des personnes", 
+				Liste<Personne> menu = new Liste<Personne>("\nListe des personnes :\n", 
 						new ActionListe<Personne>()
 				{
 					public List<Personne> getListe()
@@ -125,8 +119,7 @@ public class GestionPersonnes {
 					}
 					public void elementSelectionne(int indice, Personne element)
 					{
-						SelectionPersonnes selection = new SelectionPersonnes(inscriptions, element);
-						selection.getMenuSelectionPersonne().start();
+						new SelectionPersonnes(inscriptions, element).start();
 					}
 				});
 				menu.ajouteRevenir("r");

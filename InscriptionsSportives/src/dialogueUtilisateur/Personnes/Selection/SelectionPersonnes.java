@@ -1,10 +1,10 @@
-package dialogueUtilisateur;
+package dialogueUtilisateur.Personnes.Selection;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mysql.jdbc.Util;
-
+import dialogueUtilisateur.SaisiesConsole;
+import dialogueUtilisateur.Utilitaires;
 import inscriptions.Candidat;
 import inscriptions.Equipe;
 import inscriptions.Inscriptions;
@@ -16,45 +16,34 @@ import utilitaires.ligneDeCommande.Liste;
 import utilitaires.ligneDeCommande.Menu;
 import utilitaires.ligneDeCommande.Option;
 
-public class SelectionPersonnes {
+public class SelectionPersonnes extends Menu{
 	
 	public Inscriptions inscriptions;
 	private Personne personne;
-	private Menu selectionPersonne;
 	
 	
 	public SelectionPersonnes(Inscriptions inscriptions, Personne personne){
+		super("\nGestion de la personne '" + personne.toString() +
+				"'\nQue voulez-vous faire ?", "Gérer la personne", "p");
 		this.inscriptions = inscriptions;
 		this.personne = personne;
-		selectionPersonne = new Menu("\nGestion de la personne '" + personne.getNom() + " " + personne.getPrenom() +
-				"'\nQue voulez-vous faire ?", "Gérer la personne", "p");
+		this.ajoute(new Option("Voir ses équipes", "v", getActionVoirMembres()));
+		this.ajoute(new Option("Ajouter à une équipe", "a", getActionAjoutEquipe()));
+		this.ajoute(new Option("Supprimer d'une équipe", "s", getActionSuppressionEquipe()));
+		this.ajoute(new Option("Modifier la personne", "m", getActionModificationPersonne(this)));
+		this.ajoute(new Option("Supprimer la personne", "d", getActionSuppressionPersonne(this)));
+		this.ajouteRevenir("r");
 	}
 	
 	/**
-	 * Fabrique et récupère le menu qui fait suite à la sélection d'une personne.
-	 * Permet plusieurs options de modification de celle-ci.
-	 * @return le menu personne de type Menu.
-	 */
-	public Menu getMenuSelectionPersonne(){
-		selectionPersonne.ajoute(new Option("Voir ses équipes", "v", getActionVoirMembres()));
-		selectionPersonne.ajoute(new Option("Ajouter à une équipe", "a", getActionAjoutEquipe()));
-		selectionPersonne.ajoute(new Option("Supprimer d'une équipe", "s", getActionSuppressionEquipe()));
-		selectionPersonne.ajoute(new Option("Modifier la personne", "m", getActionModificationPersonne()));
-		selectionPersonne.ajoute(new Option("Supprimer la personne", "d", getActionSuppressionPersonne()));
-		selectionPersonne.ajouteRevenir("r");
-		return selectionPersonne;
-	}	
-	
-	/**
 	 * Permet de voir toutes les équipes dont la personne est membre.
-	 * @param la personne sélectionnée.
 	 * @return l'action de voir les équipes.
 	 */
 	public Action getActionVoirMembres(){
 		return new Action(){
 			public void optionSelectionnee(){
 				if(personne.getEquipes().isEmpty()){
-					System.out.println("La personne n'est membre d'aucune équipe.");
+					System.out.println("\nLa personne n'est membre d'aucune équipe.");
 				}
 				else{
 					int i = 1;
@@ -69,7 +58,6 @@ public class SelectionPersonnes {
 	
 	/**
 	 * Permet d'ajout la personne dans une équipe.
-	 * @param la personne sélectionnée.
 	 * @return l'action d'ajouter la personne.
 	 */
 	public Action getActionAjoutEquipe(){
@@ -81,7 +69,7 @@ public class SelectionPersonnes {
 						equipes.add((Equipe) c);
 					}
 				}
-				Liste<Equipe> menu = new Liste<Equipe>("\nListe des équipes", 
+				Liste<Equipe> menu = new Liste<Equipe>("\nListe des équipes :\n", 
 						new ActionListe<Equipe>(){
 					public List<Equipe> getListe()
 					{
@@ -90,7 +78,7 @@ public class SelectionPersonnes {
 					public void elementSelectionne(int indice, Equipe element)
 					{
 						element.add(personne);
-						System.out.println(personne.getNom() + " " + personne.getPrenom() + " bien ajouté à l'équipe '"
+						System.out.println(personne.toString() + " bien ajouté à l'équipe '"
 								+ element.getNom() + "'");
 						Utilitaires.sauvegarde(inscriptions);
 					}
@@ -103,20 +91,19 @@ public class SelectionPersonnes {
 	
 	/**
 	 * Permet de supprimer la personne d'une équipe
-	 * @param la personne sélectionnée.
 	 * @return l'action de supprimer la personne.
 	 */
 	public Action getActionSuppressionEquipe(){
 		return new Action(){
 			public void optionSelectionnee(){
 				if(personne.getEquipes().isEmpty())
-					System.out.println("La personne n'est membre d'aucune équipe.");
+					System.out.println("\nLa personne n'est membre d'aucune équipe.");
 				else{
 					final ArrayList<Equipe> equipes = new ArrayList<Equipe>();
 					for(Equipe e : personne.getEquipes()){
 						equipes.add(e);
 					}
-					Liste<Equipe> menu = new Liste<Equipe>("\nListe des équipes", 
+					Liste<Equipe> menu = new Liste<Equipe>("\nListe des équipes :\n", 
 							new ActionListe<Equipe>(){
 						public List<Equipe> getListe()
 						{
@@ -125,7 +112,7 @@ public class SelectionPersonnes {
 						public void elementSelectionne(int indice, Equipe element)
 						{
 							element.remove(personne);
-							System.out.println(personne.getNom() + " " + personne.getPrenom() + " bien supprimé de l'équipe '"
+							System.out.println(personne.toString() + " bien supprimé de l'équipe '"
 									+ element.getNom() + "'");
 							Utilitaires.sauvegarde(inscriptions);
 						}
@@ -139,28 +126,32 @@ public class SelectionPersonnes {
 	
 	/**
 	 * Permet de supprimer la personne.
-	 * @param la personne sélectionnée.
-	 * @param le menu.
+	 * @param selection
 	 * @return l'action de supprimer la personne.
 	 */
-	public Action getActionSuppressionPersonne(){
+	public Action getActionSuppressionPersonne(final SelectionPersonnes selection){
 		return new Action(){
 			public void optionSelectionnee(){
 				char reponse = SaisiesConsole.saisieSuppression("la personne");
 				if(reponse == 'o'){
-					selectionPersonne.setRetourAuto(true);
+					selection.setRetourAuto(true);
 					personne.delete();
-					System.out.println("Personne bien effacée.");
+					System.out.println("\nPersonne bien effacée.");
 				}
 				Utilitaires.sauvegarde(inscriptions);
 			}
 		};
 	}
 	
-	public Action getActionModificationPersonne(){
+	/**
+	 * Permet de modifier chacun des champs pour une personne
+	 * @param selection
+	 * @return l'action de modification
+	 */
+	public Action getActionModificationPersonne(final SelectionPersonnes selection){
 		return new Action(){
 			public void optionSelectionnee(){
-				selectionPersonne.setRetourAuto(true);
+				selection.setRetourAuto(true);
 				int mod = 0;
 				String nom = "", prenom = "", mail = "";
 				do{
@@ -169,7 +160,7 @@ public class SelectionPersonnes {
 					case 1:
 						nom = EntreesSorties.getString("\nVeuillez saisir le nouveau nom. Ancien nom : " + 
 											personne.getNom() + "\n'q' pour quitter, laissez vide pour ne rien changer.");
-						mod = Utilitaires.getMod(mod, nom);
+						mod = Utilitaires.getMod(mod, nom, true);
 						if(!nom.isEmpty() && mod == 1){
 							personne.setNom(nom);
 							System.out.println("Le nom est bien changé en : " + personne.getNom());
@@ -179,8 +170,8 @@ public class SelectionPersonnes {
 						prenom = EntreesSorties.getString("\nVeuillez saisir le prénom. Ancien prénom : " +
 											personne.getPrenom() + "\n'q' pour quitter, 'r' pour revenir,"
 													+ " laissez vide pour ne rien changer.");
-						mod = Utilitaires.getMod(mod, prenom);
-						if(!nom.isEmpty() && mod == 2){
+						mod = Utilitaires.getMod(mod, prenom, true);
+						if(!prenom.isEmpty() && mod == 2){
 							personne.setPrenom(prenom);
 							System.out.println("Le prénom a bien été changé en : " + personne.getPrenom());
 						}
@@ -189,7 +180,7 @@ public class SelectionPersonnes {
 						mail = EntreesSorties.getString("\nVeuillez saisir le mail. Ancien mail : " +
 											personne.getMail() + "\n'q' pour quitter, 'r' pour revenir,"
 													+ " laissez vide pour ne rien changer.");
-						mod = Utilitaires.getMod(mod, mail);
+						mod = Utilitaires.getMod(mod, mail, true);
 						if(!mail.isEmpty() && mod == 3){
 							personne.setMail(mail);
 							System.out.println("Le mail a bien été changé en : " + personne.getMail());

@@ -13,8 +13,8 @@ public class Utilitaires {
 	 * @return une chaine
 	 */
 	public static String getMajuscule(String texte){
-		 String chaine2 = "";
-		 Pattern patern = Pattern.compile(" ");    
+		String chaine2 = "";
+		Pattern patern = Pattern.compile(" ");    
         String[] sousChaines = patern.split(texte);
         for(int i = 0; i < sousChaines.length; i++)
         {
@@ -22,7 +22,9 @@ public class Utilitaires {
           {
              String ch2 = sousChaines[i].substring(0, 1);
              ch2 = ch2.toUpperCase();
-             ch2+= sousChaines[i].substring(1) + " ";
+             ch2+= sousChaines[i].substring(1);
+             if(i != sousChaines.length - 1)
+            	 ch2 += " ";
              chaine2+= ch2;
           }  
         }
@@ -45,11 +47,15 @@ public class Utilitaires {
 	 * Retourne le mod selon le choix effectué
 	 * @param mod
 	 */
-	public static int getMod(int mod, Object content){
+	public static int getMod(int mod, Object content, boolean modif){
 		if(content.toString().equals("q"))
 			return 5;
 		else if(mod > 1 && content.toString().equals("r"))
 			return mod - 2;
+		else if(content.toString().isEmpty() && !modif){
+			System.out.println("Le champ est vide.");
+			return mod - 1;
+		}
 		return mod;
 	}
 	
