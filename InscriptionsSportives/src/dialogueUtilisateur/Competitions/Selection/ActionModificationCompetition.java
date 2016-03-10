@@ -7,14 +7,15 @@ import dialogueUtilisateur.Utilitaires;
 import utilitaires.EntreesSorties;
 import utilitaires.ligneDeCommande.Action;
 
+/**
+ * Permet de modifier chaque champ de la compétition.
+ * @author Jean
+ *
+ */
 public class ActionModificationCompetition implements Action{
 	
 	private MenuSelectionCompetitions menu;
 	
-	/**
-	 * Permet de modifier chaque champ de la compétition.
-	 * @param menu
-	 */
 	public ActionModificationCompetition(MenuSelectionCompetitions menu){
 		this.menu = menu;
 	}

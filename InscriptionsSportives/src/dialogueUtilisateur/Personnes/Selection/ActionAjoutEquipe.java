@@ -12,14 +12,16 @@ import utilitaires.ligneDeCommande.Action;
 import utilitaires.ligneDeCommande.ActionListe;
 import utilitaires.ligneDeCommande.Liste;
 
+/**
+ * Construit l'action permettant d'ajouter la personne dans une équipe.
+ * @author Jean
+ *
+ */
 public class ActionAjoutEquipe implements Action{
 
 	private Inscriptions inscriptions;
 	private Personne personne;
-	/**
-	 * Permet d'ajout la personne dans une équipe.
-	 * @param menu
-	 */
+
 	public ActionAjoutEquipe(MenuSelectionPersonnes menu){
 		inscriptions = menu.getInscriptions();
 		personne = menu.getPersonne();

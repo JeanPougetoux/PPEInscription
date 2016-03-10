@@ -4,6 +4,11 @@ import inscriptions.Inscriptions;
 import utilitaires.ligneDeCommande.Menu;
 import utilitaires.ligneDeCommande.Option;
 
+/**
+ * Menu de gestion des personnes, permet de voir leurs détails, d'en ajouter une, etc.
+ * @author Jean
+ *
+ */
 public class MenuGestionPersonnes extends Menu{
 
 	private Inscriptions inscriptions;

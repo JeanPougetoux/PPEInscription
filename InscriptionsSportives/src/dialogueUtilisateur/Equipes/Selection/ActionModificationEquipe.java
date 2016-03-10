@@ -4,13 +4,15 @@ import dialogueUtilisateur.Utilitaires;
 import utilitaires.EntreesSorties;
 import utilitaires.ligneDeCommande.Action;
 
+/**
+ * Construit l'action permettant de modifier le nom de l'équipe.
+ * @author Jean
+ *
+ */
 public class ActionModificationEquipe implements Action{
 	
 	private MenuSelectionEquipes menu;
 	
-	/**
-	 * Permet de modifier le nom de l'équipe
-	 */
 	public ActionModificationEquipe(MenuSelectionEquipes menu){
 		this.menu = menu;
 	}

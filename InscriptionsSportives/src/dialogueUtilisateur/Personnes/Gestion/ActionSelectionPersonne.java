@@ -11,14 +11,16 @@ import utilitaires.ligneDeCommande.Action;
 import utilitaires.ligneDeCommande.ActionListe;
 import utilitaires.ligneDeCommande.Liste;
 
+/**
+ * Construit l'action permettant de sélectionner une personne pour ensuite appeller le menu
+ * permettant d'effectuer une action sur cette personne.
+ * @author Jean
+ *
+ */
 public class ActionSelectionPersonne implements Action{
 	
 	private Inscriptions inscriptions;
-	
-	/**
-	 * Permet de sélectionner une personne pour ensuite appeller le menu
-	 * permettant d'effectuer une action sur cette personne.
-	 */
+
 	public ActionSelectionPersonne(MenuGestionPersonnes menu){
 		inscriptions = menu.getInscriptions();
 	}

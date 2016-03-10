@@ -3,13 +3,15 @@ package dialogueUtilisateur.Equipes.Selection;
 import inscriptions.Personne;
 import utilitaires.ligneDeCommande.Action;
 
+/**
+ * Construit l'action permettant de voir tous les membres de l'équipe.
+ * @author Jean
+ *
+ */
 public class ActionVoirMembres implements Action{
 	
 	private MenuSelectionEquipes menu;
 	
-	/**
-	 * Permet de voir tous les membres de l'équipe
-	 */
 	public ActionVoirMembres(MenuSelectionEquipes menu){
 		this.menu = menu;
 	}

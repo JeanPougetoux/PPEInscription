@@ -6,14 +6,15 @@ import inscriptions.Equipe;
 import inscriptions.Personne;
 import utilitaires.ligneDeCommande.Action;
 
+/**
+ * Construit l'action permettant de voir toutes les personnes existantes.
+ * @author Jean
+ *
+ */
 public class ActionVoirPersonnes implements Action{
 	
 	private MenuGestionPersonnes menu;
-	
 
-	/**
-	 * Permet de voir toutes les personnes existantes.
-	 */
 	public ActionVoirPersonnes(MenuGestionPersonnes menu){
 		this.menu = menu;
 	}

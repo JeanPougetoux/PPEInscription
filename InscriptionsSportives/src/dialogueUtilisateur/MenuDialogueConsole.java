@@ -7,6 +7,12 @@ import dialogueUtilisateur.Personnes.Gestion.MenuGestionPersonnes;
 import inscriptions.Inscriptions;
 import utilitaires.ligneDeCommande.Menu;
 
+/**
+ * Premier menu ouvert dans la classe Main, propose le choix entre
+ * compétition, équipe et personne.
+ * @author Jean
+ *
+ */
 public class MenuDialogueConsole extends Menu{
 
 	private Inscriptions inscriptions = Inscriptions.getInscriptions();

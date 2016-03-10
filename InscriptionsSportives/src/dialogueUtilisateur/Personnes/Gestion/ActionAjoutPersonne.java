@@ -4,13 +4,15 @@ import dialogueUtilisateur.Utilitaires;
 import utilitaires.EntreesSorties;
 import utilitaires.ligneDeCommande.Action;
 
+/**
+ * Construit l'action permettant l'ajout d'une nouvelle personne.
+ * @author Jean
+ *
+ */
 public class ActionAjoutPersonne implements Action{
 
 	private MenuGestionPersonnes menu;
-		
-	/**
-	 * Permet l'ajout d'une nouvelle personne.
-	 */
+
 	public ActionAjoutPersonne(MenuGestionPersonnes menu){
 		this.menu = menu;
 	}

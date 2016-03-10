@@ -11,13 +11,15 @@ import utilitaires.ligneDeCommande.Action;
 import utilitaires.ligneDeCommande.ActionListe;
 import utilitaires.ligneDeCommande.Liste;
 
+/**
+ * Construit l'action liée au choix de 'sélectionner une Equipe' dans le menu Equipe.
+ * @author Jean
+ *
+ */
 public class ActionSelectionEquipe implements Action{
 	
 	private Inscriptions inscriptions;
 	
-	/**
-	 * Construit l'action liée au choix de 'sélectionner une Equipe' dans le menu Equipe.
-	 */
 	public ActionSelectionEquipe(MenuGestionEquipes menu){
 		inscriptions = menu.getInscriptions();
 	}

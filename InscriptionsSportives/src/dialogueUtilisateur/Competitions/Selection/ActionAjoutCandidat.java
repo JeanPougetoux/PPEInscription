@@ -13,14 +13,16 @@ import utilitaires.ligneDeCommande.Action;
 import utilitaires.ligneDeCommande.ActionListe;
 import utilitaires.ligneDeCommande.Liste;
 
+/**
+ * Permet l'ajout d'un candidat à la compétition après avoir vérifier qu'il correspond bien.
+ * @author Jean
+ *
+ */
 public class ActionAjoutCandidat implements Action{
 	
 	private Inscriptions inscriptions;
 	private Competition competition;
 	
-	/**
-	 * Permet l'ajout d'un candidat à la compétition après avoir vérifier qu'il correspond bien.
-	 */
 	public ActionAjoutCandidat(MenuSelectionCompetitions menu){
 		this.inscriptions = menu.getInscriptions();
 		this.competition = menu.getCompetition();

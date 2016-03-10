@@ -6,6 +6,16 @@ import utilitaires.EntreesSorties;
 
 public class SaisiesConsole {
 
+	/**
+	 * Permet de saisir la date d'une compétition.
+	 * Retourne null si on est en mode modification et que l'input est vide.
+	 * Retourne q ou r si ils sont tapés.
+	 * Sinon vérifie que l'on a bien saisie la date au format, 
+	 * sinon message d'erreur.
+	 * @param texte
+	 * @param compet
+	 * @return un message ou bien la date de cloture.
+	 */
 	public static Object saisieDateCompetition(String texte, LocalDate compet){
 		do
 		{
@@ -36,6 +46,15 @@ public class SaisiesConsole {
 		while(true);
 	}
 	
+	/**
+	 * Permet de saisie p ou e pour personne ou equipe.
+	 * retourne null si on est en modification et que le champs est vide.
+	 * retourne r ou q si ils sont tapés.
+	 * Sinon retourn true pour e et false pour p.
+	 * @param message
+	 * @param modif
+	 * @return
+	 */
 	public static Object saisieEquipeCompetition(String message, boolean modif){
 		do
 		{
@@ -59,6 +78,11 @@ public class SaisiesConsole {
 		while(true);
 	}
 	
+	/**
+	 * Permet de saisir uniquement o ou n.
+	 * @param texte
+	 * @return o ou n.
+	 */
 	public static char saisieSuppression(String texte){
 		do
 		{
@@ -69,5 +93,17 @@ public class SaisiesConsole {
 			}
 		}
 		while(true);
+	}
+	
+	/**
+	 * Retourne vrai si la chaîne ne contient pas de chiffre, sinon false
+	 * @return boolean
+	 */
+	public static boolean verifChiffreChaine(String chaine){
+		if (chaine.matches("[a-zA-Z\\p{Blank}]+"))
+			return true;
+		else
+			System.out.println("Veuillez ne saisir que des caractères.");
+			return false;
 	}
 }

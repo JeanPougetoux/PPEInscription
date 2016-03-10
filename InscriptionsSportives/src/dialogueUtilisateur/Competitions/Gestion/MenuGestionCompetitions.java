@@ -4,6 +4,11 @@ import inscriptions.Inscriptions;
 import utilitaires.ligneDeCommande.Menu;
 import utilitaires.ligneDeCommande.Option;
 
+/**
+ * Menu de gestion des compétitions, propose plusieurs choix de détail, ajout des compétitions.
+ * @author Jean
+ *
+ */
 public class MenuGestionCompetitions extends Menu{
 	
 	private Inscriptions inscriptions;

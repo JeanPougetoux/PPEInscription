@@ -5,6 +5,11 @@ import inscriptions.Inscriptions;
 import utilitaires.ligneDeCommande.Menu;
 import utilitaires.ligneDeCommande.Option;
 
+/**
+ * Menu après avoir sélectionner une équipe, propose plusieurs actions à effectuer.
+ * @author Jean
+ *
+ */
 public class MenuSelectionEquipes extends Menu{
 	
 	private Inscriptions inscriptions;

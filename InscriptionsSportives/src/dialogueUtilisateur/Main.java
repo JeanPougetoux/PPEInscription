@@ -1,8 +1,13 @@
 package dialogueUtilisateur;
 
 
+/**
+ * Point d'entrée de l'application, décide du type de vue ainsi que de la manière dont
+ * les données vont persister.
+ * @author Jean
+ *
+ */
 public class Main {
-	
 	public static final int SERIALIZATION = 0,
 							BDD = 1,
 							CONSOLE = 2,

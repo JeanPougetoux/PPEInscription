@@ -5,13 +5,15 @@ import inscriptions.Equipe;
 import inscriptions.Personne;
 import utilitaires.ligneDeCommande.Action;
 
+/**
+ * Construit l'action liée au choix de 'voir les Equipe' dans le menu Equipe.
+ * @author Jean
+ *
+ */
 public class ActionVoirEquipes implements Action{
 	
 	private MenuGestionEquipes menu;
 	
-	/**
-	 * Construit l'action liée au choix de 'voir les Equipe' dans le menu Equipe.
-	 */
 	public ActionVoirEquipes(MenuGestionEquipes menu){
 		this.menu = menu;
 	}

@@ -5,6 +5,11 @@ import inscriptions.Personne;
 import utilitaires.ligneDeCommande.Menu;
 import utilitaires.ligneDeCommande.Option;
 
+/**
+ * Menu après avoir sélectionner une personne, permet d'effectuer plusieurs actions sur elle.
+ * @author Jean
+ *
+ */
 public class MenuSelectionPersonnes extends Menu{
 	
 	public Inscriptions inscriptions;

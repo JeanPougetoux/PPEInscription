@@ -5,14 +5,15 @@ import inscriptions.Equipe;
 import inscriptions.Personne;
 import utilitaires.ligneDeCommande.Action;
 
+/**
+ * Permet de voir les candidats inscrits à la compétition.
+ * @author Jean
+ *
+ */
 public class ActionVoirCandidats implements Action{
 
 	private MenuSelectionCompetitions menu;
 	
-
-	/**
-	 * Permet de voir les candidats inscris à la compétition
-	 */
 	public ActionVoirCandidats(MenuSelectionCompetitions menu){
 		this.menu = menu;
 	}

@@ -4,13 +4,15 @@ import dialogueUtilisateur.SaisiesConsole;
 import dialogueUtilisateur.Utilitaires;
 import utilitaires.ligneDeCommande.Action;
 
+/**
+ * Construit l'action permettant de supprimer l'équipe.
+ * @author Jean
+ *
+ */
 public class ActionSuppressionEquipe implements Action{
 	
 	private MenuSelectionEquipes menu;
-	
-	/**
-	 * Permet de supprimer l'équipe
-	 */
+
 	public ActionSuppressionEquipe(MenuSelectionEquipes menu){
 		this.menu = menu;
 	}

@@ -56,7 +56,7 @@ public class Utilitaires {
 			System.out.println("Le champ est vide.");
 			return mod - 1;
 		}
-		else if(!chiffre && !verifChiffreChaine(content.toString())){
+		else if(!chiffre && !SaisiesConsole.verifChiffreChaine(content.toString())){
 			return mod - 1;
 		}
 		return mod;
@@ -73,17 +73,5 @@ public class Utilitaires {
 		else if(!reponse)
 			return "non";
 		return null;
-	}
-	
-	/**
-	 * Retourne vrai si la chaîne ne contient pas de chiffre, sinon false
-	 * @return boolean
-	 */
-	public static boolean verifChiffreChaine(String chaine){
-		if (chaine.matches("[a-zA-Z\\p{Blank}]+"))
-			return true;
-		else
-			System.out.println("Veuillez ne saisir que des caractères.");
-			return false;
 	}
 }

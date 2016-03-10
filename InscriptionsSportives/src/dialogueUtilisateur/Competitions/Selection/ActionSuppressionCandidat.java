@@ -13,14 +13,16 @@ import utilitaires.ligneDeCommande.Action;
 import utilitaires.ligneDeCommande.ActionListe;
 import utilitaires.ligneDeCommande.Liste;
 
+/**
+ * Permet la suppresion d'un candidat de la compétition.
+ * @author Jean
+ *
+ */
 public class ActionSuppressionCandidat implements Action{
 	
 	private Inscriptions inscriptions;
 	private Competition competition;
 	
-	/**
-	 * Permet la suppresion d'un candidat de la compétition. 
-	 */
 	public ActionSuppressionCandidat(MenuSelectionCompetitions menu){
 		this.inscriptions = menu.getInscriptions();
 		this.competition = menu.getCompetition();

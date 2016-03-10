@@ -6,6 +6,11 @@ import inscriptions.Inscriptions;
 import utilitaires.ligneDeCommande.Menu;
 import utilitaires.ligneDeCommande.Option;
 
+/**
+ * Menu après avoir sélectionner une compétition, propose plusieurs actions à effectuer.
+ * @author Jean
+ *
+ */
 public class MenuSelectionCompetitions extends Menu{
 	
 	private Competition competition;

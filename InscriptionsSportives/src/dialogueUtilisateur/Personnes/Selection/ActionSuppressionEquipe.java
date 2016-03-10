@@ -11,15 +11,16 @@ import utilitaires.ligneDeCommande.Action;
 import utilitaires.ligneDeCommande.ActionListe;
 import utilitaires.ligneDeCommande.Liste;
 
+/**
+ * Construit l'action permettant de supprimer la personne d'une équipe.
+ * @author Jean
+ *
+ */
 public class ActionSuppressionEquipe implements Action{
 
 	private Inscriptions inscriptions;
 	private Personne personne;
-	
-	/**
-	 * Permet de supprimer la personne d'une équipe
-	 * @param menu
-	 */
+
 	public ActionSuppressionEquipe(MenuSelectionPersonnes menu){
 		inscriptions = menu.getInscriptions();
 		personne = menu.getPersonne();

@@ -1,16 +1,17 @@
 package dialogueUtilisateur.Personnes.Selection;
 
 import inscriptions.Competition;
-import inscriptions.Personne;
 import utilitaires.ligneDeCommande.Action;
 
+/**
+ * Construit l'action permettant de voir tous les membres de l'équipe.
+ * @author Jean
+ *
+ */
 public class ActionVoirCompetitions implements Action{
 	
 	private MenuSelectionPersonnes menu;
-	
-	/**
-	 * Permet de voir tous les membres de l'équipe
-	 */
+
 	public ActionVoirCompetitions(MenuSelectionPersonnes menu){
 		this.menu = menu;
 	}

@@ -4,14 +4,15 @@ import dialogueUtilisateur.SaisiesConsole;
 import dialogueUtilisateur.Utilitaires;
 import utilitaires.ligneDeCommande.Action;
 
+/**
+ * Permet de supprimer la compétition.
+ * @author Jean
+ *
+ */
 public class ActionSuppressionCompetition implements Action{
 
 	private MenuSelectionCompetitions menu;
-	
-	/**
-	 * Permet de supprimer la compétition.
-	 * @param menu
-	 */
+
 	public ActionSuppressionCompetition(MenuSelectionCompetitions menu){
 		this.menu = menu;
 	}

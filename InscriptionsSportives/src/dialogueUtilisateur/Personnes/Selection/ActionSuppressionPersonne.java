@@ -4,13 +4,15 @@ import dialogueUtilisateur.SaisiesConsole;
 import dialogueUtilisateur.Utilitaires;
 import utilitaires.ligneDeCommande.Action;
 
+/**
+ * Construit l'action permettant de supprimer la personne.
+ * @author Jean
+ *
+ */
 public class ActionSuppressionPersonne implements Action{
 	
 	private MenuSelectionPersonnes menu;
-	/**
-	 * Permet de supprimer la personne.
-	 * @param menu
-	 */
+
 	public ActionSuppressionPersonne(MenuSelectionPersonnes menu){
 		this.menu = menu;
 	}

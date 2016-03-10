@@ -4,14 +4,15 @@ import dialogueUtilisateur.Utilitaires;
 import utilitaires.EntreesSorties;
 import utilitaires.ligneDeCommande.Action;
 
+/**
+ * Construit l'action permettant de modifier chacun des champs pour une personne.
+ * @author Jean
+ *
+ */
 public class ActionModificationPersonne implements Action{
 
 	private MenuSelectionPersonnes menu;
-	
-	/**
-	 * Permet de modifier chacun des champs pour une personne
-	 * @param menu
-	 */
+
 	public ActionModificationPersonne(MenuSelectionPersonnes menu){
 		this.menu = menu;
 	}

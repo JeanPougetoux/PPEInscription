@@ -3,14 +3,15 @@ package dialogueUtilisateur.Personnes.Selection;
 import inscriptions.Equipe;
 import utilitaires.ligneDeCommande.Action;
 
+/**
+ * Construit l'action permettant de voir les équipes auquelles appartient la personne.
+ * @author Jean
+ *
+ */
 public class ActionVoirEquipes implements Action{
 
 	private MenuSelectionPersonnes menu;
 	
-	/**
-	 * Permet de voir les équipes auquelles appartient la personne
-	 * @param menu
-	 */
 	public ActionVoirEquipes(MenuSelectionPersonnes menu){
 		this.menu = menu;
 	}

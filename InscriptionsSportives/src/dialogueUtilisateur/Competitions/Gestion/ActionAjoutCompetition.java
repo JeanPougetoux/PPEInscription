@@ -8,13 +8,15 @@ import inscriptions.Inscriptions;
 import utilitaires.EntreesSorties;
 import utilitaires.ligneDeCommande.Action;
 
+/**
+ * Construit l'action liée au choix de 'ajouter une compétition' dans le menu compétitions
+ * @author Jean
+ *
+ */
 public class ActionAjoutCompetition implements Action{
 	
 	private Inscriptions inscriptions;
 	
-	/**
-	 * Construit l'action liée au choix de 'ajouter une compétition' dans le menu compétitions.
-	 */
 	public ActionAjoutCompetition(MenuGestionCompetitions menu){
 		this.inscriptions = menu.getInscriptions();
 	}
@@ -28,7 +30,7 @@ public class ActionAjoutCompetition implements Action{
 			switch(mod){
 			case 1:
 				nomCompetition = EntreesSorties.getString("\nSaisir le nom de la compétition.'q' pour quitter.");
-				if(Utilitaires.verifChiffreChaine(nomCompetition))
+				if(SaisiesConsole.verifChiffreChaine(nomCompetition))
 					mod = Utilitaires.getMod(mod, nomCompetition, false, false);
 				else
 					mod = mod - 2;

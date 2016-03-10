@@ -8,13 +8,15 @@ import inscriptions.Inscriptions;
 import inscriptions.Personne;
 import utilitaires.ligneDeCommande.Action;
 
+/**
+ * Construit l'action liée au choix de 'voir les compétitions' dans le menu compétitions.
+ * @author Jean
+ *
+ */
 public class ActionVoirCompetitions implements Action{
 
 	private Inscriptions inscriptions;
-	
-	/**
-	 * Construit l'action liée au choix de 'voir les compétitions' dans le menu compétitions.
-	 */
+
 	public ActionVoirCompetitions(MenuGestionCompetitions menu){
 		this.inscriptions = menu.getInscriptions();
 	}

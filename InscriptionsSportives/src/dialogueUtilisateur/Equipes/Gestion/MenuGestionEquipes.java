@@ -4,6 +4,11 @@ import inscriptions.Inscriptions;
 import utilitaires.ligneDeCommande.Menu;
 import utilitaires.ligneDeCommande.Option;
 
+/**
+ * Menu de gestion des équipes, permet de voir les détails de celles-ci, d'en ajouter, etc.
+ * @author Jean
+ *
+ */
 public class MenuGestionEquipes extends Menu{
 
 	private Inscriptions inscriptions;

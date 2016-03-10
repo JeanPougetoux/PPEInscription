@@ -10,13 +10,15 @@ import utilitaires.ligneDeCommande.Action;
 import utilitaires.ligneDeCommande.ActionListe;
 import utilitaires.ligneDeCommande.Liste;
 
+/**
+ * Construit l'action liée au choix de 'sélectionner une compétition' dans le menu compétitions.
+ * @author Jean
+ *
+ */
 public class ActionSelectionCompetition implements Action{
 
 	private Inscriptions inscriptions;
 	
-	/**
-	 * Construit l'action liée au choix de 'sélectionner une compétition' dans le menu compétitions.
-	 */
 	public ActionSelectionCompetition(MenuGestionCompetitions menu){
 		this.inscriptions = menu.getInscriptions();
 	}
