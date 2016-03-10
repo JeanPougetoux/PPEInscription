@@ -19,6 +19,7 @@ public class MenuSelectionPersonnes extends Menu{
 		this.ajoute(new Option("Voir ses équipes", "v", new ActionVoirEquipes(this)));
 		this.ajoute(new Option("Ajouter à une équipe", "a", new ActionAjoutEquipe(this)));
 		this.ajoute(new Option("Supprimer d'une équipe", "s", new ActionSuppressionEquipe(this)));
+		this.ajoute(new Option("Voir les compétitions", "c", new ActionVoirCompetitions(this)));
 		this.ajoute(new Option("Modifier la personne", "m", new ActionModificationPersonne(this)));
 		this.ajoute(new Option("Supprimer la personne", "d", new ActionSuppressionPersonne(this)));
 		this.ajouteRevenir("r");

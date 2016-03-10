@@ -47,13 +47,16 @@ public class Utilitaires {
 	 * Retourne le mod selon le choix effectué
 	 * @param mod
 	 */
-	public static int getMod(int mod, Object content, boolean modif){
+	public static int getMod(int mod, Object content, boolean modif, boolean chiffre){
 		if(content.toString().equals("q"))
 			return 5;
 		else if(mod > 1 && content.toString().equals("r"))
 			return mod - 2;
-		else if(content.toString().isEmpty() && !modif){
+		else if((content.toString().isEmpty() && !modif)){
 			System.out.println("Le champ est vide.");
+			return mod - 1;
+		}
+		else if(!chiffre && !verifChiffreChaine(content.toString())){
 			return mod - 1;
 		}
 		return mod;
@@ -70,5 +73,17 @@ public class Utilitaires {
 		else if(!reponse)
 			return "non";
 		return null;
+	}
+	
+	/**
+	 * Retourne vrai si la chaîne ne contient pas de chiffre, sinon false
+	 * @return boolean
+	 */
+	public static boolean verifChiffreChaine(String chaine){
+		if (chaine.matches("[a-zA-Z\\p{Blank}]+"))
+			return true;
+		else
+			System.out.println("Veuillez ne saisir que des caractères.");
+			return false;
 	}
 }

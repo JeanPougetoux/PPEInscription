@@ -26,7 +26,7 @@ public class ActionModificationPersonne implements Action{
 			case 1:
 				nom = EntreesSorties.getString("\nVeuillez saisir le nouveau nom. Ancien nom : " + 
 									menu.getPersonne().getNom() + "\n'q' pour quitter, laissez vide pour ne rien changer.");
-				mod = Utilitaires.getMod(mod, nom, true);
+				mod = Utilitaires.getMod(mod, nom, true, false);
 				if(!nom.isEmpty() && mod == 1){
 					menu.getPersonne().setNom(nom);
 					System.out.println("Le nom est bien changé en : " + menu.getPersonne().getNom());
@@ -36,7 +36,7 @@ public class ActionModificationPersonne implements Action{
 				prenom = EntreesSorties.getString("\nVeuillez saisir le prénom. Ancien prénom : " +
 									menu.getPersonne().getPrenom() + "\n'q' pour quitter, 'r' pour revenir,"
 											+ " laissez vide pour ne rien changer.");
-				mod = Utilitaires.getMod(mod, prenom, true);
+				mod = Utilitaires.getMod(mod, prenom, true, false);
 				if(!prenom.isEmpty() && mod == 2){
 					menu.getPersonne().setPrenom(prenom);
 					System.out.println("Le prénom a bien été changé en : " + menu.getPersonne().getPrenom());
@@ -46,7 +46,7 @@ public class ActionModificationPersonne implements Action{
 				mail = EntreesSorties.getString("\nVeuillez saisir le mail. Ancien mail : " +
 									menu.getPersonne().getMail() + "\n'q' pour quitter, 'r' pour revenir,"
 											+ " laissez vide pour ne rien changer.");
-				mod = Utilitaires.getMod(mod, mail, true);
+				mod = Utilitaires.getMod(mod, mail, true, false);
 				if(!mail.isEmpty() && mod == 3){
 					menu.getPersonne().setMail(mail);
 					System.out.println("Le mail a bien été changé en : " + menu.getPersonne().getMail());

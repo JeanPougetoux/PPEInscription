@@ -34,7 +34,7 @@ public class ActionModificationCompetition implements Action{
 						System.out.println("Le nom a bien été changé.");
 					}
 					else{
-						mod = Utilitaires.getMod(mod, nom, true);
+						mod = Utilitaires.getMod(mod, nom, true, false);
 					}
 					break;
 				case 2: 
@@ -48,7 +48,7 @@ public class ActionModificationCompetition implements Action{
 						System.out.println("La date de cloture a bien été changée.");
 					} 
 					else{
-						mod = Utilitaires.getMod(mod, date, true);
+						mod = Utilitaires.getMod(mod, date, true, true);
 					}
 					break;
 				case 3:
@@ -69,7 +69,7 @@ public class ActionModificationCompetition implements Action{
 						}
 					}
 					else if(estEnEquipe instanceof String){
-						mod = Utilitaires.getMod(mod, estEnEquipe, true);
+						mod = Utilitaires.getMod(mod, estEnEquipe, true, true);
 					}
 					break;
 			}

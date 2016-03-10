@@ -28,18 +28,21 @@ public class ActionAjoutCompetition implements Action{
 			switch(mod){
 			case 1:
 				nomCompetition = EntreesSorties.getString("\nSaisir le nom de la compétition.'q' pour quitter.");
-				mod = Utilitaires.getMod(mod, nomCompetition, false);
+				if(Utilitaires.verifChiffreChaine(nomCompetition))
+					mod = Utilitaires.getMod(mod, nomCompetition, false, false);
+				else
+					mod = mod - 2;
 				break;
 			case 2:
 				dateCloture = SaisiesConsole.saisieDateCompetition("\nSaisir la date de clôture de la "
 						+ "compétition (au format yyyy-MM-dd)\n'q' pour quitter, 'r' pour revenir.", null);
-				mod = Utilitaires.getMod(mod, dateCloture, false);
+				mod = Utilitaires.getMod(mod, dateCloture, false, true);
 				break;
 			case 3:
 				estEnEquipe = SaisiesConsole.saisieEquipeCompetition("\nLa compétition est-elle pour les équipes "
 						+ "ou les personnes seules ?\n(tapez 'e' pour équipes ou 'p' pour personnes)\n"
 						+ "'q' pour quitter, 'r' pour revenir.", false);
-				mod = Utilitaires.getMod(mod, estEnEquipe, false);
+				mod = Utilitaires.getMod(mod, estEnEquipe, false, true);
 				break;
 			}
 		}while(mod < 4);

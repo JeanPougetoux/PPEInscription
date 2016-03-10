@@ -17,12 +17,13 @@ public class MenuSelectionEquipes extends Menu{
 		this.equipe = equipe;
 		this.ajoute(new Option("Voir les membres de l'équipe", "v", new ActionVoirMembres(this)));
 		this.ajoute(new Option("Ajouter une personne à l'équipe", "a", new ActionAjoutPersonne(this)));
-		this.ajoute(new Option("Supprimer une personne de l'équipe", "s", new ActionSuppressionPersonne(this)));
+		this.ajoute(new Option("Supprimer un membre de l'équipe", "s", new ActionSuppressionPersonne(this)));
+		this.ajoute(new Option("Voir les compétitions de l'équipe", "c", new ActionVoirCompetitions(this)));
 		this.ajoute(new Option("Modifier le nom de l'équipe", "m", new ActionModificationEquipe(this)));
 		this.ajoute(new Option("Supprimer l'équipe", "d", new ActionSuppressionEquipe(this)));
 		this.ajouteRevenir("r");
 	}
-	
+
 	/**
 	 * Retourne l'inscription en cours
 	 * @return objet Inscriptions

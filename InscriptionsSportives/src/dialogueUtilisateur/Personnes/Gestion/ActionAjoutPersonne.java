@@ -23,15 +23,15 @@ public class ActionAjoutPersonne implements Action{
 			switch(mod){
 			case 1:
 				nom = EntreesSorties.getString("Veuillez saisir le nom. 'q' pour quitter.");
-				mod = Utilitaires.getMod(mod, nom, false);
+				mod = Utilitaires.getMod(mod, nom, false, false);
 				break;
 			case 2:
 				prenom = EntreesSorties.getString("Veuillez saisir le prénom. 'q' pour quitter, 'r' pour revenir.");
-				mod = Utilitaires.getMod(mod, prenom, false);
+				mod = Utilitaires.getMod(mod, prenom, false, false);
 				break;
 			case 3:
 				mail = EntreesSorties.getString("Veuillez saisir le mail. 'q' pour quitter, 'r' pour revenir.");
-				mod = Utilitaires.getMod(mod, mail, false);
+				mod = Utilitaires.getMod(mod, mail, false, false);
 				break;
 			}
 		}while(mod < 4);
