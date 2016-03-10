@@ -7,11 +7,11 @@ import dialogueUtilisateur.Personnes.Gestion.MenuGestionPersonnes;
 import inscriptions.Inscriptions;
 import utilitaires.ligneDeCommande.Menu;
 
-public class DialogueConsole extends Menu{
+public class MenuDialogueConsole extends Menu{
 
 	private Inscriptions inscriptions = Inscriptions.getInscriptions();
 	
-	public DialogueConsole(){
+	public MenuDialogueConsole(){
 		super("Bienvenue dans le gestionnaire de compétitions M2L\n"
 				+ "Que voulez-vous faire ?");
 		this.ajoute(new MenuGestionCompetitions(inscriptions));

@@ -13,7 +13,7 @@ public class Main {
 	
 	public static void main(String[] args) {
 		if(choixDialogue == CONSOLE){
-			new DialogueConsole().start();
+			new MenuDialogueConsole().start();
 		}
 		else if(choixDialogue == GRAPHIQUE){
 			
