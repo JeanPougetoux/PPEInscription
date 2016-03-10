@@ -33,7 +33,7 @@ public class MenuSelectionEquipes extends Menu{
 	
 	/**
 	 * Retourne l'équipe choisie
-	 * @return objet Competition
+	 * @return objet Equipe
 	 */
 	public Equipe getEquipe(){
 		return equipe;

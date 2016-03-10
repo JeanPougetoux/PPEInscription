@@ -3,7 +3,7 @@ package dialogueUtilisateur;
 
 import dialogueUtilisateur.Competitions.Gestion.MenuGestionCompetitions;
 import dialogueUtilisateur.Equipes.Gestion.MenuGestionEquipes;
-import dialogueUtilisateur.Personnes.Gestion.GestionPersonnes;
+import dialogueUtilisateur.Personnes.Gestion.MenuGestionPersonnes;
 import inscriptions.Inscriptions;
 import utilitaires.ligneDeCommande.Menu;
 
@@ -16,7 +16,7 @@ public class DialogueConsole extends Menu{
 				+ "Que voulez-vous faire ?");
 		this.ajoute(new MenuGestionCompetitions(inscriptions));
 		this.ajoute(new MenuGestionEquipes(inscriptions));
-		this.ajoute(new GestionPersonnes(inscriptions));
+		this.ajoute(new MenuGestionPersonnes(inscriptions));
 		this.ajouteQuitter("q");
 	}
 }

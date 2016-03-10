@@ -15,6 +15,9 @@ public class ActionSelectionEquipe implements Action{
 	
 	private Inscriptions inscriptions;
 	
+	/**
+	 * Construit l'action liée au choix de 'sélectionner une Equipe' dans le menu Equipe.
+	 */
 	public ActionSelectionEquipe(MenuGestionEquipes menu){
 		inscriptions = menu.getInscriptions();
 	}
