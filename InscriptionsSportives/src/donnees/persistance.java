@@ -4,16 +4,10 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Iterator;
-import java.util.SortedSet;
-import java.util.TreeSet;
-
-import com.mysql.jdbc.PreparedStatement;
 
 import inscriptions.Candidat;
 import inscriptions.Competition;
