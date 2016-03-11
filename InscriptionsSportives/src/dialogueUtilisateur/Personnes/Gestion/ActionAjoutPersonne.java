@@ -33,7 +33,7 @@ public class ActionAjoutPersonne implements Action{
 				break;
 			case 3:
 				mail = EntreesSorties.getString("Veuillez saisir le mail. 'q' pour quitter, 'r' pour revenir.");
-				mod = Utilitaires.getMod(mod, mail, false, false);
+				mod = Utilitaires.getMod(mod, mail, false, true);
 				break;
 			}
 		}while(mod < 4);

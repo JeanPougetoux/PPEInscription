@@ -30,10 +30,7 @@ public class ActionAjoutCompetition implements Action{
 			switch(mod){
 			case 1:
 				nomCompetition = EntreesSorties.getString("\nSaisir le nom de la compétition.'q' pour quitter.");
-				if(SaisiesConsole.verifChiffreChaine(nomCompetition))
-					mod = Utilitaires.getMod(mod, nomCompetition, false, false);
-				else
-					mod = mod - 2;
+				mod = Utilitaires.getMod(mod, nomCompetition, false, true);
 				break;
 			case 2:
 				dateCloture = SaisiesConsole.saisieDateCompetition("\nSaisir la date de clôture de la "

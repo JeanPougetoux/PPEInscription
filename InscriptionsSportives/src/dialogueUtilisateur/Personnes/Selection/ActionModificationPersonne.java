@@ -47,7 +47,7 @@ public class ActionModificationPersonne implements Action{
 				mail = EntreesSorties.getString("\nVeuillez saisir le mail. Ancien mail : " +
 									menu.getPersonne().getMail() + "\n'q' pour quitter, 'r' pour revenir,"
 											+ " laissez vide pour ne rien changer.");
-				mod = Utilitaires.getMod(mod, mail, true, false);
+				mod = Utilitaires.getMod(mod, mail, true, true);
 				if(!mail.isEmpty() && mod == 3){
 					menu.getPersonne().setMail(mail);
 					System.out.println("Le mail a bien été changé en : " + menu.getPersonne().getMail());
