@@ -44,11 +44,4 @@ public class InscriptionsTest {
 		Equipe lesGorets = inscriptions.createEquipe("Les gorets");
 		assertEquals(true, inscriptions.getCandidats().contains(lesGorets));
 	}
-
-	@Test
-	public void testToString() {
-		assertEquals("Candidats : " + inscriptions.getCandidats().toString()
-			+ "\nCompetitions  " + inscriptions.getCompetitions().toString(), 
-			inscriptions.toString());
-	}
 }

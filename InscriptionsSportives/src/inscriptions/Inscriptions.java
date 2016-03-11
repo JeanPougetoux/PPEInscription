@@ -252,43 +252,4 @@ public class Inscriptions implements Serializable
 		return "Candidats : " + getCandidats().toString()
 			+ "\nCompetitions  " + getCompetitions().toString();
 	}
-	
-	public static void main(String[] args)
-	{
-	
-		/*Competition flechettes = inscriptions.createCompetition("Mondial de fléchettes", LocalDate.parse("2016-05-25"), false);
-		Personne tony = inscriptions.createPersonne("Tony", "Dent de plomb", "azerty"), 
-				boris = inscriptions.createPersonne("Boris", "le Hachoir", "ytreza");
-		flechettes.add(tony);
-		Equipe lesManouches = inscriptions.createEquipe("Les Manouches");
-		lesManouches.add(boris);
-		lesManouches.add(tony);
-		*/
-		//Equipe truands = inscriptions.createEquipe("les truands");
-		
-		/*Inscriptions inscriptions = Inscriptions.getInscriptions();
-		
-		System.out.println(inscriptions.getCandidats());
-		System.out.println(inscriptions.getCompetitions());
-		
-		System.out.println("\n**************\n");
-		System.out.println(inscriptions.getCandidats());
-		System.out.println(inscriptions.getCompetitions());*/
-		
-	
-		/*inscriptions.remove(truands);
-		System.out.println("\n**************\n");
-		
-		System.out.println(inscriptions.getCandidats());
-		System.out.println("\n**************\n");
-		System.out.println(inscriptions.getCompetitions());
-		/*try
-		{
-			inscriptions.sauvegarder();
-		} 
-		catch (IOException e)
-		{
-			System.out.println("Sauvegarde impossible." + e);
-		}*/
-	}
 }

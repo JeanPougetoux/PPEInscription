@@ -86,7 +86,8 @@ public class SaisiesConsole {
 	public static char saisieSuppression(String texte){
 		do
 		{
-			char reponse = EntreesSorties.getString("Etes-vous sûr de vouloir supprimer " + texte + " ?\n"
+			char reponse = EntreesSorties.getString("Etes-vous sûr de vouloir supprimer " 
+													+ texte + " ?\n"
 													+ "Saisir 'o' ou 'n' : ").charAt(0);
 			if(reponse == 'o' || reponse == 'n'){
 				return reponse;

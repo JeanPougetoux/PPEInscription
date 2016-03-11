@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import dialogueUtilisateur.Utilitaires;
 import inscriptions.Competition;
+import inscriptions.Equipe;
 import inscriptions.Inscriptions;
 import inscriptions.Personne;
 
@@ -67,8 +68,10 @@ public class CandidatTest {
 	@Test
 	public void testToString() {
 		Inscriptions inscriptions = Inscriptions.getInscriptions();
-		Personne george = inscriptions.createPersonne(nomRobert, null, null);
-		assertEquals(Utilitaires.getMajuscule(george.getNom())+ " " + Utilitaires.getMajuscule(george.getPrenom()), george.toString());
+		Equipe equipe = inscriptions.createEquipe("les manouches");
+		assertEquals(Utilitaires.getMajuscule("Equipe '" + Utilitaires.getMajuscule(equipe.getNom()) + "'")
+				, equipe.toString());
+		Utilitaires.getMajuscule(equipe.toString());
 	}
 
 }
