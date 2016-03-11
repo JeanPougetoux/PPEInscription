@@ -22,15 +22,10 @@ import inscriptions.Inscriptions;
 import inscriptions.Personne;
 
 public class persistance {
-	
-	public static final String URLLOCALE = "localhost:3306/ppe_inscriptions";
-	public static final String URLSERVER = "mysql.m2l.local/jpougetoux";
-	public static String URLFINALE = "";
-	public static String USER = "";
-	public static String PASS = "";
-	private String url = "jdbc:mysql://" + URLFINALE;
-	private String user = USER;
-	private String passwd = PASS;
+
+	private String url = "jdbc:mysql://localhost:3306/ppe_inscriptions";
+	private String user = "root";
+	private String passwd = "";
 	private Connection conn = null;
 	private Statement statement = null;
 	java.sql.PreparedStatement prepare = null;
@@ -174,7 +169,7 @@ public class persistance {
 	}
 
 	/**
-	 * Remplis le tableau de candidats avec les personnes simples.
+	 * Remplis le tableau de candidats avec les personnes simples
 	 * @param inscription
 	 * @return
 	 * @throws SQLException

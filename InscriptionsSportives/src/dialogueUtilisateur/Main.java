@@ -1,6 +1,6 @@
 package dialogueUtilisateur;
-import donnees.persistance;
 
+import donnees.persistance;
 
 /**
  * Point d'entrée de l'application, décide du type de vue ainsi que de la manière dont
