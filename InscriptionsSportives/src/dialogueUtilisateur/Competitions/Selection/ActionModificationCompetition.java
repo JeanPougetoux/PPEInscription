@@ -35,7 +35,7 @@ public class ActionModificationCompetition implements Action{
 						System.out.println("Le nom a bien été changé.");
 					}
 					else{
-						mod = Utilitaires.getMod(mod, nom, true, false);
+						mod = Utilitaires.getMod(mod, nom, true, true);
 					}
 					break;
 				case 2: 

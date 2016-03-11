@@ -1,4 +1,5 @@
 package dialogueUtilisateur;
+import donnees.persistance;
 
 
 /**
@@ -14,9 +15,13 @@ public class Main {
 							GRAPHIQUE = 3;
 	
 	public static int choixDialogue = CONSOLE;
-	public static int choixPersistance = SERIALIZATION;
+	public static int choixPersistance = BDD;
 	
 	public static void main(String[] args) {
+		persistance.URLFINALE = persistance.URLSERVER;
+		persistance.USER = "jpougetoux";
+		persistance.PASS = "azerty";
+		
 		if(choixDialogue == CONSOLE){
 			new MenuDialogueConsole().start();
 		}
