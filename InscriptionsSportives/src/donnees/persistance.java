@@ -174,7 +174,7 @@ public class persistance {
 	}
 
 	/**
-	 * Remplis le tableau de candidats avec les personnes simples
+	 * Remplis le tableau de candidats avec les personnes simples.
 	 * @param inscription
 	 * @return
 	 * @throws SQLException
