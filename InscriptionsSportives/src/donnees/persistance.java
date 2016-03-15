@@ -226,20 +226,24 @@ public class persistance {
 	/**
 	 * Ajoute une équipe dans la base de données
 	 * @param nom
+	 * @throws SQLException 
 	 */
-	public void ajoutEquipe(String nom)
+	public void ajoutEquipe(String nom) 
 	{
-		try 
-		{
-			query = "call insertEquipe(?)";
-			prepare = conn.prepareStatement(query);
-			prepare.setString(1, nom);
-			prepare.executeQuery();
-		} catch (SQLException e) 
-		{
-			if (this.initialisation == false)
-				System.out.println("erreur, une équipe porte le même nom");
-		}
+		query = "call insertEquipe(?)";
+			try 
+			{
+				prepare = conn.prepareStatement(query);
+				prepare.setString(1, nom);
+				prepare.executeQuery();
+			} 
+			catch (SQLException e) {
+				// TODO Auto-generated catch block
+				if (!initialisation)
+					System.out.println("petite erreur");
+			}
+			
+		
 	}
 
 	/**

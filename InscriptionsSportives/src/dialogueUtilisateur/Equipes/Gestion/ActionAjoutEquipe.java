@@ -1,5 +1,7 @@
 package dialogueUtilisateur.Equipes.Gestion;
 
+import java.sql.SQLException;
+
 import dialogueUtilisateur.Utilitaires;
 import utilitaires.EntreesSorties;
 import utilitaires.ligneDeCommande.Action;
