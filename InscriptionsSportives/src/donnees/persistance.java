@@ -27,6 +27,7 @@ public class persistance {
 	private String passwd = PASS;
 	private Connection conn = null;
 	private Statement statement = null;
+	private boolean initialisation = false;
 	java.sql.PreparedStatement prepare = null;
 	ResultSet result = null;
 	String query;
@@ -60,12 +61,13 @@ public class persistance {
 	 */
 	public Inscriptions getBase(Inscriptions inscription) throws SQLException
 	{
+		this.initialisation = true;
 		inscription = getPersonnes(inscription);
 		inscription = getEquipes(inscription);
 		inscription = getCompetitions(inscription);
 		inscription = getJoueursEquipes(inscription);
 		inscription = getParticipantsCompetitions(inscription);
-		
+		this.initialisation = false;
 		return inscription;
 		
 	}
@@ -129,7 +131,7 @@ public class persistance {
 		}
 		catch (SQLException e) 
 		{
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		return inscription;
 	}
@@ -162,7 +164,7 @@ public class persistance {
 		} 
 		catch (SQLException e) 
 		{
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		return inscription;
 	}
@@ -235,7 +237,8 @@ public class persistance {
 			prepare.executeQuery();
 		} catch (SQLException e) 
 		{
-			e.printStackTrace();
+			if (this.initialisation == false)
+				System.out.println("erreur, une équipe porte le même nom");
 		}
 	}
 
@@ -257,7 +260,7 @@ public class persistance {
 			prepare.executeQuery();
 		} catch (SQLException e) 
 		{
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		
 	}
@@ -281,7 +284,7 @@ public class persistance {
 		} 
 		catch (SQLException e) 
 		{
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		
 	}
@@ -302,7 +305,7 @@ public class persistance {
 		catch (SQLException e) 
 		{
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		
 	}
@@ -319,7 +322,7 @@ public class persistance {
 		} 
 		catch (SQLException e) 
 		{
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 
@@ -337,7 +340,7 @@ public class persistance {
 		} 
 		catch (SQLException e) 
 		{
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		
 	}
@@ -362,7 +365,7 @@ public class persistance {
 		} 
 		catch (SQLException e) 
 		{
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 
@@ -396,7 +399,7 @@ public class persistance {
 		} 
 		catch (SQLException e) 
 		{
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 
