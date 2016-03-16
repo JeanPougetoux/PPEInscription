@@ -1,5 +1,8 @@
 package donnees;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -8,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Formatter;
 
 import inscriptions.Candidat;
 import inscriptions.Competition;
@@ -441,6 +445,11 @@ public class persistance {
 		}
 	}
 
+	/**
+	 * Permet l'insertion d'un candidat dans une équipe
+	 * @param mail
+	 * @param nom
+	 */
 	public void insererCandidatDansEquipe(String mail, String nom) {
 		try 
 		{ 
@@ -458,7 +467,13 @@ public class persistance {
 		}
 		
 	}
+	
 
+	/**
+	 * Permet de modifier le nom d'une compétition
+	 * @param comp
+	 * @param nom
+	 */
 	public void updateNomCompetition(Competition comp, String nom) {
 		try 
 		{ 
@@ -479,6 +494,11 @@ public class persistance {
 		
 	}
 
+	/**
+	 * Permet de modifier le nom d'un candidat
+	 * @param candidat
+	 * @param nom
+	 */
 	public void updateNomCandidat(Candidat candidat, String nom) {
 		try 
 		{ 
@@ -504,5 +524,75 @@ public class persistance {
 			//e.printStackTrace();
 		}
 		
+	}
+	
+	/**
+	 * Permet de savoir si la connexion a échoué ou résussi
+	 * @param utilisateur
+	 * @param password
+	 * @return
+	 */
+	public static boolean estConnecte(String utilisateur,String password)
+	{
+		ResultSet resultat = null;
+		String query = "call seConnecter(?,?)";
+		
+		try 
+		{
+			Connection conn = DriverManager.getConnection(URLFINALE, USER, PASS);
+			java.sql.PreparedStatement prepare = conn.prepareStatement(query);
+			prepare.setString(1, utilisateur);
+			prepare.setString(2, encryptPassword(password));
+			resultat = prepare.executeQuery();
+			return (resultat.first());
+		} 
+		catch (SQLException e) 
+		{
+			System.out.println("problème de connexion");
+		}
+		return false;
+	}
+
+	/**
+	 * Permet d'encrypter en SHA1 le mot de passe rentré par l'utilisateur
+	 * @param password
+	 * @return
+	 */
+	private static String encryptPassword(String password)
+	{
+	    String sha1 = "";
+	    try
+	    {
+	        MessageDigest crypt = MessageDigest.getInstance("SHA-1");
+	        crypt.reset();
+	        crypt.update(password.getBytes("UTF-8"));
+	        sha1 = byteToHex(crypt.digest());
+	    }
+	    catch(NoSuchAlgorithmException e)
+	    {
+	        e.printStackTrace();
+	    }
+	    catch(UnsupportedEncodingException e)
+	    {
+	        e.printStackTrace();
+	    }
+	    return sha1;
+	}
+
+	/**
+	 * Encrypte de byte à héxa
+	 * @param hash
+	 * @return
+	 */
+	private static String byteToHex(final byte[] hash)
+	{
+	    Formatter formatter = new Formatter();
+	    for (byte b : hash)
+	    {
+	        formatter.format("%02x", b);
+	    }
+	    String result = formatter.toString();
+	    formatter.close();
+	    return result;
 	}
 }
