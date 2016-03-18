@@ -37,10 +37,6 @@ public class persistance {
 	String query;
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	
-	
-	
-	
-    
     /**
      * Cree une connexion à la base de données
      */
