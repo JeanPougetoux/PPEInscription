@@ -106,11 +106,11 @@ public class Inscriptions implements Serializable
 	 * @throws SQLException 
 	 */
 	
-	public Equipe createEquipe(String nom)
+	public Equipe createEquipe(String nom) throws SQLException
 	{
-		Equipe equipe = new Equipe(this, nom);
 		if (persistance == BDD)
 			pers.ajoutEquipe(nom);
+		Equipe equipe = new Equipe(this, nom);
 		candidats.add(equipe);
 		return equipe;
 	}

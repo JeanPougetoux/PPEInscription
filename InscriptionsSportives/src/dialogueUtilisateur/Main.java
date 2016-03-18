@@ -1,7 +1,6 @@
 package dialogueUtilisateur;
 
 import donnees.persistance;
-import mail.GestionMail;
 
 /**
  * Point d'entrée de l'application, décide du type de vue ainsi que de la manière dont
@@ -19,8 +18,6 @@ public class Main {
 	public static int choixPersistance = BDD;
 	
 	public static void main(String[] args) {
-		GestionMail.sendMessage("salut", "voici un test", "thomasecalle@hotmail.fr");
-		/*
 		persistance.URLFINALE = persistance.URLLOCALE;
 		persistance.USER = "root";
 		persistance.PASS = "";
@@ -30,7 +27,7 @@ public class Main {
 		}
 		else if(choixDialogue == GRAPHIQUE){
 			
-		}*/
+		}
 	}
 
 }

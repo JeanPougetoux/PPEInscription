@@ -22,8 +22,16 @@ public class ActionAjoutEquipe implements Action{
 	public void optionSelectionnee(){
 		String nomEquipe = EntreesSorties.getString("\nSaisir le nom de l'équipe.\n'a' pour annuler.");
 		if(!nomEquipe.isEmpty() && !nomEquipe.equals("a")){
-			menu.getInscriptions().createEquipe(nomEquipe);
-			System.out.println("Equipe bien ajoutée.");
+			try 
+			{
+				menu.getInscriptions().createEquipe(nomEquipe);
+				System.out.println("Equipe bien ajoutée.");
+			}
+			catch (SQLException e) 
+			{
+				System.out.println("petite erreur");
+			}
+			
 			Utilitaires.sauvegarde(menu.getInscriptions());
 		}
 	}

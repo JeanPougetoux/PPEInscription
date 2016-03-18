@@ -232,22 +232,16 @@ public class persistance {
 	 * @param nom
 	 * @throws SQLException 
 	 */
-	public void ajoutEquipe(String nom) 
+	public void ajoutEquipe(String nom) throws SQLException 
 	{
-		query = "call insertEquipe(?)";
-			try 
-			{
-				prepare = conn.prepareStatement(query);
-				prepare.setString(1, nom);
-				prepare.executeQuery();
-			} 
-			catch (SQLException e) {
-				// TODO Auto-generated catch block
-				if (!initialisation)
-					System.out.println("petite erreur");
-			}
+		if (!initialisation)
+		{
+			query = "call insertEquipe(?)";
 			
-		
+			prepare = conn.prepareStatement(query);
+			prepare.setString(1, nom);
+			prepare.executeQuery();
+		}
 	}
 
 	/**
