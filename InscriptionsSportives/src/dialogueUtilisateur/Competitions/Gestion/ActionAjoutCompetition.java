@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import dialogueUtilisateur.SaisiesConsole;
 import dialogueUtilisateur.Utilitaires;
+import exceptions.ExceptionNomCompetition;
 import inscriptions.Inscriptions;
 import utilitaires.EntreesSorties;
 import utilitaires.ligneDeCommande.Action;
@@ -46,8 +47,16 @@ public class ActionAjoutCompetition implements Action{
 			}
 		}while(mod < 4);
 		if(mod < 5){
-			inscriptions.createCompetition(nomCompetition, (LocalDate)dateCloture, (boolean)estEnEquipe);
-			System.out.println("\nLa compétition est bien ajoutée.");
+			try 
+			{
+				inscriptions.createCompetition(nomCompetition, (LocalDate)dateCloture, (boolean)estEnEquipe);
+				System.out.println("\nLa compétition est bien ajoutée.");
+			}
+			catch (ExceptionNomCompetition e) 
+			{
+				System.out.println(e.toString());
+			}
+			
 			Utilitaires.sauvegarde(inscriptions);
 		}
 	}

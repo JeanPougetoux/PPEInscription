@@ -6,4 +6,10 @@ public class ExceptionPrincipale extends Exception {
 	{
 		
 	}
+	
+	@Override
+	public String toString() 
+	{
+		return "\n Attention : L'application a décelé une erreur :";
+	}
 }

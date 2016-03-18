@@ -6,6 +6,7 @@ import java.util.TreeSet;
 
 import dialogueUtilisateur.SaisiesConsole;
 import dialogueUtilisateur.Utilitaires;
+import exceptions.ExceptionRetraitPersonneEquipe;
 
 /**
  * Représente une personne physique pouvant s'inscrire à une compétition.
@@ -82,7 +83,7 @@ public class Personne extends Candidat
 		return equipes.add(equipe);
 	}
 
-	boolean remove(Equipe equipe)
+	boolean remove(Equipe equipe) 
 	{
 		if(super.getInscription().persistance == super.getInscription().BDD)
 			super.getInscription().pers.retirerPersonneEquipe(this.getMail(),equipe.getNom());
@@ -90,7 +91,7 @@ public class Personne extends Candidat
 	}
 	
 	@Override
-	public void delete()
+	public void delete() throws ExceptionRetraitPersonneEquipe 
 	{
 		super.delete();
 		for (Equipe e : equipes)

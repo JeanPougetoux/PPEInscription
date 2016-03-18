@@ -3,6 +3,7 @@ package dialogueUtilisateur.Equipes.Gestion;
 import java.sql.SQLException;
 
 import dialogueUtilisateur.Utilitaires;
+import exceptions.ExceptionNomEquipe;
 import utilitaires.EntreesSorties;
 import utilitaires.ligneDeCommande.Action;
 
@@ -27,9 +28,9 @@ public class ActionAjoutEquipe implements Action{
 				menu.getInscriptions().createEquipe(nomEquipe);
 				System.out.println("Equipe bien ajoutée.");
 			}
-			catch (SQLException e) 
+			catch (ExceptionNomEquipe e) 
 			{
-				System.out.println("petite erreur");
+				System.out.println(e.toString());
 			}
 			
 			Utilitaires.sauvegarde(menu.getInscriptions());

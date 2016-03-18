@@ -14,6 +14,9 @@ import java.util.TreeSet;
 
 import dialogueUtilisateur.Main;
 import donnees.persistance;
+import exceptions.ExceptionMailPersonne;
+import exceptions.ExceptionNomCompetition;
+import exceptions.ExceptionNomEquipe;
 /**
  * Point d'entrée dans l'application, un seul objet de type Inscription
  * permet de gérer les compétitions, candidats (de type equipe ou personne)
@@ -65,10 +68,11 @@ public class Inscriptions implements Serializable
 	 * @param dateCloture
 	 * @param enEquipe
 	 * @return
+	 * @throws ExceptionNomCompetition 
 	 */
 	
 	public Competition createCompetition(String nom, 
-			LocalDate dateCloture, boolean enEquipe)
+			LocalDate dateCloture, boolean enEquipe) throws ExceptionNomCompetition
 	{
 		Competition competition = new Competition(this, nom, dateCloture, enEquipe);
 		if (persistance == BDD)
@@ -85,9 +89,10 @@ public class Inscriptions implements Serializable
 	 * @param prenom
 	 * @param mail
 	 * @return
+	 * @throws ExceptionMailPersonne 
 	 */
 	
-	public Personne createPersonne(String nom, String prenom, String mail)
+	public Personne createPersonne(String nom, String prenom, String mail) throws ExceptionMailPersonne
 	{
 		Personne personne = new Personne(this, nom, prenom, mail);
 		if (persistance == BDD)
@@ -104,9 +109,10 @@ public class Inscriptions implements Serializable
 	 * @param mail
 	 * @return
 	 * @throws SQLException 
+	 * @throws ExceptionNomEquipe 
 	 */
 	
-	public Equipe createEquipe(String nom) throws SQLException
+	public Equipe createEquipe(String nom) throws  ExceptionNomEquipe
 	{
 		if (persistance == BDD)
 			pers.ajoutEquipe(nom);

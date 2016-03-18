@@ -13,6 +13,11 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Formatter;
 
+import exceptions.ExceptionMailPersonne;
+import exceptions.ExceptionNomCompetition;
+import exceptions.ExceptionNomEquipe;
+import exceptions.ExceptionPrincipale;
+import exceptions.ExceptionRetraitPersonneEquipe;
 import inscriptions.Candidat;
 import inscriptions.Competition;
 import inscriptions.Equipe;
@@ -37,6 +42,11 @@ public class persistance {
 	String query;
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	
+	
+	public boolean getInitialisation()
+	{
+		return initialisation;
+	}
     /**
      * Cree une connexion à la base de données
      */
@@ -58,8 +68,10 @@ public class persistance {
 	 * @param inscription
 	 * @return
 	 * @throws SQLException
+	 * @throws ExceptionNomEquipe 
+	 * @throws ExceptionMailPersonne 
 	 */
-	public Inscriptions getBase(Inscriptions inscription) throws SQLException
+	public Inscriptions getBase(Inscriptions inscription) throws SQLException, ExceptionPrincipale
 	{
 		this.initialisation = true;
 		inscription = getPersonnes(inscription);
@@ -174,8 +186,9 @@ public class persistance {
 	 * @param inscription
 	 * @return
 	 * @throws SQLException
+	 * @throws ExceptionMailPersonne 
 	 */
-	private Inscriptions getPersonnes(Inscriptions inscription) throws SQLException
+	private Inscriptions getPersonnes(Inscriptions inscription) throws SQLException, ExceptionMailPersonne
 	
 	{
 		result = statement.executeQuery("call selectPersonnes()");
@@ -191,12 +204,14 @@ public class persistance {
 	 * @param inscription
 	 * @return
 	 * @throws SQLException
+	 * @throws ExceptionNomEquipe 
 	 */
-	private Inscriptions getEquipes(Inscriptions inscription) throws SQLException
+	private Inscriptions getEquipes(Inscriptions inscription) throws SQLException, ExceptionNomEquipe
 	
 	{
 		result = statement.executeQuery("call selectEquipes()");
-		while (result.next()) {
+		while (result.next()) 
+		{
 			
 			inscription.createEquipe(result.getString("candidat_nom"));
 			
@@ -210,8 +225,9 @@ public class persistance {
 	 * @param inscription
 	 * @return
 	 * @throws SQLException
+	 * @throws ExceptionNomCompetition 
 	 */
-	private Inscriptions getCompetitions(Inscriptions inscription) throws SQLException
+	private Inscriptions getCompetitions(Inscriptions inscription) throws SQLException, ExceptionNomCompetition
 	
 	{
 		result = statement.executeQuery("call selectCompetitions()");
@@ -226,17 +242,26 @@ public class persistance {
 	/**
 	 * Ajoute une équipe dans la base de données
 	 * @param nom
+	 * @throws ExceptionNomEquipe 
 	 * @throws SQLException 
 	 */
-	public void ajoutEquipe(String nom) throws SQLException 
+	public void ajoutEquipe(String nom) throws ExceptionNomEquipe  
 	{
-		if (!initialisation)
+		if (!getInitialisation())
 		{
 			query = "call insertEquipe(?)";
 			
-			prepare = conn.prepareStatement(query);
-			prepare.setString(1, nom);
-			prepare.executeQuery();
+			try 
+			{
+				prepare = conn.prepareStatement(query);
+				prepare.setString(1, nom.toLowerCase());
+				prepare.executeQuery();
+			}
+			catch (SQLException e) 
+			{
+				throw new ExceptionNomEquipe(nom);
+			}
+			
 		}
 	}
 
@@ -245,21 +270,26 @@ public class persistance {
 	 * @param nom
 	 * @param prenom
 	 * @param mail
+	 * @throws ExceptionMailPersonne 
 	 */
-	public void ajoutPersonne(String nom, String prenom, String mail) 
+	public void ajoutPersonne(String nom, String prenom, String mail) throws ExceptionMailPersonne 
 	{
-		try 
+		if(!getInitialisation())
 		{
-			query = "call insertPersonne(?,?,?)";
-			prepare = conn.prepareStatement(query);
-			prepare.setString(1, nom);
-			prepare.setString(2, prenom);
-			prepare.setString(3, mail);
-			prepare.executeQuery();
-		} catch (SQLException e) 
-		{
-			//e.printStackTrace();
+			try 
+			{
+				query = "call insertPersonne(?,?,?)";
+				prepare = conn.prepareStatement(query);
+				prepare.setString(1, nom);
+				prepare.setString(2, prenom);
+				prepare.setString(3, mail);
+				prepare.executeQuery();
+			} catch (SQLException e) 
+			{
+				throw new ExceptionMailPersonne(mail);
+			}
 		}
+		
 		
 	}
 
@@ -268,22 +298,27 @@ public class persistance {
 	 * @param nom
 	 * @param dateCloture
 	 * @param enEquipe
+	 * @throws ExceptionNomCompetition 
 	 */
-	public void ajoutCompetition(String nom, LocalDate dateCloture, boolean enEquipe) 
+	public void ajoutCompetition(String nom, LocalDate dateCloture, boolean enEquipe) throws ExceptionNomCompetition 
 	{
-		try 
-		{ 
-			query = "call insertCompetition(?,?,?)";
-			prepare = conn.prepareStatement(query);
-			prepare.setString(1, nom);
-			prepare.setDate(2,Date.valueOf(dateCloture));
-			prepare.setBoolean(3,enEquipe);
-			prepare.executeQuery();
-		} 
-		catch (SQLException e) 
+		if(!getInitialisation())
 		{
-			//e.printStackTrace();
+			try 
+			{ 
+				query = "call insertCompetition(?,?,?)";
+				prepare = conn.prepareStatement(query);
+				prepare.setString(1, nom.toLowerCase());
+				prepare.setDate(2,Date.valueOf(dateCloture));
+				prepare.setBoolean(3,enEquipe);
+				prepare.executeQuery();
+			} 
+			catch (SQLException e) 
+			{
+				throw new ExceptionNomCompetition(nom);
+			}
 		}
+		
 		
 	}
 	
@@ -347,24 +382,25 @@ public class persistance {
 	 * Retire une personne d'une équipe, si l'équie est alors vide, celle ci est désinscrite des compétitions
 	 * @param mail
 	 * @param nom
+	 * @throws ExceptionRetraitPersonneEquipe 
 	 */
-	public void retirerPersonneEquipe(String mail, String nom)
+	public void retirerPersonneEquipe(String mail, String nom) 
 	{
-		
-		try 
-		{
-
 			query = "call retirerPersonneEquipe(?,?)";
-			prepare = conn.prepareStatement(query);
-			prepare.setString(1,mail);
-			prepare.setString(2,nom);
-		
-			prepare.executeQuery();
-		} 
-		catch (SQLException e) 
-		{
-			//e.printStackTrace();
-		}
+			try 
+			{
+				prepare = conn.prepareStatement(query);
+				prepare.setString(1,mail);
+				prepare.setString(2,nom);
+			
+				prepare.executeQuery();
+			} 
+			catch (SQLException e) 
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 	}
 
 	

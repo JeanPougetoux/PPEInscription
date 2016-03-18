@@ -1,6 +1,7 @@
 package dialogueUtilisateur.Personnes.Gestion;
 
 import dialogueUtilisateur.Utilitaires;
+import exceptions.ExceptionMailPersonne;
 import utilitaires.EntreesSorties;
 import utilitaires.ligneDeCommande.Action;
 
@@ -38,8 +39,16 @@ public class ActionAjoutPersonne implements Action{
 			}
 		}while(mod < 4);
 		if(mod < 5){
-			menu.getInscriptions().createPersonne(nom, prenom, mail);
-			System.out.println("\nLa personne vient bien d'être créée.");
+			try 
+			{
+				menu.getInscriptions().createPersonne(nom, prenom, mail);
+				System.out.println("\nLa personne vient bien d'être créée.");
+			} 
+			catch (ExceptionMailPersonne e) 
+			{
+				System.out.println(e.toString());
+			}
+			
 			Utilitaires.sauvegarde(menu.getInscriptions());
 		}
 	}

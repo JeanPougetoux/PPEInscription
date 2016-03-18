@@ -7,6 +7,7 @@ import java.util.TreeSet;
 
 import dialogueUtilisateur.SaisiesConsole;
 import dialogueUtilisateur.Utilitaires;
+import exceptions.ExceptionRetraitPersonneEquipe;
 
 /**
  * Candidat à  un événement sportif, soit une personne physique, soit une équipe.
@@ -81,9 +82,10 @@ public abstract class Candidat implements Comparable<Candidat>, Serializable
 
 	/**
 	 * Supprime un candidat de l'application.
+	 * @throws ExceptionRetraitPersonneEquipe 
 	 */
 	
-	public void delete()
+	public void delete() throws ExceptionRetraitPersonneEquipe
 	{
 		for (Competition c : competitions)
 			c.remove(this);

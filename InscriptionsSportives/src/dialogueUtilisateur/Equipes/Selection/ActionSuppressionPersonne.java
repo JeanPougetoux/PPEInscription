@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dialogueUtilisateur.Utilitaires;
+import exceptions.ExceptionRetraitPersonneEquipe;
 import inscriptions.Equipe;
 import inscriptions.Inscriptions;
 import inscriptions.Personne;
+import inscriptions.StatutSuppression;
 import utilitaires.ligneDeCommande.Action;
 import utilitaires.ligneDeCommande.ActionListe;
 import utilitaires.ligneDeCommande.Liste;
@@ -39,8 +41,11 @@ public class ActionSuppressionPersonne implements Action{
 			}
 			public void elementSelectionne(int indice, Personne element)
 			{
-				equipe.remove(element);
-				System.out.println(element.getPrenom() + " " + element.getNom() + " bien supprimé de l'équipe.");
+				StatutSuppression s = equipe.remove(element);
+				System.out.println(s.getMessage());
+				//System.out.println(element.getPrenom() + " " + element.getNom() + " bien supprimé de l'équipe.");
+					
+				
 				Utilitaires.sauvegarde(inscriptions);
 			}
 		});

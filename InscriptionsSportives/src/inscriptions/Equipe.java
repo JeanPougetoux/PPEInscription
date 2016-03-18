@@ -4,6 +4,8 @@ import java.util.Collections;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import exceptions.ExceptionRetraitPersonneEquipe;
+
 /**
  * Représente une Equipe. C'est-à-dire un ensemble de personnes pouvant 
  * s'inscrire à une compétition.
@@ -48,9 +50,10 @@ public class Equipe extends Candidat
 	 * Si l'équipe devient alors vide, elle est désinscrite des compétitions  
 	 * @param membre
 	 * @return
+	 * @throws ExceptionRetraitPersonneEquipe 
 	 */
 	
-	public boolean remove(Personne membre)
+	public StatutSuppression remove(Personne membre) 
 	{		
 		membre.remove(this);
 		membres.remove(membre);
@@ -60,12 +63,14 @@ public class Equipe extends Candidat
 			{
 				c.remove(this);
 			}
+			return new StatutSuppression(true,"Attention, votre équipe étant vide, elle a été automatiquement"
+					+ "désinscrite de ses compétitions");
 		}
-		return true;
+		return new StatutSuppression(true,"personne "+ membre.getNom() +" bien supprimée");
 	}
 	
 	@Override
-	public void delete()
+	public void delete() throws ExceptionRetraitPersonneEquipe
 	{
 		super.delete();
 	}
