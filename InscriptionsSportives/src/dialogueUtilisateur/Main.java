@@ -1,6 +1,7 @@
 package dialogueUtilisateur;
 
 import donnees.persistance;
+import interfaceGraphique.controls.MonAppli;
 
 /**
  * Point d'entrée de l'application, décide du type de vue ainsi que de la manière dont
@@ -14,8 +15,8 @@ public class Main {
 							CONSOLE = 2,
 							GRAPHIQUE = 3;
 	
-	public static int choixDialogue = CONSOLE;
-	public static int choixPersistance = BDD;
+	public static int choixDialogue = GRAPHIQUE;
+	public static int choixPersistance = SERIALIZATION;
 	
 	public static void main(String[] args) {
 		persistance.URLFINALE = persistance.URLLOCALE;
@@ -26,7 +27,7 @@ public class Main {
 			new MenuDialogueConsole().start();
 		}
 		else if(choixDialogue == GRAPHIQUE){
-			
+			MonAppli.lancer(args);
 		}
 	}
 
