@@ -537,10 +537,10 @@ public class persistance {
 			}
 			else
 			{
-				/*query = "call updateNomEquipe(?,?)";
+				query = "call updateNomEquipe(?,?)";
 				prepare = conn.prepareStatement(query);
 				prepare.setString(1, nom);
-				prepare.setString(2,candidat.get());*/
+				prepare.setString(2,candidat.getNom());
 			}
 			prepare.executeQuery();
 			
