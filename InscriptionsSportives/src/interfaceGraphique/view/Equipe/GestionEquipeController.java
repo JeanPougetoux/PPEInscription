@@ -1,6 +1,12 @@
 package interfaceGraphique.view.Equipe;
 
+import java.io.IOException;
+
+import exceptions.ExceptionRetraitPersonneEquipe;
 import inscriptions.Equipe;
+import interfaceGraphique.controls.ModaleSuppression;
+import interfaceGraphique.controls.MonAppli;
+import interfaceGraphique.controls.Equipe.AjoutEquipe;
 import interfaceGraphique.controls.Equipe.GestionEquipe;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
@@ -67,7 +73,31 @@ public class GestionEquipeController {
     
     public void setEquipeActive(Equipe equipe){
     	equipeActive = equipe;   
-//    	gererCandidats.setOnAction(new ActionGererCandidats(competActive));
+    }
+    
+    public void actionBoutonAjout(){
+    	AjoutEquipe fenetreAjout = new AjoutEquipe(stageGestion);
+    	fenetreAjout.show();
+    }
+    
+    public void actionBoutonSupprimer(){
+    	ModaleSuppression modaleSupp = new ModaleSuppression(this);
+    	modaleSupp.show();
+    }
+    
+    public void deleteElement(){    	
+		stageGestion.getList().remove(equipeActive);
+		try {
+			equipeActive.delete();
+		} catch (ExceptionRetraitPersonneEquipe e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+    	try {
+			MonAppli.getInscriptions().sauvegarder();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
 }
 

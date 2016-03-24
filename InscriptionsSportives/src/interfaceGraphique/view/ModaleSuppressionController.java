@@ -2,6 +2,7 @@ package interfaceGraphique.view;
 
 import interfaceGraphique.controls.ModaleSuppression;
 import interfaceGraphique.view.Competition.GestionCompetitionsController;
+import interfaceGraphique.view.Equipe.GestionEquipeController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -13,10 +14,10 @@ public class ModaleSuppressionController {
 	private Button oui;
 	@FXML
 	private Button non;
-	private GestionCompetitionsController stageGestion;
+	private Object stageGestion;
 	private ModaleSuppression stageDelete;
 	
-	public void setStage(GestionCompetitionsController stageGestion, ModaleSuppression stageDelete){
+	public void setStage(Object stageGestion, ModaleSuppression stageDelete){
 		this.stageGestion = stageGestion;
 		this.stageDelete = stageDelete;
 		oui.setOnAction(getActionOui());
@@ -27,7 +28,10 @@ public class ModaleSuppressionController {
 		return new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				stageGestion.deleteElement();
+				if(stageGestion instanceof GestionCompetitionsController)
+					((GestionCompetitionsController)stageGestion).deleteElement();
+				else if(stageGestion instanceof GestionEquipeController)
+					((GestionEquipeController)stageGestion).deleteElement();
 				stageDelete.close();
 			}
 		};
