@@ -1,4 +1,4 @@
-package interfaceGraphique.view;
+package interfaceGraphique.view.Competition;
 
 import inscriptions.Competition;
 import inscriptions.Equipe;
@@ -8,25 +8,16 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
-public class modificationEquipeController {
+public class ModificationEquipeController {
 
-	
-	
+
 	@FXML
     private TextField nomEquipe;
+	@FXML
+	private Button valider;
+	@FXML
+	private Button annuler;
 	
-	
-	 @FXML
-	    private void handleValider() 
-	 {
-	        
-	 }
-	 
-	 @FXML
-	    private void handleAnnuler() 
-	 {
-	        
-	 }
 	
 	
 }

@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #F0FFF0;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="interfaceGraphique.view.GestionCompetitionsController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #F0FFF0;" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="interfaceGraphique.view.Competition.GestionCompetitionsController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="71.0" minWidth="10.0" prefWidth="45.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="67.0" />
@@ -38,7 +38,7 @@
             <Font name="Arial Black" size="26.0" />
          </font>
       </Label>
-      <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="167.0" text="Ajout d'une compétition" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="2">
+      <Button fx:id="ajoutCompetition" mnemonicParsing="false" prefHeight="25.0" prefWidth="167.0" text="Ajout d'une compétition" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets left="31.0" />
          </GridPane.margin>
@@ -50,20 +50,25 @@
             <TableColumn fx:id="teamColumn" editable="false" maxWidth="102.0" minWidth="102.0" prefWidth="102.0" resizable="false" text="En équipe" />
         </columns>
       </TableView>
-      <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="113.0" text="Gérer candidats" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="3" GridPane.valignment="TOP">
+      <Button fx:id="gererCandidats" mnemonicParsing="false" prefHeight="25.0" prefWidth="113.0" text="Gérer candidats" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="3" GridPane.valignment="TOP">
          <GridPane.margin>
             <Insets left="20.0" />
          </GridPane.margin>
       </Button>
-      <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="113.0" text="Modifier" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="4" GridPane.valignment="TOP">
+      <Button fx:id="modifier" mnemonicParsing="false" prefHeight="25.0" prefWidth="113.0" text="Modifier" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="4" GridPane.valignment="TOP">
          <GridPane.margin>
             <Insets left="20.0" />
          </GridPane.margin>
       </Button>
-      <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="113.0" text="Supprimer" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="5" GridPane.valignment="TOP">
+      <Button fx:id="supprimer" mnemonicParsing="false" prefHeight="25.0" prefWidth="113.0" text="Supprimer" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="5" GridPane.valignment="TOP">
          <GridPane.margin>
             <Insets left="20.0" />
          </GridPane.margin>
       </Button>
+      <Label fx:id="labelCompetition" prefHeight="17.0" prefWidth="262.0" text="Label" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2">
+         <font>
+            <Font name="Arial Italic" size="17.0" />
+         </font>
+      </Label>
    </children>
 </GridPane>

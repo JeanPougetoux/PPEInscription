@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 
 public class MonAppli extends Application{
 
-	public static final String COLORFENETRE = "#8A2BE2";
+	public static final String COLORFENETRE = "#DCDCDC";
 	private static Inscriptions inscriptions = Inscriptions.getInscriptions();
 
 	public static void lancer(String[] args){

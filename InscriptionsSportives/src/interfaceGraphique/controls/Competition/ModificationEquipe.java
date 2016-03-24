@@ -1,9 +1,10 @@
-package interfaceGraphique.controls;
+package interfaceGraphique.controls.Competition;
 
 import java.io.IOException;
 
-import interfaceGraphique.view.GestionCompetitionsController;
-import interfaceGraphique.view.modificationEquipeController;
+import interfaceGraphique.controls.MonAppli;
+import interfaceGraphique.view.Competition.GestionCompetitionsController;
+import interfaceGraphique.view.Competition.ModificationEquipeController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -21,7 +22,7 @@ public class ModificationEquipe extends Stage{
 	 public void initLayouts() {
 	        try {
 	            FXMLLoader loader = new FXMLLoader();
-	            loader.setLocation(ModificationEquipe.class.getResource("../view/modificationEquipe.fxml"));
+	            loader.setLocation(ModificationEquipe.class.getResource("../../view/Competition/modificationEquipe.fxml"));
 	            GridPane panelPrincipal = (GridPane) loader.load();
 	            panelPrincipal.setStyle("-fx-background-color : " + MonAppli.COLORFENETRE + ";");
 	            rootLayout = new BorderPane();
@@ -31,7 +32,7 @@ public class ModificationEquipe extends Stage{
 	            this.setScene(scene);
 	            rootLayout.setCenter(panelPrincipal);
 	            
-	            modificationEquipeController controller = loader.getController();	            
+	            ModificationEquipeController controller = loader.getController();	            
 	        } catch (IOException e) {
 	            e.printStackTrace();
 	        }

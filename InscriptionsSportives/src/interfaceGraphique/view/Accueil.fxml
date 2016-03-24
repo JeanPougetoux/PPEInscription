@@ -22,9 +22,9 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Button fx:id="competition" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="COMPETITIONS" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-      <Button fx:id="equipe" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="EQUIPES" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-      <Button fx:id="personne" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="PERSONNES" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+      <Button fx:id="competition" mnemonicParsing="false" onAction="#boutonCompetition" prefHeight="40.0" prefWidth="150.0" text="COMPETITIONS" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+      <Button fx:id="equipe" mnemonicParsing="false" onAction="#boutonEquipe" prefHeight="40.0" prefWidth="150.0" text="EQUIPES" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+      <Button fx:id="personne" mnemonicParsing="false" onAction="#boutonPersonne" prefHeight="40.0" prefWidth="150.0" text="PERSONNES" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
       <Label prefHeight="42.0" prefWidth="458.0" text="Bienvenue dans l'application" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
          <font>
             <Font name="Arial Black" size="28.0" />

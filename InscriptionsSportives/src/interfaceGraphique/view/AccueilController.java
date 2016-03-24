@@ -1,7 +1,8 @@
 package interfaceGraphique.view;
 
 import interfaceGraphique.controls.Accueil;
-import interfaceGraphique.controls.GestionCompetitions;
+import interfaceGraphique.controls.Competition.GestionCompetitions;
+import interfaceGraphique.controls.Equipe.GestionEquipe;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -22,16 +23,20 @@ public class AccueilController {
 	
 	@FXML
 	private void initialize(){
-		competition.setOnAction(new ActionCompetition());
+
 	}	
-}
-
-class ActionCompetition implements EventHandler<ActionEvent>{
-
-	@Override
-	public void handle(ActionEvent event) {
+	
+	public void boutonCompetition(){
 		GestionCompetitions fenetreCompetition = new GestionCompetitions();
 		fenetreCompetition.show();
 	}
 	
+	public void boutonEquipe(){
+		GestionEquipe fenetreEquipe = new GestionEquipe();
+		fenetreEquipe.show();
+	}
+
+	public void boutonPersonne(){
+	
+}
 }
