@@ -8,6 +8,7 @@ import java.util.TreeSet;
 
 import dialogueUtilisateur.SaisiesConsole;
 import dialogueUtilisateur.Utilitaires;
+import exceptions.ExceptionCompetition;
 
 /**
  * Représente une compétition, c'est-à-dire un ensemble de candidats 
@@ -88,9 +89,13 @@ public class Competition implements Comparable<Competition>, Serializable
 	/**
 	 * Permet de changer le boolean correspondant au fait que la compétition autorise les équipes ou non.
 	 * @param enEquipe
+	 * @throws ExceptionCompetition 
 	 */
-	public void setEstEnEquipe(boolean enEquipe){
+	public void setEstEnEquipe(boolean enEquipe) throws ExceptionCompetition{
+		if (inscriptions.persistance == inscriptions.BDD)
+			inscriptions.pers.updateCompetitionBoolean(enEquipe,nom);
 		this.enEquipe = enEquipe;
+		
 	}
 	
 	/**
@@ -103,7 +108,12 @@ public class Competition implements Comparable<Competition>, Serializable
 	{
 		// TODO vérifier que l'on avance pas la date.
 		if(this.getDateCloture().isBefore(dateCloture))
+		{
+			if (inscriptions.persistance == inscriptions.BDD)
+				inscriptions.pers.updateDateCompetition(dateCloture,nom);
 			this.dateCloture = dateCloture;
+		}
+			
 	}
 	
 	/**

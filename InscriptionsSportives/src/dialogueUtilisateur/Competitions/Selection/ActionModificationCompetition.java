@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import dialogueUtilisateur.SaisiesConsole;
 import dialogueUtilisateur.Utilitaires;
+import exceptions.ExceptionCompetition;
 import utilitaires.EntreesSorties;
 import utilitaires.ligneDeCommande.Action;
 
@@ -61,7 +62,12 @@ public class ActionModificationCompetition implements Action{
 					
 					if(estEnEquipe instanceof Boolean){
 						if(menu.getCompetition().getCandidats().isEmpty()){
-							menu.getCompetition().setEstEnEquipe((boolean)estEnEquipe);
+							try {
+								menu.getCompetition().setEstEnEquipe((boolean)estEnEquipe);
+							} catch (ExceptionCompetition e) {
+								// TODO Auto-generated catch block
+								System.out.println(e.getMessage());
+							}
 							System.out.println("Le mode de compétition est bien changé.");
 						}
 						else{

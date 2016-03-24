@@ -14,7 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Formatter;
 
 import exceptions.ExceptionMailPersonne;
-import exceptions.ExceptionNomCompetition;
+import exceptions.ExceptionCompetition;
 import exceptions.ExceptionNomEquipe;
 import exceptions.ExceptionPrincipale;
 import exceptions.ExceptionRetraitPersonneEquipe;
@@ -227,7 +227,7 @@ public class persistance {
 	 * @throws SQLException
 	 * @throws ExceptionNomCompetition 
 	 */
-	private Inscriptions getCompetitions(Inscriptions inscription) throws SQLException, ExceptionNomCompetition
+	private Inscriptions getCompetitions(Inscriptions inscription) throws SQLException, ExceptionCompetition
 	
 	{
 		result = statement.executeQuery("call selectCompetitions()");
@@ -300,7 +300,7 @@ public class persistance {
 	 * @param enEquipe
 	 * @throws ExceptionNomCompetition 
 	 */
-	public void ajoutCompetition(String nom, LocalDate dateCloture, boolean enEquipe) throws ExceptionNomCompetition 
+	public void ajoutCompetition(String nom, LocalDate dateCloture, boolean enEquipe) throws ExceptionCompetition 
 	{
 		if(!getInitialisation())
 		{
@@ -315,7 +315,7 @@ public class persistance {
 			} 
 			catch (SQLException e) 
 			{
-				throw new ExceptionNomCompetition(nom);
+				throw new ExceptionCompetition(nom,"nom");
 			}
 		}
 		
@@ -519,7 +519,56 @@ public class persistance {
 		}
 		
 	}
-
+	/**
+	 * Permet de modifier la date d'une compétition
+	 * @param comp
+	 * @param nom
+	 */
+	public void updateDateCompetition(LocalDate dateCloture, String nom) {
+		try 
+		{ 
+			
+			query = "call updateDateCompetition(?,?)";
+			prepare = conn.prepareStatement(query);
+			prepare.setDate(1,Date.valueOf(dateCloture));
+			prepare.setString(2,nom);
+		
+		
+			
+			prepare.executeQuery();
+		} 
+		catch (SQLException e) 
+		{
+			//e.printStackTrace();
+		}
+		
+	}
+	
+	/**
+	 * Permet de modifier le booleen de compettiion
+	 * @param comp
+	 * @param nom
+	 * @throws ExceptionCompetition 
+	 */
+	public void updateCompetitionBoolean(boolean bool, String nom) throws ExceptionCompetition {
+		try 
+		{ 
+			
+			query = "call updateCompetitionBoolean(?,?)";
+			prepare = conn.prepareStatement(query);
+			prepare.setString(1,nom);
+			prepare.setBoolean(2, bool);
+		
+		
+			
+			prepare.executeQuery();
+		} 
+		catch (SQLException e) 
+		{
+			throw new ExceptionCompetition(nom,"boolean");
+		}
+		
+	}
 	/**
 	 * Permet de modifier le nom d'un candidat
 	 * @param candidat

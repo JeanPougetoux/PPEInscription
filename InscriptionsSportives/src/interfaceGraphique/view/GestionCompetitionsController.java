@@ -1,7 +1,7 @@
 package interfaceGraphique.view;
 
 import dialogueUtilisateur.Utilitaires;
-import exceptions.ExceptionNomCompetition;
+import exceptions.ExceptionCompetition;
 import inscriptions.Competition;
 import interfaceGraphique.controls.MonAppli;
 import javafx.beans.property.ReadOnlyStringWrapper;
@@ -29,7 +29,7 @@ public class GestionCompetitionsController {
     }
     
     @FXML
-    private void initialize() throws ExceptionNomCompetition{
+    private void initialize() throws ExceptionCompetition{
 		setClass();
     	nameColumn.setCellValueFactory(CellDataFeatures -> new ReadOnlyStringWrapper(CellDataFeatures.
 																				getValue().getNom()));

@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 import dialogueUtilisateur.SaisiesConsole;
 import dialogueUtilisateur.Utilitaires;
-import exceptions.ExceptionNomCompetition;
+import exceptions.ExceptionCompetition;
 import inscriptions.Inscriptions;
 import utilitaires.EntreesSorties;
 import utilitaires.ligneDeCommande.Action;
@@ -52,7 +52,7 @@ public class ActionAjoutCompetition implements Action{
 				inscriptions.createCompetition(nomCompetition, (LocalDate)dateCloture, (boolean)estEnEquipe);
 				System.out.println("\nLa compétition est bien ajoutée.");
 			}
-			catch (ExceptionNomCompetition e) 
+			catch (ExceptionCompetition e) 
 			{
 				System.out.println(e.toString());
 			}
