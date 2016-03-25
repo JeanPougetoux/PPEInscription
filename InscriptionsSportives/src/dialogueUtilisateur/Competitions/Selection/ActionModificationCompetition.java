@@ -32,8 +32,14 @@ public class ActionModificationCompetition implements Action{
 							"Le nom actuel est " + menu.getCompetition().getNom() + ".\n" +
 							"Laissez l'espace vide pour ne rien changer, 'q' pour quitter.");
 					if(!nom.isEmpty() && !nom.equals("q")){
-						menu.getCompetition().setNom(nom);
-						System.out.println("Le nom a bien été changé.");
+						try {
+							menu.getCompetition().setNom(nom);
+							System.out.println("Le nom a bien été changé.");
+						} catch (ExceptionCompetition e) {
+							// TODO Auto-generated catch block
+							System.out.println(e.toString());
+						}
+						
 					}
 					else{
 						mod = Utilitaires.getMod(mod, nom, true, true);

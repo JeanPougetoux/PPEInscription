@@ -499,8 +499,9 @@ public class persistance {
 	 * Permet de modifier le nom d'une compétition
 	 * @param comp
 	 * @param nom
+	 * @throws ExceptionCompetition 
 	 */
-	public void updateNomCompetition(Competition comp, String nom) {
+	public void updateNomCompetition(Competition comp, String nom) throws ExceptionCompetition {
 		try 
 		{ 
 			
@@ -515,7 +516,7 @@ public class persistance {
 		} 
 		catch (SQLException e) 
 		{
-			//e.printStackTrace();
+			throw new ExceptionCompetition(nom,"boolean");
 		}
 		
 	}

@@ -47,8 +47,9 @@ public class Competition implements Comparable<Competition>, Serializable
 	/**
 	 * Permet de changer le nom de la compétition.
 	 * @param nom
+	 * @throws ExceptionCompetition 
 	 */
-	public void setNom(String nom){
+	public void setNom(String nom) throws ExceptionCompetition{
 		if (inscriptions.persistance == inscriptions.BDD)
 			inscriptions.pers.updateNomCompetition(this,nom);
 		this.nom = nom;
