@@ -7,6 +7,9 @@ import java.time.LocalDate;
 import org.junit.Test;
 
 import dialogueUtilisateur.Utilitaires;
+import exceptions.ExceptionMailPersonne;
+import exceptions.ExceptionNomEquipe;
+import exceptions.ExceptionRetraitPersonneEquipe;
 import inscriptions.Competition;
 import inscriptions.Equipe;
 import inscriptions.Inscriptions;
@@ -14,17 +17,25 @@ import inscriptions.Personne;
 
 public class CandidatTest {
 
-	String nomTony = "Tony";
 	String nomRobert = "Robert";
-	Inscriptions inscriptions = Inscriptions.getInscriptions();
-	Personne tony = inscriptions.createPersonne(nomTony, null, null);
-	Competition testCompet = inscriptions.createCompetition("test", LocalDate.parse
-			("2018-02-10"), false);
-	Competition testCompet2 = inscriptions.createCompetition("test", LocalDate.parse
-			("2018-02-10"), false);
+	String nomTony = "Tony";
+	Inscriptions inscriptions;
+	Personne tony ;
+	Competition testCompet ;
+	Competition testCompet2 ;
+
+	public void setUp() throws Exception
+	{
+		inscriptions = Inscriptions.getInscriptions();
+		tony = inscriptions.createPersonne(nomTony, null, null);
+		testCompet = inscriptions.createCompetition("test", LocalDate.parse
+				("2018-02-10"), false);
+		testCompet2 = inscriptions.createCompetition("test", LocalDate.parse
+				("2018-02-10"), false);
+	}
 	
 	@Test
-	public void testCandidat() {
+	public void testCandidat() throws Exception {
 		Personne jean = inscriptions.createPersonne("pougetoux", "jean", "spyroo913@hotmail.com");
 		assertEquals("pougetoux", jean.getNom());
 		
@@ -50,7 +61,7 @@ public class CandidatTest {
 	}
 
 	@Test
-	public void testDelete() {
+	public void testDelete() throws Exception {
 		testCompet.add(tony);
 		assertEquals(true, inscriptions.getCandidats().contains(tony));
 		tony.delete();
@@ -59,14 +70,14 @@ public class CandidatTest {
 	}
 
 	@Test
-	public void testCompareTo() {
+	public void testCompareTo() throws ExceptionMailPersonne {
 		Personne a = inscriptions.createPersonne("abcd", null, null);
 		Personne b = inscriptions.createPersonne("efgh", null, null);
 		assertEquals(-4, a.compareTo(b));
 	}
 
 	@Test
-	public void testToString() {
+	public void testToString() throws Exception {
 		Inscriptions inscriptions = Inscriptions.getInscriptions();
 		Equipe equipe = inscriptions.createEquipe("les manouches");
 		assertEquals(Utilitaires.getMajuscule("Equipe '" + Utilitaires.getMajuscule(equipe.getNom()) + "'")

@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import dialogueUtilisateur.Utilitaires;
+import exceptions.ExceptionNomEquipe;
+import exceptions.ExceptionRetraitPersonneEquipe;
 import inscriptions.Equipe;
 import inscriptions.Inscriptions;
 import inscriptions.Personne;
@@ -12,18 +14,25 @@ import inscriptions.Personne;
 public class EquipeTest {
 
 	Inscriptions inscriptions = Inscriptions.getInscriptions();
-	Personne tony = inscriptions.createPersonne("Tony", "Dent de plomb", "azerty");
-	Personne boris = inscriptions.createPersonne("Boris", "le Hachoir", "ytreza");
-	Equipe lesManouches = inscriptions.createEquipe("Les Manouches");
+	Personne tony = null;
+	Personne boris = null;
+	Equipe lesManouches = null;
+	
+	public void setUp() throws Exception
+	{
+		tony = inscriptions.createPersonne("Tony", "Dent de plomb", "azerty");
+		boris = inscriptions.createPersonne("Boris", "le Hachoir", "ytreza");
+		lesManouches = inscriptions.createEquipe("Les Manouches");
+	}
 
 	@Test
-	public void testEquipe() {
+	public void testEquipe() throws ExceptionNomEquipe {
 		Equipe lesPatriks = inscriptions.createEquipe("Les patriks");
 		assertEquals("Les patriks", lesPatriks.getNom());
 	}
 	
 	@Test
-	public void testDelete() {
+	public void testDelete() throws ExceptionRetraitPersonneEquipe {
 		assertEquals(true, inscriptions.getCandidats().contains(lesManouches));
 		lesManouches.delete();
 		assertEquals(false, inscriptions.getCandidats().contains(lesManouches));
