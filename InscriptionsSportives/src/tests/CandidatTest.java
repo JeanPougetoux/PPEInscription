@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import org.junit.Test;
 
 import dialogueUtilisateur.Utilitaires;
+import exceptions.ExceptionAjoutPersonneCompetition;
 import exceptions.ExceptionMailPersonne;
 import exceptions.ExceptionNomEquipe;
 import exceptions.ExceptionRetraitPersonneEquipe;
@@ -53,7 +54,7 @@ public class CandidatTest {
 	}
 
 	@Test
-	public void testGetCompetitions() {
+	public void testGetCompetitions() throws ExceptionAjoutPersonneCompetition {
 		testCompet.add(tony);
 		testCompet2.add(tony);
 		assertEquals(true, tony.getCompetitions().contains(testCompet));

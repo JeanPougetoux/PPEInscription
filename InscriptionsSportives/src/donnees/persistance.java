@@ -14,6 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Formatter;
 
 import exceptions.ExceptionMailPersonne;
+import exceptions.ExceptionAjoutPersonneCompetition;
 import exceptions.ExceptionCompetition;
 import exceptions.ExceptionNomEquipe;
 import exceptions.ExceptionPrincipale;
@@ -68,6 +69,7 @@ public class persistance {
 	 * @param inscription
 	 * @return
 	 * @throws SQLException
+	 * @throws  
 	 * @throws ExceptionNomEquipe 
 	 * @throws ExceptionMailPersonne 
 	 */
@@ -89,8 +91,9 @@ public class persistance {
 	 * Nous allons récuperer toutes les compétitions et leurs participants respectifs, équipes ou personnes seules
 	 * @param inscription
 	 * @return
+	 * @throws ExceptionAjoutPersonneCompetition 
 	 */
-	private Inscriptions getParticipantsCompetitions(Inscriptions inscription) {
+	private Inscriptions getParticipantsCompetitions(Inscriptions inscription) throws ExceptionAjoutPersonneCompetition {
 		
 		try 
 		{
@@ -384,7 +387,7 @@ public class persistance {
 	 * @param nom
 	 * @throws ExceptionRetraitPersonneEquipe 
 	 */
-	public void retirerPersonneEquipe(String mail, String nom) 
+	public void retirerPersonneEquipe(String mail, String nom)  
 	{
 			query = "call retirerPersonneEquipe(?,?)";
 			try 
@@ -397,8 +400,7 @@ public class persistance {
 			} 
 			catch (SQLException e) 
 			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				
 			}
 			
 	}

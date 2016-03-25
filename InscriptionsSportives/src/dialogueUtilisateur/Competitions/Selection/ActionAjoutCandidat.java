@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dialogueUtilisateur.Utilitaires;
+import exceptions.ExceptionAjoutPersonneCompetition;
 import inscriptions.Candidat;
 import inscriptions.Competition;
 import inscriptions.Equipe;
@@ -64,8 +65,14 @@ public class ActionAjoutCandidat implements Action{
 							}
 						}
 						else{
-							competition.add((Personne)candidat);
-							System.out.println("\n'" + ((Personne)candidat).toString() + "' est bien ajouté à la compétition.");
+							try {
+								competition.add((Personne)candidat);
+								System.out.println("\n'" + ((Personne)candidat).toString() + "' est bien ajouté à la compétition.");
+							} catch (ExceptionAjoutPersonneCompetition e) {
+								// TODO Auto-generated catch block
+								System.out.println(e.toString());
+							}
+							
 						}
 						Utilitaires.sauvegarde(inscriptions);
 					}

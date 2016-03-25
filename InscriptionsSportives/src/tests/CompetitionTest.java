@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import org.junit.Test;
 
 import dialogueUtilisateur.Utilitaires;
+import exceptions.ExceptionAjoutPersonneCompetition;
 import exceptions.ExceptionCompetition;
 import inscriptions.Competition;
 import inscriptions.Equipe;
@@ -79,7 +80,7 @@ public class CompetitionTest {
 	}
 
 	@Test
-	public void testGetCandidats() {
+	public void testGetCandidats() throws ExceptionAjoutPersonneCompetition {
 		testCompetVrai.add(tony);
 		testCompetVrai.add(robert);
 		assertEquals(true, testCompetVrai.getCandidats().contains(tony));
@@ -90,7 +91,7 @@ public class CompetitionTest {
 //	TEST ADD PERSONNE
 	
 	@Test
-	public void testAddPersonneNormal() {
+	public void testAddPersonneNormal() throws ExceptionAjoutPersonneCompetition {
 		testCompetVrai.add(tony);
 		assertEquals(true, testCompetVrai.getCandidats().contains(tony));
 	}
@@ -124,7 +125,7 @@ public class CompetitionTest {
 	}
 
 	@Test
-	public void testRemove() {
+	public void testRemove() throws ExceptionAjoutPersonneCompetition {
 		testCompetVrai.add(tony);
 		assertEquals(true, testCompetVrai.getCandidats().contains(tony));
 		testCompetVrai.remove(tony);

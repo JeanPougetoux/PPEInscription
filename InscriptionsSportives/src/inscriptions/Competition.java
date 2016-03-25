@@ -8,6 +8,7 @@ import java.util.TreeSet;
 
 import dialogueUtilisateur.SaisiesConsole;
 import dialogueUtilisateur.Utilitaires;
+import exceptions.ExceptionAjoutPersonneCompetition;
 import exceptions.ExceptionCompetition;
 
 /**
@@ -133,14 +134,17 @@ public class Competition implements Comparable<Competition>, Serializable
 	 * inscriptions sont closes.
 	 * @param personne
 	 * @return
+	 * @throws ExceptionAjoutPersonneCompetition 
 	 */
 	
-	public boolean add(Personne personne)
+	public boolean add(Personne personne) throws ExceptionAjoutPersonneCompetition
 	{
 		// TODO vérifier que la date de clôture n'est pas passée
 		
-		if (enEquipe || !inscriptionsOuvertes())
-			throw new RuntimeException();
+		if ((enEquipe) && !inscriptions.pers.getInitialisation())
+			throw new ExceptionAjoutPersonneCompetition("equipe");
+		if(!inscriptionsOuvertes() && !inscriptions.pers.getInitialisation())
+			throw new ExceptionAjoutPersonneCompetition("inscriptions");
 		personne.add(this);
 		return candidats.add(personne);
 	}
