@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import exceptions.ExceptionMailPersonne;
+import exceptions.ExceptionRetraitPersonneEquipe;
 import inscriptions.Equipe;
 import inscriptions.Inscriptions;
 import inscriptions.Personne;
@@ -11,11 +13,17 @@ import inscriptions.Personne;
 public class PersonneTest {
 
 	Inscriptions inscription = Inscriptions.getInscriptions();
-	Personne a = inscription.createPersonne("ecalle", "thomas", "thomasecalle@hotmail.fr");
-	Equipe equipe = inscription.createEquipe("les semis-croustillants");
+	Personne a = null;
+	Equipe equipe = null;
+	
+	public void setUp() throws Exception
+	{
+		a = inscription.createPersonne("ecalle", "thomas", "thomasecalle@hotmail.fr");
+		equipe = inscription.createEquipe("les semis-croustillants");
+	}
 	
 	@Test
-	public void testPersonne() {
+	public void testPersonne() throws ExceptionMailPersonne {
 		Personne thomas = inscription.createPersonne("ecalle", "thomas", "thomasecalle@hotmail.fr");
 		assertEquals("ecalle", thomas.getNom());
 		assertEquals("thomas", thomas.getPrenom());
@@ -24,7 +32,7 @@ public class PersonneTest {
 	}
 	
 	@Test
-	public void testDelete() {
+	public void testDelete() throws ExceptionRetraitPersonneEquipe {
 		a.delete();
 		assertEquals(false,inscription.getCandidats().contains(a));
 	}

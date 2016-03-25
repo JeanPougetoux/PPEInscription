@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 
 import dialogueUtilisateur.Utilitaires;
-import exceptions.ExceptionNomCompetition;
+import exceptions.ExceptionCompetition;
 import inscriptions.Competition;
 import interfaceGraphique.controls.ModaleSuppression;
 import interfaceGraphique.controls.MonAppli;
@@ -54,7 +54,7 @@ public class GestionCompetitionsController {
     }
     
     @FXML
-    private void initialize() throws ExceptionNomCompetition{
+    private void initialize() throws ExceptionCompetition{
     	nameColumn.setCellValueFactory(CellDataFeatures -> new ReadOnlyStringWrapper(CellDataFeatures.
 																				getValue().getNom()));
 

@@ -15,8 +15,8 @@ public class Main {
 							CONSOLE = 2,
 							GRAPHIQUE = 3;
 	
-	public static int choixDialogue = GRAPHIQUE;
-	public static int choixPersistance = SERIALIZATION;
+	public static int choixDialogue = CONSOLE;
+	public static int choixPersistance = BDD;
 	
 	public static void main(String[] args) {
 		persistance.URLFINALE = persistance.URLLOCALE;

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import dialogueUtilisateur.SaisiesConsole;
 import dialogueUtilisateur.Utilitaires;
+import exceptions.ExceptionCompetition;
 import utilitaires.EntreesSorties;
 import utilitaires.ligneDeCommande.Action;
 
@@ -31,8 +32,14 @@ public class ActionModificationCompetition implements Action{
 							"Le nom actuel est " + menu.getCompetition().getNom() + ".\n" +
 							"Laissez l'espace vide pour ne rien changer, 'q' pour quitter.");
 					if(!nom.isEmpty() && !nom.equals("q")){
-						menu.getCompetition().setNom(nom);
-						System.out.println("Le nom a bien été changé.");
+						try {
+							menu.getCompetition().setNom(nom);
+							System.out.println("Le nom a bien été changé.");
+						} catch (ExceptionCompetition e) {
+							// TODO Auto-generated catch block
+							System.out.println(e.toString());
+						}
+						
 					}
 					else{
 						mod = Utilitaires.getMod(mod, nom, true, true);
@@ -61,7 +68,12 @@ public class ActionModificationCompetition implements Action{
 					
 					if(estEnEquipe instanceof Boolean){
 						if(menu.getCompetition().getCandidats().isEmpty()){
-							menu.getCompetition().setEstEnEquipe((boolean)estEnEquipe);
+							try {
+								menu.getCompetition().setEstEnEquipe((boolean)estEnEquipe);
+							} catch (ExceptionCompetition e) {
+								// TODO Auto-generated catch block
+								System.out.println(e.getMessage());
+							}
 							System.out.println("Le mode de compétition est bien changé.");
 						}
 						else{

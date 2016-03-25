@@ -7,6 +7,8 @@ import java.time.LocalDate;
 import org.junit.Test;
 
 import dialogueUtilisateur.Utilitaires;
+import exceptions.ExceptionAjoutPersonneCompetition;
+import exceptions.ExceptionCompetition;
 import inscriptions.Competition;
 import inscriptions.Equipe;
 import inscriptions.Inscriptions;
@@ -18,17 +20,29 @@ public class CompetitionTest {
 	LocalDate dateClotureFaux = LocalDate.parse("2015-01-10");
 	LocalDate dateClotureVrai = LocalDate.parse("2018-04-20");
 	String nom = "test competition";
-	Personne tony = inscriptions.createPersonne("Tony", null, null);
-	Personne robert = inscriptions.createPersonne("Robert", null, null);
-	Personne arthur = inscriptions.createPersonne("Arthur", null, null);
-	Equipe manouches = inscriptions.createEquipe("Les manouches");
-	Competition testCompetFaux = inscriptions.createCompetition(nom, dateClotureFaux, true);
-	Competition testCompetVrai = inscriptions.createCompetition(nom, dateClotureVrai, false);
-	Competition testCompetEquipe = inscriptions.createCompetition(nom, dateClotureVrai, true);
-	Competition testCompetSolo = inscriptions.createCompetition(nom, dateClotureFaux, false);
+	Personne tony = null;
+	Personne robert = null;
+	Personne arthur = null;
+	Equipe manouches = null;
+	Competition testCompetFaux = null;
+	Competition testCompetVrai = null;
+	Competition testCompetEquipe = null;
+	Competition testCompetSolo = null;
+	
+	public void setUp() throws Exception
+	{
+		 tony = inscriptions.createPersonne("Tony", null, null);
+		 robert = inscriptions.createPersonne("Robert", null, null);
+		 arthur = inscriptions.createPersonne("Arthur", null, null);
+		 manouches = inscriptions.createEquipe("Les manouches");
+		 testCompetFaux = inscriptions.createCompetition(nom, dateClotureFaux, true);
+		 testCompetVrai = inscriptions.createCompetition(nom, dateClotureVrai, false);
+		 testCompetEquipe = inscriptions.createCompetition(nom, dateClotureVrai, true);
+		 testCompetSolo = inscriptions.createCompetition(nom, dateClotureFaux, false);
+	}
 
 	@Test
-	public void testCompetition() {
+	public void testCompetition() throws ExceptionCompetition {
 		Competition testCompet = inscriptions.createCompetition("flechette", dateClotureVrai, true);
 		assertEquals("flechette", testCompet.getNom());
 		assertEquals(dateClotureVrai, testCompet.getDateCloture());
@@ -66,7 +80,7 @@ public class CompetitionTest {
 	}
 
 	@Test
-	public void testGetCandidats() {
+	public void testGetCandidats() throws ExceptionAjoutPersonneCompetition {
 		testCompetVrai.add(tony);
 		testCompetVrai.add(robert);
 		assertEquals(true, testCompetVrai.getCandidats().contains(tony));
@@ -77,7 +91,7 @@ public class CompetitionTest {
 //	TEST ADD PERSONNE
 	
 	@Test
-	public void testAddPersonneNormal() {
+	public void testAddPersonneNormal() throws ExceptionAjoutPersonneCompetition {
 		testCompetVrai.add(tony);
 		assertEquals(true, testCompetVrai.getCandidats().contains(tony));
 	}
@@ -111,7 +125,7 @@ public class CompetitionTest {
 	}
 
 	@Test
-	public void testRemove() {
+	public void testRemove() throws ExceptionAjoutPersonneCompetition {
 		testCompetVrai.add(tony);
 		assertEquals(true, testCompetVrai.getCandidats().contains(tony));
 		testCompetVrai.remove(tony);
@@ -126,7 +140,7 @@ public class CompetitionTest {
 	}
 
 	@Test
-	public void testCompareTo() {
+	public void testCompareTo() throws ExceptionCompetition {
 		Competition a = inscriptions.createCompetition("abcd", LocalDate.parse
 				("2018-02-10"), true);
 		Competition b = inscriptions.createCompetition("efgh", LocalDate.parse

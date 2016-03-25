@@ -8,6 +8,7 @@ import exceptions.ExceptionRetraitPersonneEquipe;
 import inscriptions.Equipe;
 import inscriptions.Inscriptions;
 import inscriptions.Personne;
+import inscriptions.StatutSuppression;
 import utilitaires.ligneDeCommande.Action;
 import utilitaires.ligneDeCommande.ActionListe;
 import utilitaires.ligneDeCommande.Liste;
@@ -43,9 +44,8 @@ public class ActionSuppressionEquipe implements Action{
 				public void elementSelectionne(int indice, Equipe element)
 				{
 					
-						element.remove(personne);
-						System.out.println(personne.toString() + " bien supprimé de l'équipe '"
-								+ element.getNom() + "'");
+						StatutSuppression s = element.remove(personne);
+						System.out.println(s.getMessage());
 					
 					
 					Utilitaires.sauvegarde(inscriptions);

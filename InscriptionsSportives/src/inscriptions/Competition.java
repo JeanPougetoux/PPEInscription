@@ -8,6 +8,8 @@ import java.util.TreeSet;
 
 import dialogueUtilisateur.SaisiesConsole;
 import dialogueUtilisateur.Utilitaires;
+import exceptions.ExceptionAjoutPersonneCompetition;
+import exceptions.ExceptionCompetition;
 
 /**
  * Représente une compétition, c'est-à-dire un ensemble de candidats 
@@ -46,8 +48,9 @@ public class Competition implements Comparable<Competition>, Serializable
 	/**
 	 * Permet de changer le nom de la compétition.
 	 * @param nom
+	 * @throws ExceptionCompetition 
 	 */
-	public void setNom(String nom){
+	public void setNom(String nom) throws ExceptionCompetition{
 		if (inscriptions.persistance == inscriptions.BDD)
 			inscriptions.pers.updateNomCompetition(this,nom);
 		this.nom = nom;
@@ -88,9 +91,13 @@ public class Competition implements Comparable<Competition>, Serializable
 	/**
 	 * Permet de changer le boolean correspondant au fait que la compétition autorise les équipes ou non.
 	 * @param enEquipe
+	 * @throws ExceptionCompetition 
 	 */
-	public void setEstEnEquipe(boolean enEquipe){
+	public void setEstEnEquipe(boolean enEquipe) throws ExceptionCompetition{
+		if (inscriptions.persistance == inscriptions.BDD)
+			inscriptions.pers.updateCompetitionBoolean(enEquipe,nom);
 		this.enEquipe = enEquipe;
+		
 	}
 	
 	/**
@@ -103,7 +110,12 @@ public class Competition implements Comparable<Competition>, Serializable
 	{
 		// TODO vérifier que l'on avance pas la date.
 		if(this.getDateCloture().isBefore(dateCloture))
+		{
+			if (inscriptions.persistance == inscriptions.BDD)
+				inscriptions.pers.updateDateCompetition(dateCloture,nom);
 			this.dateCloture = dateCloture;
+		}
+			
 	}
 	
 	/**
@@ -122,14 +134,17 @@ public class Competition implements Comparable<Competition>, Serializable
 	 * inscriptions sont closes.
 	 * @param personne
 	 * @return
+	 * @throws ExceptionAjoutPersonneCompetition 
 	 */
 	
-	public boolean add(Personne personne)
+	public boolean add(Personne personne) throws ExceptionAjoutPersonneCompetition
 	{
 		// TODO vérifier que la date de clôture n'est pas passée
 		
-		if (enEquipe || !inscriptionsOuvertes())
-			throw new RuntimeException();
+		if ((enEquipe) && !inscriptions.pers.getInitialisation())
+			throw new ExceptionAjoutPersonneCompetition("equipe");
+		if(!inscriptionsOuvertes() && !inscriptions.pers.getInitialisation())
+			throw new ExceptionAjoutPersonneCompetition("inscriptions");
 		personne.add(this);
 		return candidats.add(personne);
 	}

@@ -3,7 +3,7 @@ package interfaceGraphique.view.Competition;
 import java.io.IOException;
 import java.time.LocalDate;
 
-import exceptions.ExceptionNomCompetition;
+import exceptions.ExceptionCompetition;
 import interfaceGraphique.controls.MonAppli;
 import interfaceGraphique.controls.Competition.AjoutCompetition;
 import interfaceGraphique.controls.Competition.GestionCompetitions;
@@ -89,7 +89,7 @@ class ActionValider implements EventHandler<ActionEvent>{
 			stageGestion.getList().add(MonAppli.getInscriptions().createCompetition(
 												controlAjout.getStringNom(), controlAjout.getLocalDateCloture(),
 												controlAjout.getEnEquipe()));
-		} catch (ExceptionNomCompetition e) {
+		} catch (ExceptionCompetition e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

@@ -15,7 +15,7 @@ import java.util.TreeSet;
 import dialogueUtilisateur.Main;
 import donnees.persistance;
 import exceptions.ExceptionMailPersonne;
-import exceptions.ExceptionNomCompetition;
+import exceptions.ExceptionCompetition;
 import exceptions.ExceptionNomEquipe;
 /**
  * Point d'entrée dans l'application, un seul objet de type Inscription
@@ -72,7 +72,7 @@ public class Inscriptions implements Serializable
 	 */
 	
 	public Competition createCompetition(String nom, 
-			LocalDate dateCloture, boolean enEquipe) throws ExceptionNomCompetition
+			LocalDate dateCloture, boolean enEquipe) throws ExceptionCompetition
 	{
 		Competition competition = new Competition(this, nom, dateCloture, enEquipe);
 		if (persistance == BDD)

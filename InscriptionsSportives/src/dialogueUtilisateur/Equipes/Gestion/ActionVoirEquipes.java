@@ -1,8 +1,8 @@
 package dialogueUtilisateur.Equipes.Gestion;
 
-import inscriptions.Candidat;
-import inscriptions.Equipe;
-import inscriptions.Personne;
+import java.util.Set;
+
+import inscriptions.*;
 import utilitaires.ligneDeCommande.Action;
 
 /**
@@ -20,7 +20,9 @@ public class ActionVoirEquipes implements Action{
 	
 	public void optionSelectionnee(){
 		boolean nul = true;
-		for(Candidat c : menu.getInscriptions().getCandidats()){
+		Inscriptions inscriptions = menu.getInscriptions();
+		Set<Candidat> candidats = inscriptions.getCandidats();
+		for(Candidat c : candidats){
 			if(c instanceof Equipe){
 				nul = false;
 				String membre = "";

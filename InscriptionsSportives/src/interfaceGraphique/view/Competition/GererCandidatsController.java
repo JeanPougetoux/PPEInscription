@@ -87,7 +87,7 @@ public class GererCandidatsController {
     
     public void buttonAutreVersCandidat(){
     	for(int i = 0; i < 1; i++){
-    		System.out.println(checkBoxAutresCandidats.getCellData(i).);
+//    		System.out.println(checkBoxAutresCandidats.getCellData(i).);
     	}
     }
 }
