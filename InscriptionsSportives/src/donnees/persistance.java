@@ -628,6 +628,32 @@ public class persistance {
 		
 	}
 	
+	
+	/**
+	 * Permet de modifier le prenom d'un candidat
+	 * @param candidat
+	 * @param nom
+	 * @throws ExceptionMailPersonne 
+	 */
+	public void updatePrenomPersonne(Personne personne, String prenom) 
+	{
+		try 
+		{ 
+
+			query = "call updatePrenomPersonne(?,?)";
+			prepare = conn.prepareStatement(query);
+			prepare.setString(1, personne.getMail());
+			prepare.setString(2,prenom);
+			prepare.executeQuery();
+			
+		} 
+		catch (SQLException e) 
+		{
+			System.out.println("erreur");
+		}
+		
+	}
+	
 	/**
 	 * Permet de savoir si la connexion a échoué ou résussi
 	 * @param utilisateur

@@ -44,6 +44,8 @@ public class Personne extends Candidat
 	
 	public void setPrenom(String prenom)
 	{
+		if (super.getInscription().persistance  == super.getInscription().BDD)
+			super.getInscription().pers.updatePrenomPersonne(this,prenom);
 		this.prenom = prenom;
 	}
 
@@ -66,7 +68,7 @@ public class Personne extends Candidat
 	public void setMail(String mail) throws ExceptionMailPersonne
 	{
 		if (super.getInscription().persistance  == super.getInscription().BDD)
-			super.getInscription().pers.updateMailPersonne(this,getMail());
+			super.getInscription().pers.updateMailPersonne(this,mail);
 		this.mail = mail;
 	}
 
