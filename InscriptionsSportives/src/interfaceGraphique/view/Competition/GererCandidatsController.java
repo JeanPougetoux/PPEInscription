@@ -13,7 +13,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
-import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.util.Callback;
@@ -36,7 +35,7 @@ public class GererCandidatsController {
     @FXML
     private TableColumn<Candidat, String> prenomAutresCandidats;
     @FXML
-    private TableColumn<Candidat, CheckBox> checkBoxAutresCandidats;
+    private TableColumn<Candidat, Boolean> checkBoxAutresCandidats;
     @FXML
     private Button candidatVersAutres;
     @FXML
@@ -55,21 +54,7 @@ public class GererCandidatsController {
     	nameAutresCandidats.setCellValueFactory(CellDataFeatures -> new ReadOnlyStringWrapper(
     			CellDataFeatures.getValue().getNom()));
     	checkBoxCandidatsCompet.setCellFactory(tc -> new CheckBoxTableCell<>());
-    	checkBoxAutresCandidats.setCellValueFactory(
-    			new Callback<CellDataFeatures<Candidat, CheckBox>, ObservableValue<CheckBox>>() {
-
-             @Override
-             public ObservableValue<CheckBox> call(
-                     CellDataFeatures<Candidat, CheckBox> arg0) {
-                 Candidat candidat = arg0.getValue();
-                 CheckBox checkBox = new CheckBox();
-                 
-                 return new SimpleObjectProperty<CheckBox>(checkBox);
-             }
-         
-         
-         });
-//    	checkBoxAutresCandidats.setCellFactory(tc -> new CheckBoxTableCell<>());
+    	checkBoxAutresCandidats.setCellFactory(tc -> new CheckBoxTableCell<Candidat, Boolean>());
     }
     
     public void setClass(GererCandidats stage){
@@ -101,11 +86,9 @@ public class GererCandidatsController {
     }
     
     public void buttonAutreVersCandidat(){
-    	System.out.println("okok");
-    	for(int i = 0; i < autreCandidats.getItems().size(); i++){
+    	for(int i = 0; i < 1; i++){
+    		System.out.println(checkBoxAutresCandidats.getCellData(i).);
     	}
-		System.out.println(autreCandidats.getSelectionModel().getSelectedItem());
-
     }
 }
 
