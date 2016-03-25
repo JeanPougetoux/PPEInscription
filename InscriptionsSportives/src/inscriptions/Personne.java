@@ -6,6 +6,7 @@ import java.util.TreeSet;
 
 import dialogueUtilisateur.SaisiesConsole;
 import dialogueUtilisateur.Utilitaires;
+import exceptions.ExceptionMailPersonne;
 import exceptions.ExceptionRetraitPersonneEquipe;
 
 /**
@@ -59,10 +60,13 @@ public class Personne extends Candidat
 	/**
 	 * Modifie l'adresse électronique de la personne.
 	 * @param mail
+	 * @throws ExceptionMailPersonne 
 	 */
 	
-	public void setMail(String mail)
+	public void setMail(String mail) throws ExceptionMailPersonne
 	{
+		if (super.getInscription().persistance  == super.getInscription().BDD)
+			super.getInscription().pers.updateMailPersonne(this,getMail());
 		this.mail = mail;
 	}
 

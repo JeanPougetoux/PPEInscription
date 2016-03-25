@@ -1,6 +1,7 @@
 package dialogueUtilisateur.Personnes.Selection;
 
 import dialogueUtilisateur.Utilitaires;
+import exceptions.ExceptionMailPersonne;
 import utilitaires.EntreesSorties;
 import utilitaires.ligneDeCommande.Action;
 
@@ -49,8 +50,14 @@ public class ActionModificationPersonne implements Action{
 											+ " laissez vide pour ne rien changer.");
 				mod = Utilitaires.getMod(mod, mail, true, true);
 				if(!mail.isEmpty() && mod == 3){
-					menu.getPersonne().setMail(mail);
-					System.out.println("Le mail a bien été changé en : " + menu.getPersonne().getMail());
+					try {
+						menu.getPersonne().setMail(mail);
+						System.out.println("Le mail a bien été changé en : " + menu.getPersonne().getMail());
+					} catch (ExceptionMailPersonne e) {
+						// TODO Auto-generated catch block
+						System.out.println(e.toString());
+					}
+					
 				}
 				break;
 			}

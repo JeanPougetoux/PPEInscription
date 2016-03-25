@@ -54,7 +54,7 @@ public class PersonneTest {
 	}
 
 	@Test
-	public void testSetMail() {
+	public void testSetMail() throws ExceptionMailPersonne {
 		a.setMail("test@hotmail.com");
 		assertEquals("test@hotmail.com",a.getMail());
 	}

@@ -605,6 +605,30 @@ public class persistance {
 	}
 	
 	/**
+	 * Permet de modifier le mail d'un candidat
+	 * @param candidat
+	 * @param nom
+	 * @throws ExceptionMailPersonne 
+	 */
+	public void updateMailPersonne(Personne personne, String mail) throws ExceptionMailPersonne {
+		try 
+		{ 
+
+			query = "call updateMailPersonne(?,?)";
+			prepare = conn.prepareStatement(query);
+			prepare.setString(1, personne.getMail());
+			prepare.setString(2,mail);
+			prepare.executeQuery();
+			
+		} 
+		catch (SQLException e) 
+		{
+			throw new ExceptionMailPersonne(mail);
+		}
+		
+	}
+	
+	/**
 	 * Permet de savoir si la connexion a échoué ou résussi
 	 * @param utilisateur
 	 * @param password
