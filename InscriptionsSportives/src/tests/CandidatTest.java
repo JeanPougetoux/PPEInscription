@@ -37,6 +37,7 @@ public class CandidatTest {
 	
 	@Test
 	public void testCandidat() throws Exception {
+		
 		Personne jean = inscriptions.createPersonne("pougetoux", "jean", "spyroo913@hotmail.com");
 		assertEquals("pougetoux", jean.getNom());
 		
