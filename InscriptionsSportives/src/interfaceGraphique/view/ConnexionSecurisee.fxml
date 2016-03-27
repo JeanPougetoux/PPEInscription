@@ -18,6 +18,7 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
       <Label text="Veuillez rentre vos identifiants afin de vous connecter" GridPane.columnSpan="2">
@@ -41,18 +42,11 @@
             <Insets right="20.0" />
          </GridPane.margin>
       </PasswordField>
-      <Button mnemonicParsing="false" onAction="#handleConnexion" text="Me connecter" GridPane.columnSpan="2" GridPane.rowIndex="2">
+      <Button mnemonicParsing="false" onAction="#handleConnexion" text="Me connecter" GridPane.columnSpan="2" GridPane.rowIndex="3">
          <GridPane.margin>
             <Insets left="250.0" />
          </GridPane.margin>
       </Button>
-      <Label text="Label" visible="false" GridPane.columnSpan="2" GridPane.rowIndex="2">
-         <GridPane.margin>
-            <Insets bottom="60.0" left="285.0" />
-         </GridPane.margin>
-         <font>
-            <Font name="Arial Black" size="12.0" />
-         </font>
-      </Label>
+      <Label fx:id="information" text="Label" GridPane.columnSpan="2" GridPane.rowIndex="2" />
    </children>
 </GridPane>

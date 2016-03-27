@@ -7,6 +7,7 @@ import java.util.Set;
 import javafx.scene.control.Label;
 
 import inscriptions.Candidat;
+import inscriptions.Equipe;
 import inscriptions.Personne;
 import interfaceGraphique.controls.Competition.GererCandidats;
 import interfaceGraphique.controls.Competition.GererMail;
@@ -77,7 +78,9 @@ public class GererMailController {
     	}
     	else
     	{
-    		generationInfos("Envoie en cours veuillez patienter...","infos");
+    		/*this.information.setText("envoie en cours, veuillez patienter");
+    		this.information.setVisible(true);*/
+    		//generationInfos("Envoie en cours veuillez patienter...","infos");
     		
     		Set <Candidat> candidats = stage.getCompet().getCandidats();
     		int compteur = 0;
@@ -91,6 +94,18 @@ public class GererMailController {
         			{
         				generationInfos("Message "+compteur+" bien envoyé ("+compteur+"/"+candidats.size()+")","infos");
         			}
+    			}
+    			else if(c instanceof Equipe)
+    			{
+    				Set<Personne> membres = ((Equipe) c).getMembres();
+    				for(Personne p : membres)
+    				{
+    					compteur ++;
+            			if(GestionMail.sendMessage(this.sujet.getText(), this.message.getText(),p.getMail()));
+            			{
+            				generationInfos("Message "+compteur+" bien envoyé ("+compteur+"/"+candidats.size()+")","infos");
+            			}
+    				}
     			}
     			
     		}
