@@ -40,13 +40,6 @@ public class ConnexionSecuriseeController
 	
 	public void handleConnexion()
 	{
-		/*if(this.utilisateur.toString() != "" && this.password.toString() != "")
-			if(persistance.estConnecte(utilisateur.toString(), password.toString()))
-				generationErreur("BRAVO");
-			else
-				generationErreur("Nom de compte ou mot de passe incorrect");		
-		else
-			generationErreur("Veuillez renseigner tous les champs");*/
 		if(persistance.estConnecte(password.getText()))
 		{
 			Accueil mafenetre = new Accueil();

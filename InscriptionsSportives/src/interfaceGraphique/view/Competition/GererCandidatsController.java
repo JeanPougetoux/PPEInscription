@@ -3,17 +3,20 @@ package interfaceGraphique.view.Competition;
 import inscriptions.Candidat;
 import inscriptions.Personne;
 import interfaceGraphique.controls.Competition.GererCandidats;
+import interfaceGraphique.controls.Competition.GererMail;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.util.Callback;
 
@@ -93,9 +96,29 @@ public class GererCandidatsController {
     
     public void handleMail()
     {
+    	if(!stage.getCompet().getCandidats().isEmpty())
+    	{
+    		GererMail fenetre = new GererMail(stage.getCompet());
+        	fenetre.show();
+    	}
+    	else
+    	{
+    		generationErreur("Cette compétition est vide, action impossible");
+    	}
     	
     }
+    public void generationErreur(String message)
+	{
+		// Show the error message.
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Erreur");
+        alert.setHeaderText("Attention");
+        alert.setContentText(message);
+        
+        alert.showAndWait();
+	}
 }
+
 
 class ActionClickTableCandidats implements EventHandler<ActionEvent>{
 

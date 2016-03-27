@@ -78,7 +78,7 @@ public class GestionMail
 	}
 	
 	public static void main(String[] args) {
-		if(sendMessage("salut","<h1>voici un titre</h1><p>un paragraphe</p><p>et un deuxieme paragraphe</p>","thomasecalle@hotmail.fr"));
+		if(sendMessage("salut","<h1>voici un titre</h1><p>un ééé paragraphe</p><p>et un deuxieme paragraphe</p>","thomasecalle@hotmail.fr"));
 		{
 			System.out.println("message envoyé !");
 		}
