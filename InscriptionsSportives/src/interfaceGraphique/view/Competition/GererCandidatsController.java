@@ -90,6 +90,11 @@ public class GererCandidatsController {
 //    		System.out.println(checkBoxAutresCandidats.getCellData(i).);
     	}
     }
+    
+    public void handleMail()
+    {
+    	
+    }
 }
 
 class ActionClickTableCandidats implements EventHandler<ActionEvent>{
