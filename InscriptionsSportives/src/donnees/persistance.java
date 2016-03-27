@@ -680,6 +680,32 @@ public class persistance {
 		}
 		return false;
 	}
+	
+	/**
+	 * Permet de savoir si la connexion a échoué ou résussi
+	 * @param utilisateur
+	 * @param password
+	 * @return
+	 */
+	public static boolean estConnecte(String password)
+	{
+		ResultSet resultat = null;
+		String query = "call seConnecterPassword(?)";
+		
+		try 
+		{
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/ppe_inscriptions", "root", "");
+			java.sql.PreparedStatement prepare = conn.prepareStatement(query);
+			prepare.setString(1, encryptPassword(password));
+			resultat = prepare.executeQuery();
+			return (resultat.first());
+		} 
+		catch (SQLException e) 
+		{
+			System.out.println("problème de connexion");
+		}
+		return false;
+	}
 
 	/**
 	 * Permet d'encrypter en SHA1 le mot de passe rentré par l'utilisateur
