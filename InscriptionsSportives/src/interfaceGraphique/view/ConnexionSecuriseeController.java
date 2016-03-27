@@ -18,14 +18,12 @@ import javafx.stage.Window;
 public class ConnexionSecuriseeController
 {
 
-	@FXML
-	private TextField utilisateur;
+	
 	
 	@FXML
 	private PasswordField password;
 	
-	 @FXML
-	 private Label labelInformation;
+	
 	
 	
 	
