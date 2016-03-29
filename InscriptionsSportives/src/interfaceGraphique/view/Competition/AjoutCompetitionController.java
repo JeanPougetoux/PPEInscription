@@ -35,7 +35,7 @@ public class AjoutCompetitionController {
 	@FXML
 	private void initialize(){
 		enEquipe.getItems().addAll("oui", "non");
-		enEquipe.promptTextProperty().set("oui");
+		enEquipe.setValue("oui");
 	}	
 	
 	public void setStagesCompetition(AjoutCompetition stageAjout, GestionCompetitions stageGestion){
@@ -89,18 +89,16 @@ class ActionValider implements EventHandler<ActionEvent>{
 			stageGestion.getList().add(MonAppli.getInscriptions().createCompetition(
 												controlAjout.getStringNom(), controlAjout.getLocalDateCloture(),
 												controlAjout.getEnEquipe()));
-		} catch (ExceptionCompetition e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			MonAppli.getInscriptions().sauvegarder();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		stageAjout.close();
-		
+			try {
+				MonAppli.getInscriptions().sauvegarder();
+				stageAjout.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (Exception e) {
+			MonAppli.generationErreur("Il manque un champ.");
+		}		
 	}
 	
 }

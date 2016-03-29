@@ -2,6 +2,7 @@ package inscriptions;
 
 import java.io.Serializable;
 import java.util.Collections;
+import java.util.Iterator;
 import java.time.LocalDate;
 import java.util.Set;
 import java.util.TreeSet;
@@ -184,8 +185,11 @@ public class Competition implements Comparable<Competition>, Serializable
 	
 	public void delete()
 	{
-		for (Candidat candidat : candidats)
-			remove(candidat);
+		Iterator<Candidat> iterator = candidats.iterator();
+		while(iterator.hasNext()){
+			Candidat c = iterator.next();
+			iterator.remove();
+		}
 		inscriptions.remove(this);
 	}
 	

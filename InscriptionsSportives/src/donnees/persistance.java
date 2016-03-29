@@ -431,6 +431,7 @@ public class persistance {
 				prepare.setString(1, candidat.getNom());
 				prepare.setString(2,competition.getNom());
 			}
+			System.out.println(prepare);
 			prepare.executeQuery();
 		} 
 		catch (SQLException e) 

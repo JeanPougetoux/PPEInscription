@@ -2,16 +2,15 @@ package interfaceGraphique.view.Competition;
 
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.Iterator;
 
 import dialogueUtilisateur.Utilitaires;
 import exceptions.ExceptionAjoutPersonneCompetition;
 import exceptions.ExceptionCompetition;
-import exceptions.ExceptionNomEquipe;
 import inscriptions.Candidat;
 import inscriptions.Competition;
 import inscriptions.Equipe;
+import inscriptions.Inscriptions;
 import inscriptions.Personne;
 import interfaceGraphique.controls.ModaleSuppression;
 import interfaceGraphique.controls.MonAppli;
@@ -116,12 +115,14 @@ public class GestionCompetitionsController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+    	setCompetitionActive(null);
+    	setChoixVisibility(false);
     }
     
-    public void addElementToCompet(Candidat c) throws Exception{
+    public void addElementToCompet(Candidat c) throws ExceptionAjoutPersonneCompetition{
 		if(competActive.estEnEquipe()){
 			if(((Equipe)c).getMembres().size() == 0){
-				throw new RuntimeException();
+				throw new ExceptionAjoutPersonneCompetition("Pas de membres dans l'équipe.");
 			}
 			else{
 				competActive.add((Equipe)c);
@@ -130,7 +131,7 @@ public class GestionCompetitionsController {
 		else if(!competActive.estEnEquipe()){
 			try {
 				competActive.add((Personne)c);
-			} catch (ExceptionAjoutPersonneCompetition e) {
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -139,6 +140,14 @@ public class GestionCompetitionsController {
     
     public void removeElementOfCompet(Candidat c){
     	competActive.remove(c);
+    	Inscriptions i = Inscriptions.getInscriptions();
+    	for(Competition a : i.getCompetitions()){
+    		if(a.equals(competActive)){
+		    	if(competActive.getCandidats().contains(c)){
+		    		System.out.println("ca marche pas du tout gros");
+		    	}
+    		}
+    	}
     }
 }
 
@@ -151,10 +160,12 @@ class ActionClickTable implements EventHandler<MouseEvent>{
 
 	@Override
 	public void handle(MouseEvent event) {
-		Competition compet = stageGestion.getTable().getSelectionModel().getSelectedItem();
-		stageGestion.setChoixVisibility(true);
-		stageGestion.setNomCompetition(compet.getNom());
-		stageGestion.setCompetitionActive(compet);
+		if(!stageGestion.getTable().getSelectionModel().getSelectedCells().isEmpty()){
+			Competition compet = stageGestion.getTable().getSelectionModel().getSelectedItem();
+			stageGestion.setChoixVisibility(true);
+			stageGestion.setNomCompetition(compet.getNom());
+			stageGestion.setCompetitionActive(compet);
+		}
 	}
 	
 }

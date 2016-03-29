@@ -4,6 +4,7 @@ import java.awt.List;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import exceptions.ExceptionAjoutPersonneCompetition;
 import inscriptions.Candidat;
 import inscriptions.Personne;
 import interfaceGraphique.controls.MonAppli;
@@ -139,22 +140,27 @@ public class GererCandidatsController {
     }
     
     public void buttonAutreVersCandidat(){
-    	ArrayList<Integer> aEnlever = new ArrayList<Integer>();
+    	ArrayList<Candidat> aEnlever = new ArrayList<Candidat>();
     	for(int i = 0; i < stage.getListAutresCandidats().size(); i++){
     		if(checkBoxAutresCandidats.getCellData(i).booleanValue()){
     			try {
 					stageGestion.addElementToCompet(stage.getListAutresCandidats().get(i));
-					aEnlever.add(i);
+					aEnlever.add(stage.getListAutresCandidats().get(i));
 					stage.getListCandidats().add(stage.getListAutresCandidats().get(i));
 					selectedRowListCandidats.add(new SimpleBooleanProperty());
-				} catch (Exception e) {
-					System.out.println("Erreur pas de membres dans l'équipe " + stage.getListAutresCandidats().get(i).toString());
+				} catch (ExceptionAjoutPersonneCompetition e) {
+					MonAppli.generationErreur("Erreur pas de membres dans l'équipe " + stage.getListAutresCandidats().get(i).getNom());
+				} catch (RuntimeException e) {
+					MonAppli.generationErreur("La date de clôture de la compétition est passée.");
+					selectedRowListAutres.get(i).set(false);
+					clean();
 				}
     		}
     	}
-    	for(int i : aEnlever){
+    	clean();
+
+    	for(Candidat i : aEnlever){
     		stage.getListAutresCandidats().remove(i);
-    		selectedRowListAutres.get(i).set(false);
     	}
     	try {
 			MonAppli.getInscriptions().sauvegarder();
@@ -165,21 +171,36 @@ public class GererCandidatsController {
     }
     
     public void buttonCandidatVersAutre(){
+    	ArrayList<Candidat> aEnlever = new ArrayList<Candidat>();
     	for(int i = 0; i < stage.getListCandidats().size(); i++){
 			if(checkBoxCandidatsCompet.getCellData(i).booleanValue()){
-					stageGestion.removeElementOfCompet(stage.getListCandidats().get(i));
-					stage.getListAutresCandidats().add(stage.getListCandidats().get(i));
-					stage.getListCandidats().remove(i);
-					selectedRowListCandidats.remove(i);
-					selectedRowListAutres.add(new SimpleBooleanProperty());
+				stageGestion.removeElementOfCompet(stage.getListCandidats().get(i));
+				stage.getListCandidats().remove(i);
+//					stage.getListAutresCandidats().add(stage.getListCandidats().get(i));
+//					aEnlever.add(stage.getListAutresCandidats().get(i));
+//					selectedRowListAutres.add(new SimpleBooleanProperty());
+//					selectedRowListCandidats.get(i).set(false);
 			}
     	}
+    	
+//    	for(Candidat i : aEnlever){
+//    		stage.getListCandidats().remove(i);
+//    	}
     	try {
 			MonAppli.getInscriptions().sauvegarder();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+    }
+    
+    public void clean(){
+    	for(int i = 0; i < selectedRowListAutres.size(); i++){
+    		selectedRowListAutres.get(i).set(false);
+    	}
+    	for(int i = 0; i < selectedRowListCandidats.size(); i++){
+    		selectedRowListCandidats.get(i).set(false);
+    	}
     }
     
     public void handleMail()
@@ -191,20 +212,10 @@ public class GererCandidatsController {
     	}
     	else
     	{
-    		generationErreur("Cette compétition est vide, action impossible");
+    		MonAppli.generationErreur("Cette compétition est vide, action impossible");
     	}
     	
     }
-    public void generationErreur(String message)
-	{
-		// Show the error message.
-        Alert alert = new Alert(AlertType.ERROR);
-        alert.setTitle("Erreur");
-        alert.setHeaderText("Attention");
-        alert.setContentText(message);
-        
-        alert.showAndWait();
-	}
 }
 
 
