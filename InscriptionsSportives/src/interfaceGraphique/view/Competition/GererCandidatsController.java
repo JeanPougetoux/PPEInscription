@@ -1,11 +1,20 @@
 package interfaceGraphique.view.Competition;
 
+import java.awt.List;
+import java.io.IOException;
+import java.util.ArrayList;
+
 import inscriptions.Candidat;
 import inscriptions.Personne;
+import interfaceGraphique.controls.MonAppli;
 import interfaceGraphique.controls.Competition.GererCandidats;
 import interfaceGraphique.controls.Competition.GererMail;
+import javafx.beans.InvalidationListener;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -30,7 +39,7 @@ public class GererCandidatsController {
     @FXML
     private TableColumn<Candidat, String> prenomCandidatsCompet;
     @FXML
-    private TableColumn<Candidat, CheckBox> checkBoxCandidatsCompet;
+    private TableColumn<Candidat, Boolean> checkBoxCandidatsCompet;
 	@FXML
     private TableView<Candidat> autreCandidats = new TableView<Candidat>();
     @FXML
@@ -45,6 +54,9 @@ public class GererCandidatsController {
     private Button autresVersCandidats;
     private GererCandidats stage;
     private GestionCompetitionsController stageGestion;
+    private ArrayList<BooleanProperty> selectedRowListAutres = new ArrayList<BooleanProperty>();
+    private ArrayList<BooleanProperty> selectedRowListCandidats = new ArrayList<BooleanProperty>();
+
     
     public GererCandidatsController(){
     	
@@ -57,13 +69,49 @@ public class GererCandidatsController {
 
     	nameAutresCandidats.setCellValueFactory(CellDataFeatures -> new ReadOnlyStringWrapper(
     			CellDataFeatures.getValue().getNom()));
-    	checkBoxCandidatsCompet.setCellFactory(tc -> new CheckBoxTableCell<>());
-    	checkBoxAutresCandidats.setCellFactory(tc -> new CheckBoxTableCell<Candidat, Boolean>());
+    	checkBoxCandidatsCompet.setCellValueFactory(
+    	new Callback<CellDataFeatures<Candidat,Boolean>,ObservableValue<Boolean>>()
+    	{
+    	    @Override
+    	    public ObservableValue<Boolean> call(CellDataFeatures<Candidat,Boolean> cdf)
+    	    {
+    	        TableView<Candidat> tblView = cdf.getTableView();
+
+    	        Candidat rowData = cdf.getValue();
+
+    	        int rowIndex = tblView.getItems().indexOf( rowData );
+
+    	        return selectedRowListCandidats.get( rowIndex );
+    	    }
+    	});
+    	checkBoxAutresCandidats.setCellValueFactory(
+    	new Callback<CellDataFeatures<Candidat,Boolean>,ObservableValue<Boolean>>()
+    	{
+    	    @Override
+    	    public ObservableValue<Boolean> call(CellDataFeatures<Candidat,Boolean> cdf)
+    	    {
+    	        TableView<Candidat> tblView = cdf.getTableView();
+
+    	        Candidat rowData = cdf.getValue();
+
+    	        int rowIndex = tblView.getItems().indexOf( rowData );
+
+    	        return selectedRowListAutres.get( rowIndex );
+    	    }
+    	});
+    	checkBoxAutresCandidats.setCellFactory(CheckBoxTableCell.forTableColumn(checkBoxAutresCandidats));
+    	checkBoxCandidatsCompet.setCellFactory(CheckBoxTableCell.forTableColumn(checkBoxCandidatsCompet));
     }
     
     public void setClass(GererCandidats stage, GestionCompetitionsController stageGestion){
     	this.stageGestion = stageGestion;
     	this.stage = stage;
+    	for(Candidat p : stage.getListAutresCandidats()){
+    		selectedRowListAutres.add(new SimpleBooleanProperty());
+    	}
+    	for(Candidat p : stage.getListCandidats()){
+    		selectedRowListCandidats.add(new SimpleBooleanProperty());
+    	}
     	if(stageGestion.getCompetitionActive().estEnEquipe()){
     		prenomCandidatsCompet.setVisible(false);
     		prenomAutresCandidats.setVisible(false);
@@ -91,9 +139,47 @@ public class GererCandidatsController {
     }
     
     public void buttonAutreVersCandidat(){
-    	for(int i = 0; i < 1; i++){
-//    		System.out.println(checkBoxAutresCandidats.getCellData(i).);
+    	ArrayList<Integer> aEnlever = new ArrayList<Integer>();
+    	for(int i = 0; i < stage.getListAutresCandidats().size(); i++){
+    		if(checkBoxAutresCandidats.getCellData(i).booleanValue()){
+    			try {
+					stageGestion.addElementToCompet(stage.getListAutresCandidats().get(i));
+					aEnlever.add(i);
+					stage.getListCandidats().add(stage.getListAutresCandidats().get(i));
+					selectedRowListCandidats.add(new SimpleBooleanProperty());
+				} catch (Exception e) {
+					System.out.println("Erreur pas de membres dans l'équipe " + stage.getListAutresCandidats().get(i).toString());
+				}
+    		}
     	}
+    	for(int i : aEnlever){
+    		stage.getListAutresCandidats().remove(i);
+    		selectedRowListAutres.get(i).set(false);
+    	}
+    	try {
+			MonAppli.getInscriptions().sauvegarder();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+    
+    public void buttonCandidatVersAutre(){
+    	for(int i = 0; i < stage.getListCandidats().size(); i++){
+			if(checkBoxCandidatsCompet.getCellData(i).booleanValue()){
+					stageGestion.removeElementOfCompet(stage.getListCandidats().get(i));
+					stage.getListAutresCandidats().add(stage.getListCandidats().get(i));
+					stage.getListCandidats().remove(i);
+					selectedRowListCandidats.remove(i);
+					selectedRowListAutres.add(new SimpleBooleanProperty());
+			}
+    	}
+    	try {
+			MonAppli.getInscriptions().sauvegarder();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
     
     public void handleMail()

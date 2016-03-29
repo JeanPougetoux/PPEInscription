@@ -52,7 +52,7 @@ public class AjoutCompetitionController {
 	}
 	
 	public boolean getEnEquipe(){
-		if(enEquipe.getPromptText().equals("oui"))
+		if(enEquipe.getValue().equals("oui"))
 			return true;
 		else
 			return false;

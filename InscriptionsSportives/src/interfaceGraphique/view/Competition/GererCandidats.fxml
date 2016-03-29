@@ -50,12 +50,12 @@
             <TableColumn fx:id="checkBoxAutresCandidats" prefWidth="38.0" resizable="false" />
          </columns>
       </TableView>
-      <Button fx:id="candidatVersAutres" mnemonicParsing="false" prefHeight="40.0" prefWidth="52.0" style="-fx-background-image: url(&quot;fleche.png&quot;);" text="=&gt;" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="TOP">
+      <Button fx:id="candidatVersAutres" mnemonicParsing="false" onAction="#buttonCandidatVersAutre" prefHeight="40.0" prefWidth="52.0" style="-fx-background-image: url(&quot;fleche.png&quot;);" text="=&gt;" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="TOP">
          <GridPane.margin>
             <Insets left="1.0" />
          </GridPane.margin>
       </Button>
-      <Button fx:id="autresVersCandidats" mnemonicParsing="false" prefHeight="40.0" prefWidth="52.0" text="&lt;=" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+      <Button fx:id="autresVersCandidats" mnemonicParsing="false" onAction="#buttonAutreVersCandidat" prefHeight="40.0" prefWidth="52.0" text="&lt;=" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
          <GridPane.margin>
             <Insets left="1.0" />
          </GridPane.margin>

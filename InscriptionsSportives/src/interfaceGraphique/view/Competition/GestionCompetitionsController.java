@@ -3,11 +3,16 @@ package interfaceGraphique.view.Competition;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import dialogueUtilisateur.Utilitaires;
+import exceptions.ExceptionAjoutPersonneCompetition;
 import exceptions.ExceptionCompetition;
 import exceptions.ExceptionNomEquipe;
+import inscriptions.Candidat;
 import inscriptions.Competition;
+import inscriptions.Equipe;
+import inscriptions.Personne;
 import interfaceGraphique.controls.ModaleSuppression;
 import interfaceGraphique.controls.MonAppli;
 import interfaceGraphique.controls.Competition.AjoutCompetition;
@@ -113,19 +118,27 @@ public class GestionCompetitionsController {
 		}
     }
     
-    public void addElementToCompet(){
-    	try {
-			competActive.add(MonAppli.getInscriptions().createEquipe("PROUT CA MARCHE BIEN"));
-		} catch (ExceptionNomEquipe e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+    public void addElementToCompet(Candidat c) throws Exception{
+		if(competActive.estEnEquipe()){
+			if(((Equipe)c).getMembres().size() == 0){
+				throw new RuntimeException();
+			}
+			else{
+				competActive.add((Equipe)c);
+			}
 		}
-    	try {
-			MonAppli.getInscriptions().sauvegarder();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		else if(!competActive.estEnEquipe()){
+			try {
+				competActive.add((Personne)c);
+			} catch (ExceptionAjoutPersonneCompetition e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
+    }
+    
+    public void removeElementOfCompet(Candidat c){
+    	competActive.remove(c);
     }
 }
 

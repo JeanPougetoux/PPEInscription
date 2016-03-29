@@ -16,10 +16,10 @@ public class MonAppli extends Application{
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		/*Accueil mafenetre = new Accueil();
-		mafenetre.show();*/
-		ConnexionSecurisee fenetre = new ConnexionSecurisee();
-		fenetre.show();
+		Accueil mafenetre = new Accueil();
+		mafenetre.show();
+//		ConnexionSecurisee fenetre = new ConnexionSecurisee();
+//		fenetre.show();
 	}
 	
 	public static Inscriptions getInscriptions(){
