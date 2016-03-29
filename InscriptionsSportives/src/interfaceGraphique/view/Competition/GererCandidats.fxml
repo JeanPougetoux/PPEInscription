@@ -55,7 +55,7 @@
             <Insets left="1.0" />
          </GridPane.margin>
       </Button>
-      <Button fx:id="autresVersCandidats" mnemonicParsing="false" onAction="#buttonAutreVersCandidat" prefHeight="40.0" prefWidth="52.0" text="&lt;=" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+      <Button fx:id="autresVersCandidats" mnemonicParsing="false" prefHeight="40.0" prefWidth="52.0" text="&lt;=" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
          <GridPane.margin>
             <Insets left="1.0" />
          </GridPane.margin>

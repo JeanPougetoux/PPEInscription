@@ -6,6 +6,7 @@ import java.time.LocalDate;
 
 import dialogueUtilisateur.Utilitaires;
 import exceptions.ExceptionCompetition;
+import exceptions.ExceptionNomEquipe;
 import inscriptions.Competition;
 import interfaceGraphique.controls.ModaleSuppression;
 import interfaceGraphique.controls.MonAppli;
@@ -95,7 +96,11 @@ public class GestionCompetitionsController {
     
     public void setCompetitionActive(Competition compet){
     	competActive = compet;   
-    	gererCandidats.setOnAction(new ActionGererCandidats(competActive));
+    	gererCandidats.setOnAction(new ActionGererCandidats(this));
+    }
+    
+    public Competition getCompetitionActive(){
+    	return competActive;
     }
     
     public void deleteElement(){    	
@@ -104,6 +109,21 @@ public class GestionCompetitionsController {
     	try {
 			MonAppli.getInscriptions().sauvegarder();
 		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
+    
+    public void addElementToCompet(){
+    	try {
+			competActive.add(MonAppli.getInscriptions().createEquipe("PROUT CA MARCHE BIEN"));
+		} catch (ExceptionNomEquipe e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	try {
+			MonAppli.getInscriptions().sauvegarder();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     }
@@ -156,13 +176,13 @@ class ActionDeleteCompetition implements EventHandler<ActionEvent>{
 
 class ActionGererCandidats implements EventHandler<ActionEvent>{
 		
-	private Competition compet;
-	public ActionGererCandidats(Competition compet) {
-		this.compet = compet;
+	private GestionCompetitionsController stageGestion;
+	public ActionGererCandidats(GestionCompetitionsController stageGestion) {
+		this.stageGestion = stageGestion;
 	}
 	@Override
 	public void handle(ActionEvent event) {
-		GererCandidats fenetreCandidats = new GererCandidats(compet);
+		GererCandidats fenetreCandidats = new GererCandidats(stageGestion);
 		fenetreCandidats.show();
 	}
 	

@@ -8,6 +8,7 @@ import inscriptions.Equipe;
 import inscriptions.Personne;
 import interfaceGraphique.controls.MonAppli;
 import interfaceGraphique.view.Competition.GererCandidatsController;
+import interfaceGraphique.view.Competition.GestionCompetitionsController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -19,14 +20,14 @@ import javafx.stage.Stage;
 
 public class GererCandidats extends Stage{
 	private BorderPane rootLayout;
-	private Competition compet;
+	private GestionCompetitionsController stageGestion;
 	private ObservableList<Candidat> listCandidatsCompet = FXCollections.observableArrayList();
 	private ObservableList<Candidat> listAutresCandidats = FXCollections.observableArrayList();
 	
-	public GererCandidats(Competition compet) {
+	public GererCandidats(GestionCompetitionsController stageGestion) {
 		this.setTitle("Gérer candidats");
 		this.initModality(Modality.APPLICATION_MODAL);
-		this.compet = compet;
+		this.stageGestion = stageGestion;
 		initLayouts();
 	}
 	
@@ -44,29 +45,25 @@ public class GererCandidats extends Stage{
 	            rootLayout.setCenter(panelPrincipal);
 	            bindLists();
 	            GererCandidatsController controller = loader.getController();
-	            controller.setClass(this);
+	            controller.setClass(this, stageGestion);
 	        } catch (IOException e) {
 	            e.printStackTrace();
 	        }
 	 }	
-	 
-	public Competition getCompet(){
-		return compet;
-	}
 	
-    private void bindLists(){
-    	if(compet.estEnEquipe()){
+    public void bindLists(){
+    	if(stageGestion.getCompetitionActive().estEnEquipe()){
 			for(Candidat c : MonAppli.getInscriptions().getCandidats()){
-				if(compet.getCandidats().contains(c) && c instanceof Equipe)
+				if(stageGestion.getCompetitionActive().getCandidats().contains(c) && c instanceof Equipe)
 					listCandidatsCompet.add(c);
-				else if(!compet.getCandidats().contains(c) && c instanceof Equipe)
+				else if(!stageGestion.getCompetitionActive().getCandidats().contains(c) && c instanceof Equipe)
 					listAutresCandidats.add(c);	}
     	}
     	else{
     		for(Candidat c : MonAppli.getInscriptions().getCandidats()){
-    			if(compet.getCandidats().contains(c) && c instanceof Personne)
+    			if(stageGestion.getCompetitionActive().getCandidats().contains(c) && c instanceof Personne)
     				listCandidatsCompet.add(c);
-    			else if(!compet.getCandidats().contains(c) && c instanceof Personne)
+    			else if(!stageGestion.getCompetitionActive().getCandidats().contains(c) && c instanceof Personne)
     				listAutresCandidats.add(c);
     		}
     	}
