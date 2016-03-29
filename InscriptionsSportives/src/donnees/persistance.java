@@ -28,7 +28,7 @@ import inscriptions.Personne;
 public class persistance {
 	
 	public static final String URLLOCALE = "localhost:3306/ppe_inscriptions";
-	public static final String URLSERVER = "mysql.m2l.local/jpougetoux";
+	public static final String URLSERVER = "mysql.m2l.local/tecalle";
 	public static String URLFINALE = "";
 	public static String USER = "";
 	public static String PASS = "";
@@ -671,6 +671,32 @@ public class persistance {
 			java.sql.PreparedStatement prepare = conn.prepareStatement(query);
 			prepare.setString(1, utilisateur);
 			prepare.setString(2, encryptPassword(password));
+			resultat = prepare.executeQuery();
+			return (resultat.first());
+		} 
+		catch (SQLException e) 
+		{
+			System.out.println("problème de connexion");
+		}
+		return false;
+	}
+	
+	/**
+	 * Permet de savoir si la connexion a échoué ou résussi
+	 * @param utilisateur
+	 * @param password
+	 * @return
+	 */
+	public static boolean estConnecte(String password)
+	{
+		ResultSet resultat = null;
+		String query = "call seConnecterPassword(?)";
+		
+		try 
+		{
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/ppe_inscriptions", "root", "");
+			java.sql.PreparedStatement prepare = conn.prepareStatement(query);
+			prepare.setString(1, encryptPassword(password));
 			resultat = prepare.executeQuery();
 			return (resultat.first());
 		} 

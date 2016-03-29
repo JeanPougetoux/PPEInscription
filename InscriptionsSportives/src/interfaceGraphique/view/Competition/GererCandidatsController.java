@@ -1,32 +1,22 @@
 package interfaceGraphique.view.Competition;
 
-import java.awt.List;
-import java.io.IOException;
-import java.util.ArrayList;
-
-import exceptions.ExceptionAjoutPersonneCompetition;
-import exceptions.ExceptionNomEquipe;
-import exceptions.ExceptionRetraitPersonneEquipe;
 import inscriptions.Candidat;
-import inscriptions.Competition;
-import inscriptions.Equipe;
 import inscriptions.Personne;
-import interfaceGraphique.controls.MonAppli;
 import interfaceGraphique.controls.Competition.GererCandidats;
-import javafx.beans.property.BooleanProperty;
+import interfaceGraphique.controls.Competition.GererMail;
 import javafx.beans.property.ReadOnlyStringWrapper;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.util.Callback;
 
@@ -55,7 +45,6 @@ public class GererCandidatsController {
     private Button autresVersCandidats;
     private GererCandidats stage;
     private GestionCompetitionsController stageGestion;
-    private ArrayList<BooleanProperty> selectedRowList = new ArrayList<BooleanProperty>();
     
     public GererCandidatsController(){
     	
@@ -69,31 +58,12 @@ public class GererCandidatsController {
     	nameAutresCandidats.setCellValueFactory(CellDataFeatures -> new ReadOnlyStringWrapper(
     			CellDataFeatures.getValue().getNom()));
     	checkBoxCandidatsCompet.setCellFactory(tc -> new CheckBoxTableCell<>());
-    	checkBoxAutresCandidats.setCellValueFactory(
-    	new Callback<CellDataFeatures<Candidat,Boolean>,ObservableValue<Boolean>>()
-    	{
-    	    @Override
-    	    public ObservableValue<Boolean> call(CellDataFeatures<Candidat,Boolean> cdf)
-    	    {
-    	        TableView<Candidat> tblView = cdf.getTableView();
-
-    	        Candidat rowData = cdf.getValue();
-
-    	        int rowIndex = tblView.getItems().indexOf( rowData );
-
-    	        return selectedRowList.get( rowIndex );
-    	    }
-    	});
-    	checkBoxAutresCandidats.setCellFactory(CheckBoxTableCell.forTableColumn(checkBoxAutresCandidats));
+    	checkBoxAutresCandidats.setCellFactory(tc -> new CheckBoxTableCell<Candidat, Boolean>());
     }
     
     public void setClass(GererCandidats stage, GestionCompetitionsController stageGestion){
-    	this.stage = stage;
     	this.stageGestion = stageGestion;
-    	for(Candidat p : stage.getListAutresCandidats()){
-    		selectedRowList.add(new SimpleBooleanProperty());
-    	}
-
+    	this.stage = stage;
     	if(stageGestion.getCompetitionActive().estEnEquipe()){
     		prenomCandidatsCompet.setVisible(false);
     		prenomAutresCandidats.setVisible(false);
@@ -113,7 +83,6 @@ public class GererCandidatsController {
     	}
     	candidatsCompetition.setItems(stage.getListCandidats());
     	autreCandidats.setItems(stage.getListAutresCandidats());
-    	autresVersCandidats.setOnAction(buttonAutreVersCandidat());
     }
     
     public void setVisibility(boolean candidatsVersAutres, boolean autreVersCandidats){
@@ -121,38 +90,37 @@ public class GererCandidatsController {
     	autresVersCandidats.setVisible(autreVersCandidats);
     }
     
-    public EventHandler<ActionEvent> buttonAutreVersCandidat(){
-    	return new EventHandler<ActionEvent>() {
-//    	for(int i = 0; i < stage.getListAutresCandidats().size(); i++){
-//    		if(checkBoxAutresCandidats.getCellData(i).booleanValue()){
-////    			if(stage.getListAutresCandidats().get(i) instanceof Personne){
-////					try {
-////						stage.getCompet().add((Personne)(stage.getListAutresCandidats().get(i)));
-////					} catch (ExceptionAjoutPersonneCompetition e1) {
-////						// TODO Auto-generated catch block
-////						e1.printStackTrace();
-////					}
-////    			}
-////    			if(stage.getListAutresCandidats().get(i) instanceof Equipe){
-////    				for(Competition c : MonAppli.getInscriptions().getCompetitions()){
-////    					
-////    				}
-////    			}
-//    				
-////    			stage.getListAutresCandidats().remove(i);
-//    			try {
-//					MonAppli.getInscriptions().sauvegarder();
-//				} catch (IOException e) {
-//					e.printStackTrace();
-//				}
-//    		}
-//    	}
-		@Override
-		public void handle(ActionEvent event) {
-			stageGestion.addElementToCompet();
-		}
-    };
+    public void buttonAutreVersCandidat(){
+    	for(int i = 0; i < 1; i++){
+//    		System.out.println(checkBoxAutresCandidats.getCellData(i).);
+    	}
     }
+    
+    public void handleMail()
+    {
+    	if(!stageGestion.getCompetitionActive().getCandidats().isEmpty())
+    	{
+    		GererMail fenetre = new GererMail(stageGestion.getCompetitionActive());
+        	fenetre.show();
+    	}
+    	else
+    	{
+    		generationErreur("Cette compétition est vide, action impossible");
+    	}
+    	
+    }
+    public void generationErreur(String message)
+	{
+		// Show the error message.
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Erreur");
+        alert.setHeaderText("Attention");
+        alert.setContentText(message);
+        
+        alert.showAndWait();
+	}
+}
+
 
 class ActionClickTableCandidats implements EventHandler<ActionEvent>{
 
@@ -164,5 +132,4 @@ class ActionClickTableCandidats implements EventHandler<ActionEvent>{
 	public void handle(ActionEvent event) {
 		System.out.println("le clic marche bien");		
 	}
-}
 }
