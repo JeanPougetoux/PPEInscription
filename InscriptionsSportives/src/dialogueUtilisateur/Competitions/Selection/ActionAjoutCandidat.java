@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dialogueUtilisateur.Utilitaires;
+import exceptions.ExceptionAjoutEquipeCompetition;
 import exceptions.ExceptionAjoutPersonneCompetition;
 import inscriptions.Candidat;
 import inscriptions.Competition;
@@ -56,13 +57,18 @@ public class ActionAjoutCandidat implements Action{
 					}
 					else{
 						if(competition.estEnEquipe()){
-							if(((Equipe)candidat).getMembres().isEmpty()){
-								System.out.println("Une équipe sans membres ne peut pas s'inscrire.");
-							}
-							else{
-								competition.add((Equipe)candidat);
-								System.out.println("\n'" + candidat.toString() + "' est bien ajoutée à la compétition.");
-							}
+							
+								try 
+								{
+									competition.add((Equipe)candidat);
+									System.out.println("\n'" + candidat.toString() + "' est bien ajoutée à la compétition.");
+								} 
+								catch (ExceptionAjoutEquipeCompetition e) 
+								{
+									System.out.println(e.toString());
+								}
+								
+							
 						}
 						else{
 							try {

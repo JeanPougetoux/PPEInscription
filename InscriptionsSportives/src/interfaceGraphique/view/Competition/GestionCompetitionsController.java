@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Iterator;
 
 import dialogueUtilisateur.Utilitaires;
+import exceptions.ExceptionAjoutEquipeCompetition;
 import exceptions.ExceptionAjoutPersonneCompetition;
 import exceptions.ExceptionCompetition;
 import inscriptions.Candidat;
@@ -121,12 +122,16 @@ public class GestionCompetitionsController {
     
     public void addElementToCompet(Candidat c) throws ExceptionAjoutPersonneCompetition{
 		if(competActive.estEnEquipe()){
-			if(((Equipe)c).getMembres().size() == 0){
-				throw new ExceptionAjoutPersonneCompetition("Pas de membres dans l'équipe.");
-			}
-			else{
-				competActive.add((Equipe)c);
-			}
+			
+				try 
+				{
+					competActive.add((Equipe)c);
+				} 
+				catch (ExceptionAjoutEquipeCompetition e) 
+				{
+					System.out.println(e.toString());
+				}
+			
 		}
 		else if(!competActive.estEnEquipe()){
 			try {
