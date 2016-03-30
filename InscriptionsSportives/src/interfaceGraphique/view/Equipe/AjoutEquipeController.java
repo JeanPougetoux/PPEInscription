@@ -40,7 +40,7 @@ public class AjoutEquipeController {
 			stageGestion.getList().add(MonAppli.getInscriptions().createEquipe(newName.getText()));
 		} catch (ExceptionNomEquipe e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e.toString());
 		}
 		try {
 			MonAppli.getInscriptions().sauvegarder();
