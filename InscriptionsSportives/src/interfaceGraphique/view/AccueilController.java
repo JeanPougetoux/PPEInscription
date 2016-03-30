@@ -3,6 +3,7 @@ package interfaceGraphique.view;
 import interfaceGraphique.controls.Accueil;
 import interfaceGraphique.controls.Competition.GestionCompetitions;
 import interfaceGraphique.controls.Equipe.GestionEquipe;
+import interfaceGraphique.controls.Personne.GestionPersonne;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -36,7 +37,9 @@ public class AccueilController {
 		fenetreEquipe.show();
 	}
 
-	public void boutonPersonne(){
-	
-}
+	public void boutonPersonne()
+	{
+		GestionPersonne fenetrePersonne = new GestionPersonne();
+		fenetrePersonne.show();
+	}
 }
