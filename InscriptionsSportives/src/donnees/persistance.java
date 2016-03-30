@@ -14,6 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Formatter;
 
 import exceptions.ExceptionMailPersonne;
+import exceptions.ExceptionAjoutEquipeCompetition;
 import exceptions.ExceptionAjoutPersonneCompetition;
 import exceptions.ExceptionCompetition;
 import exceptions.ExceptionNomEquipe;
@@ -92,8 +93,9 @@ public class persistance {
 	 * @param inscription
 	 * @return
 	 * @throws ExceptionAjoutPersonneCompetition 
+	 * @throws ExceptionAjoutEquipeCompetition 
 	 */
-	private Inscriptions getParticipantsCompetitions(Inscriptions inscription) throws ExceptionAjoutPersonneCompetition {
+	private Inscriptions getParticipantsCompetitions(Inscriptions inscription) throws ExceptionAjoutPersonneCompetition, ExceptionAjoutEquipeCompetition {
 		
 		try 
 		{

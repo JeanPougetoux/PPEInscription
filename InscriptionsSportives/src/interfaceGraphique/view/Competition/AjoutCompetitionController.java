@@ -3,6 +3,8 @@ package interfaceGraphique.view.Competition;
 import java.io.IOException;
 import java.time.LocalDate;
 
+import javax.management.RuntimeErrorException;
+
 import exceptions.ExceptionCompetition;
 import interfaceGraphique.controls.MonAppli;
 import interfaceGraphique.controls.Competition.AjoutCompetition;
@@ -13,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class AjoutCompetitionController {
@@ -27,6 +30,10 @@ public class AjoutCompetitionController {
 	private Button valider;
 	@FXML
 	private Button annuler;
+	@FXML
+	private Label messageErreur;
+	private AjoutCompetition stageAjout;
+	private GestionCompetitions stageGestion;
 	
 	public AjoutCompetitionController(){
 		
@@ -34,20 +41,25 @@ public class AjoutCompetitionController {
 	
 	@FXML
 	private void initialize(){
+		messageErreur(null);
 		enEquipe.getItems().addAll("oui", "non");
 		enEquipe.setValue("oui");
 	}	
 	
 	public void setStagesCompetition(AjoutCompetition stageAjout, GestionCompetitions stageGestion){
-		annuler.setOnAction(new ActionAnnuler(stageAjout));
-		valider.setOnAction(new ActionValider(stageAjout, this, stageGestion));
+		this.stageAjout = stageAjout;
+		this.stageGestion = stageGestion;
 	}
 	
-	public String getStringNom(){
+	public String getStringNom() throws Exception{
+		if(nomCompetition.getText().isEmpty())
+			throw new RuntimeException("Vous devez remplir le nom de la compétition.");
 		return nomCompetition.getText();
 	}
 	
-	public LocalDate getLocalDateCloture(){
+	public LocalDate getLocalDateCloture() throws Exception{
+		if(dateCloture.getValue() == null)
+			throw new RuntimeException("Vous devez remplir la date de clôture.");
 		return dateCloture.getValue();
 	}
 	
@@ -57,38 +69,23 @@ public class AjoutCompetitionController {
 		else
 			return false;
 	}
-}
-
-class ActionAnnuler implements EventHandler<ActionEvent>{
-
-	private AjoutCompetition stage;
-	public ActionAnnuler(AjoutCompetition stage) {
-		this.stage = stage;
-	}
-	@Override
-	public void handle(ActionEvent event) {
-		stage.close();
-	}
 	
-}
-
-class ActionValider implements EventHandler<ActionEvent>{
-
-	private AjoutCompetition stageAjout;
-	private GestionCompetitions stageGestion;
-	private AjoutCompetitionController controlAjout;
-	public ActionValider(AjoutCompetition stageAjout, AjoutCompetitionController controlAjout
-							, GestionCompetitions stageGestion) {
-		this.stageAjout = stageAjout;
-		this.stageGestion = stageGestion;
-		this.controlAjout = controlAjout;
-	}
-	@Override
-	public void handle(ActionEvent event) {
+	public void messageErreur(Object o){
+    	if(o == null){
+    		messageErreur.setVisible(false);
+    	}
+    	else{
+    		messageErreur.setVisible(true);
+    		messageErreur.setText(o.toString());
+    	}
+    }
+	
+	public void actionValider(){
+		messageErreur(null);
 		try {
 			stageGestion.getList().add(MonAppli.getInscriptions().createCompetition(
-												controlAjout.getStringNom(), controlAjout.getLocalDateCloture(),
-												controlAjout.getEnEquipe()));
+												this.getStringNom(), this.getLocalDateCloture(),
+												this.getEnEquipe()));
 			try {
 				MonAppli.getInscriptions().sauvegarder();
 				stageAjout.close();
@@ -97,8 +94,11 @@ class ActionValider implements EventHandler<ActionEvent>{
 				e.printStackTrace();
 			}
 		} catch (Exception e) {
-			MonAppli.generationErreur("Il manque un champ.");
+			messageErreur(e.getMessage());
 		}		
 	}
 	
+	public void actionAnnuler(){
+		stageAjout.close();
+	}
 }

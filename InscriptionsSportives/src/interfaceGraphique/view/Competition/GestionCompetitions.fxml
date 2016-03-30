@@ -38,29 +38,29 @@
             <Font name="Arial Black" size="26.0" />
          </font>
       </Label>
-      <Button fx:id="ajoutCompetition" mnemonicParsing="false" prefHeight="25.0" prefWidth="167.0" text="Ajout d'une compétition" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="2">
+      <Button fx:id="ajoutCompetition" mnemonicParsing="false" onAction="#actionAjoutCompetition" prefHeight="25.0" prefWidth="167.0" text="Ajout d'une compétition" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets left="31.0" />
          </GridPane.margin>
       </Button>
-      <TableView fx:id="competitionTable" prefHeight="280.0" prefWidth="487.0" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="3" GridPane.rowSpan="5">
+      <TableView fx:id="competitionTable" onMouseClicked="#actionClickTable" prefHeight="280.0" prefWidth="487.0" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="3" GridPane.rowSpan="5">
         <columns>
             <TableColumn fx:id="nameColumn" maxWidth="210.0" minWidth="210.0" prefWidth="210.0" resizable="false" text="Nom de la compétition" />
             <TableColumn fx:id="dateColumn" maxWidth="145.0" minWidth="145.0" prefWidth="145.0" resizable="false" text="Date de clôture" />
             <TableColumn fx:id="teamColumn" editable="false" maxWidth="102.0" minWidth="102.0" prefWidth="102.0" resizable="false" text="En équipe" />
         </columns>
       </TableView>
-      <Button fx:id="gererCandidats" mnemonicParsing="false" prefHeight="25.0" prefWidth="113.0" text="Gérer candidats" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="3" GridPane.valignment="TOP">
+      <Button fx:id="gererCandidats" mnemonicParsing="false" onAction="#actionGererCandidats" prefHeight="25.0" prefWidth="113.0" text="Gérer candidats" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="3" GridPane.valignment="TOP">
          <GridPane.margin>
             <Insets left="20.0" />
          </GridPane.margin>
       </Button>
-      <Button fx:id="modifier" mnemonicParsing="false" prefHeight="25.0" prefWidth="113.0" text="Modifier" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="4" GridPane.valignment="TOP">
+      <Button fx:id="modifier" mnemonicParsing="false" onAction="#actionModifierCompetition" prefHeight="25.0" prefWidth="113.0" text="Modifier" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="4" GridPane.valignment="TOP">
          <GridPane.margin>
             <Insets left="20.0" />
          </GridPane.margin>
       </Button>
-      <Button fx:id="supprimer" mnemonicParsing="false" prefHeight="25.0" prefWidth="113.0" text="Supprimer" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="5" GridPane.valignment="TOP">
+      <Button fx:id="supprimer" mnemonicParsing="false" onAction="#actionDeleteCompetition" prefHeight="25.0" prefWidth="113.0" text="Supprimer" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="5" GridPane.valignment="TOP">
          <GridPane.margin>
             <Insets left="20.0" />
          </GridPane.margin>

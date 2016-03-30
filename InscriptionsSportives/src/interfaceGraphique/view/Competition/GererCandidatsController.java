@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import exceptions.ExceptionAjoutPersonneCompetition;
 import inscriptions.Candidat;
+import inscriptions.Equipe;
 import inscriptions.Personne;
 import interfaceGraphique.controls.MonAppli;
 import interfaceGraphique.controls.Competition.GererCandidats;
@@ -23,6 +24,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
@@ -53,6 +55,8 @@ public class GererCandidatsController {
     private Button candidatVersAutres;
     @FXML
     private Button autresVersCandidats;
+    @FXML
+    private Label messageErreur;
     private GererCandidats stage;
     private GestionCompetitionsController stageGestion;
     private ArrayList<BooleanProperty> selectedRowListAutres = new ArrayList<BooleanProperty>();
@@ -65,6 +69,7 @@ public class GererCandidatsController {
     
     @FXML
     private void initialize(){
+    	messageErreur(null);
     	nameCandidatsCompet.setCellValueFactory(CellDataFeatures -> new ReadOnlyStringWrapper(
     			CellDataFeatures.getValue().getNom()));
 
@@ -140,20 +145,22 @@ public class GererCandidatsController {
     }
     
     public void buttonAutreVersCandidat(){
+    	messageErreur(null);
     	ArrayList<Candidat> aEnlever = new ArrayList<Candidat>();
     	for(int i = 0; i < stage.getListAutresCandidats().size(); i++){
     		if(checkBoxAutresCandidats.getCellData(i).booleanValue()){
     			try {
-					stageGestion.addElementToCompet(stage.getListAutresCandidats().get(i));
+    				if(stageGestion.getCompetitionActive().estEnEquipe()){
+    					stageGestion.getCompetitionActive().add((Equipe)stage.getListAutresCandidats().get(i));
+    				}
+    				else if(!stageGestion.getCompetitionActive().estEnEquipe()){
+    					stageGestion.getCompetitionActive().add((Personne)stage.getListAutresCandidats().get(i));
+    		    	}
 					aEnlever.add(stage.getListAutresCandidats().get(i));
 					stage.getListCandidats().add(stage.getListAutresCandidats().get(i));
 					selectedRowListCandidats.add(new SimpleBooleanProperty());
-				} catch (ExceptionAjoutPersonneCompetition e) {
-					MonAppli.generationErreur("Erreur pas de membres dans l'équipe " + stage.getListAutresCandidats().get(i).getNom());
-				} catch (RuntimeException e) {
-					MonAppli.generationErreur("La date de clôture de la compétition est passée.");
-					selectedRowListAutres.get(i).set(false);
-					clean();
+				} catch (Exception e) {
+					messageErreur(e.toString());
 				}
     		}
     	}
@@ -171,21 +178,21 @@ public class GererCandidatsController {
     }
     
     public void buttonCandidatVersAutre(){
+    	messageErreur(null);
     	ArrayList<Candidat> aEnlever = new ArrayList<Candidat>();
     	for(int i = 0; i < stage.getListCandidats().size(); i++){
 			if(checkBoxCandidatsCompet.getCellData(i).booleanValue()){
-				stageGestion.removeElementOfCompet(stage.getListCandidats().get(i));
-				stage.getListCandidats().remove(i);
-//					stage.getListAutresCandidats().add(stage.getListCandidats().get(i));
-//					aEnlever.add(stage.getListAutresCandidats().get(i));
-//					selectedRowListAutres.add(new SimpleBooleanProperty());
-//					selectedRowListCandidats.get(i).set(false);
+					stageGestion.getCompetitionActive().remove(stage.getListCandidats().get(i));
+					stage.getListAutresCandidats().add(stage.getListCandidats().get(i));
+					aEnlever.add(stage.getListAutresCandidats().get(i));
+					selectedRowListAutres.add(new SimpleBooleanProperty());
 			}
     	}
     	
-//    	for(Candidat i : aEnlever){
-//    		stage.getListCandidats().remove(i);
-//    	}
+    	clean();
+    	for(Candidat i : aEnlever){
+    		stage.getListCandidats().remove(i);
+    	}
     	try {
 			MonAppli.getInscriptions().sauvegarder();
 		} catch (IOException e) {
@@ -215,6 +222,16 @@ public class GererCandidatsController {
     		MonAppli.generationErreur("Cette compétition est vide, action impossible");
     	}
     	
+    }
+    
+    public void messageErreur(Object o){
+    	if(o == null){
+    		messageErreur.setVisible(false);
+    	}
+    	else{
+    		messageErreur.setVisible(true);
+    		messageErreur.setText(o.toString());
+    	}
     }
 }
 

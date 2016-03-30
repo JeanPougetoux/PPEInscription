@@ -9,6 +9,7 @@ import java.util.TreeSet;
 
 import dialogueUtilisateur.SaisiesConsole;
 import dialogueUtilisateur.Utilitaires;
+import exceptions.ExceptionAjoutEquipeCompetition;
 import exceptions.ExceptionAjoutPersonneCompetition;
 import exceptions.ExceptionCompetition;
 
@@ -156,13 +157,18 @@ public class Competition implements Comparable<Competition>, Serializable
 	 * les inscriptions sont closes.
 	 * @param personne
 	 * @return
+	 * @throws ExceptionAjoutEquipeCompetition 
 	 */
 
-	public boolean add(Equipe equipe)
+	public boolean add(Equipe equipe) throws ExceptionAjoutEquipeCompetition
 	{
 		// TODO vérifier que la date de clôture n'est pas passée
-		if (!enEquipe || !inscriptionsOuvertes())
-			throw new RuntimeException();
+		if ((!enEquipe) && !inscriptions.pers.getInitialisation())
+			throw new ExceptionAjoutEquipeCompetition("equipe");
+		if(!inscriptionsOuvertes() && !inscriptions.pers.getInitialisation())
+			throw new ExceptionAjoutEquipeCompetition("ouvert");
+		if(equipe.getMembres().isEmpty())
+			throw new ExceptionAjoutEquipeCompetition("vide");
 		equipe.add(this);
 		return candidats.add(equipe);
 	}
@@ -185,11 +191,8 @@ public class Competition implements Comparable<Competition>, Serializable
 	
 	public void delete()
 	{
-		Iterator<Candidat> iterator = candidats.iterator();
-		while(iterator.hasNext()){
-			Candidat c = iterator.next();
-			iterator.remove();
-		}
+		for (Candidat candidat : candidats)
+			remove(candidat);
 		inscriptions.remove(this);
 	}
 	

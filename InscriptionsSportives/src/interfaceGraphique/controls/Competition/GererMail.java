@@ -25,6 +25,7 @@ public class GererMail extends Stage
 	private ObservableList<Candidat> listCandidatsCompet = FXCollections.observableArrayList();
 	
 	public GererMail(Competition compet) {
+		this.setResizable(false);
 		this.setTitle("Envoie de mail groupé");
 		this.initModality(Modality.APPLICATION_MODAL);
 		this.compet = compet;

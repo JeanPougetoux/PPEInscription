@@ -25,6 +25,7 @@ public class GererCandidats extends Stage{
 	private ObservableList<Candidat> listAutresCandidats = FXCollections.observableArrayList();
 	
 	public GererCandidats(GestionCompetitionsController stageGestion) {
+		this.setResizable(false);
 		this.setTitle("Gérer candidats");
 		this.initModality(Modality.APPLICATION_MODAL);
 		this.stageGestion = stageGestion;

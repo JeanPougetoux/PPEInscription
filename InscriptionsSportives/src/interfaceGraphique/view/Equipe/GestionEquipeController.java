@@ -8,6 +8,7 @@ import interfaceGraphique.controls.ModaleSuppression;
 import interfaceGraphique.controls.MonAppli;
 import interfaceGraphique.controls.Equipe.AjoutEquipe;
 import interfaceGraphique.controls.Equipe.GestionEquipe;
+import interfaceGraphique.controls.Equipe.ModificationEquipe;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -53,7 +54,6 @@ public class GestionEquipeController {
     public void setClass(GestionEquipe stageGestion){
     	this.stageGestion = stageGestion;
     	equipeTable.setItems(stageGestion.getList());
-    	equipeTable.setOnMouseClicked(new ActionClickTable(this));
     }
     
     public void setChoixVisibility(boolean visible){
@@ -85,6 +85,11 @@ public class GestionEquipeController {
     	modaleSupp.show();
     }
     
+    public void actionBoutonModifier(){
+    	ModificationEquipe fenetreModif = new ModificationEquipe(this);
+    	fenetreModif.show();
+    }
+    
     public void deleteElement(){    	
 		stageGestion.getList().remove(equipeActive);
 		try {
@@ -98,22 +103,16 @@ public class GestionEquipeController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+    	setChoixVisibility(false);
+    	setEquipeActive(null);
     }
-}
-
-class ActionClickTable implements EventHandler<MouseEvent>{
-
-	private GestionEquipeController stageGestion;
-	public ActionClickTable(GestionEquipeController stageGestion) {
-		this.stageGestion = stageGestion;
-	}
-
-	@Override
-	public void handle(MouseEvent event) {
-		Equipe equipe = stageGestion.getTable().getSelectionModel().getSelectedItem();
-		stageGestion.setChoixVisibility(true);
-		stageGestion.setNomEquipe(equipe.getNom());
-		stageGestion.setEquipeActive(equipe);
-	}
-	
+    
+    public void actionClickTable(){
+    	if(!this.getTable().getSelectionModel().getSelectedCells().isEmpty()){
+	    	Equipe equipe = this.getTable().getSelectionModel().getSelectedItem();
+			this.setChoixVisibility(true);
+			this.setNomEquipe(equipe.getNom());
+			this.setEquipeActive(equipe);
+    	}
+    }
 }

@@ -20,6 +20,7 @@ public class AjoutEquipe extends Stage{
 	private GestionEquipe stageGestion;
 	
 	public AjoutEquipe(GestionEquipe stageGestion){
+		this.setResizable(false);
 		this.stageGestion = stageGestion;
 		this.setTitle("Ajout équipe");
 		this.initModality(Modality.APPLICATION_MODAL);

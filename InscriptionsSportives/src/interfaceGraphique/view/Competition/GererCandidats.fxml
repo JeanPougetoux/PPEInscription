@@ -27,8 +27,8 @@
       <RowConstraints maxHeight="71.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="101.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
     <RowConstraints maxHeight="172.0" minHeight="10.0" prefHeight="163.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="97.0" minHeight="10.0" prefHeight="53.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="39.0" minHeight="10.0" prefHeight="34.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="97.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="49.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
       <Label prefHeight="45.0" prefWidth="434.0" text="Gestion des candidats" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="1">
@@ -75,5 +75,10 @@
             <Insets />
          </GridPane.margin>
       </Button>
+      <Label fx:id="messageErreur" prefHeight="16.0" prefWidth="589.0" text="Label" textFill="RED" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowIndex="6">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+      </Label>
    </children>
 </GridPane>

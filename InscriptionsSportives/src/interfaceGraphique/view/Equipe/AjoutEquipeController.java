@@ -8,12 +8,15 @@ import interfaceGraphique.controls.MonAppli;
 import interfaceGraphique.controls.Equipe.AjoutEquipe;
 import interfaceGraphique.controls.Equipe.GestionEquipe;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class AjoutEquipeController {
 	
 	@FXML
 	private TextField newName;
+	@FXML
+	private Label messageErreur;
 	private AjoutEquipe stageAjout;
 	private GestionEquipe stageGestion;
 	
@@ -23,7 +26,7 @@ public class AjoutEquipeController {
 	
 	@FXML
 	private void initialize(){
-		
+		messageErreur(null);
 	}
 	
 	public void setStage(AjoutEquipe stageAjout, GestionEquipe stageGestion){
@@ -38,9 +41,8 @@ public class AjoutEquipeController {
 	public void actionAjout(){
 		try {
 			stageGestion.getList().add(MonAppli.getInscriptions().createEquipe(newName.getText()));
-		} catch (ExceptionNomEquipe e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (Exception e) {
+			messageErreur(e.getMessage());
 		}
 		try {
 			MonAppli.getInscriptions().sauvegarder();
@@ -50,4 +52,14 @@ public class AjoutEquipeController {
 		}
 		stageAjout.close();
 	}
+	
+	public void messageErreur(Object o){
+    	if(o == null){
+    		messageErreur.setVisible(false);
+    	}
+    	else{
+    		messageErreur.setVisible(true);
+    		messageErreur.setText(o.toString());
+    	}
+    }
 }

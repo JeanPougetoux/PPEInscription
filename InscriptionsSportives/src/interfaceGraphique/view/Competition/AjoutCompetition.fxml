@@ -18,10 +18,10 @@
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="267.0" minWidth="10.0" prefWidth="242.0" />
   </columnConstraints>
   <rowConstraints>
-      <RowConstraints maxHeight="78.0" minHeight="10.0" prefHeight="78.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="54.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="51.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="111.0" minHeight="10.0" prefHeight="95.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="54.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="51.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="69.0" minHeight="10.0" prefHeight="69.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
@@ -48,7 +48,7 @@
       <TextField fx:id="nomCompetition" maxWidth="181.0" prefHeight="25.0" prefWidth="181.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
       <DatePicker fx:id="dateCloture" prefHeight="25.0" prefWidth="181.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
       <ComboBox fx:id="enEquipe" prefHeight="25.0" prefWidth="181.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-      <Button fx:id="valider" mnemonicParsing="false" prefWidth="80.0" text="valider" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4">
+      <Button fx:id="valider" mnemonicParsing="false" onAction="#actionValider" prefWidth="80.0" text="valider" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4">
          <font>
             <Font size="14.0" />
          </font>
@@ -56,10 +56,15 @@
             <Insets left="30.0" />
          </GridPane.margin>
       </Button>
-      <Button fx:id="annuler" mnemonicParsing="false" prefWidth="80.0" text="annuler" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+      <Button fx:id="annuler" mnemonicParsing="false" onAction="#actionAnnuler" prefWidth="80.0" text="annuler" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
+      <Label fx:id="messageErreur" prefHeight="17.0" prefWidth="409.0" text="Label" textFill="RED" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.valignment="BOTTOM">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+      </Label>
    </children>
 </GridPane>

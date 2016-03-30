@@ -16,6 +16,7 @@ public class AjoutCompetition extends Stage{
 	private GestionCompetitions stageGestion;
 	
 	public AjoutCompetition(GestionCompetitions stageGestion) {
+		this.setResizable(false);
 		this.setTitle("Ajout compétition");
 		this.initModality(Modality.APPLICATION_MODAL);
 		this.stageGestion = stageGestion;

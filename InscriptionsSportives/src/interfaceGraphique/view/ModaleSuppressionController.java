@@ -3,6 +3,7 @@ package interfaceGraphique.view;
 import interfaceGraphique.controls.ModaleSuppression;
 import interfaceGraphique.view.Competition.GestionCompetitionsController;
 import interfaceGraphique.view.Equipe.GestionEquipeController;
+import interfaceGraphique.view.Personne.GestionPersonneController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -32,6 +33,8 @@ public class ModaleSuppressionController {
 					((GestionCompetitionsController)stageGestion).deleteElement();
 				else if(stageGestion instanceof GestionEquipeController)
 					((GestionEquipeController)stageGestion).deleteElement();
+				else if(stageGestion instanceof GestionPersonneController)
+					((GestionPersonneController)stageGestion).deleteElement();
 				stageDelete.close();
 			}
 		};

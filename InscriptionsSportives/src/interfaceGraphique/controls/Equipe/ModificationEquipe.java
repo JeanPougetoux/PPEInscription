@@ -1,34 +1,32 @@
-package interfaceGraphique.controls.Competition;
+package interfaceGraphique.controls.Equipe;
 
 import java.io.IOException;
 
-import inscriptions.Competition;
 import interfaceGraphique.controls.MonAppli;
 import interfaceGraphique.view.Competition.GestionCompetitionsController;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import interfaceGraphique.view.Equipe.GestionEquipeController;
+import interfaceGraphique.view.Equipe.ModificationEquipeController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class GestionCompetitions extends Stage{
+public class ModificationEquipe extends Stage{
 	private BorderPane rootLayout;
-	private ObservableList<Competition> listCompetitions = FXCollections.observableArrayList();
+	private GestionEquipeController stageGestion;
 	
-	public GestionCompetitions(){
+	public ModificationEquipe(GestionEquipeController stageGestion){
 		this.setResizable(false);
-		this.setTitle("Compétitions");
-		this.initModality(Modality.APPLICATION_MODAL);
+		this.setTitle("Modification équipe");
+		this.stageGestion = stageGestion;
 		initLayouts();
 	}
 	
 	 public void initLayouts() {
 	        try {
 	            FXMLLoader loader = new FXMLLoader();
-	            loader.setLocation(GestionCompetitions.class.getResource("../../view/Competition/GestionCompetitions.fxml"));
+	            loader.setLocation(ModificationEquipe.class.getResource("../../view/Equipe/modificationEquipe.fxml"));
 	            GridPane panelPrincipal = (GridPane) loader.load();
 	            panelPrincipal.setStyle("-fx-background-color : " + MonAppli.COLORFENETRE + ";");
 	            rootLayout = new BorderPane();
@@ -37,22 +35,11 @@ public class GestionCompetitions extends Stage{
 	            Scene scene = new Scene(rootLayout);
 	            this.setScene(scene);
 	            rootLayout.setCenter(panelPrincipal);
-	            bindList();
-	            GestionCompetitionsController controller = loader.getController();	 
-	            controller.setStage(this);
+	            
+	            ModificationEquipeController controller = loader.getController();	 
+	            controller.setStage(stageGestion, this);
 	        } catch (IOException e) {
 	            e.printStackTrace();
 	        }
 	 }	 
-	 
-    public void bindList(){
-    	listCompetitions = FXCollections.observableArrayList();
-		for(Competition c : MonAppli.getInscriptions().getCompetitions()){
-			listCompetitions.add(c);
-		}
-	}
-    
-    public ObservableList<Competition> getList(){
-    	return listCompetitions;
-    } 
 }

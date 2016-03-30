@@ -1,10 +1,14 @@
-package interfaceGraphique.controls.Competition;
+package interfaceGraphique.controls.Personne;
 
 import java.io.IOException;
 
-import inscriptions.Competition;
+import inscriptions.Candidat;
+import inscriptions.Equipe;
+import inscriptions.Personne;
 import interfaceGraphique.controls.MonAppli;
-import interfaceGraphique.view.Competition.GestionCompetitionsController;
+import interfaceGraphique.controls.Equipe.GestionEquipe;
+import interfaceGraphique.view.Equipe.GestionEquipeController;
+import interfaceGraphique.view.Personne.GestionPersonneController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -14,13 +18,15 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class GestionCompetitions extends Stage{
+public class GestionPersonne extends Stage
+
+{
 	private BorderPane rootLayout;
-	private ObservableList<Competition> listCompetitions = FXCollections.observableArrayList();
+	private ObservableList<Personne> listPersonnes = FXCollections.observableArrayList();
 	
-	public GestionCompetitions(){
+	public GestionPersonne(){
 		this.setResizable(false);
-		this.setTitle("Compétitions");
+		this.setTitle("Personnes");
 		this.initModality(Modality.APPLICATION_MODAL);
 		initLayouts();
 	}
@@ -28,7 +34,7 @@ public class GestionCompetitions extends Stage{
 	 public void initLayouts() {
 	        try {
 	            FXMLLoader loader = new FXMLLoader();
-	            loader.setLocation(GestionCompetitions.class.getResource("../../view/Competition/GestionCompetitions.fxml"));
+	            loader.setLocation(GestionPersonne.class.getResource("../../view/Personne/GestionPersonne.fxml"));
 	            GridPane panelPrincipal = (GridPane) loader.load();
 	            panelPrincipal.setStyle("-fx-background-color : " + MonAppli.COLORFENETRE + ";");
 	            rootLayout = new BorderPane();
@@ -38,21 +44,21 @@ public class GestionCompetitions extends Stage{
 	            this.setScene(scene);
 	            rootLayout.setCenter(panelPrincipal);
 	            bindList();
-	            GestionCompetitionsController controller = loader.getController();	 
-	            controller.setStage(this);
+	            GestionPersonneController controller = loader.getController();	 
+	            controller.setClass(this);
 	        } catch (IOException e) {
 	            e.printStackTrace();
 	        }
 	 }	 
 	 
-    public void bindList(){
-    	listCompetitions = FXCollections.observableArrayList();
-		for(Competition c : MonAppli.getInscriptions().getCompetitions()){
-			listCompetitions.add(c);
+    private void bindList(){
+		for(Candidat c : MonAppli.getInscriptions().getCandidats()){
+			if(c instanceof Personne)
+				listPersonnes.add((Personne)c);
 		}
 	}
     
-    public ObservableList<Competition> getList(){
-    	return listCompetitions;
+    public ObservableList<Personne> getList(){
+    	return listPersonnes;
     } 
 }

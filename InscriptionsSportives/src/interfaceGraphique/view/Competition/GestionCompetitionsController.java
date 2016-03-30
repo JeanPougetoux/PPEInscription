@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Iterator;
 
 import dialogueUtilisateur.Utilitaires;
+import exceptions.ExceptionAjoutEquipeCompetition;
 import exceptions.ExceptionAjoutPersonneCompetition;
 import exceptions.ExceptionCompetition;
 import inscriptions.Candidat;
@@ -17,6 +18,7 @@ import interfaceGraphique.controls.MonAppli;
 import interfaceGraphique.controls.Competition.AjoutCompetition;
 import interfaceGraphique.controls.Competition.GererCandidats;
 import interfaceGraphique.controls.Competition.GestionCompetitions;
+import interfaceGraphique.controls.Competition.ModificationCompetition;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -31,7 +33,6 @@ import javafx.scene.input.MouseEvent;
 
 public class GestionCompetitionsController {
 	
-	ObservableList<Competition> listCompetitions = FXCollections.observableArrayList();
 	
 	@FXML
     private TableView<Competition> competitionTable = new TableView<Competition>();
@@ -84,9 +85,6 @@ public class GestionCompetitionsController {
     public void setStage(GestionCompetitions stageGestion){
     	this.stageGestion = stageGestion;
     	competitionTable.setItems(stageGestion.getList());
-    	competitionTable.setOnMouseClicked(new ActionClickTable(this));
-		ajoutCompetition.setOnAction(new ActionAjoutCompetition(stageGestion));
-		supprimer.setOnAction(new ActionDeleteCompetition(this));
     }
     
     public TableView<Competition> getTable(){
@@ -100,11 +98,16 @@ public class GestionCompetitionsController {
     
     public void setCompetitionActive(Competition compet){
     	competActive = compet;   
-    	gererCandidats.setOnAction(new ActionGererCandidats(this));
     }
     
     public Competition getCompetitionActive(){
     	return competActive;
+    }
+    
+    public void actualiserList(){
+    	this.getTable().refresh();
+    	setCompetitionActive(null);
+    	setChoixVisibility(false);
     }
     
     public void deleteElement(){    	
@@ -119,95 +122,32 @@ public class GestionCompetitionsController {
     	setChoixVisibility(false);
     }
     
-    public void addElementToCompet(Candidat c) throws ExceptionAjoutPersonneCompetition{
-		if(competActive.estEnEquipe()){
-			if(((Equipe)c).getMembres().size() == 0){
-				throw new ExceptionAjoutPersonneCompetition("Pas de membres dans l'équipe.");
-			}
-			else{
-				competActive.add((Equipe)c);
-			}
+    public void actionClickTable(){
+    	if(!this.getTable().getSelectionModel().getSelectedCells().isEmpty()){
+			Competition compet = this.getTable().getSelectionModel().getSelectedItem();
+			this.setChoixVisibility(true);
+			this.setNomCompetition(compet.getNom());
+			this.setCompetitionActive(compet);
 		}
-		else if(!competActive.estEnEquipe()){
-			try {
-				competActive.add((Personne)c);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-    	}
     }
     
-    public void removeElementOfCompet(Candidat c){
-    	competActive.remove(c);
-    	Inscriptions i = Inscriptions.getInscriptions();
-    	for(Competition a : i.getCompetitions()){
-    		if(a.equals(competActive)){
-		    	if(competActive.getCandidats().contains(c)){
-		    		System.out.println("ca marche pas du tout gros");
-		    	}
-    		}
-    	}
-    }
-}
-
-class ActionClickTable implements EventHandler<MouseEvent>{
-
-	private GestionCompetitionsController stageGestion;
-	public ActionClickTable(GestionCompetitionsController stageGestion) {
-		this.stageGestion = stageGestion;
-	}
-
-	@Override
-	public void handle(MouseEvent event) {
-		if(!stageGestion.getTable().getSelectionModel().getSelectedCells().isEmpty()){
-			Competition compet = stageGestion.getTable().getSelectionModel().getSelectedItem();
-			stageGestion.setChoixVisibility(true);
-			stageGestion.setNomCompetition(compet.getNom());
-			stageGestion.setCompetitionActive(compet);
-		}
-	}
-	
-}
-
-class ActionAjoutCompetition implements EventHandler<ActionEvent>{
-
-	private GestionCompetitions stageGestion;
-	public ActionAjoutCompetition(GestionCompetitions stageGestion) {
-		this.stageGestion = stageGestion;
-	}
-	@Override
-	public void handle(ActionEvent event) {
-		AjoutCompetition fenetreAjout = new AjoutCompetition(stageGestion);
+    public void actionAjoutCompetition(){
+    	AjoutCompetition fenetreAjout = new AjoutCompetition(stageGestion);
 		fenetreAjout.show();
-	}
-	
-}
-
-class ActionDeleteCompetition implements EventHandler<ActionEvent>{
-
-	private GestionCompetitionsController stageGestion;
-	public ActionDeleteCompetition(GestionCompetitionsController stageGestion) {
-		this.stageGestion = stageGestion;
-	}
-	@Override
-	public void handle(ActionEvent event) {
-		ModaleSuppression fenetreSuppression = new ModaleSuppression(stageGestion);
+    }
+    
+    public void actionDeleteCompetition(){
+    	ModaleSuppression fenetreSuppression = new ModaleSuppression(this);
 		fenetreSuppression.show();
-	}
-	
-}
-
-class ActionGererCandidats implements EventHandler<ActionEvent>{
-		
-	private GestionCompetitionsController stageGestion;
-	public ActionGererCandidats(GestionCompetitionsController stageGestion) {
-		this.stageGestion = stageGestion;
-	}
-	@Override
-	public void handle(ActionEvent event) {
-		GererCandidats fenetreCandidats = new GererCandidats(stageGestion);
+    }
+    
+    public void actionGererCandidats(){
+    	GererCandidats fenetreCandidats = new GererCandidats(this);
 		fenetreCandidats.show();
-	}
-	
+    }
+    
+    public void actionModifierCompetition(){
+    	ModificationCompetition fenetreModification = new ModificationCompetition(this);
+    	fenetreModification.show();
+    }
 }

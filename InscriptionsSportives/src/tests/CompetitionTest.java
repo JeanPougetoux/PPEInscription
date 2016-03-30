@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import org.junit.Test;
 
 import dialogueUtilisateur.Utilitaires;
+import exceptions.ExceptionAjoutEquipeCompetition;
 import exceptions.ExceptionAjoutPersonneCompetition;
 import exceptions.ExceptionCompetition;
 import inscriptions.Competition;
@@ -109,7 +110,7 @@ public class CompetitionTest {
 	// TEST ADD EQUIPE
 	
 	@Test
-	public void testAddEquipeNormal() {
+	public void testAddEquipeNormal() throws ExceptionAjoutEquipeCompetition {
 		testCompetEquipe.add(manouches);
 		assertEquals(true, testCompetEquipe.getCandidats().contains(manouches));
 	}

@@ -23,6 +23,7 @@ public class GestionEquipe extends Stage{
 	private ObservableList<Equipe> listEquipes = FXCollections.observableArrayList();
 	
 	public GestionEquipe(){
+		this.setResizable(false);
 		this.setTitle("Equipes");
 		this.initModality(Modality.APPLICATION_MODAL);
 		initLayouts();
