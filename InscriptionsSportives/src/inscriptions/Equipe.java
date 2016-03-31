@@ -53,7 +53,7 @@ public class Equipe extends Candidat
 	 * @throws ExceptionRetraitPersonneEquipe 
 	 */
 	
-	public StatutSuppression remove(Personne membre) 
+	public void remove(Personne membre) 
 	{		
 		membre.remove(this);
 		membres.remove(membre);
@@ -63,14 +63,13 @@ public class Equipe extends Candidat
 			{
 				c.remove(this);
 			}
-			return new StatutSuppression(true,"Attention, votre équipe étant vide, elle a été automatiquement"
-					+ "désinscrite de ses compétitions");
+			
 		}
-		return new StatutSuppression(true,"personne "+ membre.getNom() +" bien supprimée");
+		
 	}
 	
 	@Override
-	public void delete() throws ExceptionRetraitPersonneEquipe
+	public void delete() 
 	{
 		super.delete();
 	}

@@ -68,16 +68,30 @@ public class ModificationCompetitionController {
 	
 	public void actionValider(){
 		boolean okModif = true;
-		if(!textNom.getText().equals(stageGestion.getCompetitionActive().getNom())){
-			
-				try {
+		if(!textNom.getText().isEmpty())
+		{
+			if(!textNom.getText().equals(stageGestion.getCompetitionActive().getNom()))
+			{
+				
+				try 
+				{
 					stageGestion.getCompetitionActive().setNom(textNom.getText());
-				} catch (ExceptionCompetition e) {
+				} 
+				catch (ExceptionCompetition e)
+				{
 					messageErreur(e.toString());
 					okModif = false;
 				}
 			
+			}
 		}
+		else
+		{
+			okModif = false;
+			messageErreur("vous devez saisir un nom, ancien nom :"+stageGestion.getCompetitionActive().getNom());
+		}
+			
+		
 		if(!datePicker.getValue().equals(stageGestion.getCompetitionActive().getDateCloture())){
 			
 				try {

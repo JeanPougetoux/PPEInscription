@@ -51,15 +51,13 @@ public class AjoutCompetitionController {
 		this.stageGestion = stageGestion;
 	}
 	
-	public String getStringNom() throws Exception{
-		if(nomCompetition.getText().isEmpty())
-			throw new RuntimeException("Vous devez remplir le nom de la compétition.");
+	public String getStringNom() 
+	{
 		return nomCompetition.getText();
 	}
 	
-	public LocalDate getLocalDateCloture() throws Exception{
-		if(dateCloture.getValue() == null)
-			throw new RuntimeException("Vous devez remplir la date de clôture.");
+	public LocalDate getLocalDateCloture() 
+	{
 		return dateCloture.getValue();
 	}
 	
@@ -82,20 +80,42 @@ public class AjoutCompetitionController {
 	
 	public void actionValider(){
 		messageErreur(null);
-		try {
-			stageGestion.getList().add(MonAppli.getInscriptions().createCompetition(
-												this.getStringNom(), this.getLocalDateCloture(),
-												this.getEnEquipe()));
-			try {
-				MonAppli.getInscriptions().sauvegarder();
-				stageAjout.close();
-			} catch (IOException e) {
+		
+		if(!getStringNom().isEmpty() && getLocalDateCloture() != null)
+		{
+			try 
+			{
+				stageGestion.getList().add(MonAppli.getInscriptions().createCompetition(
+													this.getStringNom(), this.getLocalDateCloture(),
+													this.getEnEquipe()));
+				try 
+				{
+					MonAppli.getInscriptions().sauvegarder();
+					stageAjout.close();
+				} 
+				catch (IOException e) 
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} 
+			catch (ExceptionCompetition e1)
+			{
+				messageErreur(e1.toString());
+			} 
+			catch (Exception e1) 
+			{
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				e1.printStackTrace();
 			}
-		} catch (Exception e) {
-			messageErreur(e.getMessage());
-		}		
+		}
+		else
+		{
+			messageErreur("Tous les champs doivent être renseignés");
+		}
+			
+			
+			
 	}
 	
 	public void actionAnnuler(){

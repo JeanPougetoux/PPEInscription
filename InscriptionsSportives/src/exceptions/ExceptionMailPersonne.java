@@ -12,7 +12,7 @@ public class ExceptionMailPersonne extends ExceptionPrincipale
 	@Override
 	public String toString() 
 	{
-		return super.toString() +"\n  * L'adresse mail "+ mail + " est déjà utilisée par une autre personne ";
+		return "L'adresse mail "+ mail + " est déjà utilisée par une autre personne ";
 	}
 	
 }

@@ -97,12 +97,11 @@ public class Personne extends Candidat
 	}
 	
 	@Override
-	public void delete() throws ExceptionRetraitPersonneEquipe 
+	public void delete()  
 	{
 		super.delete();
 		for (Equipe e : equipes)
 			e.remove(this);
-			
 	}
 	
 	@Override

@@ -88,8 +88,9 @@ public abstract class Candidat implements Comparable<Candidat>, Serializable
 	 * @throws ExceptionRetraitPersonneEquipe 
 	 */
 	
-	public void delete() throws ExceptionRetraitPersonneEquipe
+	public void delete() 
 	{
+		
 		for (Competition c : competitions)
 			c.remove(this);
 		inscriptions.remove(this);
@@ -97,6 +98,10 @@ public abstract class Candidat implements Comparable<Candidat>, Serializable
 			this.inscriptions.pers.retirerPersonne(((Personne) this).getMail());
 		else if (this.inscriptions.persistance == this.inscriptions.BDD && this instanceof Equipe)
 			this.inscriptions.pers.retirerEquipe(((Equipe) this).getNom());
+		
+		
+			
+			
 			
 	}
 	

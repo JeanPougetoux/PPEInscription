@@ -22,14 +22,10 @@ public class ActionSuppressionEquipe implements Action{
 		char reponse = SaisiesConsole.saisieSuppression("l'équipe");
 		if(reponse == 'o'){
 			menu.setRetourAuto(true);
-			try 
-			{
+			
 				menu.getEquipe().delete();
 				System.out.println("Equipe bien effacée.");
-			} catch (ExceptionRetraitPersonneEquipe e) 
-			{
-				System.out.println(e.toString());
-			}
+			
 			
 		}
 		Utilitaires.sauvegarde(menu.getInscriptions());

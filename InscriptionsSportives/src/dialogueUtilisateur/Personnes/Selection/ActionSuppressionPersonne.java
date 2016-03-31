@@ -22,15 +22,10 @@ public class ActionSuppressionPersonne implements Action{
 		char reponse = SaisiesConsole.saisieSuppression("la personne");
 		if(reponse == 'o'){
 			menu.setRetourAuto(true);
-			try
-			{
+			
 				menu.getPersonne().delete();
 				System.out.println("\nPersonne bien effacée.");
-			}
-			catch (ExceptionRetraitPersonneEquipe e) 
-			{
-				System.out.println(e.toString());
-			}
+			
 			
 		}
 		Utilitaires.sauvegarde(menu.getInscriptions());

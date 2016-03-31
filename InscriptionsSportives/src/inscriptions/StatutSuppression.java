@@ -2,18 +2,18 @@ package inscriptions;
 
 public class StatutSuppression 
 {
-	private boolean etat;
+	private boolean erreur;
 	private String message;
 	
-	public StatutSuppression(boolean etat, String message) 
+	public StatutSuppression(boolean erreur, String message) 
 	{
-		this.etat = etat;
+		this.erreur = erreur;
 		this.message = message;
 	}
 	
-	public boolean suppEffectuee()
+	public boolean informationRelevee()
 	{
-		return etat;
+		return erreur;
 	}
 	
 	public String getMessage()

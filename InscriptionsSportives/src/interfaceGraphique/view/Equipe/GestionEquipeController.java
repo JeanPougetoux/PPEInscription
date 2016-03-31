@@ -118,12 +118,9 @@ public class GestionEquipeController {
     
     public void deleteElement(){    	
 		stageGestion.getList().remove(equipeActive);
-		try {
+		
 			equipeActive.delete();
-		} catch (ExceptionRetraitPersonneEquipe e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		
     	try {
 			MonAppli.getInscriptions().sauvegarder();
 		} catch (IOException e) {

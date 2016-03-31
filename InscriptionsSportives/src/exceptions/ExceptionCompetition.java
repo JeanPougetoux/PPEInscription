@@ -15,7 +15,9 @@ public class ExceptionCompetition extends ExceptionPrincipale
 	{
 		if(erreur == "nom")
 			return  " Le nom "+ nom + " est déjà utilisé par une autre compétition";
-		else
+		else if(erreur == "boolean")
 			return "On ne peut modifier cet aspect (participants deja inscris)";
+		else
+			return "Date déjà passée";
 	}
 }

@@ -43,6 +43,9 @@ public class ModificationPersonneController {
 		this.information.setVisible(false);
 		this.mailActuel = mail;
 		this.stageGestionController = stageGestionController;
+		nom.setText(stageGestionController.getPersonneActive().getNom());
+		prenom.setText(stageGestionController.getPersonneActive().getPrenom());
+		this.mail.setText(stageGestionController.getPersonneActive().getMail());
 	}
 	
 	public void actionClose(){
@@ -55,42 +58,73 @@ public class ModificationPersonneController {
 		this.erreurActuelle = false;
 		if(!nom.getText().isEmpty())
 		{
-			for (Candidat c : MonAppli.getInscriptions().getCandidats())
+			if(!nom.getText().equals(stageGestionController.getPersonneActive().getNom()))
 			{
-				if (c instanceof Personne && ((Personne) c).getMail()== this.mailActuel)
+				for (Candidat c : MonAppli.getInscriptions().getCandidats())
 				{
-					try {
-						c.setNom(nom.getText());
-					} catch (ExceptionNomEquipe e) {
-						generationInfos(e.toString(),"erreur");
+					if (c instanceof Personne && ((Personne) c).getMail()== this.mailActuel)
+					{
+						try {
+							c.setNom(nom.getText());
+						} catch (ExceptionNomEquipe e) {
+							generationInfos(e.toString(),"erreur");
+						}
 					}
+							
 				}
-						
 			}
+			
 		}
+		else
+		{
+			this.erreurActuelle = true;
+			generationInfos("Veuillez remplit tous les champs, ancien nom : "+
+					stageGestionController.getPersonneActive().getNom(),"erreur");
+		}
+			
 		if(!prenom.getText().isEmpty())
 		{
-			for (Candidat c : MonAppli.getInscriptions().getCandidats())
+			if(!prenom.getText().equals(stageGestionController.getPersonneActive().getPrenom()))
 			{
-				if (c instanceof Personne && ((Personne) c).getMail()== this.mailActuel)
-					((Personne)c).setPrenom(prenom.getText());
+				for (Candidat c : MonAppli.getInscriptions().getCandidats())
+				{
+					if (c instanceof Personne && ((Personne) c).getMail()== this.mailActuel)
+						((Personne)c).setPrenom(prenom.getText());
+				}
 			}
+			
+		}
+		else
+		{
+			this.erreurActuelle = true;
+			generationInfos("Veuillez remplit tous les champs, ancien prénom : "+
+					stageGestionController.getPersonneActive().getPrenom(),"erreur");
 		}
 		if(!mail.getText().isEmpty())
 		{
-			for (Candidat c : MonAppli.getInscriptions().getCandidats())
+			if(!mail.getText().equals(stageGestionController.getPersonneActive().getMail().toLowerCase()))
 			{
-				if (c instanceof Personne && ((Personne) c).getMail()== this.mailActuel)
-					try 
+				for (Candidat c : MonAppli.getInscriptions().getCandidats())
 				{
-					((Personne)c).setMail(mail.getText());
-				} 
-				catch (ExceptionMailPersonne e) 
-				{
-						this.erreurActuelle = true;
-						generationInfos(e.toString(),"erreur");
+					if (c instanceof Personne && ((Personne) c).getMail()== this.mailActuel)
+						try 
+					{
+						((Personne)c).setMail(mail.getText().toLowerCase());
+					} 
+					catch (ExceptionMailPersonne e) 
+					{
+							this.erreurActuelle = true;
+							generationInfos(e.toString(),"erreur");
+					}
 				}
 			}
+			
+		}
+		else
+		{
+			this.erreurActuelle = true;
+			generationInfos("Veuillez remplit tous les champs, ancien mail : "+
+					stageGestionController.getPersonneActive().getMail(),"erreur");
 		}
 		if(!this.erreurActuelle)
 		{

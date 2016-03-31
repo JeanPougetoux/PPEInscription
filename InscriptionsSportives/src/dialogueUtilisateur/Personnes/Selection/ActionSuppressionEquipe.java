@@ -44,8 +44,8 @@ public class ActionSuppressionEquipe implements Action{
 				public void elementSelectionne(int indice, Equipe element)
 				{
 					
-						StatutSuppression s = element.remove(personne);
-						System.out.println(s.getMessage());
+						element.remove(personne);
+						System.out.println("élément correctement supprimé");
 					
 					
 					Utilitaires.sauvegarde(inscriptions);

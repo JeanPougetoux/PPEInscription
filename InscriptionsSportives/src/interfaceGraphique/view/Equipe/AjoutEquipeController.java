@@ -43,18 +43,24 @@ public class AjoutEquipeController {
 		{
 			try 
 			{
-				stageGestion.getList().add(MonAppli.getInscriptions().createEquipe(newName.getText()));
-			} catch (ExceptionNomEquipe e1) {
+				stageGestion.getList().add(MonAppli.getInscriptions().createEquipe(newName.getText().toLowerCase()));
+				stageAjout.close();
+			} 
+			catch (ExceptionNomEquipe e1) 
+			{
 				messageErreur(e1.toString());
 			}
 		
-		try {
+		try
+		{
 			MonAppli.getInscriptions().sauvegarder();
-		} catch (IOException e) {
+		}
+		catch (IOException e) 
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		stageAjout.close();
+		
 		}
 		else
 		{

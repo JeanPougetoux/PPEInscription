@@ -287,7 +287,7 @@ public class persistance {
 				prepare = conn.prepareStatement(query);
 				prepare.setString(1, nom);
 				prepare.setString(2, prenom);
-				prepare.setString(3, mail);
+				prepare.setString(3, mail.toLowerCase());
 				prepare.executeQuery();
 			} catch (SQLException e) 
 			{

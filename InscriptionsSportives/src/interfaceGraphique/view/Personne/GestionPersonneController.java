@@ -5,6 +5,7 @@ import java.io.IOException;
 import exceptions.ExceptionRetraitPersonneEquipe;
 import inscriptions.Equipe;
 import inscriptions.Personne;
+import inscriptions.StatutSuppression;
 import interfaceGraphique.controls.ModaleSuppression;
 import interfaceGraphique.controls.MonAppli;
 import interfaceGraphique.controls.Equipe.GestionEquipe;
@@ -17,6 +18,8 @@ import interfaceGraphique.view.Equipe.GestionEquipeController;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -117,7 +120,6 @@ public class GestionPersonneController {
 	    {
 	    	ModaleSuppression modaleSupp = new ModaleSuppression(this);
 	    	modaleSupp.show();
-	    	
 	    }
 	    
 	    public void actionBoutonModifier()
@@ -132,20 +134,16 @@ public class GestionPersonneController {
 	    	fenetre.show();
 	    }
 
-		public void deleteElement(){    	
+		public void deleteElement(){   
+			
 		stageGestion.getList().remove(personneActive);
 		
-		try 
-		{
-			personneActive.delete();
+		
+		personneActive.delete();
 			
-		}
-		catch (ExceptionRetraitPersonneEquipe e1) 
-		{
-			// TODO Auto-generated catch block
-			generationInfos(e1.toString(),"infos");
-			System.out.println(e1.toString());
-		}
+			
+		
+		
 		
     	try 
     	{
@@ -155,6 +153,9 @@ public class GestionPersonneController {
     	{
 			e.printStackTrace();
 		}
+    	setPersonneActive(null);
+    	setChoixVisibility(false);
+    	
     }
 		
 		

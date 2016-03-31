@@ -74,6 +74,8 @@ public class Inscriptions implements Serializable
 	public Competition createCompetition(String nom, 
 			LocalDate dateCloture, boolean enEquipe) throws ExceptionCompetition
 	{
+		if(LocalDate.now().isAfter(dateCloture) && !inscriptions.pers.getInitialisation())
+			throw new ExceptionCompetition(nom,"date passee");
 		Competition competition = new Competition(this, nom, dateCloture, enEquipe);
 		if (persistance == BDD)
 			pers.ajoutCompetition(nom,dateCloture,enEquipe);

@@ -54,12 +54,14 @@ public class ModificationEquipeController {
 	public void actionValider(){
 		if(!nomEquipe.getText().isEmpty())
 		{
-			if(!nomEquipe.equals(stageGestion.getEquipeActive().getNom())){
+			if(!nomEquipe.equals(stageGestion.getEquipeActive().getNom()))
+			{
 				
 				try 
 				{
-					stageGestion.getEquipeActive().setNom(nomEquipe.getText());
-					try{
+					stageGestion.getEquipeActive().setNom(nomEquipe.getText().toLowerCase());
+					try
+					{
 						MonAppli.getInscriptions().sauvegarder();
 						stageGestion.actualise();
 						stageModif.close();
@@ -74,10 +76,10 @@ public class ModificationEquipeController {
 					messageErreur(e1.toString());
 				}
 				
-		}
+			}
 		}
 		else
-			messageErreur("Impossible de rentrer un champs vide");
+			messageErreur("Champs vide interdis, ancien nom : " + stageGestion.getEquipeActive().getNom() );
 		
 	}
 	
