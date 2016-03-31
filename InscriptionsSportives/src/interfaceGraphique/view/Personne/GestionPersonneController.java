@@ -9,6 +9,7 @@ import interfaceGraphique.controls.ModaleSuppression;
 import interfaceGraphique.controls.MonAppli;
 import interfaceGraphique.controls.Equipe.GestionEquipe;
 import interfaceGraphique.controls.Personne.AjoutPersonne;
+import interfaceGraphique.controls.Personne.GestionEquipes;
 import interfaceGraphique.controls.Personne.GestionPersonne;
 import interfaceGraphique.controls.Personne.ModificationPersonne;
 import interfaceGraphique.view.Equipe.GestionEquipeController;
@@ -41,6 +42,8 @@ public class GestionPersonneController {
     @FXML
     private TableView<Personne> personneTable = new TableView<Personne>();
     
+    @FXML
+    private Button gererEquipes;
     @FXML 
     private Button ajoutPersonne;
     @FXML
@@ -76,6 +79,7 @@ public class GestionPersonneController {
 	    	labelPersonne.setVisible(visible);
 	    	supprimer.setVisible(visible);
 	    	modifier.setVisible(visible);
+	    	gererEquipes.setVisible(visible);
 	    }   
 	    
 	    public TableView<Personne> getTable(){
@@ -85,10 +89,19 @@ public class GestionPersonneController {
 	    public void setNomPersonne(String texte){
 	    	labelPersonne.setText(texte);
 	    }
+	    
 	    public void setPersonneActive(Personne personne){
 	    	personneActive = personne;   
 	    }
 	    
+	    public Personne getPersonneActive(){
+	    	return personneActive;
+	    }
+	    
+	    public void actionBoutonGererEquipes(){
+	    	GestionEquipes fenetreGestion = new GestionEquipes(this);
+	    	fenetreGestion.show();
+	    }
 	    
 	    public void actionBoutonAjout()
 	    {
