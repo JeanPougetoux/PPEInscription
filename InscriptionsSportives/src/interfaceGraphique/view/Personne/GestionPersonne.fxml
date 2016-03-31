@@ -68,5 +68,10 @@
          </font>
       </Label>
       <Label fx:id="information" text="Label" GridPane.columnSpan="8" GridPane.rowIndex="9" GridPane.rowSpan="2" />
+      <Button fx:id="gererEquipes" mnemonicParsing="false" onAction="#actionBoutonGererEquipes" prefHeight="25.0" prefWidth="113.0" text="Gérer équipes" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="3" GridPane.valignment="TOP">
+         <GridPane.margin>
+            <Insets left="20.0" />
+         </GridPane.margin>
+      </Button>
    </children>
 </GridPane>
