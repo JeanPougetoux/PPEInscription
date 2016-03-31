@@ -104,7 +104,7 @@ public class GestionPersonneController {
 	    
 	    public void actionBoutonModifier()
 	    {
-	    	ModificationPersonne fenetre = new ModificationPersonne(stageGestion,personneActive.getMail());
+	    	ModificationPersonne fenetre = new ModificationPersonne(stageGestion,personneActive.getMail(),this);
 	    	fenetre.show();
 	    }
 
@@ -141,6 +141,13 @@ public class GestionPersonneController {
 	    	this.information.setText(message);
 	    	
 			this.information.setVisible(true);
+		}
+		
+		public void actualise()
+		{
+			this.personneTable.refresh();
+			setPersonneActive(null);
+			setChoixVisibility(false);
 		}
 	    
 

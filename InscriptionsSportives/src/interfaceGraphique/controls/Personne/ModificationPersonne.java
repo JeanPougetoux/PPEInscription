@@ -5,6 +5,7 @@ import java.io.IOException;
 import interfaceGraphique.controls.MonAppli;
 import interfaceGraphique.controls.Equipe.AjoutEquipe;
 import interfaceGraphique.view.Personne.AjoutPersonneController;
+import interfaceGraphique.view.Personne.GestionPersonneController;
 import interfaceGraphique.view.Personne.ModificationPersonneController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -17,14 +18,16 @@ public class ModificationPersonne extends Stage{
 
 	private BorderPane rootLayout;
 	private GestionPersonne stageGestion;
+	private GestionPersonneController stageGestionController;
 	String mailActuel;
 	
-	public ModificationPersonne(GestionPersonne stageGestion,String mail){
+	public ModificationPersonne(GestionPersonne stageGestion,String mail,GestionPersonneController stageGestionController){
 		this.setResizable(false);
 		this.stageGestion = stageGestion;
 		this.setTitle("Modification d'une personne");
 		this.initModality(Modality.APPLICATION_MODAL);
 		this.mailActuel = mail;
+		this.stageGestionController = stageGestionController;
 		initLayouts();
 	}
 	
@@ -41,7 +44,7 @@ public class ModificationPersonne extends Stage{
 	            this.setScene(scene);
 	            rootLayout.setCenter(panelPrincipal);
 	            ModificationPersonneController controller = loader.getController();	 
-	            controller.setStage(this, stageGestion,mailActuel);
+	            controller.setStage(this, stageGestion,mailActuel,stageGestionController);
 	        } catch (IOException e) {
 	            e.printStackTrace();
 	        }

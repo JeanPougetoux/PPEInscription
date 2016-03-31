@@ -30,16 +30,18 @@ public class ModificationPersonneController {
 	
 	private ModificationPersonne stageAjout;
 	private GestionPersonne stageGestion;
+	private GestionPersonneController stageGestionController;
 	
 	public ModificationPersonneController() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void setStage(ModificationPersonne stageAjout, GestionPersonne stageGestion,String mail){
+	public void setStage(ModificationPersonne stageAjout, GestionPersonne stageGestion,String mail,GestionPersonneController stageGestionController){
 		this.stageAjout = stageAjout;
 		this.stageGestion = stageGestion;
 		this.information.setVisible(false);
 		this.mailActuel = mail;
+		this.stageGestionController = stageGestionController;
 	}
 	
 	public void actionClose(){
@@ -83,7 +85,11 @@ public class ModificationPersonneController {
 			}
 		}
 		if(!this.erreurActuelle)
+		{
 			stageAjout.close();
+			stageGestionController.actualise();
+		}
+			
 		
 			
 		

@@ -10,6 +10,7 @@ import interfaceGraphique.controls.Equipe.AjoutEquipe;
 import interfaceGraphique.controls.Equipe.GestionEquipe;
 import interfaceGraphique.controls.Equipe.GestionMembres;
 import interfaceGraphique.controls.Equipe.ModificationEquipe;
+import interfaceGraphique.controls.Equipe.VueCompetitions;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -36,6 +37,9 @@ public class GestionEquipeController {
     private Button supprimer;
     @FXML
     private Button modifier;
+    
+    @FXML
+    private Button voirCompetitions;
     @FXML
     private Label labelEquipe;
     private GestionEquipe stageGestion;
@@ -62,6 +66,7 @@ public class GestionEquipeController {
     	gererMembres.setVisible(visible);
     	supprimer.setVisible(visible);
     	modifier.setVisible(visible);
+    	voirCompetitions.setVisible(visible);
     }   
     
     public void setNomEquipe(String texte){
@@ -104,6 +109,11 @@ public class GestionEquipeController {
     public void actionBoutonGererMembres(){
     	GestionMembres fenetreMembres = new GestionMembres(this);
     	fenetreMembres.show();
+    }
+    
+    public void actionBoutonVoirCompetitions(){
+    	VueCompetitions fenetreCompetitions = new VueCompetitions(this);
+    	fenetreCompetitions.show();
     }
     
     public void deleteElement(){    	
