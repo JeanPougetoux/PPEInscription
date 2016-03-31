@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="interfaceGraphique.view.Competition.ModificationCompetitionController">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="273.0" minWidth="10.0" prefWidth="57.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="267.0" minWidth="10.0" prefWidth="208.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="267.0" minWidth="10.0" prefWidth="242.0" />
+  </columnConstraints>
+  <rowConstraints>
+      <RowConstraints maxHeight="111.0" minHeight="10.0" prefHeight="95.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="54.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="51.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="69.0" minHeight="10.0" prefHeight="69.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Label prefHeight="37.0" prefWidth="410.0" text="Modification d'une compétition" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+         <font>
+            <Font name="Arial Black" size="24.0" />
+         </font>
+      </Label>
+      <Label text="Nom de la compétition" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <font>
+            <Font name="Arial" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="75.0" layoutY="113.0" text="Date de clôture" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <font>
+            <Font name="Arial" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="64.0" layoutY="175.0" text="En équipe" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <font>
+            <Font name="Arial" size="17.0" />
+         </font>
+      </Label>
+      <TextField fx:id="textNom" maxWidth="181.0" prefHeight="25.0" prefWidth="181.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+      <DatePicker fx:id="datePicker" prefHeight="25.0" prefWidth="181.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+      <ComboBox fx:id="comboEquipe" prefHeight="25.0" prefWidth="181.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+      <Button fx:id="valider" mnemonicParsing="false" onAction="#actionValider" prefWidth="80.0" text="valider" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="30.0" />
+         </GridPane.margin>
+      </Button>
+      <Button fx:id="annuler" mnemonicParsing="false" onAction="#actionAnnuler" prefWidth="80.0" text="annuler" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Label fx:id="messageErreur" prefHeight="17.0" prefWidth="409.0" text="Label" textFill="RED" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.valignment="BOTTOM">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+      </Label>
+   </children>
+</GridPane>

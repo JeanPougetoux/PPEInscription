@@ -105,7 +105,7 @@ public class GestionCompetitionsController {
     }
     
     public void actualiserList(){
-    	this.getTable().refresh();
+    	competitionTable.refresh();
     	setCompetitionActive(null);
     	setChoixVisibility(false);
     }

@@ -16,6 +16,7 @@ public class Accueil extends Stage{
 private BorderPane rootLayout;
 	
 	public Accueil(){
+		this.setResizable(false);
 		this.setTitle("Bienvenue");
 		initLayouts();
 	}

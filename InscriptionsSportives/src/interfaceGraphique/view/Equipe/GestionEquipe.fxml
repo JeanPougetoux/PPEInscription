@@ -48,7 +48,7 @@
             <TableColumn fx:id="nameColumn" maxWidth="458.0" minWidth="210.0" prefWidth="457.0" resizable="false" text="Nom de l'équipe" />
         </columns>
       </TableView>
-      <Button fx:id="gererMembres" mnemonicParsing="false" prefHeight="25.0" prefWidth="113.0" text="Gérer membres" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="3" GridPane.valignment="TOP">
+      <Button fx:id="gererMembres" mnemonicParsing="false" onAction="#actionBoutonGererMembres" prefHeight="25.0" prefWidth="113.0" text="Gérer membres" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="3" GridPane.valignment="TOP">
          <GridPane.margin>
             <Insets left="20.0" />
          </GridPane.margin>

@@ -8,6 +8,7 @@ import interfaceGraphique.controls.ModaleSuppression;
 import interfaceGraphique.controls.MonAppli;
 import interfaceGraphique.controls.Equipe.AjoutEquipe;
 import interfaceGraphique.controls.Equipe.GestionEquipe;
+import interfaceGraphique.controls.Equipe.GestionMembres;
 import interfaceGraphique.controls.Equipe.ModificationEquipe;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
@@ -75,6 +76,16 @@ public class GestionEquipeController {
     	equipeActive = equipe;   
     }
     
+    public Equipe getEquipeActive(){
+    	return equipeActive;
+    }
+    
+    public void actualise(){
+    	equipeTable.refresh();
+    	setEquipeActive(null);
+    	setChoixVisibility(false);
+    }
+    
     public void actionBoutonAjout(){
     	AjoutEquipe fenetreAjout = new AjoutEquipe(stageGestion);
     	fenetreAjout.show();
@@ -88,6 +99,11 @@ public class GestionEquipeController {
     public void actionBoutonModifier(){
     	ModificationEquipe fenetreModif = new ModificationEquipe(this);
     	fenetreModif.show();
+    }
+    
+    public void actionBoutonGererMembres(){
+    	GestionMembres fenetreMembres = new GestionMembres(this);
+    	fenetreMembres.show();
     }
     
     public void deleteElement(){    	
