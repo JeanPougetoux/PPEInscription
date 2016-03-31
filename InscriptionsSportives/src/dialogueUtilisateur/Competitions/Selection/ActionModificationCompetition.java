@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import dialogueUtilisateur.SaisiesConsole;
 import dialogueUtilisateur.Utilitaires;
 import exceptions.ExceptionCompetition;
+import exceptions.ExceptionDateCompetition;
 import utilitaires.EntreesSorties;
 import utilitaires.ligneDeCommande.Action;
 
@@ -52,8 +53,13 @@ public class ActionModificationCompetition implements Action{
 							" vide pour ne rien changer, 'q' pour quitter, 'r' pour revenir.", 
 							menu.getCompetition().getDateCloture());
 					if(date instanceof LocalDate){
-						menu.getCompetition().setDateCloture((LocalDate)date);
-						System.out.println("La date de cloture a bien été changée.");
+						try {
+							menu.getCompetition().setDateCloture((LocalDate)date);
+							System.out.println("La date de cloture a bien été changée.");
+						} catch (ExceptionDateCompetition e) {
+							System.out.println(e.toString());
+						}
+						
 					} 
 					else{
 						mod = Utilitaires.getMod(mod, date, true, true);

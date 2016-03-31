@@ -12,6 +12,7 @@ import interfaceGraphique.controls.Personne.AjoutPersonne;
 import interfaceGraphique.controls.Personne.GestionEquipes;
 import interfaceGraphique.controls.Personne.GestionPersonne;
 import interfaceGraphique.controls.Personne.ModificationPersonne;
+import interfaceGraphique.controls.Personne.VueCompetitions;
 import interfaceGraphique.view.Equipe.GestionEquipeController;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.event.EventHandler;
@@ -44,6 +45,8 @@ public class GestionPersonneController {
     
     @FXML
     private Button gererEquipes;
+    @FXML
+    private Button voirCompetitions;
     @FXML 
     private Button ajoutPersonne;
     @FXML
@@ -80,6 +83,7 @@ public class GestionPersonneController {
 	    	supprimer.setVisible(visible);
 	    	modifier.setVisible(visible);
 	    	gererEquipes.setVisible(visible);
+	    	voirCompetitions.setVisible(visible);
 	    }   
 	    
 	    public TableView<Personne> getTable(){
@@ -118,6 +122,12 @@ public class GestionPersonneController {
 	    public void actionBoutonModifier()
 	    {
 	    	ModificationPersonne fenetre = new ModificationPersonne(stageGestion,personneActive.getMail(),this);
+	    	fenetre.show();
+	    }
+	    
+	    public void actionBoutonVoirCompetitions()
+	    {
+	    	VueCompetitions fenetre = new VueCompetitions(this);
 	    	fenetre.show();
 	    }
 

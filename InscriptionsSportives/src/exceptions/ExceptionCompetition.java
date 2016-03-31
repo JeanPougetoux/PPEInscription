@@ -14,8 +14,8 @@ public class ExceptionCompetition extends ExceptionPrincipale
 	public String toString() 
 	{
 		if(erreur == "nom")
-			return super.toString() + "\n * Le nom "+ nom + " est déjà utilisé par une autre compétition";
+			return  " Le nom "+ nom + " est déjà utilisé par une autre compétition";
 		else
-			return "La compétition"+nom+" possède déjà des participants, elle ne peut donc plus être modifié sur sa catégorie.";
+			return "On ne peut modifier cet aspect (participants deja inscris)";
 	}
 }

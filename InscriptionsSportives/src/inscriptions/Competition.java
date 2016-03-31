@@ -12,6 +12,7 @@ import dialogueUtilisateur.Utilitaires;
 import exceptions.ExceptionAjoutEquipeCompetition;
 import exceptions.ExceptionAjoutPersonneCompetition;
 import exceptions.ExceptionCompetition;
+import exceptions.ExceptionDateCompetition;
 
 /**
  * Représente une compétition, c'est-à-dire un ensemble de candidats 
@@ -106,9 +107,10 @@ public class Competition implements Comparable<Competition>, Serializable
 	 * Modifie la date de cloture des inscriptions. Il est possible de la reculer 
 	 * mais pas de l'avancer.
 	 * @param dateCloture
+	 * @throws ExceptionDateCompetition 
 	 */
 	
-	public void setDateCloture(LocalDate dateCloture)
+	public void setDateCloture(LocalDate dateCloture) throws ExceptionDateCompetition
 	{
 		// TODO vérifier que l'on avance pas la date.
 		if(this.getDateCloture().isBefore(dateCloture))
@@ -116,6 +118,10 @@ public class Competition implements Comparable<Competition>, Serializable
 			if (inscriptions.persistance == inscriptions.BDD)
 				inscriptions.pers.updateDateCompetition(dateCloture,nom);
 			this.dateCloture = dateCloture;
+		}
+		else
+		{
+			throw new ExceptionDateCompetition(this.getDateCloture());
 		}
 			
 	}

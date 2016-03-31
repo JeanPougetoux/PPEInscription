@@ -39,11 +39,15 @@ public class AjoutEquipeController {
 	}
 	
 	public void actionAjout(){
-		try {
-			stageGestion.getList().add(MonAppli.getInscriptions().createEquipe(newName.getText()));
-		} catch (Exception e) {
-			messageErreur(e.getMessage());
-		}
+		if(!newName.getText().isEmpty())
+		{
+			try 
+			{
+				stageGestion.getList().add(MonAppli.getInscriptions().createEquipe(newName.getText()));
+			} catch (ExceptionNomEquipe e1) {
+				messageErreur(e1.toString());
+			}
+		
 		try {
 			MonAppli.getInscriptions().sauvegarder();
 		} catch (IOException e) {
@@ -51,6 +55,12 @@ public class AjoutEquipeController {
 			e.printStackTrace();
 		}
 		stageAjout.close();
+		}
+		else
+		{
+			messageErreur("Impossible de rentrer un champs vide");
+		}
+			
 	}
 	
 	public void messageErreur(Object o){

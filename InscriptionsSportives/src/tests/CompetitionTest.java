@@ -10,6 +10,7 @@ import dialogueUtilisateur.Utilitaires;
 import exceptions.ExceptionAjoutEquipeCompetition;
 import exceptions.ExceptionAjoutPersonneCompetition;
 import exceptions.ExceptionCompetition;
+import exceptions.ExceptionDateCompetition;
 import inscriptions.Competition;
 import inscriptions.Equipe;
 import inscriptions.Inscriptions;
@@ -74,7 +75,7 @@ public class CompetitionTest {
 	}
 
 	@Test
-	public void testSetDateCloture() {
+	public void testSetDateCloture() throws ExceptionDateCompetition {
 		LocalDate nouvelleDate = LocalDate.parse("2018-08-12");
 		testCompetVrai.setDateCloture(nouvelleDate);
 		assertEquals(nouvelleDate, testCompetVrai.getDateCloture());

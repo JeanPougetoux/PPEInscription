@@ -2,6 +2,7 @@ package dialogueUtilisateur.Personnes.Selection;
 
 import dialogueUtilisateur.Utilitaires;
 import exceptions.ExceptionMailPersonne;
+import exceptions.ExceptionNomEquipe;
 import utilitaires.EntreesSorties;
 import utilitaires.ligneDeCommande.Action;
 
@@ -30,8 +31,13 @@ public class ActionModificationPersonne implements Action{
 									menu.getPersonne().getNom() + "\n'q' pour quitter, laissez vide pour ne rien changer.");
 				mod = Utilitaires.getMod(mod, nom, true, false);
 				if(!nom.isEmpty() && mod == 1){
-					menu.getPersonne().setNom(nom);
-					System.out.println("Le nom est bien changé en : " + menu.getPersonne().getNom());
+					try {
+						menu.getPersonne().setNom(nom);
+
+						System.out.println("Le nom est bien changé en : " + menu.getPersonne().getNom());
+					} catch (ExceptionNomEquipe e) {
+						System.out.println(e.toString());
+					}
 				}
 				break;
 			case 2:

@@ -49,7 +49,7 @@ public class CandidatTest {
 	}
 
 	@Test
-	public void testSetNom() {
+	public void testSetNom() throws ExceptionNomEquipe {
 		tony.setNom(nomRobert);
 		assertEquals(nomRobert, tony.getNom());
 	}

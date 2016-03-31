@@ -3,6 +3,7 @@ package interfaceGraphique.view.Personne;
 import java.io.IOException;
 
 import exceptions.ExceptionMailPersonne;
+import exceptions.ExceptionNomEquipe;
 import inscriptions.Candidat;
 import inscriptions.Personne;
 import interfaceGraphique.controls.MonAppli;
@@ -57,7 +58,14 @@ public class ModificationPersonneController {
 			for (Candidat c : MonAppli.getInscriptions().getCandidats())
 			{
 				if (c instanceof Personne && ((Personne) c).getMail()== this.mailActuel)
-					c.setNom(nom.getText());	
+				{
+					try {
+						c.setNom(nom.getText());
+					} catch (ExceptionNomEquipe e) {
+						generationInfos(e.toString(),"erreur");
+					}
+				}
+						
 			}
 		}
 		if(!prenom.getText().isEmpty())

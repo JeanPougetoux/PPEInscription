@@ -7,6 +7,7 @@ import java.util.TreeSet;
 
 import dialogueUtilisateur.SaisiesConsole;
 import dialogueUtilisateur.Utilitaires;
+import exceptions.ExceptionNomEquipe;
 import exceptions.ExceptionRetraitPersonneEquipe;
 
 /**
@@ -46,9 +47,10 @@ public abstract class Candidat implements Comparable<Candidat>, Serializable
 	/**
 	 * Modifie le nom du candidat.
 	 * @param nom
+	 * @throws ExceptionNomEquipe 
 	 */
 	
-	public void setNom(String nom)
+	public void setNom(String nom) throws ExceptionNomEquipe
 	{
 		if (inscriptions.persistance == inscriptions.BDD)
 			inscriptions.pers.updateNomCandidat(this,nom);

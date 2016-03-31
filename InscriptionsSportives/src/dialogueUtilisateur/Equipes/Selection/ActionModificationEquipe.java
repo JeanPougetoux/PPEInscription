@@ -1,6 +1,7 @@
 package dialogueUtilisateur.Equipes.Selection;
 
 import dialogueUtilisateur.Utilitaires;
+import exceptions.ExceptionNomEquipe;
 import utilitaires.EntreesSorties;
 import utilitaires.ligneDeCommande.Action;
 
@@ -22,8 +23,13 @@ public class ActionModificationEquipe implements Action{
 		String nouveauNom = EntreesSorties.getString("Veuillez saisir le nouveau nom de l'équipe ou 'r' pour revenir"
 											+ ", ancien nom : " + menu.getEquipe().getNom() + " nouveau nom : ");
 		if(nouveauNom != "r" && !nouveauNom.isEmpty()){
-			menu.getEquipe().setNom(nouveauNom);
-			System.out.println("\nLe nom de l'équipe a bien été changé en : " + menu.getEquipe().getNom());
+			try {
+				menu.getEquipe().setNom(nouveauNom);
+				System.out.println("\nLe nom de l'équipe a bien été changé en : " + menu.getEquipe().getNom());
+			} catch (ExceptionNomEquipe e) {
+				System.out.println(e.toString());
+			}
+			
 		}
 		else if(nouveauNom.isEmpty()){
 			System.out.println("Chaine vide.");

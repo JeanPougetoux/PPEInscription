@@ -520,7 +520,7 @@ public class persistance {
 		} 
 		catch (SQLException e) 
 		{
-			throw new ExceptionCompetition(nom,"boolean");
+			throw new ExceptionCompetition(nom,"nom");
 		}
 		
 	}
@@ -578,8 +578,9 @@ public class persistance {
 	 * Permet de modifier le nom d'un candidat
 	 * @param candidat
 	 * @param nom
+	 * @throws ExceptionNomEquipe 
 	 */
-	public void updateNomCandidat(Candidat candidat, String nom) {
+	public void updateNomCandidat(Candidat candidat, String nom) throws ExceptionNomEquipe {
 		try 
 		{ 
 			if (candidat instanceof Personne)
@@ -601,7 +602,7 @@ public class persistance {
 		} 
 		catch (SQLException e) 
 		{
-			//e.printStackTrace();
+			throw new ExceptionNomEquipe(nom);
 		}
 		
 	}

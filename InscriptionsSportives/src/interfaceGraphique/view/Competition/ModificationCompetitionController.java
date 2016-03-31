@@ -3,6 +3,7 @@ package interfaceGraphique.view.Competition;
 import java.io.IOException;
 
 import exceptions.ExceptionCompetition;
+import exceptions.ExceptionDateCompetition;
 import interfaceGraphique.controls.MonAppli;
 import interfaceGraphique.controls.Competition.ModificationCompetition;
 import javafx.fxml.FXML;
@@ -68,21 +69,24 @@ public class ModificationCompetitionController {
 	public void actionValider(){
 		boolean okModif = true;
 		if(!textNom.getText().equals(stageGestion.getCompetitionActive().getNom())){
-			try {
-				stageGestion.getCompetitionActive().setNom(textNom.getText());
-			} catch (Exception e) {
-				messageErreur(e.toString());
-				okModif = false;
-			}
+			
+				try {
+					stageGestion.getCompetitionActive().setNom(textNom.getText());
+				} catch (ExceptionCompetition e) {
+					messageErreur(e.toString());
+					okModif = false;
+				}
+			
 		}
 		if(!datePicker.getValue().equals(stageGestion.getCompetitionActive().getDateCloture())){
-			try{
-				stageGestion.getCompetitionActive().setDateCloture(datePicker.getValue());
-			}
-			catch(Exception e){
-				okModif = false;
-				messageErreur(e.toString());
-			}
+			
+				try {
+					stageGestion.getCompetitionActive().setDateCloture(datePicker.getValue());
+				} catch (ExceptionDateCompetition e) {
+					okModif = false;
+					messageErreur(e.toString());
+				}
+			
 		}
 		if(!comboEquipe.getValue().equals((String)(returnOuiNon(stageGestion.getCompetitionActive().estEnEquipe())))){
 			try {

@@ -12,7 +12,7 @@ public class ExceptionNomEquipe extends ExceptionPrincipale
 	@Override
 	public String toString() 
 	{
-		return super.toString() + "\n * Le nom "+ nomEquipe + " est déjà utilisé par une équipe ";
+		return " Le nom "+ nomEquipe + " est déjà utilisé par une équipe ";
 	}
 	
 }

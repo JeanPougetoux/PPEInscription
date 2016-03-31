@@ -1,5 +1,6 @@
 package interfaceGraphique.view.Equipe;
 
+import exceptions.ExceptionNomEquipe;
 import inscriptions.Competition;
 import inscriptions.Equipe;
 import interfaceGraphique.controls.MonAppli;
@@ -51,22 +52,33 @@ public class ModificationEquipeController {
     }
 	
 	public void actionValider(){
-		if(!nomEquipe.equals(stageGestion.getEquipeActive().getNom())){
-			try{
-				stageGestion.getEquipeActive().setNom(nomEquipe.getText());
-				try{
-					MonAppli.getInscriptions().sauvegarder();
-					stageGestion.actualise();
-					stageModif.close();
+		if(!nomEquipe.getText().isEmpty())
+		{
+			if(!nomEquipe.equals(stageGestion.getEquipeActive().getNom())){
+				
+				try 
+				{
+					stageGestion.getEquipeActive().setNom(nomEquipe.getText());
+					try{
+						MonAppli.getInscriptions().sauvegarder();
+						stageGestion.actualise();
+						stageModif.close();
+					
 				}
 				catch(Exception e){
-					e.printStackTrace();
+					messageErreur(e.getMessage());
 				}
-			}
-			catch(Exception e){
-				messageErreur(e.getMessage());
-			}
+					
+					
+				} catch (ExceptionNomEquipe e1) {
+					messageErreur(e1.toString());
+				}
+				
 		}
+		}
+		else
+			messageErreur("Impossible de rentrer un champs vide");
+		
 	}
 	
 	public void actionAnnuler(){
