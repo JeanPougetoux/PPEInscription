@@ -21,6 +21,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 
 public class GestionEquipeController {
 	ObservableList<Equipe> listEquipes = FXCollections.observableArrayList();
@@ -37,6 +38,8 @@ public class GestionEquipeController {
     private Button supprimer;
     @FXML
     private Button modifier;
+    @FXML
+    private Label information;
     
     @FXML
     private Button voirCompetitions;
@@ -54,6 +57,7 @@ public class GestionEquipeController {
     	nameColumn.setCellValueFactory(CellDataFeatures -> new ReadOnlyStringWrapper(CellDataFeatures.
 				getValue().getNom()));
     	setChoixVisibility(false);
+    	this.information.setVisible(false);
     }
     
     public void setClass(GestionEquipe stageGestion){
@@ -111,9 +115,20 @@ public class GestionEquipeController {
     	fenetreMembres.show();
     }
     
-    public void actionBoutonVoirCompetitions(){
-    	VueCompetitions fenetreCompetitions = new VueCompetitions(this);
-    	fenetreCompetitions.show();
+    public void actionBoutonVoirCompetitions()
+    {
+    	if(!this.equipeActive.getCompetitions().isEmpty())
+		{
+			VueCompetitions fenetreCompetitions = new VueCompetitions(this);
+	    	fenetreCompetitions.show();
+		}
+		else
+		{
+			this.information.setText("Cette équipe ne participer à aucune compétitions");
+			this.information.setTextFill(Color.web("#FF0000"));
+    		this.information.setVisible(true);
+		}
+    	
     }
     
     public void deleteElement(){    	
