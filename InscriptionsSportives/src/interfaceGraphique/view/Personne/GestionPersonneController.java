@@ -117,6 +117,7 @@ public class GestionPersonneController {
 	    {
 	    	ModaleSuppression modaleSupp = new ModaleSuppression(this);
 	    	modaleSupp.show();
+	    	
 	    }
 	    
 	    public void actionBoutonModifier()
@@ -133,9 +134,11 @@ public class GestionPersonneController {
 
 		public void deleteElement(){    	
 		stageGestion.getList().remove(personneActive);
+		
 		try 
 		{
 			personneActive.delete();
+			
 		}
 		catch (ExceptionRetraitPersonneEquipe e1) 
 		{
