@@ -127,7 +127,7 @@ public class persistance {
 						else
 						{
 							Statement statement2 = conn.createStatement();
-							ResultSet result2 = statement2.executeQuery("call selectMail('"+result.getString("candidat_nom")+"')");
+							ResultSet result2 = statement2.executeQuery("call selectMail('"+result.getString("id_participant")+"')");
 							
 							while(result2.next())
 							{
@@ -168,14 +168,18 @@ public class persistance {
 			{
 				for (Candidat c : inscription.getCandidats())
 				{
-					if(c.getNom().equals(result.getString("joueur"))&& c instanceof Personne)
+					if(c instanceof Personne)
 					{
-						for (Candidat equipe : inscription.getCandidats())
-						{
-							if(equipe.getNom().equals(result.getString("equipe")) && equipe instanceof Equipe)
-								((Equipe) equipe).add((Personne) c);
-									
-						}
+						if(((Personne)c).getMail().equals(result.getString("mail")))
+								{
+									for (Candidat equipe : inscription.getCandidats())
+									{
+										if(equipe.getNom().equals(result.getString("equipe")) && equipe instanceof Equipe)
+											((Equipe) equipe).add((Personne) c);
+												
+									}
+								}
+						
 					}
 				}
 			}

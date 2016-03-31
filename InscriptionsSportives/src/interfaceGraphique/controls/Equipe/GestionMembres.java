@@ -53,8 +53,10 @@ public class GestionMembres extends Stage{
  }	
 
 public void bindLists(){
-	for(Candidat p : MonAppli.getInscriptions().getCandidats()){
-		if(p instanceof Personne){
+	for(Candidat p : MonAppli.getInscriptions().getCandidats())
+	{
+		if(p instanceof Personne)
+		{
 			if(stageGestion.getEquipeActive().getMembres().contains(p))
 				listMembresEquipe.add((Personne)p);
 			else

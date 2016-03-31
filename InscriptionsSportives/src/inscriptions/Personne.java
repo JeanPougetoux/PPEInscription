@@ -13,7 +13,7 @@ import exceptions.ExceptionRetraitPersonneEquipe;
  * Représente une personne physique pouvant s'inscrire à une compétition.
  */
 
-public class Personne extends Candidat
+public class Personne extends Candidat 
 {
 	private static final long serialVersionUID = 4434646724271327254L;
 	private String prenom, mail;

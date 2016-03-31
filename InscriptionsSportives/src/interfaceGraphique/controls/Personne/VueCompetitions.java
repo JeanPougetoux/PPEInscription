@@ -3,6 +3,7 @@ package interfaceGraphique.controls.Personne;
 import java.io.IOException;
 
 import inscriptions.Competition;
+import inscriptions.Equipe;
 import inscriptions.Personne;
 import interfaceGraphique.controls.MonAppli;
 import interfaceGraphique.controls.Competition.GestionCompetitions;
@@ -58,6 +59,15 @@ public class VueCompetitions extends Stage{
 	private void bindList() {
 		for(Competition c :stageGestion.getPersonneActive().getCompetitions())
     		listeCompete.add(c);
+		if(!stageGestion.getPersonneActive().getEquipes().isEmpty())
+		{
+			for(Equipe e :stageGestion.getPersonneActive().getEquipes())
+				if(!e.getCompetitions().isEmpty())
+					for(Competition comp : e.getCompetitions())
+						listeCompete.add(comp);
+		}
+			
+				
 		
 	}	 
 	

@@ -55,6 +55,7 @@ public class AjoutPersonneController {
 				stageGestion.getList().add(MonAppli.getInscriptions().
 						createPersonne(nom.getText(), prenom.getText(), mail.getText()));
 				
+				
 			} 
 			catch (ExceptionMailPersonne e) 
 			{

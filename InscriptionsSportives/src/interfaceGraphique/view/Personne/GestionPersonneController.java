@@ -87,6 +87,7 @@ public class GestionPersonneController {
 	    	modifier.setVisible(visible);
 	    	gererEquipes.setVisible(visible);
 	    	voirCompetitions.setVisible(visible);
+	    	
 	    }   
 	    
 	    public TableView<Personne> getTable(){
@@ -130,8 +131,19 @@ public class GestionPersonneController {
 	    
 	    public void actionBoutonVoirCompetitions()
 	    {
-	    	VueCompetitions fenetre = new VueCompetitions(this);
-	    	fenetre.show();
+	    	if(!personneActive.getCompetitions().isEmpty())
+	    	{
+	    		VueCompetitions fenetre = new VueCompetitions(this);
+		    	fenetre.show();
+	    	}
+	    	else
+	    	{
+	    		this.information.setText("Cette personne ne participe à aucune compétitions");
+	    		this.information.setTextFill(Color.web("#FF0000"));
+	    		this.information.setVisible(true);
+	    	}
+	    	
+	    	
 	    }
 
 		public void deleteElement(){   

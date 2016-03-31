@@ -108,7 +108,13 @@ public abstract class Candidat implements Comparable<Candidat>, Serializable
 	@Override
 	public int compareTo(Candidat o)
 	{
-		return getNom().compareTo(o.getNom());
+		Candidat c = this;
+		if(c instanceof Equipe)
+			return c.getNom().compareTo(o.getNom());
+		else if(c instanceof Personne && o instanceof Personne)
+			return ((Personne)c).getMail().compareTo(((Personne)o).getMail());
+		return 0;
+				
 	}
 	
 	@Override
