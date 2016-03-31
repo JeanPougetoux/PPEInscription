@@ -1,5 +1,6 @@
 package interfaceGraphique.view.Competition;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 

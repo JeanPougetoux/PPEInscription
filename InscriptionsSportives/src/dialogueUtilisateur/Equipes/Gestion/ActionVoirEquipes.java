@@ -1,5 +1,6 @@
 package dialogueUtilisateur.Equipes.Gestion;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 import inscriptions.*;

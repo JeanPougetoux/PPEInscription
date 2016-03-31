@@ -7,7 +7,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Set;
 import java.time.LocalDate;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -56,7 +58,7 @@ public class Inscriptions implements Serializable
 	 * @return
 	 */
 	
-	public SortedSet<Candidat> getCandidats()
+	public Set<Candidat> getCandidats()
 	{
 		return Collections.unmodifiableSortedSet(candidats);
 	}
@@ -97,6 +99,7 @@ public class Inscriptions implements Serializable
 	public Personne createPersonne(String nom, String prenom, String mail) throws ExceptionMailPersonne
 	{
 		Personne personne = new Personne(this, nom, prenom, mail);
+		
 		if (persistance == BDD)
 			pers.ajoutPersonne(nom,prenom,mail);
 		candidats.add(personne);
@@ -150,17 +153,20 @@ public class Inscriptions implements Serializable
 	
 	public static Inscriptions getInscriptions()
 	{
+		
 		if (persistance == BDD)
 		{
 			pers = new persistance();
 			try 
 			{
 				inscriptions = pers.getBase(new Inscriptions());
+				
 			} catch (Exception e) 
 			{
 				e.printStackTrace();
 			}
 			
+		
 		}
 		else
 		{

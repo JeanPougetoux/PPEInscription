@@ -1,6 +1,8 @@
 package inscriptions;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -15,7 +17,7 @@ import exceptions.ExceptionRetraitPersonneEquipe;
 public class Equipe extends Candidat
 {
 	private static final long serialVersionUID = 4147819927233466035L;
-	private SortedSet<Personne> membres = new TreeSet<>();
+	private Set<Personne> membres = new TreeSet<>();
 	
 	Equipe(Inscriptions inscriptions, String nom)
 	{
@@ -26,9 +28,9 @@ public class Equipe extends Candidat
 	 * Retourne l'ensemble des personnes formant l'équipe.
 	 */
 	
-	public SortedSet<Personne> getMembres()
+	public Set<Personne> getMembres()
 	{
-		return Collections.unmodifiableSortedSet(membres);
+		return Collections.unmodifiableSet(membres);
 	}
 	
 	/**

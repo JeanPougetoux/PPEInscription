@@ -83,6 +83,7 @@ public class persistance {
 		inscription = getJoueursEquipes(inscription);
 		inscription = getParticipantsCompetitions(inscription);
 		this.initialisation = false;
+		
 		return inscription;
 		
 	}
@@ -199,8 +200,10 @@ public class persistance {
 		result = statement.executeQuery("call selectPersonnes()");
 		while (result.next()) {
 			
-			inscription.createPersonne(result.getString("candidat_nom"), result.getString("personne_prenom"), result.getString("personne_mail"));
+			Personne p = inscription.createPersonne(result.getString("candidat_nom"), result.getString("personne_prenom"), result.getString("personne_mail"));
+			
 		}
+		
 		return inscription;
 	}
 	

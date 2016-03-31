@@ -53,8 +53,13 @@ public class GestionPersonne extends Stage
 	 
     private void bindList(){
 		for(Candidat c : MonAppli.getInscriptions().getCandidats()){
+			
 			if(c instanceof Personne)
+			{
 				listPersonnes.add((Personne)c);
+				
+			}
+				
 		}
 	}
     
