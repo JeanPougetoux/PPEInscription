@@ -1,19 +1,21 @@
 package interfaceGraphique.view;
 
-import java.awt.TextField;
 
-import javax.swing.JTextField;
+
+
 
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Text;
 
 import donnees.persistance;
 import interfaceGraphique.controls.Accueil;
+import interfaceGraphique.controls.ConnexionSecurisee;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.paint.Color;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.stage.Window;
 
 /**
@@ -25,8 +27,12 @@ import javafx.stage.Window;
 public class ConnexionSecuriseeController
 {
 
+	ConnexionSecurisee stageGestion;
 	@FXML
 	private PasswordField password;
+	
+	@FXML
+	private TextField utilisateur;
 	
 	@FXML
 	private Label information;
@@ -46,15 +52,22 @@ public class ConnexionSecuriseeController
 	 */
 	public void handleConnexion()
 	{
-		if(persistance.estConnecte(password.getText()))
+		if(!password.getText().isEmpty() && !utilisateur.getText().isEmpty())
 		{
-			Accueil mafenetre = new Accueil();
-			mafenetre.show();
+			if(persistance.estConnecte(utilisateur.getText(),password.getText()))
+			{
+				Accueil mafenetre = new Accueil();
+				mafenetre.show();
+				stageGestion.close();
+			}
+			else
+			{
+				generationInfos("Mot de passe incorrect","erreur");
+			}
 		}
 		else
-		{
-			generationInfos("Mot de passe incorrect","erreur");
-		}
+			generationInfos("Tous les champs doivent être renseignés","erreur");
+		
       
 	}
 	
@@ -73,6 +86,12 @@ public class ConnexionSecuriseeController
 	    	
 			this.information.setVisible(true);
 		}
+
+	public void setStage(ConnexionSecurisee connexionSecurisee) 
+	{
+		this.stageGestion = connexionSecurisee;
+		
+	}
 	
 	
 }

@@ -42,6 +42,7 @@ private BorderPane rootLayout;
 	            this.setScene(scene);
 	            rootLayout.setCenter(panelPrincipal);
 	            ConnexionSecuriseeController controller = loader.getController();
+	            controller.setStage(this);
 	        } catch (IOException e) {
 	            e.printStackTrace();
 	        }
