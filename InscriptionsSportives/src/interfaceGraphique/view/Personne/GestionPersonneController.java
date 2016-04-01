@@ -5,7 +5,6 @@ import java.io.IOException;
 import exceptions.ExceptionRetraitPersonneEquipe;
 import inscriptions.Equipe;
 import inscriptions.Personne;
-import inscriptions.StatutSuppression;
 import interfaceGraphique.controls.ModaleSuppression;
 import interfaceGraphique.controls.MonAppli;
 import interfaceGraphique.controls.Equipe.GestionEquipe;
