@@ -10,8 +10,9 @@ import exceptions.ExceptionRetraitPersonneEquipe;
 import inscriptions.Equipe;
 import inscriptions.Inscriptions;
 import inscriptions.Personne;
+import junit.framework.TestCase;
 
-public class EquipeTest {
+public class EquipeTest extends TestCase{
 
 	Inscriptions inscriptions = Inscriptions.getInscriptions();
 	Personne tony = null;
@@ -20,6 +21,7 @@ public class EquipeTest {
 	
 	public void setUp() throws Exception
 	{
+		super.setUp();
 		tony = inscriptions.createPersonne("Tony", "Dent de plomb", "azerty");
 		boris = inscriptions.createPersonne("Boris", "le Hachoir", "ytreza");
 		lesManouches = inscriptions.createEquipe("Les Manouches");

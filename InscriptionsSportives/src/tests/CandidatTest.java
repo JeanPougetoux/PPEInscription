@@ -15,25 +15,29 @@ import inscriptions.Competition;
 import inscriptions.Equipe;
 import inscriptions.Inscriptions;
 import inscriptions.Personne;
+import junit.framework.TestCase;
 
-public class CandidatTest {
+public class CandidatTest  extends TestCase{
 
-	String nomRobert = "Robert";
-	String nomTony = "Tony";
-	Inscriptions inscriptions;
-	Personne tony ;
-	Competition testCompet ;
-	Competition testCompet2 ;
+	private String nomRobert = "Robert";
+	private String nomTony = "Tony";
+	private Inscriptions inscriptions;
+	private Personne tony ;
+	private Competition testCompet ;
+	private Competition testCompet2 ;
 
-	public void setUp() throws Exception
+	@Override
+	protected void setUp() throws Exception
 	{
+		super.setUp();
 		inscriptions = Inscriptions.getInscriptions();
-		tony = inscriptions.createPersonne(nomTony, null, null);
+		tony = inscriptions.createPersonne(nomTony, "lala", "azerty");
 		testCompet = inscriptions.createCompetition("test", LocalDate.parse
 				("2018-02-10"), false);
 		testCompet2 = inscriptions.createCompetition("test", LocalDate.parse
 				("2018-02-10"), false);
 	}
+	
 	
 	@Test
 	public void testCandidat() throws Exception {
@@ -44,7 +48,7 @@ public class CandidatTest {
 	}
 	
 	@Test
-	public void testGetNom() {
+	public void testGetNom() throws Exception {
 		assertEquals(nomTony, tony.getNom());
 	}
 
@@ -73,9 +77,9 @@ public class CandidatTest {
 
 	@Test
 	public void testCompareTo() throws ExceptionMailPersonne {
-		Personne a = inscriptions.createPersonne("abcd", null, null);
-		Personne b = inscriptions.createPersonne("efgh", null, null);
-		assertEquals(-4, a.compareTo(b));
+		Personne a = inscriptions.createPersonne("abcd", "test", "a");
+		Personne b = inscriptions.createPersonne("efgh", "test", "b");
+		assertEquals(-1, a.compareTo(b));
 	}
 
 	@Test
@@ -85,6 +89,7 @@ public class CandidatTest {
 		assertEquals(Utilitaires.getMajuscule("Equipe '" + Utilitaires.getMajuscule(equipe.getNom()) + "'")
 				, equipe.toString());
 		Utilitaires.getMajuscule(equipe.toString());
+		
 	}
 
 }
