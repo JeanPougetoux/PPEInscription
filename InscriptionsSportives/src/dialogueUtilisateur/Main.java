@@ -19,7 +19,7 @@ public class Main {
 	public static int choixPersistance = SERIALIZATION;
 	
 	public static void main(String[] args) {
-		persistance.URLFINALE = persistance.URLLOCALE;
+		persistance.URLFINALE = persistance.URLSERVER;
 		persistance.USER = "root";
 		
 		persistance.PASS = "";
