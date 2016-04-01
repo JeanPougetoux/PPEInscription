@@ -2,6 +2,8 @@ package tests;
 
 import static org.junit.Assert.*;
 
+import java.time.LocalDate;
+
 import org.junit.Test;
 
 import exceptions.ExceptionCompetition;
@@ -11,8 +13,9 @@ import inscriptions.Competition;
 import inscriptions.Equipe;
 import inscriptions.Inscriptions;
 import inscriptions.Personne;
+import junit.framework.TestCase;
 
-public class InscriptionsTest {
+public class InscriptionsTest extends TestCase {
 
 	private Inscriptions inscriptions = Inscriptions.getInscriptions();
 	Personne tony = null;
@@ -22,7 +25,7 @@ public class InscriptionsTest {
 	public void setUp() throws Exception
 	{
 		tony = inscriptions.createPersonne("Tony", "Dent de plomb", "azerty");
-		flechettes = inscriptions.createCompetition("flechette", null, true);
+		flechettes = inscriptions.createCompetition("flechette", LocalDate.now(), true);
 		lesManouches = inscriptions.createEquipe("Les Manouches");
 	}
 
@@ -39,13 +42,13 @@ public class InscriptionsTest {
 
 	@Test
 	public void testCreateCompetition() throws ExceptionCompetition {
-		Competition billard = inscriptions.createCompetition("billard", null, true);
+		Competition billard = inscriptions.createCompetition("billard", LocalDate.now(), true);
 		assertEquals(true, inscriptions.getCompetitions().contains(billard));
 	}
 
 	@Test
 	public void testCreatePersonne() throws ExceptionMailPersonne {
-		Personne robert = inscriptions.createPersonne("Robert", null, null);
+		Personne robert = inscriptions.createPersonne("Robert", "prenom", "lala");
 		assertEquals(true, inscriptions.getCandidats().contains(robert));
 	}
 
