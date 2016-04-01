@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dialogueUtilisateur.Utilitaires;
-import exceptions.ExceptionRetraitPersonneEquipe;
 import inscriptions.Equipe;
 import inscriptions.Inscriptions;
 import inscriptions.Personne;

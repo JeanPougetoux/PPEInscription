@@ -3,7 +3,6 @@ package interfaceGraphique.controls.Equipe;
 import java.io.IOException;
 
 import interfaceGraphique.controls.MonAppli;
-import interfaceGraphique.view.Competition.GestionCompetitionsController;
 import interfaceGraphique.view.Equipe.GestionEquipeController;
 import interfaceGraphique.view.Equipe.ModificationEquipeController;
 import javafx.fxml.FXMLLoader;

@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import inscriptions.Candidat;
 import inscriptions.Equipe;
-import inscriptions.Personne;
 import interfaceGraphique.controls.MonAppli;
 import interfaceGraphique.view.Personne.GestionEquipesController;
 import interfaceGraphique.view.Personne.GestionPersonneController;

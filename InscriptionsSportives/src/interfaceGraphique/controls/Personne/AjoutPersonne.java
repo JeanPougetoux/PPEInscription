@@ -4,8 +4,6 @@ import java.io.IOException;
 
 import interfaceGraphique.controls.MonAppli;
 import interfaceGraphique.controls.Equipe.AjoutEquipe;
-import interfaceGraphique.controls.Equipe.GestionEquipe;
-import interfaceGraphique.view.Equipe.AjoutEquipeController;
 import interfaceGraphique.view.Personne.AjoutPersonneController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

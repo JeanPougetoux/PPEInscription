@@ -4,9 +4,7 @@ import java.io.IOException;
 
 import inscriptions.Competition;
 import inscriptions.Equipe;
-import inscriptions.Personne;
 import interfaceGraphique.controls.MonAppli;
-import interfaceGraphique.controls.Competition.GestionCompetitions;
 import interfaceGraphique.view.Personne.VueCompetitionsController;
 import interfaceGraphique.view.Personne.GestionPersonneController;
 import javafx.collections.FXCollections;

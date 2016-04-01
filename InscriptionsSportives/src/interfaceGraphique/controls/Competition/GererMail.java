@@ -7,7 +7,6 @@ import inscriptions.Competition;
 import inscriptions.Equipe;
 import inscriptions.Personne;
 import interfaceGraphique.controls.MonAppli;
-import interfaceGraphique.view.Competition.GererCandidatsController;
 import interfaceGraphique.view.Competition.GererMailController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

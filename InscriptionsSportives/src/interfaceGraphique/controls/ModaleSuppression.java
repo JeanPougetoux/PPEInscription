@@ -3,7 +3,6 @@ package interfaceGraphique.controls;
 import java.io.IOException;
 
 import interfaceGraphique.view.ModaleSuppressionController;
-import interfaceGraphique.view.Competition.GestionCompetitionsController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;

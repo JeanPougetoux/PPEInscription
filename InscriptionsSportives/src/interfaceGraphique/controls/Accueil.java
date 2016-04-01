@@ -3,8 +3,6 @@ package interfaceGraphique.controls;
 import java.io.IOException;
 
 import interfaceGraphique.view.AccueilController;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;

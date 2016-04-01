@@ -10,7 +10,6 @@ import dialogueUtilisateur.Utilitaires;
 import exceptions.ExceptionAjoutPersonneCompetition;
 import exceptions.ExceptionMailPersonne;
 import exceptions.ExceptionNomEquipe;
-import exceptions.ExceptionRetraitPersonneEquipe;
 import inscriptions.Competition;
 import inscriptions.Equipe;
 import inscriptions.Inscriptions;

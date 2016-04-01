@@ -3,7 +3,6 @@ package interfaceGraphique.controls.Competition;
 import java.io.IOException;
 
 import inscriptions.Candidat;
-import inscriptions.Competition;
 import inscriptions.Equipe;
 import inscriptions.Personne;
 import interfaceGraphique.controls.MonAppli;

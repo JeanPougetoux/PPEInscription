@@ -2,12 +2,8 @@ package interfaceGraphique.controls.Equipe;
 
 import java.io.IOException;
 
-import inscriptions.Equipe;
 import interfaceGraphique.controls.MonAppli;
 import interfaceGraphique.view.Equipe.AjoutEquipeController;
-import interfaceGraphique.view.Equipe.GestionEquipeController;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;

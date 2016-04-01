@@ -2,7 +2,6 @@ package dialogueUtilisateur.Equipes.Selection;
 
 import dialogueUtilisateur.SaisiesConsole;
 import dialogueUtilisateur.Utilitaires;
-import exceptions.ExceptionRetraitPersonneEquipe;
 import utilitaires.ligneDeCommande.Action;
 
 /**

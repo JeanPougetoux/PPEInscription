@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.Set;
 import java.util.TreeSet;
 
-import dialogueUtilisateur.SaisiesConsole;
 import dialogueUtilisateur.Utilitaires;
 import exceptions.ExceptionNomEquipe;
 import exceptions.ExceptionRetraitPersonneEquipe;

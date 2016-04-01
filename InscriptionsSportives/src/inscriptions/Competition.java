@@ -2,12 +2,11 @@ package inscriptions;
 
 import java.io.Serializable;
 import java.util.Collections;
-import java.util.Iterator;
 import java.time.LocalDate;
 import java.util.Set;
 import java.util.TreeSet;
 
-import dialogueUtilisateur.SaisiesConsole;
+
 import dialogueUtilisateur.Utilitaires;
 import exceptions.ExceptionAjoutEquipeCompetition;
 import exceptions.ExceptionAjoutPersonneCompetition;

@@ -3,11 +3,8 @@ package interfaceGraphique.controls.Equipe;
 import java.io.IOException;
 
 import inscriptions.Candidat;
-import inscriptions.Competition;
 import inscriptions.Equipe;
 import interfaceGraphique.controls.MonAppli;
-import interfaceGraphique.controls.Competition.GestionCompetitions;
-import interfaceGraphique.view.Competition.GestionCompetitionsController;
 import interfaceGraphique.view.Equipe.GestionEquipeController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

@@ -2,12 +2,8 @@ package interfaceGraphique.controls;
 
 import java.io.IOException;
 
-import interfaceGraphique.controls.Competition.AjoutCompetition;
-import interfaceGraphique.view.AccueilController;
 import interfaceGraphique.view.ConnexionSecuriseeController;
-import interfaceGraphique.view.Competition.GererCandidatsController;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;

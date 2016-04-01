@@ -3,8 +3,6 @@ package interfaceGraphique.controls;
 
 import inscriptions.Inscriptions;
 import javafx.application.Application;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 /**
