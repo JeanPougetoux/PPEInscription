@@ -12,6 +12,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+/**
+ * Cette fenêtre permet la modification des champs d'une équipe.
+ * @author Jean
+ *
+ */
 public class ModificationEquipe extends Stage{
 	private BorderPane rootLayout;
 	private GestionEquipeController stageGestion;
@@ -23,6 +28,10 @@ public class ModificationEquipe extends Stage{
 		initLayouts();
 	}
 	
+	/**
+	 * La méthode initLayouts permet de récupérer notre vue ModificationEquipe.fxml
+	 * et appelle le controller qui lui est lié.
+	 */
 	 public void initLayouts() {
 	        try {
 	            FXMLLoader loader = new FXMLLoader();

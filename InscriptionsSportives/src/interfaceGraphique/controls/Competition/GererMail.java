@@ -18,6 +18,11 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * Cette fenêtre est celle qui gère l'envoie des mails aux candidats.
+ * @author Jean
+ *
+ */
 public class GererMail extends Stage
 {
 	private BorderPane rootLayout;
@@ -32,6 +37,11 @@ public class GererMail extends Stage
 		initLayouts();
 	}
 	
+	/**
+	 * La méthode initLayouts permet de récupérer notre vue GererMail.fxml
+	 * et appelle le controller qui lui est lié.
+	 * Appelle bindLists();
+	 */
 	 public void initLayouts() {
 	        try {
 	            FXMLLoader loader = new FXMLLoader();
@@ -52,10 +62,16 @@ public class GererMail extends Stage
 	        }
 	 }	
 	 
+	/**
+	 * @return la competition
+	 */
 	public Competition getCompet(){
 		return compet;
 	}
 	
+	/**
+	 * Fabrique la liste des candidats auxquels il faut envoyer un mail.
+	 */
     private void bindLists()
     {
     	if(compet.estEnEquipe())
@@ -76,6 +92,9 @@ public class GererMail extends Stage
     	}
 	}
     
+    /**
+     * @return la liste des candidats.
+     */
     public ObservableList<Candidat> getListCandidats(){
     	return listCandidatsCompet;
     } 

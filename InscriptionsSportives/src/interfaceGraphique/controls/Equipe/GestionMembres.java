@@ -17,6 +17,11 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * Cette fenêtre permet la gestion des membres d'une équipe (ajout, suppression)
+ * @author Jean
+ *
+ */
 public class GestionMembres extends Stage{
 
 	private GestionEquipeController stageGestion;
@@ -32,6 +37,12 @@ public class GestionMembres extends Stage{
 		initLayouts();
 	}
 	
+	/**
+	 * La méthode initLayouts permet de récupérer notre vue GestionMembres.fxml
+	 * et appelle le controller qui lui est lié.
+	 * Appelle le setClass qui permet d'initialiser les variables du controller
+	 * avec cette fenêtre et GestionEquipeController.
+	 */
 	public void initLayouts() {
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -50,26 +61,35 @@ public class GestionMembres extends Stage{
         } catch (IOException e) {
             e.printStackTrace();
         }
- }	
+	}	
 
-public void bindLists(){
-	for(Candidat p : MonAppli.getInscriptions().getCandidats())
-	{
-		if(p instanceof Personne)
+	/**
+	 * Fabrique les deux listes de membres d'une équipe, et des autres.
+	 */
+	public void bindLists(){
+		for(Candidat p : MonAppli.getInscriptions().getCandidats())
 		{
-			if(stageGestion.getEquipeActive().getMembres().contains(p))
-				listMembresEquipe.add((Personne)p);
-			else
-				listAutresPersonnes.add((Personne)p);	
+			if(p instanceof Personne)
+			{
+				if(stageGestion.getEquipeActive().getMembres().contains(p))
+					listMembresEquipe.add((Personne)p);
+				else
+					listAutresPersonnes.add((Personne)p);	
+			}
 		}
 	}
-}
-
-public ObservableList<Personne> getListMembres(){
-	return listMembresEquipe;
-} 
-
-public ObservableList<Personne> getListAutresMembres(){
-	return listAutresPersonnes;
-} 
+	
+	/**
+	 * @return la liste des membres de l'équipes.
+	 */
+	public ObservableList<Personne> getListMembres(){
+		return listMembresEquipe;
+	} 
+	
+	/**
+	 * @return la liste des autres personnes.
+	 */
+	public ObservableList<Personne> getListAutresMembres(){
+		return listAutresPersonnes;
+	} 
 }

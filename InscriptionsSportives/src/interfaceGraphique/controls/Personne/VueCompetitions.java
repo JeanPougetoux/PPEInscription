@@ -18,6 +18,12 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * Cette fenêtre permet de voir toutes les compétitions
+ * auxquelles participe une personne.
+ * @author Jean
+ *
+ */
 public class VueCompetitions extends Stage{
 	private BorderPane rootLayout;
 	private GestionPersonneController stageGestion;
@@ -33,10 +39,12 @@ public class VueCompetitions extends Stage{
 		initLayouts();
 	}
 	
+	/**
+	 * La méthode initLayouts permet de récupérer notre vue VueCompetitions.fxml
+	 * et appelle le controller qui lui est lié.
+	 */
 	 public void initLayouts() {
 	        try {
-
-	            
 	            FXMLLoader loader = new FXMLLoader();
 	            loader.setLocation(VueCompetitions.class.getResource("../../view/Personne/VueCompetitions.fxml"));
 	            
@@ -56,6 +64,9 @@ public class VueCompetitions extends Stage{
 	        }
 	 }
 
+	 /**
+	  * Fabrique les deux listes des compétitions de la personne, et des autres.
+	  */
 	private void bindList() {
 		for(Competition c :stageGestion.getPersonneActive().getCompetitions())
     		listeCompete.add(c);
@@ -66,11 +77,11 @@ public class VueCompetitions extends Stage{
 					for(Competition comp : e.getCompetitions())
 						listeCompete.add(comp);
 		}
-			
-				
-		
 	}	 
 	
+	/**
+	 * @return la liste des compétitions de la personne.
+	 */
 	public ObservableList<Competition> getLiseCompetitions(){
 		return listeCompete;
 	} 

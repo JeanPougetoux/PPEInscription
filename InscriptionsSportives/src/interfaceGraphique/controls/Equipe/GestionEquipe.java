@@ -18,6 +18,12 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * Cette fenêtre offre différentes possibilitées pour la
+ * gestion des équipes (modifier, supprimer, etc.)
+ * @author Jean
+ *
+ */
 public class GestionEquipe extends Stage{
 	private BorderPane rootLayout;
 	private ObservableList<Equipe> listEquipes = FXCollections.observableArrayList();
@@ -29,6 +35,10 @@ public class GestionEquipe extends Stage{
 		initLayouts();
 	}
 	
+	/**
+	 * La méthode initLayouts permet de récupérer notre vue GestionEquipe.fxml
+	 * et appelle le controller qui lui est lié.
+	 */
 	 public void initLayouts() {
 	        try {
 	            FXMLLoader loader = new FXMLLoader();
@@ -49,6 +59,9 @@ public class GestionEquipe extends Stage{
 	        }
 	 }	 
 	 
+	 /**
+	  * Fabrique la liste de toutes les équipes.
+	  */
     private void bindList(){
 		for(Candidat c : MonAppli.getInscriptions().getCandidats()){
 			if(c instanceof Equipe)
@@ -56,6 +69,10 @@ public class GestionEquipe extends Stage{
 		}
 	}
     
+    /**
+     * Récupère la liste des équipes.
+     * @return
+     */
     public ObservableList<Equipe> getList(){
     	return listEquipes;
     } 

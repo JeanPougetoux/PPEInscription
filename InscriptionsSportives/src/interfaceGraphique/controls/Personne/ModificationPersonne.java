@@ -14,6 +14,12 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * Cette fenêtre permet la modification des champs d'une personne (nom,
+ * prénom, mail).
+ * @author Jean
+ *
+ */
 public class ModificationPersonne extends Stage{
 
 	private BorderPane rootLayout;
@@ -31,6 +37,10 @@ public class ModificationPersonne extends Stage{
 		initLayouts();
 	}
 	
+	/**
+	 * La méthode initLayouts permet de récupérer notre vue ModificationPersonne.fxml
+	 * et appelle le controller qui lui est lié.
+	 */
 	 public void initLayouts() {
 	        try {
 	            FXMLLoader loader = new FXMLLoader();

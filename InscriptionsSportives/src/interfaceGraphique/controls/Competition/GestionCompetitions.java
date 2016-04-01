@@ -14,6 +14,12 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * Cette fenêtre offre différentes possibilitées quand à la 
+ * gestion des compétitions (modifier, supprimer, etc).
+ * @author Jean
+ *
+ */
 public class GestionCompetitions extends Stage{
 	private BorderPane rootLayout;
 	private ObservableList<Competition> listCompetitions = FXCollections.observableArrayList();
@@ -25,6 +31,10 @@ public class GestionCompetitions extends Stage{
 		initLayouts();
 	}
 	
+	/**
+	 * La méthode initLayouts permet de récupérer notre vue GestionCompetition.fxml
+	 * et appelle le controller qui lui est lié.
+	 */
 	 public void initLayouts() {
 	        try {
 	            FXMLLoader loader = new FXMLLoader();
@@ -45,6 +55,9 @@ public class GestionCompetitions extends Stage{
 	        }
 	 }	 
 	 
+	/**
+	 * Fabrique la liste à partir de toutes les compétitions enregistrés.
+	 */
     public void bindList(){
     	listCompetitions = FXCollections.observableArrayList();
 		for(Competition c : MonAppli.getInscriptions().getCompetitions()){
@@ -52,6 +65,9 @@ public class GestionCompetitions extends Stage{
 		}
 	}
     
+    /**
+     * @return la liste des compétitions.
+     */
     public ObservableList<Competition> getList(){
     	return listCompetitions;
     } 

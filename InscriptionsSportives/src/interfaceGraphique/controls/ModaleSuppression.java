@@ -11,6 +11,12 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * Fenêtre de validation de la suppression d'un élément.
+ * Elle hérite de Stage et comporte deux boutons.
+ * @author Jean
+ *
+ */
 public class ModaleSuppression extends Stage{
 
 	private BorderPane rootLayout;
@@ -23,6 +29,10 @@ public class ModaleSuppression extends Stage{
 		initLayouts();
 	}
 	
+	/**
+	 * La méthode initLayouts permet de récupérer notre vue ModaleSuppression.fxml
+	 * et appelle le controller qui lui est lié.
+	 */
 	 public void initLayouts() {
 	        try {
 	            FXMLLoader loader = new FXMLLoader();

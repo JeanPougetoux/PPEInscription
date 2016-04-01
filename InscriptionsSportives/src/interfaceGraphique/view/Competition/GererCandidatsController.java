@@ -219,10 +219,21 @@ public class GererCandidatsController {
     	}
     	else
     	{
-    		MonAppli.generationErreur("Cette compétition est vide, action impossible");
+    		generationErreur("Cette compétition est vide, action impossible");
     	}
     	
     }
+    
+    public void generationErreur(String message)
+	{
+		// Show the error message.
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Erreur");
+        alert.setHeaderText("Attention");
+        alert.setContentText(message);
+        
+        alert.showAndWait();
+	}
     
     public void messageErreur(Object o){
     	if(o == null){

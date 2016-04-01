@@ -21,7 +21,7 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Label text="Veuillez rentre vos identifiants afin de vous connecter" GridPane.columnSpan="2">
+      <Label text="Veuillez rentrer vos identifiants afin de vous connecter" GridPane.columnSpan="2">
          <font>
             <Font name="Arial Black" size="18.0" />
          </font>

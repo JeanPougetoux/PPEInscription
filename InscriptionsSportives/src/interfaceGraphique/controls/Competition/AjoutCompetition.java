@@ -11,6 +11,11 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * Cette fenêtre gère l'ajout d'une compétition aux données.
+ * @author Jean
+ *
+ */
 public class AjoutCompetition extends Stage{
 	private BorderPane rootLayout;
 	private GestionCompetitions stageGestion;
@@ -23,6 +28,10 @@ public class AjoutCompetition extends Stage{
 		initLayouts();
 	}
 	
+	/**
+	 * La méthode initLayouts permet de récupérer notre vue AjoutCompetition.fxml
+	 * et appelle le controller qui lui est lié.
+	 */
 	 public void initLayouts() {
 	        try {
 	            FXMLLoader loader = new FXMLLoader();
