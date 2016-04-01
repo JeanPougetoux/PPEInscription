@@ -164,11 +164,11 @@ public class GererCandidatsController {
 				}
     		}
     	}
-    	clean();
 
     	for(Candidat i : aEnlever){
     		stage.getListAutresCandidats().remove(i);
     	}
+    	clean();
     	try {
 			MonAppli.getInscriptions().sauvegarder();
 		} catch (IOException e) {
@@ -184,15 +184,15 @@ public class GererCandidatsController {
 			if(checkBoxCandidatsCompet.getCellData(i).booleanValue()){
 					stageGestion.getCompetitionActive().remove(stage.getListCandidats().get(i));
 					stage.getListAutresCandidats().add(stage.getListCandidats().get(i));
-					aEnlever.add(stage.getListAutresCandidats().get(i));
+					aEnlever.add(stage.getListCandidats().get(i));
 					selectedRowListAutres.add(new SimpleBooleanProperty());
 			}
     	}
     	
-    	clean();
     	for(Candidat i : aEnlever){
     		stage.getListCandidats().remove(i);
     	}
+    	clean();
     	try {
 			MonAppli.getInscriptions().sauvegarder();
 		} catch (IOException e) {
