@@ -14,6 +14,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 
+/**
+* Controller de la vue AjoutPersonne.fxml
+* IL est appellé par la classe AjoutPersonne.
+* @author thomas
+*
+*/
 public class AjoutPersonneController {
 
 	@FXML
@@ -34,17 +40,27 @@ public class AjoutPersonneController {
 		// TODO Auto-generated constructor stub
 	}
 	
+	/**
+	 * Mise en place des différents champs
+	 * @param stageAjout
+	 * @param stageGestion
+	 */
 	public void setStage(AjoutPersonne stageAjout, GestionPersonne stageGestion){
 		this.stageAjout = stageAjout;
 		this.stageGestion = stageGestion;
 		this.information.setVisible(false);
 	}
 	
+	/**
+	 * Fermeture de la fenêtre
+	 */
 	public void actionClose(){
 		stageAjout.close();
 	}
 	
-	
+	/**
+	 * Boutton "ajout", permet d'ajourer une personne ou d'afficher un message d'erreur
+	 */
 	public void actionAjout()
 	{
 		if(!nom.getText().isEmpty() && !prenom.getText().isEmpty() && !mail.getText().isEmpty())
@@ -83,7 +99,11 @@ public class AjoutPersonneController {
 		
 	}
 	
-	
+	/**
+	 * Genere des messages d'erreurs ou d'informations
+	 * @param message
+	 * @param type
+	 */
 	public void generationInfos(String message,String type)
 	{
     	if(type == "erreur")

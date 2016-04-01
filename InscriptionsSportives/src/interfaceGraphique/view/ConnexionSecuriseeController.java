@@ -42,7 +42,7 @@ public class ConnexionSecuriseeController
 	}
 	
 	/**
-	 * 
+	 * Ouvre la fenêtre d'accueil si le mot de passe correspond 
 	 */
 	public void handleConnexion()
 	{
@@ -58,6 +58,11 @@ public class ConnexionSecuriseeController
       
 	}
 	
+	/**
+	 * Affiche le message d'erreur
+	 * @param message
+	 * @param type
+	 */
 	 public void generationInfos(String message,String type)
 		{
 	    	if(type == "erreur")

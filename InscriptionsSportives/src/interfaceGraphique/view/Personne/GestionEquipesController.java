@@ -21,6 +21,12 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.util.Callback;
 
+/**
+* Controller de la vue GestionEquipe.fxml
+* IL est appellé par la classe GestionEquipe.
+* @author thomas
+*
+*/
 public class GestionEquipesController {
 	
 	@FXML
@@ -50,6 +56,9 @@ public class GestionEquipesController {
     	
     }
     
+    /**
+     * Inititalise la fenêtre
+     */
     @FXML
     private void initialize(){
     	messageErreur(null);
@@ -91,6 +100,10 @@ public class GestionEquipesController {
     	checkBoxEquipeMembre.setCellFactory(CheckBoxTableCell.forTableColumn(checkBoxEquipeMembre));
     
     }
+    /**
+     * Affiche ou non les messages d'erreurs
+     * @param o
+     */
     
     public void messageErreur(Object o){
     	if(o == null){
@@ -101,7 +114,11 @@ public class GestionEquipesController {
     		messageErreur.setText(o.toString());
     	}
     }
-    
+    /**
+     * Initialise les listes
+     * @param stageEquipes
+     * @param stageGestion
+     */
     public void setStage(GestionEquipes stageEquipes, GestionPersonneController stageGestion){
     	this.stageEquipes = stageEquipes;
     	this.stageGestion = stageGestion;
@@ -114,7 +131,9 @@ public class GestionEquipesController {
     	equipesMembre.setItems(stageEquipes.getListEquipes());
     	autresEquipes.setItems(stageEquipes.getListAutres());
     }
-    
+    /**
+     * Permet de rafraîchir les tableaux
+     */
     public void clean(){
     	for(int i = 0; i < selectedRowListAutres.size(); i++){
     		selectedRowListAutres.get(i).set(false);
@@ -124,7 +143,9 @@ public class GestionEquipesController {
     	}
     }
     
-    
+    /**
+     * Permet de faire passer une équipe vers les équipes du candidat
+     */
     public void boutonAutresVersEquipes(){
     	messageErreur(null);
     	ArrayList<Equipe> aEnlever = new ArrayList<>();
@@ -149,6 +170,9 @@ public class GestionEquipesController {
     	clean();
     }
     
+    /**
+     * Permet de faire passer une équipe du candidat dans les autres équipes 
+     */
     public void boutonEquipesVersAutres(){
     	messageErreur(null);
     	ArrayList<Equipe> aEnlever = new ArrayList<>();

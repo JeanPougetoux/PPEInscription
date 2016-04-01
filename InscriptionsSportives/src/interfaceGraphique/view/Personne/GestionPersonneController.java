@@ -26,6 +26,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
+/**
+* Controller de la vue GestionPersonne.fxml
+* IL est appellé par la classe GestionPersonne.
+* @author thomas
+*/
 public class GestionPersonneController {
 	
 	@FXML
@@ -60,6 +65,9 @@ public class GestionPersonneController {
 	    	
 	    }
 	    
+	 /**
+	  * Initialise la fenêtre
+	  */
 	    @FXML
 	    private void initialize()
 	    {
@@ -79,6 +87,10 @@ public class GestionPersonneController {
 	    	personneTable.setOnMouseClicked(new ActionClickTable(this));
 	    }
 	    
+	    /**
+	     * Gère la visibilité des boutons
+	     * @param visible
+	     */
 	    public void setChoixVisibility(boolean visible)
 	    {
 	    	labelPersonne.setVisible(visible);
@@ -89,45 +101,76 @@ public class GestionPersonneController {
 	    	
 	    }   
 	    
+	    /**
+	     * récupère l'ensemble des personnes
+	     * @return
+	     */
 	    public TableView<Personne> getTable(){
 	    	return personneTable;
 	    }
 	    
+	    /**
+	     * Modifie le nom dans le label
+	     * @param texte
+	     */
 	    public void setNomPersonne(String texte){
 	    	labelPersonne.setText(texte);
 	    }
 	    
+	    /**
+	     * permet de désigner une nouvelle personne active
+	     * @param personne
+	     */
 	    public void setPersonneActive(Personne personne){
 	    	personneActive = personne;   
 	    }
 	    
+	    /**
+	     * Réxcupère la personne active
+	     * @return
+	     */
 	    public Personne getPersonneActive(){
 	    	return personneActive;
 	    }
 	    
+	    /**
+	     * Ouvre une fenêtre de gestion d'équipes lorsqu'on clique sur le bouton
+	     */
 	    public void actionBoutonGererEquipes(){
 	    	GestionEquipes fenetreGestion = new GestionEquipes(this);
 	    	fenetreGestion.show();
 	    }
 	    
+	    /**
+	     * Ouvre une fenêtre d'ajout de perosnne lorsqu'on clique sur le bouton
+	     */
 	    public void actionBoutonAjout()
 	    {
 	    	AjoutPersonne fenetre = new AjoutPersonne(stageGestion);
 	    	fenetre.show();
 	    }
 	    
+	    /**
+	     * Ouvre une fenêtre de validation de suppression puis supprime ou non la personne lorsqu'on clique sur le bouton
+	     */
 	    public void actionBoutonSupprimer()
 	    {
 	    	ModaleSuppression modaleSupp = new ModaleSuppression(this);
 	    	modaleSupp.show();
 	    }
 	    
+	    /**
+	     * Ouvre une fenêtre de modification de personne lorsqu'on clique sur le bouton
+	     */
 	    public void actionBoutonModifier()
 	    {
 	    	ModificationPersonne fenetre = new ModificationPersonne(stageGestion,personneActive.getMail(),this);
 	    	fenetre.show();
 	    }
 	    
+	    /**
+	     * Ouvre une fenêtre de vue des compétitions lorsqu'on clique sur le bouton
+	     */
 	    public void actionBoutonVoirCompetitions()
 	    {
 	    	if(!personneActive.getCompetitions().isEmpty())
@@ -144,7 +187,9 @@ public class GestionPersonneController {
 	    	
 	    	
 	    }
-
+	    /**
+	     * Supprime la personne active
+	     */
 		public void deleteElement(){   
 			
 		stageGestion.getList().remove(personneActive);
@@ -169,7 +214,11 @@ public class GestionPersonneController {
     	
     }
 		
-		
+		/**
+		 Permet d'afficher les messages d'erreur
+		 * @param message
+		 * @param type
+		 */
 		public void generationInfos(String message,String type)
 		{
 	    	if(type == "erreur")
