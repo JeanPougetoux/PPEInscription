@@ -18,6 +18,12 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+/**
+ * Controller de la vue AjoutCompetition.fxml
+ * qui est appellé par la classe AjoutCompetition.
+ * @author Jean
+ *
+ */
 public class AjoutCompetitionController {
 
 	@FXML
@@ -46,21 +52,36 @@ public class AjoutCompetitionController {
 		enEquipe.setValue("oui");
 	}	
 	
+	/**
+	 * Initialise les variables correspondant aux fenêtre AjoutCompetition et 
+	 * GestionCompetitions.
+	 * @param stageAjout
+	 * @param stageGestion
+	 */
 	public void setStagesCompetition(AjoutCompetition stageAjout, GestionCompetitions stageGestion){
 		this.stageAjout = stageAjout;
 		this.stageGestion = stageGestion;
 	}
 	
+	/**
+	 * @return le nom de la compétition.
+	 */
 	public String getStringNom() 
 	{
 		return nomCompetition.getText();
 	}
 	
+	/**
+	 * @return la date de clôture de la compétition.
+	 */
 	public LocalDate getLocalDateCloture() 
 	{
 		return dateCloture.getValue();
 	}
 	
+	/**
+	 * @return le statut de la compétition (en équipe ou non).
+	 */
 	public boolean getEnEquipe(){
 		if(enEquipe.getValue().equals("oui"))
 			return true;
@@ -68,6 +89,11 @@ public class AjoutCompetitionController {
 			return false;
 	}
 	
+	/**
+	 * Si le paramètre est null rend le message d'erreur invisible
+	 * sinon le rend visible et lui donne la valeur de o.toString();
+	 * @param o
+	 */
 	public void messageErreur(Object o){
     	if(o == null){
     		messageErreur.setVisible(false);
@@ -78,6 +104,10 @@ public class AjoutCompetitionController {
     	}
     }
 	
+	/**
+	 * Correspond à l'action du bouton valider.
+	 * Vérifie que les champs soient bons et créer la compétition.
+	 */
 	public void actionValider(){
 		messageErreur(null);
 		
@@ -118,6 +148,10 @@ public class AjoutCompetitionController {
 			
 	}
 	
+	/**
+	 * Correspond à l'action du bouton annuler.
+	 * Ferme la fenêtre.
+	 */
 	public void actionAnnuler(){
 		stageAjout.close();
 	}
