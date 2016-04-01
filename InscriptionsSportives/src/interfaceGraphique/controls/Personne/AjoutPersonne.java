@@ -14,6 +14,11 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * Cette fenêtre permet l'ajout d'une personne aux données.
+ * @author Jean
+ *
+ */
 public class AjoutPersonne extends Stage
 {
 	private BorderPane rootLayout;
@@ -27,6 +32,10 @@ public class AjoutPersonne extends Stage
 		initLayouts();
 	}
 	
+	/**
+	 * La méthode initLayouts permet de récupérer notre vue AjoutPersonne.fxml
+	 * et appelle le controller qui lui est lié.
+	 */
 	 public void initLayouts() {
 	        try {
 	            FXMLLoader loader = new FXMLLoader();

@@ -15,6 +15,11 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * Cette fenêtre permet l'ajout d'une nouvelle équipe aux données.
+ * @author Jean
+ *
+ */
 public class AjoutEquipe extends Stage{
 	private BorderPane rootLayout;
 	private GestionEquipe stageGestion;
@@ -27,6 +32,10 @@ public class AjoutEquipe extends Stage{
 		initLayouts();
 	}
 	
+	/**
+	 * La méthode initLayouts permet de récupérer notre vue AjoutEquipe.fxml
+	 * et appelle le controller qui lui est lié.
+	 */
 	 public void initLayouts() {
 	        try {
 	            FXMLLoader loader = new FXMLLoader();

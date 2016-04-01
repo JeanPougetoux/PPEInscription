@@ -18,6 +18,12 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * Cette fenêtre offre différentes possibilités quant à la gestion
+ * des personnes (modifier, supprimer, etc.)
+ * @author Jean
+ *
+ */
 public class GestionPersonne extends Stage
 
 {
@@ -31,6 +37,10 @@ public class GestionPersonne extends Stage
 		initLayouts();
 	}
 	
+	/**
+	 * La méthode initLayouts permet de récupérer notre vue GestionPersonne.fxml
+	 * et appelle le controller qui lui est lié.
+	 */
 	 public void initLayouts() {
 	        try {
 	            FXMLLoader loader = new FXMLLoader();
@@ -51,6 +61,9 @@ public class GestionPersonne extends Stage
 	        }
 	 }	 
 	 
+	/**
+	 * Fabrique la liste des personnes.
+	 */
     private void bindList(){
 		for(Candidat c : MonAppli.getInscriptions().getCandidats()){
 			
@@ -63,6 +76,9 @@ public class GestionPersonne extends Stage
 		}
 	}
     
+    /**
+     * @return la liste de toutes les personnes.
+     */
     public ObservableList<Personne> getList(){
     	return listPersonnes;
     } 

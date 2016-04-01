@@ -12,6 +12,11 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * Cette fenêtre permet la modification d'une compétition.
+ * @author Jean
+ *
+ */
 public class ModificationCompetition extends Stage{
 
 	private BorderPane rootLayout;
@@ -25,6 +30,10 @@ public class ModificationCompetition extends Stage{
 		initLayouts();
 	}
 	
+	/**
+	 * La méthode initLayouts permet de récupérer notre vue ModificationCompetition.fxml
+	 * et appelle le controller qui lui est lié.
+	 */
 	public void initLayouts() {
         try {
             FXMLLoader loader = new FXMLLoader();

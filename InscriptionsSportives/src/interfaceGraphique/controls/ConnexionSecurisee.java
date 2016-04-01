@@ -14,6 +14,12 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+/**
+ * Première fenêtre instanciée depuis la classe MonAppli.
+ * Elle hérite de Stage et permet la vérification du mot de passe.
+ * @author Jean
+ *
+ */
 public class ConnexionSecurisee extends Stage{
 	
 private BorderPane rootLayout;
@@ -23,6 +29,10 @@ private BorderPane rootLayout;
 		initLayouts();
 	}
 	
+	/**
+	 * La méthode initLayouts permet de récupérer notre vue ConnexionSecurisee.fxml
+	 * et appelle le controller qui lui est lié.
+	 */
 	 public void initLayouts() {
 		 try {
 			 FXMLLoader loader = new FXMLLoader();

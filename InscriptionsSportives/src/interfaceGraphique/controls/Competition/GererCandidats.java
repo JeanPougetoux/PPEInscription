@@ -18,6 +18,11 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * Cette fenêtre permet de gérer les candidats à une compétition.
+ * @author Jean
+ *
+ */
 public class GererCandidats extends Stage{
 	private BorderPane rootLayout;
 	private GestionCompetitionsController stageGestion;
@@ -32,6 +37,12 @@ public class GererCandidats extends Stage{
 		initLayouts();
 	}
 	
+	/**
+	 * La méthode initLayouts permet de récupérer notre vue GererCandidats.fxml
+	 * et appelle le controller qui lui est lié.
+	 * Appelle le bindList et le setClass qui envoie cette fenêtre et GestionCompetitionsController
+	 * vers le controller.
+	 */
 	 public void initLayouts() {
 	        try {
 	            FXMLLoader loader = new FXMLLoader();
@@ -52,6 +63,9 @@ public class GererCandidats extends Stage{
 	        }
 	 }	
 	
+	/**
+	 * Permet de construire les deux listes des candidats à la compétition et des autres.
+	 */
     public void bindLists(){
     	if(stageGestion.getCompetitionActive().estEnEquipe()){
 			for(Candidat c : MonAppli.getInscriptions().getCandidats()){
@@ -70,10 +84,16 @@ public class GererCandidats extends Stage{
     	}
 	}
     
+    /**
+     * @return la liste des candidats.
+     */
     public ObservableList<Candidat> getListCandidats(){
     	return listCandidatsCompet;
     } 
     
+    /**
+     * @return la liste des autres.
+     */
     public ObservableList<Candidat> getListAutresCandidats(){
     	return listAutresCandidats;
     } 

@@ -17,6 +17,12 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * Cette fenêtre permet de gérer les équipes auxquelles appartient
+ * une personne.
+ * @author Jean
+ *
+ */
 public class GestionEquipes extends Stage{
 
 	private BorderPane rootLayout;
@@ -32,6 +38,10 @@ public class GestionEquipes extends Stage{
 		initLayouts();
 	}
 	
+	/**
+	 * La méthode initLayouts permet de récupérer notre vue GestionEquipes.fxml
+	 * et appelle le controller qui lui est lié.
+	 */
 	 public void initLayouts() {
 	        try {
 	            FXMLLoader loader = new FXMLLoader();
@@ -52,6 +62,10 @@ public class GestionEquipes extends Stage{
 	        }
 	 }	 
 	 
+	/**
+	 * Permet de fabriquer les deux listes des équipes d'une personne
+	 * et des autres équipes.
+	 */
     private void bindList(){
 		for(Candidat e : MonAppli.getInscriptions().getCandidats()){
 			if(e instanceof Equipe){
@@ -65,10 +79,16 @@ public class GestionEquipes extends Stage{
 		}
 	}
     
+    /**
+     * @return la liste des équipes de la personne sélectionnée.
+     */
     public ObservableList<Equipe> getListEquipes(){
     	return listEquipes;
     } 
     
+    /**
+     * @return la liste des autres équipes.
+     */
     public ObservableList<Equipe> getListAutres(){
     	return listAutres;
     }
