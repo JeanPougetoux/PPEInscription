@@ -704,7 +704,7 @@ public class persistance {
 		
 		try 
 		{
-			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/ppe_inscriptions", "root", "");
+			Connection conn = DriverManager.getConnection("jdbc:mysql://mysql.m2l.local/jpougetoux", "jpougetoux", "azerty");
 			java.sql.PreparedStatement prepare = conn.prepareStatement(query);
 			prepare.setString(1, encryptPassword(password));
 			resultat = prepare.executeQuery();
