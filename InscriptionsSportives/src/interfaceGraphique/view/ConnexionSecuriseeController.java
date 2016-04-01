@@ -16,22 +16,20 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.stage.Window;
 
+/**
+ * Controller de la vue ConnexionSecurisee.fxml
+ * et appellé par la classe ConnexionSecurisee.
+ * @author Jean
+ *
+ */
 public class ConnexionSecuriseeController
 {
 
-	
-	
 	@FXML
 	private PasswordField password;
 	
 	@FXML
 	private Label information;
-	
-	
-	
-	
-	
-	
 	
 	public ConnexionSecuriseeController() 
 	{
@@ -43,7 +41,9 @@ public class ConnexionSecuriseeController
 		this.information.setVisible(false);
 	}
 	
-	
+	/**
+	 * 
+	 */
 	public void handleConnexion()
 	{
 		if(persistance.estConnecte(password.getText()))

@@ -30,16 +30,25 @@ public class AccueilController {
 
 	}	
 	
+	/**
+	 * Correspond à l'action du clic sur le bouton compétitions.
+	 */
 	public void boutonCompetition(){
 		GestionCompetitions fenetreCompetition = new GestionCompetitions();
 		fenetreCompetition.show();
 	}
 	
+	/**
+	 * Correspond à l'action du clic sur le bouton équipes.
+	 */
 	public void boutonEquipe(){
 		GestionEquipe fenetreEquipe = new GestionEquipe();
 		fenetreEquipe.show();
 	}
-
+	
+	/**
+	 * Correspond à l'action du clic sur le bouton personnes.
+	 */
 	public void boutonPersonne()
 	{
 		GestionPersonne fenetrePersonne = new GestionPersonne();

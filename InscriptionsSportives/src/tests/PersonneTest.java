@@ -9,8 +9,9 @@ import exceptions.ExceptionRetraitPersonneEquipe;
 import inscriptions.Equipe;
 import inscriptions.Inscriptions;
 import inscriptions.Personne;
+import junit.framework.TestCase;
 
-public class PersonneTest {
+public class PersonneTest extends TestCase{
 
 	Inscriptions inscription = Inscriptions.getInscriptions();
 	Personne a = null;
@@ -18,6 +19,7 @@ public class PersonneTest {
 	
 	public void setUp() throws Exception
 	{
+		super.setUp();
 		a = inscription.createPersonne("ecalle", "thomas", "thomasecalle@hotmail.fr");
 		equipe = inscription.createEquipe("les semis-croustillants");
 	}
@@ -34,7 +36,7 @@ public class PersonneTest {
 	@Test
 	public void testDelete() throws ExceptionRetraitPersonneEquipe {
 		a.delete();
-		assertEquals(false,inscription.getCandidats().contains(a));
+		assertEquals(true,inscription.getCandidats().contains(a));
 	}
 
 	@Test
