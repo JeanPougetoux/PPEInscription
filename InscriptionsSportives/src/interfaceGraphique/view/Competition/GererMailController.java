@@ -1,7 +1,20 @@
 package interfaceGraphique.view.Competition;
 
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.Set;
+
+import javax.mail.Address;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 
 import dialogueUtilisateur.GestionDesErreurs;
 import javafx.scene.control.Label;
@@ -11,6 +24,7 @@ import inscriptions.Equipe;
 import inscriptions.Personne;
 import interfaceGraphique.controls.Competition.GererCandidats;
 import interfaceGraphique.controls.Competition.GererMail;
+import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
@@ -89,10 +103,9 @@ public class GererMailController {
     	}
     	else
     	{
-    		/*this.valider.setDisable(true);
+    		this.valider.setDisable(true);
 	        this.annuler.setDisable(true);
-    		this.information.setText("envoie en cours, veuillez patienter...");
-    		this.information.setVisible(true);
+    		GestionDesErreurs.afficherMessage(information, "Envoie des messages en cours, veuillez patienter...", "infos");
     		
     		 final Service<Void> calculateService = new Service<Void>() 
  	        {
@@ -101,12 +114,33 @@ public class GererMailController {
  	            protected Task<Void> createTask() 
  	            {
  	                return new Task<Void>() {
-
+ 	                	
+ 	                	
  	                    
 
 						@Override
  	                    protected  Void call() throws Exception 
  	                    {
+							Properties prop = new Properties();
+	 	               		prop.put("mail.smtp.host", "smtp.gmail.com");
+	 	               		prop.put("mail.smtp.socketFactory.port", "465");
+	 	               		prop.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+	 	               		prop.put("mail.smtp.auth", "true");
+	 	               		prop.put("mail.smtp.port", "465");
+	 	               		prop.put("mail.smtp.socketFactory.fallback", "false");
+	 	               		
+	 	               		Session session = Session.getDefaultInstance(prop, new javax.mail.Authenticator(){
+	 	               			protected PasswordAuthentication getPasswordAuthentication()
+	 	               			{
+	 	               				return new PasswordAuthentication("m2lcompetitions@gmail.com","pougetoux123");
+	 	               			}
+	 	               		});
+	 	               		
+	 	               		Transport transport = session.getTransport("smtp");
+	               			
+	               			transport.connect();
+	 	               		
+	 	               		
  	                    	Set <Candidat> candidats = stage.getCompet().getCandidats();
 	 	               		int compteur = 0;
 	 	               		
@@ -115,22 +149,81 @@ public class GererMailController {
 	 	               			if(c instanceof Personne)
 	 	               			{
 	 	               				compteur++;
-	 	               				//GestionMail.sendMessage(sujet.getText(),getMessage(),((Personne)c).getMail());
-	 	               				for (int i = 0; i < 1000000; i++) {
-										System.out.println(i);
-									}
+	 	               				
+			 	               		Message msg = new MimeMessage(session);
+			 	               		try 
+			 	               		{
+			 	               			Address adresse = new InternetAddress("thomasecalle@pataprout.com");
+			 	               			
+			 	               			msg.setFrom(adresse);
+			 	               			Address toAdresse = new InternetAddress(((Personne) c).getMail());
+			 	               			
+			 	               			msg.addRecipient(Message.RecipientType.TO, toAdresse);
+			 	               			
+			 	               			msg.setSubject(sujet.getText());
+			 	               			
+			 	               			MimeBodyPart messageBodyPart = new MimeBodyPart();
+			 	               			
+			 	               			messageBodyPart.setContent(message.getText(), "text/html");
+			 	               			
+			 	               			Multipart multipart = new MimeMultipart();
+			 	               			
+			 	               			multipart.addBodyPart(messageBodyPart);
+			 	               			msg.setContent(multipart);
+			 	               			
+			 	               			
+			 	               			transport.sendMessage(msg, msg.getAllRecipients());
+		
+			 	               		} 
+			 	               		catch (MessagingException e) 
+			 	               		{
+			 	               			e.printStackTrace();
+			 	               		}
 	 	               			}
 	 	               			else if(c instanceof Equipe)
 	 	               			{
 	 	               				Set<Personne> membres = ((Equipe) c).getMembres();
 	 	               				for(Personne p : membres)
 	 	               				{
-	 	               					compteur ++;
-	 	                       			//GestionMail.sendMessage(sujet.getText(),getMessage(),p.getMail());
+		 	               				compteur++;
+		 	               				
+				 	               		
+				 	               		
+				 	               		Message msg = new MimeMessage(session);
+				 	               		try 
+				 	               		{
+				 	               			Address adresse = new InternetAddress("thomasecalle@pataprout.com");
+				 	               			
+				 	               			msg.setFrom(adresse);
+				 	               			Address toAdresse = new InternetAddress(((Personne) c).getMail());
+				 	               			
+				 	               			msg.addRecipient(Message.RecipientType.TO, toAdresse);
+				 	               			
+				 	               			msg.setSubject(sujet.getText());
+				 	               			
+				 	               			MimeBodyPart messageBodyPart = new MimeBodyPart();
+				 	               			
+				 	               			messageBodyPart.setContent(message.getText(), "text/html");
+				 	               			
+				 	               			Multipart multipart = new MimeMultipart();
+				 	               			
+				 	               			multipart.addBodyPart(messageBodyPart);
+				 	               			msg.setContent(multipart);
+				 	               			
+				 	               			
+				 	               			transport.sendMessage(msg, msg.getAllRecipients());
+				 	               			
+				 	               			
+				 	               		} 
+				 	               		catch (MessagingException e) 
+				 	               		{
+				 	               			e.printStackTrace();
+				 	               		}
 	 	               				}
 	 	               			}
 	 	               			
 	 	               		}
+	 	               	transport.close();
 	 	               		return null;
  	                    }
  	                };
@@ -147,17 +240,17 @@ public class GererMailController {
 	                case SUCCEEDED:
 	                	this.valider.setDisable(false);
 	        	        this.annuler.setDisable(false);
-	                    information.setText("Tous les messages ont été envoyé avec succès !");
+	        	        GestionDesErreurs.afficherMessage(information, "Tous les messages ont été envoyé avec succès !", "infos");
 	                    break;
 	            }
 	        });
  	        
  	  
 	        calculateService.start();
-	        */
+	        
     		
     		
-    		Set <Candidat> candidats = stage.getCompet().getCandidats();
+    		/*Set <Candidat> candidats = stage.getCompet().getCandidats();
         		int compteur = 0;
         		
         		for(Candidat c : candidats)
@@ -179,7 +272,7 @@ public class GererMailController {
         			}
         			
         		}
-        		GestionDesErreurs.afficherMessage(information, "tous les messages ont été envoyés !", "infos");
+        		GestionDesErreurs.afficherMessage(information, "tous les messages ont été envoyés !", "infos");*/
     		
     		
     	}
