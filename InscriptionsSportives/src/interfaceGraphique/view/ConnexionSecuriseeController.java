@@ -63,7 +63,7 @@ public class ConnexionSecuriseeController
 			}
 			else
 			{
-				GestionDesErreurs.afficherMessage(information, "Mot de passe incorrect", "erreur");
+				GestionDesErreurs.afficherMessage(information, "Nom de compte ou mot de passe incorrect", "erreur");
 				//generationInfos("Mot de passe incorrect","erreur");
 			}
 		}

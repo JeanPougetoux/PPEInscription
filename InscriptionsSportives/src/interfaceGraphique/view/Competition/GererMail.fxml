@@ -63,12 +63,12 @@
             <Glow />
          </effect>
       </TextField>
-      <Button mnemonicParsing="false" onAction="#handleAnnuler" text="Annuler" GridPane.rowIndex="4">
+      <Button fx:id="annuler" mnemonicParsing="false" onAction="#handleAnnuler" text="Annuler" GridPane.rowIndex="4">
          <GridPane.margin>
             <Insets left="100.0" />
          </GridPane.margin>
       </Button>
-      <Button defaultButton="true" mnemonicParsing="false" onAction="#handleValider" text="Envoyer" GridPane.columnIndex="1" GridPane.rowIndex="4">
+      <Button fx:id="valider" defaultButton="true" mnemonicParsing="false" onAction="#handleValider" text="Envoyer" GridPane.columnIndex="1" GridPane.rowIndex="4">
          <GridPane.margin>
             <Insets left="100.0" />
          </GridPane.margin>
