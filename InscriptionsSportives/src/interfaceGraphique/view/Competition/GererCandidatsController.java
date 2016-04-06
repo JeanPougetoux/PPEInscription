@@ -4,6 +4,7 @@ import java.awt.List;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import dialogueUtilisateur.GestionDesErreurs;
 import exceptions.ExceptionAjoutPersonneCompetition;
 import inscriptions.Candidat;
 import inscriptions.Equipe;
@@ -69,7 +70,7 @@ public class GererCandidatsController {
     
     @FXML
     private void initialize(){
-    	messageErreur(null);
+    	messageErreur.setVisible(false);
     	nameCandidatsCompet.setCellValueFactory(CellDataFeatures -> new ReadOnlyStringWrapper(
     			CellDataFeatures.getValue().getNom()));
 
@@ -145,7 +146,6 @@ public class GererCandidatsController {
     }
     
     public void buttonAutreVersCandidat(){
-    	messageErreur(null);
     	ArrayList<Candidat> aEnlever = new ArrayList<Candidat>();
     	for(int i = 0; i < stage.getListAutresCandidats().size(); i++){
     		if(checkBoxAutresCandidats.getCellData(i).booleanValue()){
@@ -160,7 +160,7 @@ public class GererCandidatsController {
 					stage.getListCandidats().add(stage.getListAutresCandidats().get(i));
 					selectedRowListCandidats.add(new SimpleBooleanProperty());
 				} catch (Exception e) {
-					messageErreur(e.toString());
+					GestionDesErreurs.afficherMessage(messageErreur, e.toString(), "erreur");
 				}
     		}
     	}
@@ -178,7 +178,6 @@ public class GererCandidatsController {
     }
     
     public void buttonCandidatVersAutre(){
-    	messageErreur(null);
     	ArrayList<Candidat> aEnlever = new ArrayList<Candidat>();
     	for(int i = 0; i < stage.getListCandidats().size(); i++){
 			if(checkBoxCandidatsCompet.getCellData(i).booleanValue()){
@@ -219,31 +218,12 @@ public class GererCandidatsController {
     	}
     	else
     	{
-    		generationErreur("Cette compétition est vide, action impossible");
+    		GestionDesErreurs.afficherMessage(messageErreur, "Cette compétition est vide, action impossible", "erreur");
     	}
     	
     }
     
-    public void generationErreur(String message)
-	{
-		// Show the error message.
-        Alert alert = new Alert(AlertType.ERROR);
-        alert.setTitle("Erreur");
-        alert.setHeaderText("Attention");
-        alert.setContentText(message);
-        
-        alert.showAndWait();
-	}
-    
-    public void messageErreur(Object o){
-    	if(o == null){
-    		messageErreur.setVisible(false);
-    	}
-    	else{
-    		messageErreur.setVisible(true);
-    		messageErreur.setText(o.toString());
-    	}
-    }
+   
 }
 
 

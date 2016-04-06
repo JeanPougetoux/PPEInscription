@@ -56,7 +56,7 @@ public class GestionMembresController {
     
     @FXML
     private void initialize(){
-    	messageErreur(null);
+    	messageErreur.setVisible(false);
     	nameMembresEquipe.setCellValueFactory(CellDataFeatures -> 
     	new ReadOnlyStringWrapper(CellDataFeatures.getValue().getNom()));
     	nameAutresPersonnes.setCellValueFactory(CellDataFeatures ->
@@ -112,16 +112,6 @@ public class GestionMembresController {
     	autrePersonnes.setItems(stageMembres.getListAutresMembres());
     }
     
-    public void messageErreur(Object o){
-    	if(o == null){
-    		messageErreur.setVisible(false);
-    	}
-    	else{
-    		messageErreur.setVisible(true);
-    		messageErreur.setText(o.toString());
-    	}
-    }
-    
     public void clean(){
     	for(int i = 0; i < selectedRowListAutres.size(); i++){
     		selectedRowListAutres.get(i).set(false);
@@ -132,7 +122,6 @@ public class GestionMembresController {
     }
     
     public void actionAutreVersMembres(){
-    	messageErreur(null);
     	ArrayList<Personne> aEnlever = new ArrayList<>();
     	for(int i = 0; i < stageMembres.getListAutresMembres().size(); i++){
     		if(checkBoxAutresPersonnes.getCellData(i).booleanValue()){
@@ -156,7 +145,6 @@ public class GestionMembresController {
     }
     
     public void actionMembresVersAutres(){
-    	messageErreur(null);
     	ArrayList<Personne> aEnlever = new ArrayList<>();
     	for(int i = 0; i < stageMembres.getListMembres().size(); i++){
     		if(checkBoxMembresEquipe.getCellData(i).booleanValue()){

@@ -61,7 +61,7 @@ public class GestionEquipesController {
      */
     @FXML
     private void initialize(){
-    	messageErreur(null);
+    	messageErreur.setVisible(false);
     	nameEquipeMembre.setCellValueFactory(CellDataFeatures -> 
     	new ReadOnlyStringWrapper(CellDataFeatures.getValue().getNom()));
     	nameAutresEquipes.setCellValueFactory(CellDataFeatures ->
@@ -101,20 +101,6 @@ public class GestionEquipesController {
     
     }
     /**
-     * Affiche ou non les messages d'erreurs
-     * @param o
-     */
-    
-    public void messageErreur(Object o){
-    	if(o == null){
-    		messageErreur.setVisible(false);
-    	}
-    	else{
-    		messageErreur.setVisible(true);
-    		messageErreur.setText(o.toString());
-    	}
-    }
-    /**
      * Initialise les listes
      * @param stageEquipes
      * @param stageGestion
@@ -147,7 +133,6 @@ public class GestionEquipesController {
      * Permet de faire passer une équipe vers les équipes du candidat
      */
     public void boutonAutresVersEquipes(){
-    	messageErreur(null);
     	ArrayList<Equipe> aEnlever = new ArrayList<>();
     	for(int i = 0; i < stageEquipes.getListAutres().size(); i++){
     		if(checkBoxAutresEquipes.getCellData(i).booleanValue()){
@@ -161,9 +146,12 @@ public class GestionEquipesController {
     	for(Candidat i : aEnlever){
     		stageEquipes.getListAutres().remove(i);
     	}
-    	try {
+    	try 
+    	{
 			MonAppli.getInscriptions().sauvegarder();
-		} catch (IOException e) {
+		} 
+    	catch (IOException e) 
+    	{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -174,7 +162,7 @@ public class GestionEquipesController {
      * Permet de faire passer une équipe du candidat dans les autres équipes 
      */
     public void boutonEquipesVersAutres(){
-    	messageErreur(null);
+
     	ArrayList<Equipe> aEnlever = new ArrayList<>();
     	for(int i = 0; i < stageEquipes.getListEquipes().size(); i++){
     		if(checkBoxEquipeMembre.getCellData(i).booleanValue()){
@@ -188,9 +176,12 @@ public class GestionEquipesController {
     	for(Candidat i : aEnlever){
     		stageEquipes.getListEquipes().remove(i);
     	}
-    	try {
+    	try 
+    	{
 			MonAppli.getInscriptions().sauvegarder();
-		} catch (IOException e) {
+		}
+    	catch (IOException e) 
+    	{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

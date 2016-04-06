@@ -6,6 +6,7 @@ package interfaceGraphique.view;
 
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Text;
 
+import dialogueUtilisateur.GestionDesErreurs;
 import donnees.persistance;
 import interfaceGraphique.controls.Accueil;
 import interfaceGraphique.controls.ConnexionSecurisee;
@@ -62,31 +63,16 @@ public class ConnexionSecuriseeController
 			}
 			else
 			{
-				generationInfos("Mot de passe incorrect","erreur");
+				GestionDesErreurs.afficherMessage(information, "Mot de passe incorrect", "erreur");
+				//generationInfos("Mot de passe incorrect","erreur");
 			}
 		}
 		else
-			generationInfos("Tous les champs doivent être renseignés","erreur");
+			GestionDesErreurs.afficherMessage(information, "Tous les champs doivent être renseignés", "erreur");
+			
 		
       
 	}
-	
-	/**
-	 * Affiche le message d'erreur
-	 * @param message
-	 * @param type
-	 */
-	 public void generationInfos(String message,String type)
-		{
-	    	if(type == "erreur")
-	    		this.information.setTextFill(Color.web("#FF0000"));
-	    	else
-	    		this.information.setTextFill(Color.web("green"));
-	    	this.information.setText(message);
-	    	
-			this.information.setVisible(true);
-		}
-
 	public void setStage(ConnexionSecurisee connexionSecurisee) 
 	{
 		this.stageGestion = connexionSecurisee;

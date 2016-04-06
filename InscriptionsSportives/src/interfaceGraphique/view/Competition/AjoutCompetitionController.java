@@ -5,6 +5,7 @@ import java.time.LocalDate;
 
 import javax.management.RuntimeErrorException;
 
+import dialogueUtilisateur.GestionDesErreurs;
 import exceptions.ExceptionCompetition;
 import interfaceGraphique.controls.MonAppli;
 import interfaceGraphique.controls.Competition.AjoutCompetition;
@@ -47,7 +48,7 @@ public class AjoutCompetitionController {
 	
 	@FXML
 	private void initialize(){
-		messageErreur(null);
+		messageErreur.setVisible(false);
 		enEquipe.getItems().addAll("oui", "non");
 		enEquipe.setValue("oui");
 	}	
@@ -90,26 +91,10 @@ public class AjoutCompetitionController {
 	}
 	
 	/**
-	 * Si le paramètre est null rend le message d'erreur invisible
-	 * sinon le rend visible et lui donne la valeur de o.toString();
-	 * @param o
-	 */
-	public void messageErreur(Object o){
-    	if(o == null){
-    		messageErreur.setVisible(false);
-    	}
-    	else{
-    		messageErreur.setVisible(true);
-    		messageErreur.setText(o.toString());
-    	}
-    }
-	
-	/**
 	 * Correspond à l'action du bouton valider.
 	 * Vérifie que les champs soient bons et créer la compétition.
 	 */
 	public void actionValider(){
-		messageErreur(null);
 		
 		if(!getStringNom().isEmpty() && getLocalDateCloture() != null)
 		{
@@ -131,7 +116,7 @@ public class AjoutCompetitionController {
 			} 
 			catch (ExceptionCompetition e1)
 			{
-				messageErreur(e1.toString());
+				GestionDesErreurs.afficherMessage(messageErreur, e1.toString(), "erreur");
 			} 
 			catch (Exception e1) 
 			{
@@ -141,7 +126,7 @@ public class AjoutCompetitionController {
 		}
 		else
 		{
-			messageErreur("Tous les champs doivent être renseignés");
+			GestionDesErreurs.afficherMessage(messageErreur,"Tous les champs doivent être renseignés", "erreur");
 		}
 			
 			

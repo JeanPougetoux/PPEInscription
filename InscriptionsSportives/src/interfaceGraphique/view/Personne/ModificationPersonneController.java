@@ -2,6 +2,7 @@ package interfaceGraphique.view.Personne;
 
 import java.io.IOException;
 
+import dialogueUtilisateur.GestionDesErreurs;
 import exceptions.ExceptionMailPersonne;
 import exceptions.ExceptionNomEquipe;
 import inscriptions.Candidat;
@@ -64,10 +65,13 @@ public class ModificationPersonneController {
 				{
 					if (c instanceof Personne && ((Personne) c).getMail()== this.mailActuel)
 					{
-						try {
+						try 
+						{
 							c.setNom(nom.getText());
-						} catch (ExceptionNomEquipe e) {
-							generationInfos(e.toString(),"erreur");
+						} 
+						catch (ExceptionNomEquipe e) 
+						{
+							GestionDesErreurs.afficherMessage(information,e.toString(),"erreur");
 						}
 					}
 							
@@ -78,8 +82,8 @@ public class ModificationPersonneController {
 		else
 		{
 			this.erreurActuelle = true;
-			generationInfos("Veuillez remplit tous les champs, ancien nom : "+
-					stageGestionController.getPersonneActive().getNom(),"erreur");
+			GestionDesErreurs.afficherMessage(information, "Veuillez remplit tous les champs, ancien nom : "+
+					stageGestionController.getPersonneActive().getNom(), "erreur");
 		}
 			
 		if(!prenom.getText().isEmpty())
@@ -97,7 +101,7 @@ public class ModificationPersonneController {
 		else
 		{
 			this.erreurActuelle = true;
-			generationInfos("Veuillez remplit tous les champs, ancien prénom : "+
+			GestionDesErreurs.afficherMessage(information,"Veuillez remplit tous les champs, ancien prénom : "+
 					stageGestionController.getPersonneActive().getPrenom(),"erreur");
 		}
 		if(!mail.getText().isEmpty())
@@ -114,7 +118,7 @@ public class ModificationPersonneController {
 					catch (ExceptionMailPersonne e) 
 					{
 							this.erreurActuelle = true;
-							generationInfos(e.toString(),"erreur");
+							GestionDesErreurs.afficherMessage(information,e.toString(),"erreur");
 					}
 				}
 			}
@@ -123,7 +127,7 @@ public class ModificationPersonneController {
 		else
 		{
 			this.erreurActuelle = true;
-			generationInfos("Veuillez remplit tous les champs, ancien mail : "+
+			GestionDesErreurs.afficherMessage(information,"Veuillez remplit tous les champs, ancien mail : "+
 					stageGestionController.getPersonneActive().getMail(),"erreur");
 		}
 		if(!this.erreurActuelle)
@@ -134,19 +138,6 @@ public class ModificationPersonneController {
 			
 		
 			
-		
-	}
-	
-	
-	public void generationInfos(String message,String type)
-	{
-    	if(type == "erreur")
-    		this.information.setTextFill(Color.web("#FF0000"));
-    	else
-    		this.information.setTextFill(Color.web("green"));
-    	this.information.setText(message);
-    	
-		this.information.setVisible(true);
 		
 	}
 }

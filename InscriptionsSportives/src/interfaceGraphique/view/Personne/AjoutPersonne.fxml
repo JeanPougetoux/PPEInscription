@@ -35,8 +35,8 @@
             <Font name="Arial" size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="prenom" maxWidth="181.0" prefHeight="25.0" prefWidth="181.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-      <Button mnemonicParsing="false" onAction="#actionAjout" prefWidth="80.0" text="valider" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="6">
+      <TextField fx:id="prenom" focusTraversable="false" maxWidth="181.0" prefHeight="25.0" prefWidth="181.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+      <Button defaultButton="true" mnemonicParsing="false" onAction="#actionAjout" prefWidth="80.0" text="valider" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="6">
          <font>
             <Font size="14.0" />
          </font>
@@ -54,13 +54,13 @@
             <Font name="Arial" size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="nom" maxWidth="181.0" prefHeight="25.0" prefWidth="181.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+      <TextField fx:id="nom" focusTraversable="false" maxWidth="181.0" prefHeight="25.0" prefWidth="181.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
       <Label text="Adresse Mail" GridPane.columnIndex="1" GridPane.rowIndex="3">
          <font>
             <Font name="Arial" size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="mail" maxWidth="181.0" prefHeight="25.0" prefWidth="181.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+      <TextField fx:id="mail" focusTraversable="false" maxWidth="181.0" prefHeight="25.0" prefWidth="181.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
       <Label fx:id="information" text="Label" GridPane.columnSpan="3" GridPane.rowIndex="4" GridPane.rowSpan="2" />
    </children>
 </GridPane>

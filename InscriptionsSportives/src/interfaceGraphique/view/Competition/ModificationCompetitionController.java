@@ -2,6 +2,7 @@ package interfaceGraphique.view.Competition;
 
 import java.io.IOException;
 
+import dialogueUtilisateur.GestionDesErreurs;
 import exceptions.ExceptionCompetition;
 import exceptions.ExceptionDateCompetition;
 import interfaceGraphique.controls.MonAppli;
@@ -36,7 +37,7 @@ public class ModificationCompetitionController {
 	
 	@FXML
 	private void initialize(){
-		messageErreur(null);
+		messageErreur.setVisible(false);
 		comboEquipe.getItems().addAll("oui", "non");
 	}
 	
@@ -79,7 +80,7 @@ public class ModificationCompetitionController {
 				} 
 				catch (ExceptionCompetition e)
 				{
-					messageErreur(e.toString());
+					GestionDesErreurs.afficherMessage(messageErreur, e.toString(), "erreur");
 					okModif = false;
 				}
 			
@@ -88,7 +89,7 @@ public class ModificationCompetitionController {
 		else
 		{
 			okModif = false;
-			messageErreur("vous devez saisir un nom, ancien nom :"+stageGestion.getCompetitionActive().getNom());
+			GestionDesErreurs.afficherMessage(messageErreur,"vous devez saisir un nom, ancien nom : "+stageGestion.getCompetitionActive().getNom(), "erreur");
 		}
 			
 		
@@ -98,7 +99,7 @@ public class ModificationCompetitionController {
 					stageGestion.getCompetitionActive().setDateCloture(datePicker.getValue());
 				} catch (ExceptionDateCompetition e) {
 					okModif = false;
-					messageErreur(e.toString());
+					GestionDesErreurs.afficherMessage(messageErreur, e.toString(), "erreur");
 				}
 			
 		}
@@ -107,7 +108,7 @@ public class ModificationCompetitionController {
 				stageGestion.getCompetitionActive().setEstEnEquipe((boolean) returnOuiNon(comboEquipe.getValue()));
 			} catch (Exception e) {
 				okModif = false;
-				messageErreur(e.toString());
+				GestionDesErreurs.afficherMessage(messageErreur,e.toString(),"erreur");
 			}
 		}
 		if(okModif){
@@ -125,14 +126,4 @@ public class ModificationCompetitionController {
 	public void actionAnnuler(){
 		stageModif.close();
 	}
-	
-	public void messageErreur(Object o){
-    	if(o == null){
-    		messageErreur.setVisible(false);
-    	}
-    	else{
-    		messageErreur.setVisible(true);
-    		messageErreur.setText(o.toString());
-    	}
-    }
 }

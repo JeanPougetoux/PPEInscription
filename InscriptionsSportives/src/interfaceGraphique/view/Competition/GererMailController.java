@@ -3,8 +3,7 @@ package interfaceGraphique.view.Competition;
 import java.util.ArrayList;
 import java.util.Set;
 
-
-
+import dialogueUtilisateur.GestionDesErreurs;
 import javafx.scene.control.Label;
 
 import inscriptions.Candidat;
@@ -75,7 +74,7 @@ public class GererMailController {
     {
     	if (this.sujet.getText().isEmpty() || this.message.getText().isEmpty())
     	{
-    			generationInfos("Le sujet et le message doivent tout deux être renseignés","erreur");
+    		GestionDesErreurs.afficherMessage(information, "Le sujet et le message doivent tout deux être renseignés", "erreur");
     	}
     	else
     	{
@@ -93,7 +92,7 @@ public class GererMailController {
     				compteur ++;
         			if(GestionMail.sendMessage(this.sujet.getText(), this.message.getText(),((Personne) c).getMail()));
         			{
-        				generationInfos("Message "+compteur+" bien envoyé ("+compteur+"/"+candidats.size()+")","infos");
+        				GestionDesErreurs.afficherMessage(information,"Message "+compteur+" bien envoyé ("+compteur+"/"+candidats.size()+")","infos");
         			}
     			}
     			else if(c instanceof Equipe)
@@ -104,7 +103,7 @@ public class GererMailController {
     					compteur ++;
             			if(GestionMail.sendMessage(this.sujet.getText(), this.message.getText(),p.getMail()));
             			{
-            				generationInfos("Message "+compteur+" bien envoyé ("+compteur+"/"+candidats.size()+")","infos");
+            				GestionDesErreurs.afficherMessage(information,"Message "+compteur+" bien envoyé ("+compteur+"/"+candidats.size()+")","infos");
             			}
     				}
     			}
@@ -113,17 +112,6 @@ public class GererMailController {
     		
     	}
     }
-    
-    public void generationInfos(String message,String type)
-	{
-    	if(type == "erreur")
-    		this.information.setTextFill(Color.web("#FF0000"));
-    	else
-    		this.information.setTextFill(Color.web("green"));
-    	this.information.setText(message);
-    	
-		this.information.setVisible(true);
-	}
     
    
 }

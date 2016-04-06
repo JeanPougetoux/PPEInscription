@@ -2,6 +2,7 @@ package interfaceGraphique.view.Personne;
 
 import java.io.IOException;
 
+import dialogueUtilisateur.GestionDesErreurs;
 import exceptions.ExceptionMailPersonne;
 import exceptions.ExceptionNomEquipe;
 import interfaceGraphique.controls.MonAppli;
@@ -76,7 +77,7 @@ public class AjoutPersonneController {
 			catch (ExceptionMailPersonne e) 
 			{
 				// TODO Auto-generated catch block
-				generationInfos(e.toString(),"erreur");
+				GestionDesErreurs.afficherMessage(information,e.toString(),"erreur");
 				this.erreurActuelle = true;
 			}
 			try 
@@ -93,25 +94,7 @@ public class AjoutPersonneController {
 		}
 		else
 		{
-			generationInfos("Veuillez renseigner tous les champs","erreur");
-		}
-		
-		
-	}
-	
-	/**
-	 * Genere des messages d'erreurs ou d'informations
-	 * @param message
-	 * @param type
-	 */
-	public void generationInfos(String message,String type)
-	{
-    	if(type == "erreur")
-    		this.information.setTextFill(Color.web("#FF0000"));
-    	else
-    		this.information.setTextFill(Color.web("green"));
-    	this.information.setText(message);
-    	
-		this.information.setVisible(true);
+			GestionDesErreurs.afficherMessage(information,"Veuillez renseigner tous les champs","erreur");
+		}	
 	}
 }

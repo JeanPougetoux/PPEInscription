@@ -39,12 +39,7 @@
             <Insets left="50.0" />
          </padding>
       </Label>
-      <PasswordField fx:id="password" GridPane.columnIndex="1" GridPane.rowIndex="2">
-         <GridPane.margin>
-            <Insets right="20.0" />
-         </GridPane.margin>
-      </PasswordField>
-      <Button mnemonicParsing="false" onAction="#handleConnexion" text="Me connecter" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3">
+      <Button defaultButton="true" mnemonicParsing="false" onAction="#handleConnexion" text="Me connecter" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3">
          <GridPane.margin>
             <Insets left="250.0" />
          </GridPane.margin>
@@ -58,10 +53,7 @@
             <Insets left="50.0" />
          </padding>
       </Label>
-      <TextField fx:id="utilisateur" GridPane.columnIndex="1" GridPane.rowIndex="1">
-         <GridPane.margin>
-            <Insets right="20.0" />
-         </GridPane.margin>
-      </TextField>
+      <TextField fx:id="utilisateur" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <PasswordField fx:id="password" GridPane.columnIndex="1" GridPane.rowIndex="2" />
    </children>
 </GridPane>

@@ -2,6 +2,7 @@ package interfaceGraphique.view.Personne;
 
 import java.io.IOException;
 
+import dialogueUtilisateur.GestionDesErreurs;
 import exceptions.ExceptionRetraitPersonneEquipe;
 import inscriptions.Equipe;
 import inscriptions.Personne;
@@ -180,9 +181,7 @@ public class GestionPersonneController {
 	    	}
 	    	else
 	    	{
-	    		this.information.setText("Cette personne ne participe à aucune compétitions");
-	    		this.information.setTextFill(Color.web("#FF0000"));
-	    		this.information.setVisible(true);
+	    		GestionDesErreurs.afficherMessage(information,"Cette personne ne participe à aucune compétitions","erreur");
 	    	}
 	    	
 	    	
@@ -213,23 +212,6 @@ public class GestionPersonneController {
     	setChoixVisibility(false);
     	
     }
-		
-		/**
-		 Permet d'afficher les messages d'erreur
-		 * @param message
-		 * @param type
-		 */
-		public void generationInfos(String message,String type)
-		{
-	    	if(type == "erreur")
-	    		this.information.setTextFill(Color.web("#FF0000"));
-	    	else
-	    		this.information.setTextFill(Color.web("green"));
-	    	this.information.setText(message);
-	    	
-			this.information.setVisible(true);
-		}
-		
 		public void actualise()
 		{
 			this.personneTable.refresh();
