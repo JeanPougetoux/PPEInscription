@@ -13,6 +13,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 
 public class ModificationCompetitionController {
 
@@ -28,6 +29,8 @@ public class ModificationCompetitionController {
 	private Button valider;
 	@FXML
 	private Button annuler;
+	@FXML
+	private Label labelVide;
 	private ModificationCompetition stageModif;
 	private GestionCompetitionsController stageGestion;
 	
@@ -39,6 +42,7 @@ public class ModificationCompetitionController {
 	private void initialize(){
 		messageErreur.setVisible(false);
 		comboEquipe.getItems().addAll("oui", "non");
+		comboEquipe.setEditable(false);
 	}
 	
 	public void setClass(ModificationCompetition stageModif, GestionCompetitionsController stageGestion){
@@ -47,6 +51,12 @@ public class ModificationCompetitionController {
 		textNom.setText(stageGestion.getCompetitionActive().getNom());
 		datePicker.setValue(stageGestion.getCompetitionActive().getDateCloture());
 		comboEquipe.setValue((String) returnOuiNon(stageGestion.getCompetitionActive().estEnEquipe()));
+		if(stageGestion.getCompetitionActive().getCandidats().size() > 0){
+			comboEquipe.setDisable(true);
+			Tooltip tooltip = new Tooltip("Vous ne pouvez pas changer le statut de\n" +
+				    "la compétition tant qu'il y a des candidats.");
+			labelVide.setTooltip(tooltip);
+		}
 	}
 	
 	public Object returnOuiNon(Object b){
