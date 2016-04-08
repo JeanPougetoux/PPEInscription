@@ -113,34 +113,13 @@ public class GererMailController {
  	            @Override
  	            protected Task<Void> createTask() 
  	            {
- 	                return new Task<Void>() {
- 	                	
- 	                	
- 	                    
-
+ 	                return new Task<Void>() 
+ 	                {
 						@Override
  	                    protected  Void call() throws Exception 
  	                    {
-							Properties prop = new Properties();
-	 	               		prop.put("mail.smtp.host", "smtp.gmail.com");
-	 	               		prop.put("mail.smtp.socketFactory.port", "465");
-	 	               		prop.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-	 	               		prop.put("mail.smtp.auth", "true");
-	 	               		prop.put("mail.smtp.port", "465");
-	 	               		prop.put("mail.smtp.socketFactory.fallback", "false");
-	 	               		
-	 	               		Session session = Session.getDefaultInstance(prop, new javax.mail.Authenticator(){
-	 	               			protected PasswordAuthentication getPasswordAuthentication()
-	 	               			{
-	 	               				return new PasswordAuthentication("m2lcompetitions@gmail.com","pougetoux123");
-	 	               			}
-	 	               		});
-	 	               		
-	 	               		Transport transport = session.getTransport("smtp");
-	               			
-	               			transport.connect();
-	 	               		
-	 	               		
+							GestionMail.open();
+							
  	                    	Set <Candidat> candidats = stage.getCompet().getCandidats();
 	 	               		int compteur = 0;
 	 	               		
@@ -149,36 +128,7 @@ public class GererMailController {
 	 	               			if(c instanceof Personne)
 	 	               			{
 	 	               				compteur++;
-	 	               				
-			 	               		Message msg = new MimeMessage(session);
-			 	               		try 
-			 	               		{
-			 	               			Address adresse = new InternetAddress("thomasecalle@pataprout.com");
-			 	               			
-			 	               			msg.setFrom(adresse);
-			 	               			Address toAdresse = new InternetAddress(((Personne) c).getMail());
-			 	               			
-			 	               			msg.addRecipient(Message.RecipientType.TO, toAdresse);
-			 	               			
-			 	               			msg.setSubject(sujet.getText());
-			 	               			
-			 	               			MimeBodyPart messageBodyPart = new MimeBodyPart();
-			 	               			
-			 	               			messageBodyPart.setContent(message.getText(), "text/html");
-			 	               			
-			 	               			Multipart multipart = new MimeMultipart();
-			 	               			
-			 	               			multipart.addBodyPart(messageBodyPart);
-			 	               			msg.setContent(multipart);
-			 	               			
-			 	               			
-			 	               			transport.sendMessage(msg, msg.getAllRecipients());
-		
-			 	               		} 
-			 	               		catch (MessagingException e) 
-			 	               		{
-			 	               			e.printStackTrace();
-			 	               		}
+	 	               				GestionMail.sendMessage(sujet.getText(), message.getText(), ((Personne) c).getMail());
 	 	               			}
 	 	               			else if(c instanceof Equipe)
 	 	               			{
@@ -186,44 +136,13 @@ public class GererMailController {
 	 	               				for(Personne p : membres)
 	 	               				{
 		 	               				compteur++;
+		 	               			GestionMail.sendMessage(sujet.getText(), message.getText(), p.getMail());
 		 	               				
-				 	               		
-				 	               		
-				 	               		Message msg = new MimeMessage(session);
-				 	               		try 
-				 	               		{
-				 	               			Address adresse = new InternetAddress("thomasecalle@pataprout.com");
-				 	               			
-				 	               			msg.setFrom(adresse);
-				 	               			Address toAdresse = new InternetAddress(((Personne) c).getMail());
-				 	               			
-				 	               			msg.addRecipient(Message.RecipientType.TO, toAdresse);
-				 	               			
-				 	               			msg.setSubject(sujet.getText());
-				 	               			
-				 	               			MimeBodyPart messageBodyPart = new MimeBodyPart();
-				 	               			
-				 	               			messageBodyPart.setContent(message.getText(), "text/html");
-				 	               			
-				 	               			Multipart multipart = new MimeMultipart();
-				 	               			
-				 	               			multipart.addBodyPart(messageBodyPart);
-				 	               			msg.setContent(multipart);
-				 	               			
-				 	               			
-				 	               			transport.sendMessage(msg, msg.getAllRecipients());
-				 	               			
-				 	               			
-				 	               		} 
-				 	               		catch (MessagingException e) 
-				 	               		{
-				 	               			e.printStackTrace();
-				 	               		}
 	 	               				}
 	 	               			}
 	 	               			
 	 	               		}
-	 	               	transport.close();
+	 	               		GestionMail.close();
 	 	               		return null;
  	                    }
  	                };
@@ -248,8 +167,6 @@ public class GererMailController {
  	  
 	        calculateService.start();
 	        
-    		
-    		
     		/*Set <Candidat> candidats = stage.getCompet().getCandidats();
         		int compteur = 0;
         		
