@@ -26,10 +26,11 @@ import inscriptions.Equipe;
 import inscriptions.Inscriptions;
 import inscriptions.Personne;
 
-public class persistance {
+public class persistance 
+{
 	
 	public static final String URLLOCALE = "localhost:3306/ppe_inscriptions";
-	public static final String URLSERVER = "mysql.m2l.local/jpougetoux";
+	public static final String URLSERVER = "mysql.m2l.local/tecalle";
 	public static String URLFINALE = "";
 	public static String USER = "";
 	public static String PASS = "";
