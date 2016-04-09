@@ -8,6 +8,7 @@ import inscriptions.Equipe;
 import inscriptions.Personne;
 import interfaceGraphique.controls.ModaleSuppression;
 import interfaceGraphique.controls.MonAppli;
+import interfaceGraphique.controls.Competition.GererMail;
 import interfaceGraphique.controls.Equipe.GestionEquipe;
 import interfaceGraphique.controls.Personne.AjoutPersonne;
 import interfaceGraphique.controls.Personne.GestionEquipes;
@@ -61,6 +62,8 @@ public class GestionPersonneController {
     private Button supprimer;
     @FXML
     private Button modifier;
+    @FXML
+    private Button envoyerMail;
 
 	 public GestionPersonneController(){
 	    	
@@ -99,6 +102,7 @@ public class GestionPersonneController {
 	    	modifier.setVisible(visible);
 	    	gererEquipes.setVisible(visible);
 	    	voirCompetitions.setVisible(visible);
+	    	envoyerMail.setVisible(visible);
 	    	
 	    }   
 	    
@@ -185,6 +189,15 @@ public class GestionPersonneController {
 	    	}
 	    	
 	    	
+	    }
+	    
+	    /**
+	     * Ouvre la fenêtre d'envoie de mails
+	     */
+	    public void actionBouttonEnvoyerMail()
+	    {
+	    	GererMail fenetre = new GererMail(this.personneActive);
+        	fenetre.show();
 	    }
 	    /**
 	     * Supprime la personne active

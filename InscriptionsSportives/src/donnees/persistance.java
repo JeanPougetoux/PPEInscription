@@ -453,7 +453,8 @@ public class persistance
 	 * Nous ajoutons une compétitions au candidat
 	 * @param candidat
 	 */
-	public void ajouterCompetitionCandidat(Candidat candidat, Competition competition) {
+	public void ajouterCompetitionCandidat(Candidat candidat, Competition competition) 
+	{
 		int id_candidat = 0,id_competition = 0;
 		try 
 		{ 

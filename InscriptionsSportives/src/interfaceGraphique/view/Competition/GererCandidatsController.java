@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import dialogueUtilisateur.GestionDesErreurs;
+import exceptions.ExceptionAjoutEquipeCompetition;
 import exceptions.ExceptionAjoutPersonneCompetition;
 import inscriptions.Candidat;
 import inscriptions.Equipe;
@@ -147,25 +148,38 @@ public class GererCandidatsController {
     
     public void buttonAutreVersCandidat(){
     	ArrayList<Candidat> aEnlever = new ArrayList<Candidat>();
-    	for(int i = 0; i < stage.getListAutresCandidats().size(); i++){
-    		if(checkBoxAutresCandidats.getCellData(i).booleanValue()){
-    			try {
-    				if(stageGestion.getCompetitionActive().estEnEquipe()){
-    					stageGestion.getCompetitionActive().add((Equipe)stage.getListAutresCandidats().get(i));
+    	for(int i = 0; i < stage.getListAutresCandidats().size(); i++)
+    	{
+    		if(checkBoxAutresCandidats.getCellData(i).booleanValue())
+    		{
+    				
+    			try
+				{
+    				if(stageGestion.getCompetitionActive().estEnEquipe())
+    				{
+    					
+							stageGestion.getCompetitionActive().add((Equipe)stage.getListAutresCandidats().get(i));
+						
     				}
-    				else if(!stageGestion.getCompetitionActive().estEnEquipe()){
+    				else if(!stageGestion.getCompetitionActive().estEnEquipe())
+    				{
     					stageGestion.getCompetitionActive().add((Personne)stage.getListAutresCandidats().get(i));
     		    	}
 					aEnlever.add(stage.getListAutresCandidats().get(i));
 					stage.getListCandidats().add(stage.getListAutresCandidats().get(i));
 					selectedRowListCandidats.add(new SimpleBooleanProperty());
-				} catch (Exception e) {
-					GestionDesErreurs.afficherMessage(messageErreur, e.toString(), "erreur");
-				}
+    				} catch (ExceptionAjoutEquipeCompetition e)
+					{
+						GestionDesErreurs.afficherMessage(messageErreur, e.toString(), "erreur");
+					} catch (ExceptionAjoutPersonneCompetition e)
+					{
+						GestionDesErreurs.afficherMessage(messageErreur, e.toString(), "erreur");
+					}
     		}
     	}
 
-    	for(Candidat i : aEnlever){
+    	for(Candidat i : aEnlever)
+    	{
     		stage.getListAutresCandidats().remove(i);
     	}
     	clean();
@@ -179,8 +193,10 @@ public class GererCandidatsController {
     
     public void buttonCandidatVersAutre(){
     	ArrayList<Candidat> aEnlever = new ArrayList<Candidat>();
-    	for(int i = 0; i < stage.getListCandidats().size(); i++){
-			if(checkBoxCandidatsCompet.getCellData(i).booleanValue()){
+    	for(int i = 0; i < stage.getListCandidats().size(); i++)
+    	{
+			if(checkBoxCandidatsCompet.getCellData(i).booleanValue())
+			{
 					stageGestion.getCompetitionActive().remove(stage.getListCandidats().get(i));
 					stage.getListAutresCandidats().add(stage.getListCandidats().get(i));
 					aEnlever.add(stage.getListCandidats().get(i));
@@ -188,7 +204,8 @@ public class GererCandidatsController {
 			}
     	}
     	
-    	for(Candidat i : aEnlever){
+    	for(Candidat i : aEnlever)
+    	{
     		stage.getListCandidats().remove(i);
     	}
     	clean();
@@ -200,7 +217,8 @@ public class GererCandidatsController {
 		}
     }
     
-    public void clean(){
+    public void clean()
+    {
     	for(int i = 0; i < selectedRowListAutres.size(); i++){
     		selectedRowListAutres.get(i).set(false);
     	}
@@ -227,14 +245,3 @@ public class GererCandidatsController {
 }
 
 
-class ActionClickTableCandidats implements EventHandler<ActionEvent>{
-
-	private GestionCompetitionsController stageGestion;
-	public ActionClickTableCandidats() {
-	}
-	
-	@Override
-	public void handle(ActionEvent event) {
-		System.out.println("le clic marche bien");		
-	}
-}

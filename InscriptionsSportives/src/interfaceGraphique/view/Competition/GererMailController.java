@@ -101,56 +101,94 @@ public class GererMailController {
     	{
     		GestionDesErreurs.afficherMessage(information, "Le sujet et le message doivent tout deux être renseignés", "erreur");
     	}
-    	else
+    	else if(stage.estCompetition())
+    	{
+        		this.valider.setDisable(true);
+    	        this.annuler.setDisable(true);
+        		GestionDesErreurs.afficherMessage(information, "Envoie des messages en cours, veuillez patienter...", "infos");
+        		
+        		 final Service<Void> calculateService = new Service<Void>() 
+     	        {
+
+     	            @Override
+     	            protected Task<Void> createTask() 
+     	            {
+     	                return new Task<Void>() 
+     	                {
+    						@Override
+     	                    protected  Void call() throws Exception 
+     	                    {
+    							GestionMail.open();
+    							
+     	                    	Set <Candidat> candidats = stage.getCompet().getCandidats();
+    	 	               		
+    	 	               		for(Candidat c : candidats)
+    	 	               		{
+    	 	               			if(c instanceof Personne)
+    	 	               			{
+    	 	               				GestionMail.sendMessage(sujet.getText(), message.getText(), ((Personne) c).getMail());
+    	 	               			}
+    	 	               			else if(c instanceof Equipe)
+    	 	               			{
+    	 	               				Set<Personne> membres = ((Equipe) c).getMembres();
+    	 	               				for(Personne p : membres)
+    	 	               				{
+    		 	               			GestionMail.sendMessage(sujet.getText(), message.getText(), p.getMail());
+    		 	               				
+    	 	               				}
+    	 	               			}
+    	 	               			
+    	 	               		}
+    	 	               		GestionMail.close();
+    	 	               		return null;
+     	                    }
+     	                };
+     	            }
+     	        };
+     	        
+     	        
+     	      calculateService.stateProperty().addListener((ObservableValue<? extends Worker.State> observableValue, Worker.State oldValue, Worker.State newValue) -> 
+    	        {
+    	           switch (newValue) 
+    	           {
+    	                case FAILED:
+    	                case CANCELLED:
+    	                case SUCCEEDED:
+    	                	this.valider.setDisable(false);
+    	        	        this.annuler.setDisable(false);
+    	        	        GestionDesErreurs.afficherMessage(information, "Tous les messages ont été envoyé avec succès !", "infos");
+    	                    break;
+    	            }
+    	        });
+    	        calculateService.start();
+    	}
+    	else if (stage.estPersonnel())
     	{
     		this.valider.setDisable(true);
 	        this.annuler.setDisable(true);
-    		GestionDesErreurs.afficherMessage(information, "Envoie des messages en cours, veuillez patienter...", "infos");
+    		GestionDesErreurs.afficherMessage(information, "Envoie du message en cours, veuillez patienter...", "infos");
     		
     		 final Service<Void> calculateService = new Service<Void>() 
- 	        {
+  	        {
 
- 	            @Override
- 	            protected Task<Void> createTask() 
- 	            {
- 	                return new Task<Void>() 
- 	                {
-						@Override
- 	                    protected  Void call() throws Exception 
- 	                    {
-							GestionMail.open();
-							
- 	                    	Set <Candidat> candidats = stage.getCompet().getCandidats();
-	 	               		int compteur = 0;
-	 	               		
-	 	               		for(Candidat c : candidats)
-	 	               		{
-	 	               			if(c instanceof Personne)
-	 	               			{
-	 	               				compteur++;
-	 	               				GestionMail.sendMessage(sujet.getText(), message.getText(), ((Personne) c).getMail());
-	 	               			}
-	 	               			else if(c instanceof Equipe)
-	 	               			{
-	 	               				Set<Personne> membres = ((Equipe) c).getMembres();
-	 	               				for(Personne p : membres)
-	 	               				{
-		 	               				compteur++;
-		 	               			GestionMail.sendMessage(sujet.getText(), message.getText(), p.getMail());
-		 	               				
-	 	               				}
-	 	               			}
-	 	               			
-	 	               		}
-	 	               		GestionMail.close();
-	 	               		return null;
- 	                    }
- 	                };
- 	            }
- 	        };
- 	        
- 	        
- 	      calculateService.stateProperty().addListener((ObservableValue<? extends Worker.State> observableValue, Worker.State oldValue, Worker.State newValue) -> 
+  	            @Override
+  	            protected Task<Void> createTask() 
+  	            {
+  	                return new Task<Void>() 
+  	                {
+ 						@Override
+  	                    protected  Void call() throws Exception 
+  	                    {
+ 							GestionMail.open();
+ 							GestionMail.sendMessage(sujet.getText(), message.getText(), stage.getPersonne().getMail());
+ 							GestionMail.close();
+ 							return null;
+  	                    }
+  	                };
+  	            }
+  	        };
+  	        
+  	      calculateService.stateProperty().addListener((ObservableValue<? extends Worker.State> observableValue, Worker.State oldValue, Worker.State newValue) -> 
 	        {
 	           switch (newValue) 
 	           {
@@ -159,40 +197,14 @@ public class GererMailController {
 	                case SUCCEEDED:
 	                	this.valider.setDisable(false);
 	        	        this.annuler.setDisable(false);
-	        	        GestionDesErreurs.afficherMessage(information, "Tous les messages ont été envoyé avec succès !", "infos");
+	        	        GestionDesErreurs.afficherMessage(information, "Message envoyé avec succès !", "infos");
 	                    break;
 	            }
 	        });
- 	        
- 	  
 	        calculateService.start();
-	        
-    		/*Set <Candidat> candidats = stage.getCompet().getCandidats();
-        		int compteur = 0;
-        		
-        		for(Candidat c : candidats)
-        		{
-        			if(c instanceof Personne)
-        			{
-        				compteur++;
-        				GestionMail.sendMessage(sujet.getText(),getMessage().getText(),((Personne)c).getMail());
-					}
-        			
-        			else if(c instanceof Equipe)
-        			{
-        				Set<Personne> membres = ((Equipe) c).getMembres();
-        				for(Personne p : membres)
-        				{
-        					compteur ++;
-                			GestionMail.sendMessage(sujet.getText(),getMessage().getText(),p.getMail());
-        				}
-        			}
-        			
-        		}
-        		GestionDesErreurs.afficherMessage(information, "tous les messages ont été envoyés !", "infos");*/
-    		
-    		
+    		 
     	}
+    	
     }
 
 	public TextField getMessage() {
