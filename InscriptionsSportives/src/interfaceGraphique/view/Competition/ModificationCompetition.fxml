@@ -66,6 +66,5 @@
             <Font name="Arial" size="14.0" />
          </font>
       </Label>
-      <Label fx:id="labelVide" prefHeight="37.0" prefWidth="196.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
    </children>
 </GridPane>

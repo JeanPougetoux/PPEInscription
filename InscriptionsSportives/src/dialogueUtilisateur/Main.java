@@ -15,14 +15,14 @@ public class Main {
 							CONSOLE = 2,
 							GRAPHIQUE = 3;
 
-	public static int choixDialogue = CONSOLE;
+	public static int choixDialogue = GRAPHIQUE;
 	public static int choixPersistance = BDD;
 	
 	public static void main(String[] args) {
-		persistance.URLFINALE = persistance.URLLOCALE;
+		persistance.URLFINALE = persistance.URLSERVER;
 		
-		persistance.USER = "root";
-		persistance.PASS = "";
+		persistance.USER = "jpougetoux";
+		persistance.PASS = "azerty";
 		
 		if(choixDialogue == CONSOLE){
 			new MenuDialogueConsole().start();
