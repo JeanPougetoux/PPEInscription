@@ -19,10 +19,10 @@ public class Main {
 	public static int choixPersistance = BDD;
 	
 	public static void main(String[] args) {
-		persistance.URLFINALE = persistance.URLSERVER;
+		persistance.URLFINALE = persistance.URLLOCALE;
 		
-		persistance.USER = "jpougetoux";
-		persistance.PASS = "azerty";
+		persistance.USER = "root";
+		persistance.PASS = "";
 
 		if(choixDialogue == CONSOLE){
 			new MenuDialogueConsole().start();

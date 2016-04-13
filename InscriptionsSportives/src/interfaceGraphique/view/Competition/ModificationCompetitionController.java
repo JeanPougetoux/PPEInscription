@@ -7,6 +7,7 @@ import dialogueUtilisateur.GestionAlertes;
 import dialogueUtilisateur.GestionDesErreurs;
 import exceptions.ExceptionCompetition;
 import exceptions.ExceptionDateCompetition;
+import inscriptions.Candidat;
 import interfaceGraphique.controls.MonAppli;
 import interfaceGraphique.controls.Competition.ModificationCompetition;
 import javafx.fxml.FXML;
@@ -127,11 +128,10 @@ public class ModificationCompetitionController {
 					
 					try 
 					{
-						stageGestion.getCompetitionActive().setEstEnEquipe((boolean) returnOuiNon(etat.getValue()));
-						
-						if(stageGestion.getCompetitionActive().removeAllCandidats())
-							GestionDesErreurs.afficherMessage(stageGestion.getErreur(), "les participants ont "
+					stageGestion.getCompetitionActive().removeAllCandidats();
+					GestionDesErreurs.afficherMessage(stageGestion.getErreur(), "les participants ont "
 									+ "bien été désinscris", "infos");
+					stageGestion.getCompetitionActive().setEstEnEquipe((boolean)returnOuiNon(etat.getValue()));
 					} 
 					catch (Exception e) 
 					{

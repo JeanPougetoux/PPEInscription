@@ -201,19 +201,30 @@ public class Competition implements Comparable<Competition>, Serializable
 	
 	public boolean remove(Candidat candidat)
 	{
+		
 		candidat.remove(this);
 		return candidats.remove(candidat);
 	}
 	
 	/**
-	 * Retire de la compétition tous les candidats inscrits
+	 * Retire de la compétition tous les candidats inscris
 	 * @return
 	 */
-	public boolean removeAllCandidats()
+	public void removeAllCandidats()
 	{
+		Set<Candidat> aEnlever = new TreeSet<>();
 		for (Candidat candidat : candidats)
-			remove(candidat);
-		return true;
+		{
+			aEnlever.add(candidat);
+		}
+		for(Candidat c : aEnlever)
+		{
+			c.remove(this);
+			candidats.remove(c);
+			if (inscriptions.persistance == inscriptions.BDD)
+				inscriptions.pers.retirerCandidatCompetition(c, this);
+		}
+			
 	}
 	
 	
@@ -227,6 +238,8 @@ public class Competition implements Comparable<Competition>, Serializable
 		for (Candidat candidat : candidats)
 			remove(candidat);
 		inscriptions.remove(this);
+		if (inscriptions.persistance == inscriptions.BDD)
+			inscriptions.pers.retirerCompetition(this.getNom());
 	}
 	
 	@Override
