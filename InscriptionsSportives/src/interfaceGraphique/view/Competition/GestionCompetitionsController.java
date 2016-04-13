@@ -52,6 +52,9 @@ public class GestionCompetitionsController {
     private Button modifier;
     @FXML
     private Label labelCompetition;
+    @FXML
+    private Label messageErreur;
+    
     private GestionCompetitions stageGestion;
     private Competition competActive;
     
@@ -73,13 +76,19 @@ public class GestionCompetitionsController {
 																				CellDataFeatures.
 																				getValue().estEnEquipe())));
 		setChoixVisibility(false);
+		messageErreur.setVisible(false);
     }
     
+    public Label getErreur()
+    {
+    	return this.messageErreur;
+    }
     public void setChoixVisibility(boolean visible){
     	labelCompetition.setVisible(visible);
     	gererCandidats.setVisible(visible);
     	supprimer.setVisible(visible);
     	modifier.setVisible(visible);
+    	
     }
     
     public void setStage(GestionCompetitions stageGestion){
@@ -128,6 +137,7 @@ public class GestionCompetitionsController {
 			this.setChoixVisibility(true);
 			this.setNomCompetition(compet.getNom());
 			this.setCompetitionActive(compet);
+			this.messageErreur.setVisible(false);
 		}
     }
     

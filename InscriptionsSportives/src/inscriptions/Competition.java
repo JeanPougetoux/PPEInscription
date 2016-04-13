@@ -206,6 +206,19 @@ public class Competition implements Comparable<Competition>, Serializable
 	}
 	
 	/**
+	 * Retire de la compétition tous les candidats inscrits
+	 * @return
+	 */
+	public boolean removeAllCandidats()
+	{
+		for (Candidat candidat : candidats)
+			remove(candidat);
+		return true;
+	}
+	
+	
+	
+	/**
 	 * Supprime la compétition de l'application.
 	 */
 	

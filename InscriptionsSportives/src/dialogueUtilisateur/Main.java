@@ -23,7 +23,7 @@ public class Main {
 		
 		persistance.USER = "jpougetoux";
 		persistance.PASS = "azerty";
-		
+
 		if(choixDialogue == CONSOLE){
 			new MenuDialogueConsole().start();
 		}
