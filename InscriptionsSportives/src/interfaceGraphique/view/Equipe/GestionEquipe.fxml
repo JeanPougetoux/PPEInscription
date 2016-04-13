@@ -32,7 +32,6 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
       <Label prefHeight="45.0" prefWidth="434.0" text="Gestion des équipes" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="1">
@@ -75,6 +74,6 @@
             <Insets left="20.0" />
          </GridPane.margin>
       </Button>
-      <Label fx:id="information" text="Label" GridPane.columnIndex="1" GridPane.columnSpan="7" GridPane.rowIndex="9" GridPane.rowSpan="2" />
+      <Label fx:id="information" text="Label" GridPane.columnIndex="1" GridPane.columnSpan="7" GridPane.rowIndex="8" GridPane.rowSpan="2" GridPane.valignment="CENTER" />
    </children>
 </GridPane>

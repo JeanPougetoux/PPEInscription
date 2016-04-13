@@ -13,11 +13,10 @@
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #F0FFF0;" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="interfaceGraphique.view.Competition.GestionCompetitionsController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="71.0" minWidth="10.0" prefWidth="45.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="71.0" minWidth="10.0" prefWidth="45.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="67.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -32,45 +31,46 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Label prefHeight="45.0" prefWidth="434.0" text="Gestion des compétitions" GridPane.columnIndex="2" GridPane.columnSpan="5" GridPane.rowIndex="1">
+      <Label prefHeight="45.0" prefWidth="434.0" text="Gestion des compétitions" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="1">
          <font>
             <Font name="Arial Black" size="26.0" />
          </font>
       </Label>
-      <Button fx:id="ajoutCompetition" mnemonicParsing="false" onAction="#actionAjoutCompetition" prefHeight="25.0" prefWidth="167.0" text="Ajout d'une compétition" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="2">
+      <Button fx:id="ajoutCompetition" mnemonicParsing="false" onAction="#actionAjoutCompetition" prefHeight="25.0" prefWidth="167.0" text="Ajout d'une compétition" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets left="31.0" />
          </GridPane.margin>
       </Button>
-      <TableView fx:id="competitionTable" onMouseClicked="#actionClickTable" prefHeight="280.0" prefWidth="487.0" GridPane.columnIndex="2" GridPane.columnSpan="5" GridPane.rowIndex="3" GridPane.rowSpan="5">
+      <TableView fx:id="competitionTable" onMouseClicked="#actionClickTable" prefHeight="280.0" prefWidth="487.0" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="3" GridPane.rowSpan="5">
         <columns>
-            <TableColumn fx:id="nameColumn" maxWidth="210.0" minWidth="185.0" prefWidth="185.0" resizable="false" text="Nom de la compétition" />
-            <TableColumn fx:id="dateColumn" maxWidth="145.0" minWidth="48.0" prefWidth="131.0" resizable="false" text="Date de clôture" />
-            <TableColumn fx:id="teamColumn" editable="false" maxWidth="199.0" minWidth="102.0" prefWidth="141.0" resizable="false" text="En équipe" />
+            <TableColumn fx:id="nameColumn" maxWidth="210.0" minWidth="210.0" prefWidth="210.0" resizable="false" text="Nom de la compétition" />
+            <TableColumn fx:id="dateColumn" maxWidth="145.0" minWidth="145.0" prefWidth="145.0" resizable="false" text="Date de clôture" />
+            <TableColumn fx:id="teamColumn" editable="false" maxWidth="102.0" minWidth="102.0" prefWidth="102.0" resizable="false" text="En équipe" />
         </columns>
       </TableView>
-      <Button fx:id="gererCandidats" mnemonicParsing="false" onAction="#actionGererCandidats" prefHeight="25.0" prefWidth="113.0" text="Gérer candidats" GridPane.columnIndex="7" GridPane.columnSpan="2" GridPane.rowIndex="3" GridPane.valignment="TOP">
+      <Button fx:id="gererCandidats" mnemonicParsing="false" onAction="#actionGererCandidats" prefHeight="25.0" prefWidth="113.0" text="Gérer candidats" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="3" GridPane.valignment="TOP">
          <GridPane.margin>
             <Insets left="20.0" />
          </GridPane.margin>
       </Button>
-      <Button fx:id="modifier" mnemonicParsing="false" onAction="#actionModifierCompetition" prefHeight="25.0" prefWidth="113.0" text="Modifier" GridPane.columnIndex="7" GridPane.columnSpan="2" GridPane.rowIndex="4" GridPane.valignment="TOP">
+      <Button fx:id="modifier" mnemonicParsing="false" onAction="#actionModifierCompetition" prefHeight="25.0" prefWidth="113.0" text="Modifier" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="4" GridPane.valignment="TOP">
          <GridPane.margin>
             <Insets left="20.0" />
          </GridPane.margin>
       </Button>
-      <Button fx:id="supprimer" mnemonicParsing="false" onAction="#actionDeleteCompetition" prefHeight="25.0" prefWidth="113.0" text="Supprimer" GridPane.columnIndex="7" GridPane.columnSpan="2" GridPane.rowIndex="5" GridPane.valignment="TOP">
+      <Button fx:id="supprimer" mnemonicParsing="false" onAction="#actionDeleteCompetition" prefHeight="25.0" prefWidth="113.0" text="Supprimer" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="5" GridPane.valignment="TOP">
          <GridPane.margin>
             <Insets left="20.0" />
          </GridPane.margin>
       </Button>
-      <Label fx:id="labelCompetition" prefHeight="17.0" prefWidth="262.0" text="Label" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="2">
+      <Label fx:id="labelCompetition" prefHeight="17.0" prefWidth="262.0" text="Label" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2">
          <font>
             <Font name="Arial Italic" size="17.0" />
          </font>
       </Label>
-      <Label fx:id="messageErreur" text="Label" GridPane.columnIndex="1" GridPane.columnSpan="8" GridPane.rowIndex="8" />
+      <Label fx:id="messageErreur" prefHeight="17.0" prefWidth="611.0" text="Label" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowIndex="8" GridPane.rowSpan="2" />
    </children>
 </GridPane>
