@@ -1,19 +1,22 @@
 package interfaceGraphique.view.Competition;
 
 import java.io.IOException;
+import java.util.Optional;
 
+import dialogueUtilisateur.GestionAlertes;
 import dialogueUtilisateur.GestionDesErreurs;
 import exceptions.ExceptionCompetition;
 import exceptions.ExceptionDateCompetition;
 import interfaceGraphique.controls.MonAppli;
 import interfaceGraphique.controls.Competition.ModificationCompetition;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
 
 public class ModificationCompetitionController {
 
@@ -24,13 +27,12 @@ public class ModificationCompetitionController {
 	@FXML
 	private DatePicker datePicker;
 	@FXML
-	private ComboBox<String> comboEquipe;
+	private ComboBox<String> etat;
 	@FXML
 	private Button valider;
 	@FXML
 	private Button annuler;
-	@FXML
-	private Label labelVide;
+	
 	private ModificationCompetition stageModif;
 	private GestionCompetitionsController stageGestion;
 	
@@ -41,22 +43,19 @@ public class ModificationCompetitionController {
 	@FXML
 	private void initialize(){
 		messageErreur.setVisible(false);
-		comboEquipe.getItems().addAll("oui", "non");
-		comboEquipe.setEditable(false);
+		
+		etat.getItems().addAll("oui", "non");
 	}
 	
-	public void setClass(ModificationCompetition stageModif, GestionCompetitionsController stageGestion){
+	public void setClass(ModificationCompetition stageModif, GestionCompetitionsController stageGestion)
+	{
 		this.stageGestion = stageGestion;
 		this.stageModif = stageModif;
+		
 		textNom.setText(stageGestion.getCompetitionActive().getNom());
 		datePicker.setValue(stageGestion.getCompetitionActive().getDateCloture());
-		comboEquipe.setValue((String) returnOuiNon(stageGestion.getCompetitionActive().estEnEquipe()));
-		if(stageGestion.getCompetitionActive().getCandidats().size() > 0){
-			comboEquipe.setDisable(true);
-			Tooltip tooltip = new Tooltip("Vous ne pouvez pas changer le statut de\n" +
-				    "la compétition tant qu'il y a des candidats.");
-			labelVide.setTooltip(tooltip);
-		}
+		etat.setValue((String)returnOuiNon(stageGestion.getCompetitionActive().estEnEquipe()));
+	
 	}
 	
 	public Object returnOuiNon(Object b){
@@ -77,7 +76,8 @@ public class ModificationCompetitionController {
 		return null;
 	}
 	
-	public void actionValider(){
+	public void actionValider()
+	{
 		boolean okModif = true;
 		if(!textNom.getText().isEmpty())
 		{
@@ -113,13 +113,52 @@ public class ModificationCompetitionController {
 				}
 			
 		}
-		if(!comboEquipe.getValue().equals((String)(returnOuiNon(stageGestion.getCompetitionActive().estEnEquipe())))){
-			try {
-				stageGestion.getCompetitionActive().setEstEnEquipe((boolean) returnOuiNon(comboEquipe.getValue()));
-			} catch (Exception e) {
-				okModif = false;
-				GestionDesErreurs.afficherMessage(messageErreur,e.toString(),"erreur");
+		if(!etat.getValue().equals((String)(returnOuiNon(stageGestion.getCompetitionActive().estEnEquipe()))))
+		{
+			if(!stageGestion.getCompetitionActive().getCandidats().isEmpty())
+			{
+				Alert alert = GestionAlertes.afficherAlerte("confirmation", "Modifier le champs 'en équipe' "
+						+ "d'une compétition comportant déjà des candidats va entraîner la "
+						+ "désinscription de ceux-ci. Continuer quand même ?");
+
+				Optional<ButtonType> result = alert.showAndWait();
+				if (result.get() == ButtonType.OK)
+				{
+					
+					try 
+					{
+						stageGestion.getCompetitionActive().setEstEnEquipe((boolean) returnOuiNon(etat.getValue()));
+						
+						if(stageGestion.getCompetitionActive().removeAllCandidats())
+							GestionDesErreurs.afficherMessage(stageGestion.getErreur(), "les participants ont "
+									+ "bien été désinscris", "infos");
+					} 
+					catch (Exception e) 
+					{
+						okModif = false;
+						GestionDesErreurs.afficherMessage(messageErreur,e.toString(),"erreur");
+					}
+				} 
+				else 
+				{
+					okModif = false;
+				    etat.setValue((String)(returnOuiNon(stageGestion.getCompetitionActive().estEnEquipe())));
+				}
 			}
+			else
+			{
+				try 
+				{
+					stageGestion.getCompetitionActive().setEstEnEquipe((boolean) returnOuiNon(etat.getValue()));
+					
+				} 
+				catch (Exception e) 
+				{
+					okModif = false;
+					GestionDesErreurs.afficherMessage(messageErreur,e.toString(),"erreur");
+				}
+			}
+			
 		}
 		if(okModif){
 			try {

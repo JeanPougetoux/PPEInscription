@@ -83,6 +83,7 @@ public class GestionPersonneController {
 	    			getValue().getMail()));
 	    	setChoixVisibility(false);
 	    	this.information.setVisible(false);
+	    	labelPersonne.setVisible(false);
 	    }
 	    
 	    public void setClass(GestionPersonne stageGestion){
@@ -97,12 +98,15 @@ public class GestionPersonneController {
 	     */
 	    public void setChoixVisibility(boolean visible)
 	    {
-	    	labelPersonne.setVisible(visible);
-	    	supprimer.setVisible(visible);
-	    	modifier.setVisible(visible);
-	    	gererEquipes.setVisible(visible);
-	    	voirCompetitions.setVisible(visible);
-	    	envoyerMail.setVisible(visible);
+	    	
+	    		labelPersonne.setVisible(visible);
+		    	supprimer.setVisible(visible);
+		    	modifier.setVisible(visible);
+		    	gererEquipes.setVisible(visible);
+		    	voirCompetitions.setVisible(visible);
+		    	envoyerMail.setVisible(visible);
+	    	
+	    	
 	    	
 	    }   
 	    
@@ -245,9 +249,11 @@ class ActionClickTable implements EventHandler<MouseEvent>{
 	@Override
 	public void handle(MouseEvent event) {
 		Personne personne = stageGestion.getTable().getSelectionModel().getSelectedItem();
-		stageGestion.setChoixVisibility(true);
-		stageGestion.setNomPersonne(personne.getNom());
 		stageGestion.setPersonneActive(personne);
+		if(stageGestion.getPersonneActive() != null)
+			stageGestion.setChoixVisibility(true);
+		stageGestion.setNomPersonne(personne.getNom());
+		
 	}
 	
 }
