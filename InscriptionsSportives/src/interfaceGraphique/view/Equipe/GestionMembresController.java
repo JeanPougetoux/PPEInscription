@@ -3,6 +3,7 @@ package interfaceGraphique.view.Equipe;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import dialogueUtilisateur.GestionDesErreurs;
 import inscriptions.Candidat;
 import inscriptions.Equipe;
 import inscriptions.Personne;
@@ -144,10 +145,14 @@ public class GestionMembresController {
     	clean();
     }
     
-    public void actionMembresVersAutres(){
+    public void actionMembresVersAutres()
+    {
     	ArrayList<Personne> aEnlever = new ArrayList<>();
-    	for(int i = 0; i < stageMembres.getListMembres().size(); i++){
-    		if(checkBoxMembresEquipe.getCellData(i).booleanValue()){
+    	
+    	for(int i = 0; i < stageMembres.getListMembres().size(); i++)
+    	{
+    		if(checkBoxMembresEquipe.getCellData(i).booleanValue())
+    		{
     			stageGestion.getEquipeActive().remove(stageMembres.getListMembres().get(i));
     			aEnlever.add(stageMembres.getListMembres().get(i));
     			stageMembres.getListAutresMembres().add(stageMembres.getListMembres().get(i));
@@ -155,9 +160,12 @@ public class GestionMembresController {
     		}
     	}
     	
-    	for(Candidat i : aEnlever){
+    	for(Candidat i : aEnlever)
+    	{
     		stageMembres.getListMembres().remove(i);
     	}
+    	if(stageGestion.getEquipeActive().getStatutSuppression() != null)
+    		GestionDesErreurs.afficherMessage(stageGestion.getInformation(), stageGestion.getEquipeActive().getStatutSuppression().toString(), "infos");
     	try {
 			MonAppli.getInscriptions().sauvegarder();
 		} catch (IOException e) {

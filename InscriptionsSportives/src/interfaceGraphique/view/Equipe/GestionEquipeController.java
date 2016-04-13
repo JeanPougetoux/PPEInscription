@@ -42,7 +42,9 @@ public class GestionEquipeController {
     @FXML
     private Label information;
     
-    @FXML
+   
+
+	@FXML
     private Button voirCompetitions;
     @FXML
     private Label labelEquipe;
@@ -129,6 +131,10 @@ public class GestionEquipeController {
 		}
     	
     }
+    public Label getInformation()
+   	{
+   		return information;
+   	}
     
     public void deleteElement(){    	
 		stageGestion.getList().remove(equipeActive);
