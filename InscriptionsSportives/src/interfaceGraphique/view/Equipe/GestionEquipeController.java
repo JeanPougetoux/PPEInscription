@@ -2,6 +2,7 @@ package interfaceGraphique.view.Equipe;
 
 import java.io.IOException;
 
+import dialogueUtilisateur.GestionDesErreurs;
 import exceptions.ExceptionRetraitPersonneEquipe;
 import inscriptions.Equipe;
 import interfaceGraphique.controls.ModaleSuppression;
@@ -41,7 +42,9 @@ public class GestionEquipeController {
     @FXML
     private Label information;
     
-    @FXML
+   
+
+	@FXML
     private Button voirCompetitions;
     @FXML
     private Label labelEquipe;
@@ -124,12 +127,14 @@ public class GestionEquipeController {
 		}
 		else
 		{
-			this.information.setText("Cette équipe ne participer à aucune compétitions");
-			this.information.setTextFill(Color.web("#FF0000"));
-    		this.information.setVisible(true);
+			GestionDesErreurs.afficherMessage(information,"Cette équipe ne participer à aucune compétitions","erreur");
 		}
     	
     }
+    public Label getInformation()
+   	{
+   		return information;
+   	}
     
     public void deleteElement(){    	
 		stageGestion.getList().remove(equipeActive);

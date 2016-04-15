@@ -19,8 +19,9 @@ public class Main {
 	public static int choixPersistance = BDD;
 	
 	public static void main(String[] args) {
+
 		persistance.URLFINALE = persistance.URLSERVER;
-		
+		persistance.URLFINALE = persistance.URLLOCALE;
 		persistance.USER = "jfaivret";
 		persistance.PASS = "W02uh1Om";
 		

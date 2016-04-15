@@ -2,7 +2,7 @@ package interfaceGraphique.view.Equipe;
 
 import java.io.IOException;
 
-
+import dialogueUtilisateur.GestionDesErreurs;
 import exceptions.ExceptionNomEquipe;
 import interfaceGraphique.controls.MonAppli;
 import interfaceGraphique.controls.Equipe.AjoutEquipe;
@@ -26,7 +26,7 @@ public class AjoutEquipeController {
 	
 	@FXML
 	private void initialize(){
-		messageErreur(null);
+		messageErreur.setVisible(false);
 	}
 	
 	public void setStage(AjoutEquipe stageAjout, GestionEquipe stageGestion){
@@ -48,7 +48,7 @@ public class AjoutEquipeController {
 			} 
 			catch (ExceptionNomEquipe e1) 
 			{
-				messageErreur(e1.toString());
+				GestionDesErreurs.afficherMessage(messageErreur,e1.toString(),"erreur");
 			}
 		
 		try
@@ -64,18 +64,8 @@ public class AjoutEquipeController {
 		}
 		else
 		{
-			messageErreur("Impossible de rentrer un champs vide");
+			GestionDesErreurs.afficherMessage(messageErreur,"Impossible de rentrer un champs vide","erreur");
 		}
 			
 	}
-	
-	public void messageErreur(Object o){
-    	if(o == null){
-    		messageErreur.setVisible(false);
-    	}
-    	else{
-    		messageErreur.setVisible(true);
-    		messageErreur.setText(o.toString());
-    	}
-    }
 }

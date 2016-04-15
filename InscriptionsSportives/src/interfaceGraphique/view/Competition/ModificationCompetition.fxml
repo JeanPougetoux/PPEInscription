@@ -47,8 +47,8 @@
       </Label>
       <TextField fx:id="textNom" maxWidth="181.0" prefHeight="25.0" prefWidth="181.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
       <DatePicker fx:id="datePicker" prefHeight="25.0" prefWidth="181.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-      <ComboBox fx:id="comboEquipe" prefHeight="25.0" prefWidth="181.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-      <Button fx:id="valider" mnemonicParsing="false" onAction="#actionValider" prefWidth="80.0" text="valider" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4">
+      <ComboBox fx:id="etat" prefHeight="25.0" prefWidth="181.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+      <Button fx:id="valider" defaultButton="true" mnemonicParsing="false" onAction="#actionValider" prefWidth="80.0" text="valider" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4">
          <font>
             <Font size="14.0" />
          </font>

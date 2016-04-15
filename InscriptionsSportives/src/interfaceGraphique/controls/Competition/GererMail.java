@@ -26,13 +26,24 @@ public class GererMail extends Stage
 {
 	private BorderPane rootLayout;
 	private Competition compet;
+	private Personne personne;
 	private ObservableList<Candidat> listCandidatsCompet = FXCollections.observableArrayList();
 	
-	public GererMail(Competition compet) {
+	public GererMail(Competition compet) 
+	{
 		this.setResizable(false);
 		this.setTitle("Envoie de mail groupé");
 		this.initModality(Modality.APPLICATION_MODAL);
 		this.compet = compet;
+		initLayouts();
+	}
+	
+	public GererMail(Personne personne) 
+	{
+		this.setResizable(false);
+		this.setTitle("Envoie de mail personnel");
+		this.initModality(Modality.APPLICATION_MODAL);
+		this.personne = personne;
 		initLayouts();
 	}
 	
@@ -53,7 +64,8 @@ public class GererMail extends Stage
 	            Scene scene = new Scene(rootLayout);
 	            this.setScene(scene);
 	            rootLayout.setCenter(panelPrincipal);
-	            bindLists();
+	            if(estCompetition())
+	            	bindLists();
 	            GererMailController controller = loader.getController();
 	            controller.setClass(this);
 	        } catch (IOException e) {
@@ -97,6 +109,19 @@ public class GererMail extends Stage
     public ObservableList<Candidat> getListCandidats(){
     	return listCandidatsCompet;
     } 
+    
+    public boolean estPersonnel()
+    {
+    	return personne != null;
+    }
+    public Personne getPersonne()
+    {
+    	return this.personne;
+    }
+    public boolean estCompetition()
+    {
+    	return compet != null;
+    }
     
    
 }

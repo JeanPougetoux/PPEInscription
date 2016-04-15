@@ -2,11 +2,13 @@ package interfaceGraphique.view.Personne;
 
 import java.io.IOException;
 
+import dialogueUtilisateur.GestionDesErreurs;
 import exceptions.ExceptionRetraitPersonneEquipe;
 import inscriptions.Equipe;
 import inscriptions.Personne;
 import interfaceGraphique.controls.ModaleSuppression;
 import interfaceGraphique.controls.MonAppli;
+import interfaceGraphique.controls.Competition.GererMail;
 import interfaceGraphique.controls.Equipe.GestionEquipe;
 import interfaceGraphique.controls.Personne.AjoutPersonne;
 import interfaceGraphique.controls.Personne.GestionEquipes;
@@ -60,6 +62,8 @@ public class GestionPersonneController {
     private Button supprimer;
     @FXML
     private Button modifier;
+    @FXML
+    private Button envoyerMail;
 
 	 public GestionPersonneController(){
 	    	
@@ -79,6 +83,7 @@ public class GestionPersonneController {
 	    			getValue().getMail()));
 	    	setChoixVisibility(false);
 	    	this.information.setVisible(false);
+	    	labelPersonne.setVisible(false);
 	    }
 	    
 	    public void setClass(GestionPersonne stageGestion){
@@ -93,11 +98,15 @@ public class GestionPersonneController {
 	     */
 	    public void setChoixVisibility(boolean visible)
 	    {
-	    	labelPersonne.setVisible(visible);
-	    	supprimer.setVisible(visible);
-	    	modifier.setVisible(visible);
-	    	gererEquipes.setVisible(visible);
-	    	voirCompetitions.setVisible(visible);
+	    	
+	    		labelPersonne.setVisible(visible);
+		    	supprimer.setVisible(visible);
+		    	modifier.setVisible(visible);
+		    	gererEquipes.setVisible(visible);
+		    	voirCompetitions.setVisible(visible);
+		    	envoyerMail.setVisible(visible);
+	    	
+	    	
 	    	
 	    }   
 	    
@@ -180,12 +189,19 @@ public class GestionPersonneController {
 	    	}
 	    	else
 	    	{
-	    		this.information.setText("Cette personne ne participe à aucune compétitions");
-	    		this.information.setTextFill(Color.web("#FF0000"));
-	    		this.information.setVisible(true);
+	    		GestionDesErreurs.afficherMessage(information,"Cette personne ne participe à aucune compétitions","erreur");
 	    	}
 	    	
 	    	
+	    }
+	    
+	    /**
+	     * Ouvre la fenêtre d'envoie de mails
+	     */
+	    public void actionBouttonEnvoyerMail()
+	    {
+	    	GererMail fenetre = new GererMail(this.personneActive);
+        	fenetre.show();
 	    }
 	    /**
 	     * Supprime la personne active
@@ -213,23 +229,6 @@ public class GestionPersonneController {
     	setChoixVisibility(false);
     	
     }
-		
-		/**
-		 Permet d'afficher les messages d'erreur
-		 * @param message
-		 * @param type
-		 */
-		public void generationInfos(String message,String type)
-		{
-	    	if(type == "erreur")
-	    		this.information.setTextFill(Color.web("#FF0000"));
-	    	else
-	    		this.information.setTextFill(Color.web("green"));
-	    	this.information.setText(message);
-	    	
-			this.information.setVisible(true);
-		}
-		
 		public void actualise()
 		{
 			this.personneTable.refresh();
@@ -250,9 +249,11 @@ class ActionClickTable implements EventHandler<MouseEvent>{
 	@Override
 	public void handle(MouseEvent event) {
 		Personne personne = stageGestion.getTable().getSelectionModel().getSelectedItem();
-		stageGestion.setChoixVisibility(true);
-		stageGestion.setNomPersonne(personne.getNom());
 		stageGestion.setPersonneActive(personne);
+		if(stageGestion.getPersonneActive() != null)
+			stageGestion.setChoixVisibility(true);
+		stageGestion.setNomPersonne(personne.getNom());
+		
 	}
 	
 }

@@ -95,7 +95,8 @@ public class Competition implements Comparable<Competition>, Serializable
 	 * @param enEquipe
 	 * @throws ExceptionCompetition 
 	 */
-	public void setEstEnEquipe(boolean enEquipe) throws ExceptionCompetition{
+	public void setEstEnEquipe(boolean enEquipe) throws ExceptionCompetition
+	{
 		if (inscriptions.persistance == inscriptions.BDD)
 			inscriptions.pers.updateCompetitionBoolean(enEquipe,nom);
 		this.enEquipe = enEquipe;
@@ -160,6 +161,7 @@ public class Competition implements Comparable<Competition>, Serializable
 	 * Inscrit un candidat de type Equipe à la compétition. Provoque une
 	 * exception si la compétition est réservée aux personnes ou que 
 	 * les inscriptions sont closes.
+	 * Mais également si l'équipe comporte un joueur participant déjà avec une autre équipe
 	 * @param personne
 	 * @return
 	 * @throws ExceptionAjoutEquipeCompetition 
@@ -174,6 +176,19 @@ public class Competition implements Comparable<Competition>, Serializable
 			throw new ExceptionAjoutEquipeCompetition("ouvert");
 		if(equipe.getMembres().isEmpty())
 			throw new ExceptionAjoutEquipeCompetition("vide");
+		
+		
+		for(Personne p : equipe.getMembres())
+			for(Candidat e : this.getCandidats())
+				if(e instanceof Equipe)
+					for(Personne p2: ((Equipe) e).getMembres())
+						if(p2.getMail() == p.getMail())
+							throw new ExceptionAjoutEquipeCompetition("joueur");
+					
+					
+				
+				
+		
 		equipe.add(this);
 		return candidats.add(equipe);
 	}
@@ -186,9 +201,33 @@ public class Competition implements Comparable<Competition>, Serializable
 	
 	public boolean remove(Candidat candidat)
 	{
+		
 		candidat.remove(this);
 		return candidats.remove(candidat);
 	}
+	
+	/**
+	 * Retire de la compétition tous les candidats inscris
+	 * @return
+	 */
+	public void removeAllCandidats()
+	{
+		Set<Candidat> aEnlever = new TreeSet<>();
+		for (Candidat candidat : candidats)
+		{
+			aEnlever.add(candidat);
+		}
+		for(Candidat c : aEnlever)
+		{
+			c.remove(this);
+			candidats.remove(c);
+			if (inscriptions.persistance == inscriptions.BDD)
+				inscriptions.pers.retirerCandidatCompetition(c, this);
+		}
+			
+	}
+	
+	
 	
 	/**
 	 * Supprime la compétition de l'application.
@@ -199,6 +238,8 @@ public class Competition implements Comparable<Competition>, Serializable
 		for (Candidat candidat : candidats)
 			remove(candidat);
 		inscriptions.remove(this);
+		if (inscriptions.persistance == inscriptions.BDD)
+			inscriptions.pers.retirerCompetition(this.getNom());
 	}
 	
 	@Override

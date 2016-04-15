@@ -1,10 +1,22 @@
 package interfaceGraphique.view.Competition;
 
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.Set;
 
+import javax.mail.Address;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 
-
+import dialogueUtilisateur.GestionDesErreurs;
 import javafx.scene.control.Label;
 
 import inscriptions.Candidat;
@@ -12,9 +24,12 @@ import inscriptions.Equipe;
 import inscriptions.Personne;
 import interfaceGraphique.controls.Competition.GererCandidats;
 import interfaceGraphique.controls.Competition.GererMail;
+import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -30,6 +45,9 @@ import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
 import mail.GestionMail;
+import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Service;
+import javafx.concurrent.Worker;
 
 public class GererMailController {
 
@@ -43,6 +61,12 @@ public class GererMailController {
 	@FXML
     private TextField message;
 	
+	@FXML
+	private Button valider;
+	
+
+	@FXML
+	private Button annuler;
 	@FXML
     private Label information;
 	
@@ -73,56 +97,122 @@ public class GererMailController {
     
     public void handleValider()
     {
-    	if (this.sujet.getText().isEmpty() || this.message.getText().isEmpty())
+    	if (this.sujet.getText().isEmpty() || this.getMessage().getText().isEmpty())
     	{
-    			generationInfos("Le sujet et le message doivent tout deux être renseignés","erreur");
+    		GestionDesErreurs.afficherMessage(information, "Le sujet et le message doivent tout deux être renseignés", "erreur");
     	}
-    	else
+    	else if(stage.estCompetition())
     	{
-    		/*this.information.setText("envoie en cours, veuillez patienter");
-    		this.information.setVisible(true);*/
-    		//generationInfos("Envoie en cours veuillez patienter...","infos");
-    		
-    		Set <Candidat> candidats = stage.getCompet().getCandidats();
-    		int compteur = 0;
-    		
-    		for(Candidat c : candidats)
-    		{
-    			if(c instanceof Personne)
-    			{
-    				compteur ++;
-        			if(GestionMail.sendMessage(this.sujet.getText(), this.message.getText(),((Personne) c).getMail()));
-        			{
-        				generationInfos("Message "+compteur+" bien envoyé ("+compteur+"/"+candidats.size()+")","infos");
-        			}
-    			}
-    			else if(c instanceof Equipe)
-    			{
-    				Set<Personne> membres = ((Equipe) c).getMembres();
-    				for(Personne p : membres)
-    				{
-    					compteur ++;
-            			if(GestionMail.sendMessage(this.sujet.getText(), this.message.getText(),p.getMail()));
-            			{
-            				generationInfos("Message "+compteur+" bien envoyé ("+compteur+"/"+candidats.size()+")","infos");
-            			}
-    				}
-    			}
-    			
-    		}
-    		
+        		this.valider.setDisable(true);
+    	        this.annuler.setDisable(true);
+        		GestionDesErreurs.afficherMessage(information, "Envoie des messages en cours, veuillez patienter...", "infos");
+        		
+        		 final Service<Void> calculateService = new Service<Void>() 
+     	        {
+
+     	            @Override
+     	            protected Task<Void> createTask() 
+     	            {
+     	                return new Task<Void>() 
+     	                {
+    						@Override
+     	                    protected  Void call() throws Exception 
+     	                    {
+    							GestionMail.open();
+    							
+     	                    	Set <Candidat> candidats = stage.getCompet().getCandidats();
+    	 	               		
+    	 	               		for(Candidat c : candidats)
+    	 	               		{
+    	 	               			if(c instanceof Personne)
+    	 	               			{
+    	 	               				GestionMail.sendMessage(sujet.getText(), message.getText(), ((Personne) c).getMail());
+    	 	               			}
+    	 	               			else if(c instanceof Equipe)
+    	 	               			{
+    	 	               				Set<Personne> membres = ((Equipe) c).getMembres();
+    	 	               				for(Personne p : membres)
+    	 	               				{
+    		 	               			GestionMail.sendMessage(sujet.getText(), message.getText(), p.getMail());
+    		 	               				
+    	 	               				}
+    	 	               			}
+    	 	               			
+    	 	               		}
+    	 	               		GestionMail.close();
+    	 	               		return null;
+     	                    }
+     	                };
+     	            }
+     	        };
+     	        
+     	        
+     	      calculateService.stateProperty().addListener((ObservableValue<? extends Worker.State> observableValue, Worker.State oldValue, Worker.State newValue) -> 
+    	        {
+    	           switch (newValue) 
+    	           {
+    	                case FAILED:
+    	                case CANCELLED:
+    	                case SUCCEEDED:
+    	                	this.valider.setDisable(false);
+    	        	        this.annuler.setDisable(false);
+    	        	        GestionDesErreurs.afficherMessage(information, "Tous les messages ont été envoyé avec succès !", "infos");
+    	                    break;
+    	            }
+    	        });
+    	        calculateService.start();
     	}
-    }
-    
-    public void generationInfos(String message,String type)
-	{
-    	if(type == "erreur")
-    		this.information.setTextFill(Color.web("#FF0000"));
-    	else
-    		this.information.setTextFill(Color.web("green"));
-    	this.information.setText(message);
+    	else if (stage.estPersonnel())
+    	{
+    		this.valider.setDisable(true);
+	        this.annuler.setDisable(true);
+    		GestionDesErreurs.afficherMessage(information, "Envoie du message en cours, veuillez patienter...", "infos");
+    		
+    		 final Service<Void> calculateService = new Service<Void>() 
+  	        {
+
+  	            @Override
+  	            protected Task<Void> createTask() 
+  	            {
+  	                return new Task<Void>() 
+  	                {
+ 						@Override
+  	                    protected  Void call() throws Exception 
+  	                    {
+ 							GestionMail.open();
+ 							GestionMail.sendMessage(sujet.getText(), message.getText(), stage.getPersonne().getMail());
+ 							GestionMail.close();
+ 							return null;
+  	                    }
+  	                };
+  	            }
+  	        };
+  	        
+  	      calculateService.stateProperty().addListener((ObservableValue<? extends Worker.State> observableValue, Worker.State oldValue, Worker.State newValue) -> 
+	        {
+	           switch (newValue) 
+	           {
+	                case FAILED:
+	                case CANCELLED:
+	                case SUCCEEDED:
+	                	this.valider.setDisable(false);
+	        	        this.annuler.setDisable(false);
+	        	        GestionDesErreurs.afficherMessage(information, "Message envoyé avec succès !", "infos");
+	                    break;
+	            }
+	        });
+	        calculateService.start();
+    		 
+    	}
     	
-		this.information.setVisible(true);
+    }
+
+	public TextField getMessage() {
+		return message;
+	}
+
+	public void setMessage(TextField message) {
+		this.message = message;
 	}
     
    

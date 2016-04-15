@@ -33,6 +33,7 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
       <Label prefHeight="45.0" prefWidth="434.0" text="Gestion des personnes" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="1">
@@ -67,7 +68,7 @@
             <Font name="Arial Italic" size="17.0" />
          </font>
       </Label>
-      <Label fx:id="information" text="Label" GridPane.columnSpan="8" GridPane.rowIndex="9" GridPane.rowSpan="2" />
+      <Label fx:id="information" text="Label" GridPane.columnSpan="8" GridPane.rowIndex="10" GridPane.rowSpan="2" />
       <Button fx:id="gererEquipes" mnemonicParsing="false" onAction="#actionBoutonGererEquipes" prefHeight="25.0" prefWidth="113.0" text="Gérer équipes" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="3" GridPane.valignment="TOP">
          <GridPane.margin>
             <Insets left="20.0" />
@@ -76,6 +77,11 @@
       <Button fx:id="voirCompetitions" mnemonicParsing="false" onAction="#actionBoutonVoirCompetitions" text="Voir compétitions" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="6">
          <GridPane.margin>
             <Insets left="20.0" />
+         </GridPane.margin>
+      </Button>
+      <Button fx:id="envoyerMail" mnemonicParsing="false" onAction="#actionBouttonEnvoyerMail" prefWidth="110.0" text="Envoyer mail" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="2">
+         <GridPane.margin>
+            <Insets />
          </GridPane.margin>
       </Button>
    </children>

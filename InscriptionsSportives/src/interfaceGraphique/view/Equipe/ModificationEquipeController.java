@@ -1,5 +1,6 @@
 package interfaceGraphique.view.Equipe;
 
+import dialogueUtilisateur.GestionDesErreurs;
 import exceptions.ExceptionNomEquipe;
 import inscriptions.Competition;
 import inscriptions.Equipe;
@@ -32,7 +33,7 @@ public class ModificationEquipeController {
 	
 	@FXML
 	private void initialize(){
-		messageErreur(null);
+		messageErreur.setVisible(false);
 	}
 	
 	public void setStage(GestionEquipeController stageGestion, ModificationEquipe stageModif){
@@ -40,16 +41,6 @@ public class ModificationEquipeController {
 		this.stageModif = stageModif;
 		nomEquipe.setText(stageGestion.getEquipeActive().getNom());
 	}
-	
-	public void messageErreur(Object o){
-    	if(o == null){
-    		messageErreur.setVisible(false);
-    	}
-    	else{
-    		messageErreur.setVisible(true);
-    		messageErreur.setText(o.toString());
-    	}
-    }
 	
 	public void actionValider(){
 		if(!nomEquipe.getText().isEmpty())
@@ -66,20 +57,21 @@ public class ModificationEquipeController {
 						stageGestion.actualise();
 						stageModif.close();
 					
-				}
-				catch(Exception e){
-					messageErreur(e.getMessage());
-				}
-					
-					
-				} catch (ExceptionNomEquipe e1) {
-					messageErreur(e1.toString());
+					}
+					catch(Exception e)
+					{
+						e.printStackTrace();
+					}	
+				} 
+				catch (ExceptionNomEquipe e1) 
+				{
+					GestionDesErreurs.afficherMessage(messageErreur,e1.toString(),"erreur");
 				}
 				
 			}
 		}
 		else
-			messageErreur("Champs vide interdis, ancien nom : " + stageGestion.getEquipeActive().getNom() );
+			GestionDesErreurs.afficherMessage(messageErreur,"Champs vide interdis, ancien nom : " + stageGestion.getEquipeActive().getNom(),"erreur");
 		
 	}
 	

@@ -6,5 +6,15 @@ dialogueUtilisateur.Equipes.Selection
 dialogueUtilisateur.Personnes.Gestion
 dialogueUtilisateur.Personnes.Selection
 donnees
+exceptions
 inscriptions
+interfaceGraphique.controls
+interfaceGraphique.controls.Competition
+interfaceGraphique.controls.Equipe
+interfaceGraphique.controls.Personne
+interfaceGraphique.view
+interfaceGraphique.view.Competition
+interfaceGraphique.view.Equipe
+interfaceGraphique.view.Personne
+mail
 tests

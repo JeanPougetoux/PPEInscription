@@ -60,7 +60,8 @@ public class GestionCompetitions extends Stage{
 	 */
     public void bindList(){
     	listCompetitions = FXCollections.observableArrayList();
-		for(Competition c : MonAppli.getInscriptions().getCompetitions()){
+		for(Competition c : MonAppli.getInscriptions().getCompetitions())
+		{
 			listCompetitions.add(c);
 		}
 	}

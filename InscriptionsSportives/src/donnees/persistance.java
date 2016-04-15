@@ -26,7 +26,8 @@ import inscriptions.Equipe;
 import inscriptions.Inscriptions;
 import inscriptions.Personne;
 
-public class persistance {
+public class persistance 
+{
 	
 	public static final String URLLOCALE = "localhost:3306/ppe_inscriptions";
 	public static final String URLSERVER = "mysql.m2l.local/jfaivret";
@@ -36,7 +37,7 @@ public class persistance {
 	private String url = "jdbc:mysql://" + URLFINALE;
 	private String user = USER;
 	private String passwd = PASS;
-	private Connection conn = null;
+	private static Connection conn = null;
 	private Statement statement = null;
 	private boolean initialisation = false;
 	java.sql.PreparedStatement prepare = null;
@@ -452,7 +453,8 @@ public class persistance {
 	 * Nous ajoutons une compétitions au candidat
 	 * @param candidat
 	 */
-	public void ajouterCompetitionCandidat(Candidat candidat, Competition competition) {
+	public void ajouterCompetitionCandidat(Candidat candidat, Competition competition) 
+	{
 		int id_candidat = 0,id_competition = 0;
 		try 
 		{ 
@@ -677,7 +679,7 @@ public class persistance {
 		
 		try 
 		{
-			Connection conn = DriverManager.getConnection(URLFINALE, USER, PASS);
+			//Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/ppe_inscriptions", "root", "");
 			java.sql.PreparedStatement prepare = conn.prepareStatement(query);
 			prepare.setString(1, utilisateur);
 			prepare.setString(2, encryptPassword(password));
@@ -686,6 +688,7 @@ public class persistance {
 		} 
 		catch (SQLException e) 
 		{
+			e.printStackTrace();
 			System.out.println("problème de connexion");
 		}
 		return false;

@@ -23,12 +23,12 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Label text="Ecrire un mail à l'ensemble des participants " GridPane.columnSpan="2">
+      <Label text="Ecrivez votre mail" GridPane.columnSpan="2">
          <font>
             <Font name="Arial Black" size="18.0" />
          </font>
          <GridPane.margin>
-            <Insets left="70.0" />
+            <Insets left="210.0" />
          </GridPane.margin>
       </Label>
       <Label text="Sujet" GridPane.rowIndex="1">
@@ -63,12 +63,12 @@
             <Glow />
          </effect>
       </TextField>
-      <Button mnemonicParsing="false" onAction="#handleAnnuler" text="Annuler" GridPane.rowIndex="4">
+      <Button fx:id="annuler" mnemonicParsing="false" onAction="#handleAnnuler" text="Annuler" GridPane.rowIndex="4">
          <GridPane.margin>
             <Insets left="100.0" />
          </GridPane.margin>
       </Button>
-      <Button mnemonicParsing="false" onAction="#handleValider" text="Envoyer" GridPane.columnIndex="1" GridPane.rowIndex="4">
+      <Button fx:id="valider" defaultButton="true" mnemonicParsing="false" onAction="#handleValider" text="Envoyer" GridPane.columnIndex="1" GridPane.rowIndex="4">
          <GridPane.margin>
             <Insets left="100.0" />
          </GridPane.margin>

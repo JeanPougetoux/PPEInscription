@@ -36,7 +36,7 @@
          </font>
       </Label>
       <TextField fx:id="prenom" maxWidth="181.0" prefHeight="25.0" prefWidth="181.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-      <Button mnemonicParsing="false" onAction="#actionModifier" prefWidth="80.0" text="valider" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="6">
+      <Button defaultButton="true" mnemonicParsing="false" onAction="#actionModifier" prefWidth="80.0" text="valider" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="6">
          <font>
             <Font size="14.0" />
          </font>

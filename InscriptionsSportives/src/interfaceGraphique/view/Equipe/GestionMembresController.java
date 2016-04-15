@@ -3,6 +3,7 @@ package interfaceGraphique.view.Equipe;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import dialogueUtilisateur.GestionDesErreurs;
 import inscriptions.Candidat;
 import inscriptions.Equipe;
 import inscriptions.Personne;
@@ -56,7 +57,7 @@ public class GestionMembresController {
     
     @FXML
     private void initialize(){
-    	messageErreur(null);
+    	messageErreur.setVisible(false);
     	nameMembresEquipe.setCellValueFactory(CellDataFeatures -> 
     	new ReadOnlyStringWrapper(CellDataFeatures.getValue().getNom()));
     	nameAutresPersonnes.setCellValueFactory(CellDataFeatures ->
@@ -112,16 +113,6 @@ public class GestionMembresController {
     	autrePersonnes.setItems(stageMembres.getListAutresMembres());
     }
     
-    public void messageErreur(Object o){
-    	if(o == null){
-    		messageErreur.setVisible(false);
-    	}
-    	else{
-    		messageErreur.setVisible(true);
-    		messageErreur.setText(o.toString());
-    	}
-    }
-    
     public void clean(){
     	for(int i = 0; i < selectedRowListAutres.size(); i++){
     		selectedRowListAutres.get(i).set(false);
@@ -132,7 +123,6 @@ public class GestionMembresController {
     }
     
     public void actionAutreVersMembres(){
-    	messageErreur(null);
     	ArrayList<Personne> aEnlever = new ArrayList<>();
     	for(int i = 0; i < stageMembres.getListAutresMembres().size(); i++){
     		if(checkBoxAutresPersonnes.getCellData(i).booleanValue()){
@@ -155,11 +145,14 @@ public class GestionMembresController {
     	clean();
     }
     
-    public void actionMembresVersAutres(){
-    	messageErreur(null);
+    public void actionMembresVersAutres()
+    {
     	ArrayList<Personne> aEnlever = new ArrayList<>();
-    	for(int i = 0; i < stageMembres.getListMembres().size(); i++){
-    		if(checkBoxMembresEquipe.getCellData(i).booleanValue()){
+    	
+    	for(int i = 0; i < stageMembres.getListMembres().size(); i++)
+    	{
+    		if(checkBoxMembresEquipe.getCellData(i).booleanValue())
+    		{
     			stageGestion.getEquipeActive().remove(stageMembres.getListMembres().get(i));
     			aEnlever.add(stageMembres.getListMembres().get(i));
     			stageMembres.getListAutresMembres().add(stageMembres.getListMembres().get(i));
@@ -167,9 +160,12 @@ public class GestionMembresController {
     		}
     	}
     	
-    	for(Candidat i : aEnlever){
+    	for(Candidat i : aEnlever)
+    	{
     		stageMembres.getListMembres().remove(i);
     	}
+    	if(stageGestion.getEquipeActive().getStatutSuppression() != null)
+    		GestionDesErreurs.afficherMessage(stageGestion.getInformation(), stageGestion.getEquipeActive().getStatutSuppression().toString(), "infos");
     	try {
 			MonAppli.getInscriptions().sauvegarder();
 		} catch (IOException e) {

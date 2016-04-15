@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="javadoc">
+    <target name="javadoc">
+        <javadoc access="private" author="true" classpath="lib/activation.jar;C:\Users\thomas\git\CoursJava\Utilitaires\bin;C:\Users\thomas\Desktop\dev\eclipse\plugins\org.junit_4.12.0.v201504281640\junit.jar;lib/mysql-connector-java-5.1.38-bin.jar;lib/mail.jar;C:\Users\thomas\Desktop\dev\eclipse\plugins\org.hamcrest.core_1.3.0.v201303031735.jar" destdir="doc" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="inscriptions,dialogueUtilisateur.Competitions.Gestion,exceptions,dialogueUtilisateur,dialogueUtilisateur.Competitions.Selection,dialogueUtilisateur.Equipes.Selection,interfaceGraphique.controls,interfaceGraphique.controls.Personne,dialogueUtilisateur.Personnes.Gestion,interfaceGraphique.view,dialogueUtilisateur.Equipes.Gestion,interfaceGraphique.view.Competition,interfaceGraphique.controls.Competition,interfaceGraphique.view.Personne,mail,dialogueUtilisateur.Personnes.Selection,donnees,interfaceGraphique.controls.Equipe,interfaceGraphique.view.Equipe,tests" source="1.8" sourcepath="src" splitindex="true" use="true" version="true"/>
+    </target>
+</project>
