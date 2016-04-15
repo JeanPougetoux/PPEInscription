@@ -29,7 +29,7 @@ import inscriptions.Personne;
 public class persistance {
 	
 	public static final String URLLOCALE = "localhost:3306/ppe_inscriptions";
-	public static final String URLSERVER = "mysql.m2l.local/tecalle";
+	public static final String URLSERVER = "mysql.m2l.local/jfaivret";
 	public static String URLFINALE = "";
 	public static String USER = "";
 	public static String PASS = "";
@@ -704,7 +704,7 @@ public class persistance {
 		
 		try 
 		{
-			Connection conn = DriverManager.getConnection("jdbc:mysql://mysql.m2l.local/jpougetoux", "jpougetoux", "azerty");
+			Connection conn = DriverManager.getConnection("jdbc:mysql://mysql.m2l.local/jfaivret", "jfaivret", "W02uh1Om");
 			java.sql.PreparedStatement prepare = conn.prepareStatement(query);
 			prepare.setString(1, encryptPassword(password));
 			resultat = prepare.executeQuery();
