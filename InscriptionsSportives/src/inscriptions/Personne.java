@@ -18,9 +18,9 @@ public class Personne extends Candidat
 	private String prenom, mail;
 	private Set<Equipe> equipes;
 	
-	Personne(Inscriptions inscriptions, String nom, String prenom, String mail)
+	Personne(Inscriptions inscriptions, String nom, String prenom, String mail,int id)
 	{
-		super(inscriptions, nom);
+		super(inscriptions, nom,id);
 		this.prenom = prenom;
 		this.mail = mail;
 		equipes = new TreeSet<>();
@@ -84,14 +84,14 @@ public class Personne extends Candidat
 	boolean add(Equipe equipe)
 	{
 		if(super.getInscription().persistance == super.getInscription().BDD)
-			super.getInscription().pers.insererCandidatDansEquipe(this.getMail(),equipe.getNom());
+			super.getInscription().pers.insererCandidatDansEquipe(this.getId(),equipe.getId());
 		return equipes.add(equipe);
 	}
 
 	boolean remove(Equipe equipe)  
 	{
 		if(super.getInscription().persistance == super.getInscription().BDD)
-			super.getInscription().pers.retirerPersonneEquipe(this.getMail(),equipe.getNom());
+			super.getInscription().pers.retirerPersonneEquipe(this.getId(),equipe.getId());
 		return equipes.remove(equipe);
 	}
 	

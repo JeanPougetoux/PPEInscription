@@ -15,17 +15,18 @@ public class PersonneTest extends TestCase{
 	Inscriptions inscription = Inscriptions.getInscriptions();
 	Personne a = null;
 	Equipe equipe = null;
+	private int falseId;
 	
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		a = inscription.createPersonne("ecalle", "thomas", "thomasecalle@hotmail.fr");
-		equipe = inscription.createEquipe("les semis-croustillants");
+		a = inscription.createPersonne("ecalle", "thomas", "thomasecalle@hotmail.fr",getFalseId());
+		equipe = inscription.createEquipe("les semis-croustillants",getFalseId());
 	}
 	
 	@Test
 	public void testPersonne() throws ExceptionMailPersonne {
-		Personne thomas = inscription.createPersonne("ecalle", "thomas", "thomasecalle@hotmail.fr");
+		Personne thomas = inscription.createPersonne("ecalle", "thomas", "thomasecalle@hotmail.fr",getFalseId());
 		assertEquals("ecalle", thomas.getNom());
 		assertEquals("thomas", thomas.getPrenom());
 		assertEquals("thomasecalle@hotmail.fr", thomas.getMail());
@@ -64,6 +65,17 @@ public class PersonneTest extends TestCase{
 	public void testGetEquipes() {
 		equipe.add(a);
 		assertEquals(true,a.getEquipes().contains(equipe));
+	}
+
+	public int getFalseId()
+	{
+		setFalseId(falseId++);
+		return falseId;
+	}
+
+	public void setFalseId(int falseId)
+	{
+		this.falseId = falseId;
 	}
 
 }

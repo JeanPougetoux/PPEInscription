@@ -9,6 +9,10 @@ public class ExceptionCompetition extends ExceptionPrincipale
 		this.erreur = typeErreur;
 		this.nom = nom;
 	}
+	public ExceptionCompetition(String typeErreur)
+	{
+		this.erreur = typeErreur;
+	}
 	
 	@Override
 	public String toString() 

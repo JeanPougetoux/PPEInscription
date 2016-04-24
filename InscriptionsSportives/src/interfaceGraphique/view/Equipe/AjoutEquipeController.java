@@ -43,7 +43,8 @@ public class AjoutEquipeController {
 		{
 			try 
 			{
-				stageGestion.getList().add(MonAppli.getInscriptions().createEquipe(newName.getText().toLowerCase()));
+				stageGestion.getList().add(MonAppli.getInscriptions().createEquipe(newName.getText().toLowerCase(),
+						MonAppli.getInscriptions().pers.getLastInsertCandidat()));
 				stageAjout.close();
 			} 
 			catch (ExceptionNomEquipe e1) 

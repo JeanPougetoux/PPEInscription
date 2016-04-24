@@ -19,13 +19,15 @@ public abstract class Candidat implements Comparable<Candidat>, Serializable
 	private static final long serialVersionUID = -6035399822298694746L;
 	private Inscriptions inscriptions;
 	private String nom;
+	private int id;
 	private Set<Competition> competitions;
 	
-	Candidat(Inscriptions inscriptions, String nom)
+	Candidat(Inscriptions inscriptions, String nom,int id)
 	{
 		this.inscriptions = inscriptions;
 		this.nom = nom;
 		competitions = new TreeSet<>();
+		this.setId(id);
 	}
 	
 	public Inscriptions getInscription()
@@ -94,9 +96,9 @@ public abstract class Candidat implements Comparable<Candidat>, Serializable
 			c.remove(this);
 		inscriptions.remove(this);
 		if(this.inscriptions.persistance == this.inscriptions.BDD && this instanceof Personne)
-			this.inscriptions.pers.retirerPersonne(((Personne) this).getMail());
+			this.inscriptions.pers.retirerPersonne(getId());
 		else if (this.inscriptions.persistance == this.inscriptions.BDD && this instanceof Equipe)
-			this.inscriptions.pers.retirerEquipe(((Equipe) this).getNom());
+			this.inscriptions.pers.retirerEquipe(getId());
 		
 		
 			
@@ -120,5 +122,15 @@ public abstract class Candidat implements Comparable<Candidat>, Serializable
 	public String toString()
 	{
 		return Utilitaires.getMajuscule(getNom());
+	}
+
+	public int getId()
+	{
+		return id;
+	}
+
+	public void setId(int id)
+	{
+		this.id = id;
 	}
 }

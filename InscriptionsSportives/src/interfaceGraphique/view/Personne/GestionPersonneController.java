@@ -206,7 +206,8 @@ public class GestionPersonneController {
 	    /**
 	     * Supprime la personne active
 	     */
-		public void deleteElement(){   
+		public void deleteElement()
+		{   
 			
 		stageGestion.getList().remove(personneActive);
 		

@@ -49,7 +49,7 @@ public class ActionAjoutCompetition implements Action{
 		if(mod < 5){
 			try 
 			{
-				inscriptions.createCompetition(nomCompetition, (LocalDate)dateCloture, (boolean)estEnEquipe);
+				inscriptions.createCompetition(nomCompetition, (LocalDate)dateCloture, (boolean)estEnEquipe,inscriptions.pers.getLastInsertCompetition());
 				System.out.println("\nLa compétition est bien ajoutée.");
 			}
 			catch (ExceptionCompetition e) 

@@ -122,7 +122,8 @@ public class GestionCompetitionsController {
     public void deleteElement(){    	
 		stageGestion.getList().remove(competActive);
 		competActive.delete();
-    	try {
+    	try 
+    	{
 			MonAppli.getInscriptions().sauvegarder();
 		} catch (IOException e) {
 			e.printStackTrace();

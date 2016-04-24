@@ -41,7 +41,7 @@ public class ActionAjoutPersonne implements Action{
 		if(mod < 5){
 			try 
 			{
-				menu.getInscriptions().createPersonne(nom, prenom, mail);
+				menu.getInscriptions().createPersonne(nom, prenom, mail,menu.getInscriptions().pers.getLastInsertCandidat());
 				System.out.println("\nLa personne vient bien d'être créée.");
 			} 
 			catch (ExceptionMailPersonne e) 

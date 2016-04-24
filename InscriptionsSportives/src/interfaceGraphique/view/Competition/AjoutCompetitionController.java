@@ -102,7 +102,8 @@ public class AjoutCompetitionController {
 			{
 				stageGestion.getList().add(MonAppli.getInscriptions().createCompetition(
 													this.getStringNom(), this.getLocalDateCloture(),
-													this.getEnEquipe()));
+													this.getEnEquipe(),
+													MonAppli.getInscriptions().pers.getLastInsertCompetition()));
 				try 
 				{
 					MonAppli.getInscriptions().sauvegarder();

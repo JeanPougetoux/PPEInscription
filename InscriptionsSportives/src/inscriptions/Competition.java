@@ -24,17 +24,19 @@ public class Competition implements Comparable<Competition>, Serializable
 	private static final long serialVersionUID = -2882150118573759729L;
 	private Inscriptions inscriptions;
 	private String nom;
+	private int id;
 	private Set<Candidat> candidats;
 	private LocalDate dateCloture;
 	private boolean enEquipe = false;
 
-	Competition(Inscriptions inscriptions, String nom, LocalDate dateCloture, boolean enEquipe)
+	Competition(Inscriptions inscriptions, String nom, LocalDate dateCloture, boolean enEquipe,int id)
 	{
 		this.enEquipe = enEquipe;
 		this.inscriptions = inscriptions;
 		this.nom = nom;
 		this.dateCloture = dateCloture;
 		candidats = new TreeSet<>();
+		this.setId(id);
 	}
 	
 	/**
@@ -98,7 +100,7 @@ public class Competition implements Comparable<Competition>, Serializable
 	public void setEstEnEquipe(boolean enEquipe) throws ExceptionCompetition
 	{
 		if (inscriptions.persistance == inscriptions.BDD)
-			inscriptions.pers.updateCompetitionBoolean(enEquipe,nom);
+			inscriptions.pers.updateCompetitionBoolean(enEquipe,getId());
 		this.enEquipe = enEquipe;
 		
 	}
@@ -116,7 +118,7 @@ public class Competition implements Comparable<Competition>, Serializable
 		if(this.getDateCloture().isBefore(dateCloture))
 		{
 			if (inscriptions.persistance == inscriptions.BDD)
-				inscriptions.pers.updateDateCompetition(dateCloture,nom);
+				inscriptions.pers.updateDateCompetition(dateCloture,getId());
 			this.dateCloture = dateCloture;
 		}
 		else
@@ -235,11 +237,10 @@ public class Competition implements Comparable<Competition>, Serializable
 	
 	public void delete()
 	{
-		for (Candidat candidat : candidats)
-			remove(candidat);
+		removeAllCandidats();
 		inscriptions.remove(this);
 		if (inscriptions.persistance == inscriptions.BDD)
-			inscriptions.pers.retirerCompetition(this.getNom());
+			inscriptions.pers.retirerCompetition(this.getId());
 	}
 	
 	@Override
@@ -252,5 +253,15 @@ public class Competition implements Comparable<Competition>, Serializable
 	public String toString()
 	{
 		return Utilitaires.getMajuscule(getNom());
+	}
+
+	public int getId()
+	{
+		return id;
+	}
+
+	public void setId(int id)
+	{
+		this.id = id;
 	}
 }

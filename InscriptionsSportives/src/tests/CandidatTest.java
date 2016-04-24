@@ -23,24 +23,25 @@ public class CandidatTest  extends TestCase{
 	private Personne tony ;
 	private Competition testCompet ;
 	private Competition testCompet2 ;
+	private int falseId;
 
 	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
 		inscriptions = Inscriptions.getInscriptions();
-		tony = inscriptions.createPersonne(nomTony, "lala", "azerty");
+		tony = inscriptions.createPersonne(nomTony, "lala", "azerty",getFalseId());
 		testCompet = inscriptions.createCompetition("test", LocalDate.parse
-				("2018-02-10"), false);
+				("2018-02-10"), false,getFalseId());
 		testCompet2 = inscriptions.createCompetition("test", LocalDate.parse
-				("2018-02-10"), false);
+				("2018-02-10"), false,getFalseId());
 	}
 	
 	
 	@Test
 	public void testCandidat() throws Exception {
 		
-		Personne jean = inscriptions.createPersonne("pougetoux", "jean", "spyroo913@hotmail.com");
+		Personne jean = inscriptions.createPersonne("pougetoux", "jean", "spyroo913@hotmail.com",getFalseId());
 		assertEquals("pougetoux", jean.getNom());
 		
 	}
@@ -75,19 +76,33 @@ public class CandidatTest  extends TestCase{
 
 	@Test
 	public void testCompareTo() throws ExceptionMailPersonne {
-		Personne a = inscriptions.createPersonne("abcd", "test", "a");
-		Personne b = inscriptions.createPersonne("efgh", "test", "b");
+		Personne a = inscriptions.createPersonne("abcd", "test", "a",getFalseId());
+		Personne b = inscriptions.createPersonne("efgh", "test", "b",getFalseId());
 		assertEquals(-1, a.compareTo(b));
 	}
 
 	@Test
 	public void testToString() throws Exception {
 		Inscriptions inscriptions = Inscriptions.getInscriptions();
-		Equipe equipe = inscriptions.createEquipe("les manouches");
+		Equipe equipe = inscriptions.createEquipe("les manouches",getFalseId());
 		assertEquals(Utilitaires.getMajuscule("Equipe '" + Utilitaires.getMajuscule(equipe.getNom()) + "'")
 				, equipe.toString());
 		Utilitaires.getMajuscule(equipe.toString());
 		
+	}
+
+
+	public int getFalseId()
+	{
+		setFalseId(falseId++);
+		return falseId;
+		
+	}
+
+
+	public void setFalseId(int falseId)
+	{
+		this.falseId = falseId;
 	}
 
 }

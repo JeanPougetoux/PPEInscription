@@ -25,9 +25,9 @@ public class Equipe extends Candidat
 		return s;
 	}
 
-	Equipe(Inscriptions inscriptions, String nom)
+	Equipe(Inscriptions inscriptions, String nom,int id)
 	{
-		super(inscriptions, nom);
+		super(inscriptions, nom,id);
 	}
 
 	/**
@@ -67,12 +67,16 @@ public class Equipe extends Candidat
 		membres.remove(membre);
 		if(this.getMembres().isEmpty())
 		{
-			
-			for (Competition c : this.getCompetitions())
+			if(!getCompetitions().isEmpty())
 			{
-				c.remove(this);
+				for (Competition c : getCompetitions())
+				{
+					c.remove(this);
+				}
+			
+				s = new StatutSuppression("Votre equipe ne comportant plus de joueurs, elle a ete desinscrite des competitions");
+				
 			}
-			s = new StatutSuppression("Votre equipe ne comportant plus de joueurs, elle a ete desinscrite des competitions");
 			
 		}
 		

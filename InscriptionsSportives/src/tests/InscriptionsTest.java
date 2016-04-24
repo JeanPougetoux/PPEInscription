@@ -20,12 +20,13 @@ public class InscriptionsTest extends TestCase {
 	Personne tony = null;
 	Competition flechettes = null;
 	Equipe lesManouches = null;
+	private int falseId;
 	
 	public void setUp() throws Exception
 	{
-		tony = inscriptions.createPersonne("Tony", "Dent de plomb", "azerty");
-		flechettes = inscriptions.createCompetition("flechette", LocalDate.now(), true);
-		lesManouches = inscriptions.createEquipe("Les Manouches");
+		tony = inscriptions.createPersonne("Tony", "Dent de plomb", "azerty",getFalseId());
+		flechettes = inscriptions.createCompetition("flechette", LocalDate.now(), true,getFalseId());
+		lesManouches = inscriptions.createEquipe("Les Manouches",getFalseId());
 	}
 
 	@Test
@@ -41,19 +42,30 @@ public class InscriptionsTest extends TestCase {
 
 	@Test
 	public void testCreateCompetition() throws ExceptionCompetition {
-		Competition billard = inscriptions.createCompetition("billard", LocalDate.now(), true);
+		Competition billard = inscriptions.createCompetition("billard", LocalDate.now(), true,getFalseId());
 		assertEquals(true, inscriptions.getCompetitions().contains(billard));
 	}
 
 	@Test
 	public void testCreatePersonne() throws ExceptionMailPersonne {
-		Personne robert = inscriptions.createPersonne("Robert", "prenom", "lala");
+		Personne robert = inscriptions.createPersonne("Robert", "prenom", "lala",getFalseId());
 		assertEquals(true, inscriptions.getCandidats().contains(robert));
 	}
 
 	@Test
 	public void testCreateEquipe() throws ExceptionNomEquipe {
-		Equipe lesGorets = inscriptions.createEquipe("Les gorets");
+		Equipe lesGorets = inscriptions.createEquipe("Les gorets",getFalseId());
 		assertEquals(true, inscriptions.getCandidats().contains(lesGorets));
+	}
+
+	public int getFalseId()
+	{
+		setFalseId(falseId++);
+		return falseId;
+	}
+
+	public void setFalseId(int falseId)
+	{
+		this.falseId = falseId;
 	}
 }

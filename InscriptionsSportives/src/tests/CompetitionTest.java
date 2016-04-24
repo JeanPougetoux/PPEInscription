@@ -31,24 +31,25 @@ public class CompetitionTest extends TestCase {
 	Competition testCompetVrai = null;
 	Competition testCompetEquipe = null;
 	Competition testCompetSolo = null;
+	private int falseId;
 	
 	
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		 tony = inscriptions.createPersonne("Tony", "prenomTony", "mailTony");
-		 robert = inscriptions.createPersonne("Robert", "prenomRobert", "mailRobert");
-		 arthur = inscriptions.createPersonne("Arthur", "prenomArthur", "mailArthur");
-		 manouches = inscriptions.createEquipe("Les manouches");
-		 testCompetFaux = inscriptions.createCompetition(nom, dateClotureVrai, true);
-		 testCompetVrai = inscriptions.createCompetition(nom, dateClotureVrai, false);
-		 testCompetEquipe = inscriptions.createCompetition(nom, dateClotureVrai, true);
-		 testCompetSolo = inscriptions.createCompetition(nom, dateClotureVrai, false);
+		 tony = inscriptions.createPersonne("Tony", "prenomTony", "mailTony",getFalseId());
+		 robert = inscriptions.createPersonne("Robert", "prenomRobert", "mailRobert",getFalseId());
+		 arthur = inscriptions.createPersonne("Arthur", "prenomArthur", "mailArthur",getFalseId());
+		 manouches = inscriptions.createEquipe("Les manouches",getFalseId());
+		 testCompetFaux = inscriptions.createCompetition(nom, dateClotureVrai, true,getFalseId());
+		 testCompetVrai = inscriptions.createCompetition(nom, dateClotureVrai, false,getFalseId());
+		 testCompetEquipe = inscriptions.createCompetition(nom, dateClotureVrai, true,getFalseId());
+		 testCompetSolo = inscriptions.createCompetition(nom, dateClotureVrai, false,getFalseId());
 	}
 
 	@Test
 	public void testCompetition() throws ExceptionCompetition {
-		Competition testCompet = inscriptions.createCompetition("flechette", dateClotureVrai, true);
+		Competition testCompet = inscriptions.createCompetition("flechette", dateClotureVrai, true,getFalseId());
 		assertEquals("flechette", testCompet.getNom());
 		assertEquals(dateClotureVrai, testCompet.getDateCloture());
 		assertEquals(true, testCompet.estEnEquipe());
@@ -115,7 +116,7 @@ public class CompetitionTest extends TestCase {
 	
 	@Test
 	public void testAddEquipeNormal() throws ExceptionAjoutEquipeCompetition, ExceptionMailPersonne {
-		manouches.add(inscriptions.getInscriptions().createPersonne("ecalle", "thomas", "thomasmail"));
+		manouches.add(inscriptions.getInscriptions().createPersonne("ecalle", "thomas", "thomasmail",getFalseId()));
 		testCompetEquipe.add(manouches);
 		assertEquals(true, testCompetEquipe.getCandidats().contains(manouches));
 	}
@@ -148,15 +149,26 @@ public class CompetitionTest extends TestCase {
 	@Test
 	public void testCompareTo() throws ExceptionCompetition {
 		Competition a = inscriptions.createCompetition("abcd", LocalDate.parse
-				("2018-02-10"), true);
+				("2018-02-10"), true,getFalseId());
 		Competition b = inscriptions.createCompetition("efgh", LocalDate.parse
-				("2018-02-10"), true);
+				("2018-02-10"), true,getFalseId());
 		assertEquals(-4, a.compareTo(b));
 	}
 
 	@Test
 	public void testToString() {
 		assertEquals(Utilitaires.getMajuscule(nom), testCompetVrai.toString());
+	}
+
+	public int getFalseId()
+	{
+		setFalseId(falseId++);
+		return falseId;
+	}
+
+	public void setFalseId(int falseId)
+	{
+		this.falseId = falseId;
 	}
 
 }

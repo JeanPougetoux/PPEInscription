@@ -13,6 +13,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Formatter;
 
+import com.mysql.jdbc.PreparedStatement;
+
 import exceptions.ExceptionMailPersonne;
 import exceptions.ExceptionAjoutEquipeCompetition;
 import exceptions.ExceptionAjoutPersonneCompetition;
@@ -43,6 +45,8 @@ public class persistance
 	java.sql.PreparedStatement prepare = null;
 	ResultSet result = null;
 	String query;
+	private int lastInsertCandidat = 0;
+	private int lastInsertCompetition = 0;
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	
 	
@@ -78,6 +82,7 @@ public class persistance
 	public Inscriptions getBase(Inscriptions inscription) throws SQLException, ExceptionPrincipale
 	{
 		this.initialisation = true;
+		initialisationID();
 		inscription = getPersonnes(inscription);
 		inscription = getEquipes(inscription);
 		inscription = getCompetitions(inscription);
@@ -86,6 +91,37 @@ public class persistance
 		this.initialisation = false;
 		
 		return inscription;
+		
+	}
+	
+	public void initialisationID()
+	{
+		PreparedStatement recuperationIdCompetition;
+		PreparedStatement recuperationIdCandidat;
+		ResultSet resultCompetition;
+		ResultSet resultCandidat;
+		try
+		{
+			recuperationIdCompetition = (PreparedStatement) conn.prepareStatement("SHOW TABLE STATUS LIKE 'competition'");
+			recuperationIdCandidat = (PreparedStatement) conn.prepareStatement("SHOW TABLE STATUS LIKE 'candidat'");
+			resultCompetition = recuperationIdCompetition.executeQuery();
+			resultCandidat = recuperationIdCandidat.executeQuery();
+			while(resultCompetition.next())
+			{
+				System.out.println(resultCompetition.getInt("Auto_increment"));
+				setLastInsertCompetition(resultCompetition.getInt("Auto_increment"));
+			}
+			while(resultCandidat.next())
+			{
+				System.out.println(resultCandidat.getInt("Auto_increment"));
+				setLastInsertCandidat(resultCandidat.getInt("Auto_increment"));
+			}
+		} catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 	}
 	
@@ -111,36 +147,23 @@ public class persistance
 				for (Competition comp : inscription.getCompetitions()) 
 				{
 					
-					if (comp.getNom().equals(result.getString("competition_nom")))
+					if (comp.getId() == result.getInt("participer_id_competition"))
 					{
 						
-						//Si la compétition se joue en équipe alors nous reconnaissons une équipe par son nom
-						if (comp.estEnEquipe())
+						/*
+						Si la compétition se joue en équipe alors nous reconnaissons une équipe par son nom
+						Si la compétition est solitaire, nous allons rechercher ses candidats via leur adresse E-mail
+						*/
+						
+						for (Candidat c : inscription.getCandidats()) 
 						{
-							for (Candidat c : inscription.getCandidats()) 
-							{
-								if (c.getNom().equals(result.getString("candidat_nom")) && c instanceof Equipe)
-									comp.add((Equipe) c);
-									
-							}	
+							if (c.getId() == result.getInt("participer_id_candidat") && c instanceof Equipe)
+								comp.add((Equipe) c);
+							else if (c.getId() == result.getInt("participer_id_candidat") && c instanceof Personne)
+								comp.add((Personne)c);
 						}
-						// Si la compétition est solitaire, nous allons rechercher ses candidats via leur adresse E-mail
-						else
-						{
-							Statement statement2 = conn.createStatement();
-							ResultSet result2 = statement2.executeQuery("call selectMail('"+result.getString("id_participant")+"')");
 							
-							while(result2.next())
-							{
-								for (Candidat c : inscription.getCandidats()) 
-								{
-									if ( c instanceof Personne && ((Personne) c).getMail().equals(result2.getString("personne_mail")))
-										comp.add((Personne) c);
-									
-								}
-							}
-							
-						}
+						
 					}
 						
 				}
@@ -169,18 +192,19 @@ public class persistance
 			{
 				for (Candidat c : inscription.getCandidats())
 				{
+					
 					if(c instanceof Personne)
 					{
-						if(((Personne)c).getMail().equals(result.getString("mail")))
-								{
-									for (Candidat equipe : inscription.getCandidats())
-									{
-										if(equipe.getNom().equals(result.getString("equipe")) && equipe instanceof Equipe)
-											((Equipe) equipe).add((Personne) c);
-												
-									}
-								}
 						
+						if(c.getId() == result.getInt("comporter_id_personne"))
+						{
+							
+							for (Candidat equipe : inscription.getCandidats())
+							{
+								if(equipe.getId() == result.getInt("comporter_id_equipe") && equipe instanceof Equipe)
+									((Equipe) equipe).add((Personne) c);			
+							}
+						}
 					}
 				}
 			}
@@ -200,14 +224,16 @@ public class persistance
 	 * @throws ExceptionMailPersonne 
 	 */
 	private Inscriptions getPersonnes(Inscriptions inscription) throws SQLException, ExceptionMailPersonne
-	
 	{
 		result = statement.executeQuery("call selectPersonnes()");
-		while (result.next()) {
-			
-			Personne p = inscription.createPersonne(result.getString("candidat_nom"), result.getString("personne_prenom"), result.getString("personne_mail"));
-			
+		while (result.next()) 
+		{
+			Personne p = inscription.createPersonne(result.getString("candidat_nom"), result.getString("personne_prenom"), result.getString("personne_mail")
+			,result.getInt("id_personne"));
 		}
+			
+			
+		
 		
 		return inscription;
 	}
@@ -225,9 +251,7 @@ public class persistance
 		result = statement.executeQuery("call selectEquipes()");
 		while (result.next()) 
 		{
-			
-			inscription.createEquipe(result.getString("candidat_nom"));
-			
+			inscription.createEquipe(result.getString("candidat_nom"),result.getInt("id_candidat"));	
 		}
 		return inscription;
 	}
@@ -244,9 +268,10 @@ public class persistance
 	
 	{
 		result = statement.executeQuery("call selectCompetitions()");
-		while (result.next()) {
+		while (result.next()) 
+		{
 			LocalDate date = LocalDate.parse(result.getString("competition_date_cloture"), formatter);
-			inscription.createCompetition(result.getString("competition_nom"), date, result.getBoolean("competition_equipe"));
+			inscription.createCompetition(result.getString("competition_nom"), date, result.getBoolean("competition_equipe"),result.getInt("id_competition"));
 			
 		}
 		return inscription;
@@ -269,6 +294,7 @@ public class persistance
 				prepare = conn.prepareStatement(query);
 				prepare.setString(1, nom.toLowerCase());
 				prepare.executeQuery();
+				setLastInsertCandidat(getLastInsertCandidat()+1);
 			}
 			catch (SQLException e) 
 			{
@@ -297,6 +323,7 @@ public class persistance
 				prepare.setString(2, prenom);
 				prepare.setString(3, mail.toLowerCase());
 				prepare.executeQuery();
+				setLastInsertCandidat(getLastInsertCandidat()+1);
 			} catch (SQLException e) 
 			{
 				throw new ExceptionMailPersonne(mail);
@@ -324,7 +351,10 @@ public class persistance
 				prepare.setString(1, nom.toLowerCase());
 				prepare.setDate(2,Date.valueOf(dateCloture));
 				prepare.setBoolean(3,enEquipe);
-				prepare.executeQuery();
+				prepare.executeUpdate();
+				
+				setLastInsertCompetition(getLastInsertCompetition()+1);
+				
 			} 
 			catch (SQLException e) 
 			{
@@ -340,11 +370,11 @@ public class persistance
 	 * Permet de retirer une compétition de l'application, supprime alors tous les liens avec les participants
 	 * @param nom
 	 */
-	public void retirerCompetition(String nom) 
+	public void retirerCompetition(int id) 
 	{
 		try 
 		{
-			query = "call retirerCompetition('"+nom+"')";
+			query = "call retirerCompetition("+id+")";
 			statement.executeQuery(query);
 			
 		} 
@@ -359,9 +389,9 @@ public class persistance
 	 * Supprime une personne de l'application, la retire alors de ses possibles équipes et compétitions
 	 * @param mail
 	 */
-	public void retirerPersonne(String mail) {
+	public void retirerPersonne(int id) {
 		
-		query = "call retirerPersonne('"+mail+"')";
+		query = "call retirerCandidat("+id+")";
 		try 
 		{
 			statement.executeQuery(query);
@@ -376,10 +406,10 @@ public class persistance
 	 * Supprime une équipe de l'application, retire automatiquement les joueurs de cette équipe et les compétitions associées
 	 * @param nom
 	 */
-	public void retirerEquipe(String nom) 
+	public void retirerEquipe(int id) 
 	{
 		
-		query = "call retirerEquipe('"+nom+"')";
+		query = "call retirerCandidat("+id+")";
 		try 
 		{
 			statement.executeQuery(query);
@@ -397,14 +427,14 @@ public class persistance
 	 * @param nom
 	 * @throws ExceptionRetraitPersonneEquipe 
 	 */
-	public void retirerPersonneEquipe(String mail, String nom)  
+	public void retirerPersonneEquipe(int id_personne, int id_equipe)  
 	{
 			query = "call retirerPersonneEquipe(?,?)";
 			try 
 			{
 				prepare = conn.prepareStatement(query);
-				prepare.setString(1,mail);
-				prepare.setString(2,nom);
+				prepare.setInt(1,id_personne);
+				prepare.setInt(2,id_equipe);
 			
 				prepare.executeQuery();
 			} 
@@ -426,21 +456,11 @@ public class persistance
 		try 
 		{ 
 			
+			query = "call retirerCandidatCompetition(?,?)";
+			prepare = conn.prepareStatement(query);
+			prepare.setInt(1, candidat.getId());
+			prepare.setInt(2,competition.getId());
 			
-			if(candidat instanceof Personne)
-			{
-				query = "call retirerPersonneCompetition(?,?)";
-				prepare = conn.prepareStatement(query);
-				prepare.setString(1, ((Personne) candidat).getMail());
-				prepare.setString(2,competition.getNom());
-			}
-			else
-			{
-				query = "call retirerEquipeCompetition(?,?)";
-				prepare = conn.prepareStatement(query);
-				prepare.setString(1, candidat.getNom());
-				prepare.setString(2,competition.getNom());
-			}
 			prepare.executeQuery();
 		} 
 		catch (SQLException e) 
@@ -455,26 +475,12 @@ public class persistance
 	 */
 	public void ajouterCompetitionCandidat(Candidat candidat, Competition competition) 
 	{
-		int id_candidat = 0,id_competition = 0;
+		
 		try 
 		{ 
 			
-			if(candidat instanceof Personne)
-			{
-				result = statement.executeQuery("call selectIdPersonneCompetition('"+((Personne) candidat).getMail()+"','"+competition.getNom()+"')");
-			}
-			else
-			{
-				result = statement.executeQuery("call selectIdEquipeCompetition('"+candidat.getNom()+"','"+competition.getNom()+"')");
-			
-			}
-			while(result.next())
-			{
-				id_candidat = result.getInt("id_candidat");
-				id_competition = result.getInt("id_competition");
-			}
 			Statement statement2 = conn.createStatement();
-			statement2.executeQuery("call insertParticiper("+id_candidat+","+id_competition+")");
+			statement2.executeQuery("call insertParticiper("+candidat.getId()+","+competition.getId()+")");
 			
 		} 
 		
@@ -489,14 +495,14 @@ public class persistance
 	 * @param mail
 	 * @param nom
 	 */
-	public void insererCandidatDansEquipe(String mail, String nom) {
+	public void insererCandidatDansEquipe(int id_personne, int id_equipe) {
 		try 
 		{ 
 			
 			query = "call insererCandidatDansEquipe(?,?)";
 			prepare = conn.prepareStatement(query);
-			prepare.setString(1, mail);
-			prepare.setString(2,nom);
+			prepare.setInt(1, id_personne);
+			prepare.setInt(2,id_equipe);
 		
 			prepare.executeQuery();
 		} 
@@ -521,7 +527,7 @@ public class persistance
 			query = "call updateNomCompetition(?,?)";
 			prepare = conn.prepareStatement(query);
 			prepare.setString(1, nom);
-			prepare.setString(2,comp.getNom());
+			prepare.setInt(2,comp.getId());
 		
 		
 			
@@ -538,14 +544,14 @@ public class persistance
 	 * @param comp
 	 * @param nom
 	 */
-	public void updateDateCompetition(LocalDate dateCloture, String nom) {
+	public void updateDateCompetition(LocalDate dateCloture, int id) {
 		try 
 		{ 
 			
 			query = "call updateDateCompetition(?,?)";
 			prepare = conn.prepareStatement(query);
 			prepare.setDate(1,Date.valueOf(dateCloture));
-			prepare.setString(2,nom);
+			prepare.setInt(2,id);
 		
 		
 			
@@ -564,13 +570,13 @@ public class persistance
 	 * @param nom
 	 * @throws ExceptionCompetition 
 	 */
-	public void updateCompetitionBoolean(boolean bool, String nom) throws ExceptionCompetition {
+	public void updateCompetitionBoolean(boolean bool, int id) throws ExceptionCompetition {
 		try 
 		{ 
 			
 			query = "call updateCompetitionBoolean(?,?)";
 			prepare = conn.prepareStatement(query);
-			prepare.setString(1,nom);
+			prepare.setInt(1,id);
 			prepare.setBoolean(2, bool);
 		
 		
@@ -579,7 +585,7 @@ public class persistance
 		} 
 		catch (SQLException e) 
 		{
-			throw new ExceptionCompetition(nom,"boolean");
+			throw new ExceptionCompetition("boolean");
 		}
 		
 	}
@@ -597,14 +603,14 @@ public class persistance
 				query = "call updateNomPersonne(?,?)";
 				prepare = conn.prepareStatement(query);
 				prepare.setString(1, nom);
-				prepare.setString(2,((Personne)candidat).getMail());
+				prepare.setInt(2,candidat.getId());
 			}
 			else
 			{
 				query = "call updateNomEquipe(?,?)";
 				prepare = conn.prepareStatement(query);
 				prepare.setString(1, nom);
-				prepare.setString(2,candidat.getNom());
+				prepare.setInt(2,candidat.getId());
 			}
 			prepare.executeQuery();
 			
@@ -628,7 +634,7 @@ public class persistance
 
 			query = "call updateMailPersonne(?,?)";
 			prepare = conn.prepareStatement(query);
-			prepare.setString(1, personne.getMail());
+			prepare.setInt(1, personne.getId());
 			prepare.setString(2,mail);
 			prepare.executeQuery();
 			
@@ -654,7 +660,7 @@ public class persistance
 
 			query = "call updatePrenomPersonne(?,?)";
 			prepare = conn.prepareStatement(query);
-			prepare.setString(1, personne.getMail());
+			prepare.setInt(1, personne.getId());
 			prepare.setString(2,prenom);
 			prepare.executeQuery();
 			
@@ -694,32 +700,7 @@ public class persistance
 		return false;
 	}
 	
-	/**
-	 * Permet de savoir si la connexion a échoué ou résussi
-	 * @param utilisateur
-	 * @param password
-	 * @return
-	 */
-	public static boolean estConnecte(String password)
-	{
-		ResultSet resultat = null;
-		String query = "call seConnecterPassword(?)";
-		
-		try 
-		{
-			Connection conn = DriverManager.getConnection("jdbc:mysql://mysql.m2l.local/jpougetoux", "jpougetoux", "azerty");
-			java.sql.PreparedStatement prepare = conn.prepareStatement(query);
-			prepare.setString(1, encryptPassword(password));
-			resultat = prepare.executeQuery();
-			return (resultat.first());
-		} 
-		catch (SQLException e) 
-		{
-			System.out.println("problème de connexion");
-		}
-		return false;
-	}
-
+	
 	/**
 	 * Permet d'encrypter en SHA1 le mot de passe rentré par l'utilisateur
 	 * @param password
@@ -761,5 +742,21 @@ public class persistance
 	    String result = formatter.toString();
 	    formatter.close();
 	    return result;
+	}
+	public int getLastInsertCandidat()
+	{
+		return lastInsertCandidat;
+	}
+	public void setLastInsertCandidat(int lastInsertCandidat)
+	{
+		this.lastInsertCandidat = lastInsertCandidat;
+	}
+	public int getLastInsertCompetition()
+	{
+		return lastInsertCompetition;
+	}
+	public void setLastInsertCompetition(int lastInsertCompetition)
+	{
+		this.lastInsertCompetition = lastInsertCompetition;
 	}
 }

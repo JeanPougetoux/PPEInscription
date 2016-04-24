@@ -17,18 +17,19 @@ public class EquipeTest extends TestCase{
 	Personne tony = null;
 	Personne boris = null;
 	Equipe lesManouches = null;
+	private int falseId;
 	
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		tony = inscriptions.createPersonne("Tony", "Dent de plomb", "azerty");
-		boris = inscriptions.createPersonne("Boris", "le Hachoir", "ytreza");
-		lesManouches = inscriptions.createEquipe("Les Manouches");
+		tony = inscriptions.createPersonne("Tony", "Dent de plomb", "azerty",getFalseId());
+		boris = inscriptions.createPersonne("Boris", "le Hachoir", "ytreza",getFalseId());
+		lesManouches = inscriptions.createEquipe("Les Manouches",getFalseId());
 	}
 
 	@Test
 	public void testEquipe() throws ExceptionNomEquipe {
-		Equipe lesPatriks = inscriptions.createEquipe("Les patriks");
+		Equipe lesPatriks = inscriptions.createEquipe("Les patriks",getFalseId());
 		assertEquals("Les patriks", lesPatriks.getNom());
 	}
 	
@@ -63,6 +64,17 @@ public class EquipeTest extends TestCase{
 		lesManouches.add(tony);
 		lesManouches.remove(tony);
 		assertEquals(false, lesManouches.getMembres().contains(tony));
+	}
+
+	public int getFalseId()
+	{
+		setFalseId(falseId++);
+		return falseId;
+	}
+
+	public void setFalseId(int falseId)
+	{
+		this.falseId = falseId;
 	}
 
 }

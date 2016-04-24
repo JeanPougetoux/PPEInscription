@@ -5,6 +5,7 @@ import java.io.IOException;
 import dialogueUtilisateur.GestionDesErreurs;
 import exceptions.ExceptionMailPersonne;
 import exceptions.ExceptionNomEquipe;
+import inscriptions.Candidat;
 import interfaceGraphique.controls.MonAppli;
 import interfaceGraphique.controls.Equipe.AjoutEquipe;
 import interfaceGraphique.controls.Equipe.GestionEquipe;
@@ -70,8 +71,9 @@ public class AjoutPersonneController {
 			try 
 			{
 				stageGestion.getList().add(MonAppli.getInscriptions().
-						createPersonne(nom.getText(), prenom.getText(), mail.getText()));
-				
+						createPersonne(nom.getText(), prenom.getText(), mail.getText(),
+								MonAppli.getInscriptions().pers.getLastInsertCandidat()));
+				stageAjout.close();
 				
 			} 
 			catch (ExceptionMailPersonne e) 
@@ -89,8 +91,8 @@ public class AjoutPersonneController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			if(!erreurActuelle)
-				stageAjout.close();
+			
+				
 		}
 		else
 		{

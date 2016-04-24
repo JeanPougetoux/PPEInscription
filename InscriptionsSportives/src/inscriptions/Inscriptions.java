@@ -73,11 +73,11 @@ public class Inscriptions implements Serializable
 	 */
 	
 	public Competition createCompetition(String nom, 
-			LocalDate dateCloture, boolean enEquipe) throws ExceptionCompetition
+			LocalDate dateCloture, boolean enEquipe,int id) throws ExceptionCompetition
 	{
 		if(LocalDate.now().isAfter(dateCloture) && !inscriptions.pers.getInitialisation())
 			throw new ExceptionCompetition(nom,"date passee");
-		Competition competition = new Competition(this, nom, dateCloture, enEquipe);
+		Competition competition = new Competition(this, nom, dateCloture, enEquipe,id);
 		if (persistance == BDD)
 			pers.ajoutCompetition(nom,dateCloture,enEquipe);
 		competitions.add(competition);
@@ -95,13 +95,13 @@ public class Inscriptions implements Serializable
 	 * @throws ExceptionMailPersonne 
 	 */
 	
-	public Personne createPersonne(String nom, String prenom, String mail) throws ExceptionMailPersonne
+	public Personne createPersonne(String nom, String prenom, String mail,int id) throws ExceptionMailPersonne
 	{
-		Personne personne = new Personne(this, nom, prenom, mail);
-		
 		if (persistance == BDD)
 			pers.ajoutPersonne(nom,prenom,mail);
+		Personne personne = new Personne(this, nom, prenom, mail,id);
 		candidats.add(personne);
+		
 		return personne;
 	}
 	
@@ -116,11 +116,11 @@ public class Inscriptions implements Serializable
 	 * @throws ExceptionNomEquipe 
 	 */
 	
-	public Equipe createEquipe(String nom) throws  ExceptionNomEquipe
+	public Equipe createEquipe(String nom,int id) throws  ExceptionNomEquipe
 	{
 		if (persistance == BDD)
 			pers.ajoutEquipe(nom);
-		Equipe equipe = new Equipe(this, nom);
+		Equipe equipe = new Equipe(this, nom,id);
 		candidats.add(equipe);
 		return equipe;
 	}
@@ -129,7 +129,7 @@ public class Inscriptions implements Serializable
 	{
 		competitions.remove(competition);
 		if (persistance == BDD)
-			pers.retirerCompetition(competition.getNom());
+			pers.retirerCompetition(competition.getId());
 	}
 	
 	void remove(Candidat candidat)
@@ -138,9 +138,9 @@ public class Inscriptions implements Serializable
 		if (persistance == BDD)
 		{
 			if (candidat instanceof Personne)
-				pers.retirerPersonne(((Personne) candidat).getMail());
+				pers.retirerPersonne(candidat.getId());
 			else
-				pers.retirerEquipe(candidat.getNom());
+				pers.retirerEquipe(candidat.getId());
 		}
 	}
 	

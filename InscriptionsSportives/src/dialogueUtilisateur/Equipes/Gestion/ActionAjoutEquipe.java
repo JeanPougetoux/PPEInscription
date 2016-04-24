@@ -23,7 +23,7 @@ public class ActionAjoutEquipe implements Action{
 		if(!nomEquipe.isEmpty() && !nomEquipe.equals("a")){
 			try 
 			{
-				menu.getInscriptions().createEquipe(nomEquipe);
+				menu.getInscriptions().createEquipe(nomEquipe,menu.getInscriptions().pers.getLastInsertCandidat());
 				System.out.println("Equipe bien ajoutée.");
 			}
 			catch (ExceptionNomEquipe e) 
