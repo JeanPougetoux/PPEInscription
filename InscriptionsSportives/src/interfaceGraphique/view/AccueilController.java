@@ -39,11 +39,6 @@ public class AccueilController {
 	public void boutonCompetition(){
 		GestionCompetitions fenetreCompetition = new GestionCompetitions();
 		fenetreCompetition.show();
-		for(Candidat c : MonAppli.getInscriptions().getCandidats())
-			System.out.println(c.getId()+" : "+c.getNom());
-		System.out.println("****************************************");
-		for(Competition comp : MonAppli.getInscriptions().getCompetitions())
-			System.out.println(comp.getId()+ " : "+comp.getNom());
 	}
 	
 	/**
@@ -52,11 +47,7 @@ public class AccueilController {
 	public void boutonEquipe(){
 		GestionEquipe fenetreEquipe = new GestionEquipe();
 		fenetreEquipe.show();
-		for(Candidat c : MonAppli.getInscriptions().getCandidats())
-			System.out.println(c.getId()+" : "+c.getNom());
-		System.out.println("****************************************");
-		for(Competition comp : MonAppli.getInscriptions().getCompetitions())
-			System.out.println(comp.getId()+ " : "+comp.getNom());
+		
 	}
 	
 	/**
@@ -66,10 +57,5 @@ public class AccueilController {
 	{
 		GestionPersonne fenetrePersonne = new GestionPersonne();
 		fenetrePersonne.show();
-		for(Candidat c : MonAppli.getInscriptions().getCandidats())
-			System.out.println(c.getId()+" : "+c.getNom());
-		System.out.println("****************************************");
-		for(Competition comp : MonAppli.getInscriptions().getCompetitions())
-			System.out.println(comp.getId()+ " : "+comp.getNom());
 	}
 }

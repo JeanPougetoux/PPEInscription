@@ -105,9 +105,7 @@ public class GestionPersonneController {
 		    	gererEquipes.setVisible(visible);
 		    	voirCompetitions.setVisible(visible);
 		    	envoyerMail.setVisible(visible);
-	    	
-	    	
-	    	
+	    
 	    }   
 	    
 	    /**

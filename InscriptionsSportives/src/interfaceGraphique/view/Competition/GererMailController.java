@@ -118,30 +118,36 @@ public class GererMailController {
     						@Override
      	                    protected  Void call() throws Exception 
      	                    {
-    							GestionMail.open();
-    							
-     	                    	Set <Candidat> candidats = stage.getCompet().getCandidats();
-    	 	               		
-    	 	               		for(Candidat c : candidats)
-    	 	               		{
-    	 	               			if(c instanceof Personne)
-    	 	               			{
-    	 	               				GestionMail.sendMessage(sujet.getText(), message.getText(), ((Personne) c).getMail());
-    	 	               			}
-    	 	               			else if(c instanceof Equipe)
-    	 	               			{
-    	 	               				Set<Personne> membres = ((Equipe) c).getMembres();
-    	 	               				for(Personne p : membres)
-    	 	               				{
-    		 	               			GestionMail.sendMessage(sujet.getText(), message.getText(), p.getMail());
-    		 	               				
-    	 	               				}
-    	 	               			}
-    	 	               			
-    	 	               		}
-    	 	               		GestionMail.close();
-    	 	               		return null;
+    							if(GestionMail.open())
+    							{
+    								Set <Candidat> candidats =   stage.getCompet().getCandidats();
+        	 	               		
+        	 	               		for(Candidat c : candidats)
+        	 	               		{
+        	 	               			if(c instanceof Personne)
+        	 	               			{
+        	 	               				GestionMail.sendMessage(sujet.getText(), message.getText(), ((Personne) c).getMail());
+        	 	               				
+        	 	               			}
+        	 	               			else if(c instanceof Equipe)
+        	 	               			{
+        	 	               				Set<Personne> membres = ((Equipe) c).getMembres();
+        	 	               				for(Personne p : membres)
+        	 	               				{
+        	 	               					GestionMail.sendMessage(sujet.getText(), message.getText(), p.getMail());
+        	 	               				}
+        	 	               			}
+        	 	               		}
+        	 	               		GestionMail.close();
+        	 	               		return null;
+    							}
+    							else
+        						{
+        							GestionDesErreurs.afficherMessage(information, "pas de connexion internet", "erreur");
+        						}
+								return null;
      	                    }
+    						
      	                };
      	            }
      	        };
@@ -158,7 +164,12 @@ public class GererMailController {
     	        	        this.annuler.setDisable(false);
     	        	        GestionDesErreurs.afficherMessage(information, "Tous les messages ont été envoyé avec succès !", "infos");
     	                    break;
-    	            }
+    	                default:
+    	    				this.valider.setDisable(false);
+    	        	        this.annuler.setDisable(false);
+    	    				GestionDesErreurs.afficherMessage(information, "Connexion internet innexistante", "erreur");
+    	                	break;
+    	           }
     	        });
     	        calculateService.start();
     	}
@@ -179,9 +190,16 @@ public class GererMailController {
  						@Override
   	                    protected  Void call() throws Exception 
   	                    {
- 							GestionMail.open();
- 							GestionMail.sendMessage(sujet.getText(), message.getText(), stage.getPersonne().getMail());
- 							GestionMail.close();
+ 							if(GestionMail.open())
+ 							{
+ 								GestionMail.sendMessage(sujet.getText(), message.getText(), stage.getPersonne().getMail());
+ 	 							GestionMail.close();
+ 							}
+ 							else
+ 							{
+ 								return null;
+ 							}
+ 							
  							return null;
   	                    }
   	                };
@@ -193,12 +211,21 @@ public class GererMailController {
 	           switch (newValue) 
 	           {
 	                case FAILED:
+	                	GestionDesErreurs.afficherMessage(information, "Connexion internet innexistante", "erreur");
+	                	break;
 	                case CANCELLED:
+	                	GestionDesErreurs.afficherMessage(information, "Connexion internet innexistante", "erreur");
+	                	break;
 	                case SUCCEEDED:
 	                	this.valider.setDisable(false);
 	        	        this.annuler.setDisable(false);
 	        	        GestionDesErreurs.afficherMessage(information, "Message envoyé avec succès !", "infos");
 	                    break;
+			default:
+				this.valider.setDisable(false);
+    	        this.annuler.setDisable(false);
+				GestionDesErreurs.afficherMessage(information, "Connexion internet innexistante", "erreur");
+            	break;
 	            }
 	        });
 	        calculateService.start();

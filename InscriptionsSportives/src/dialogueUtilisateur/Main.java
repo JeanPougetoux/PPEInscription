@@ -20,9 +20,8 @@ public class Main {
 	public static void main(String[] args) {
 
 		persistance.URLFINALE = persistance.URLSERVER;
-		persistance.URLFINALE = persistance.URLLOCALE;
-		persistance.USER = "jfaivret";
-		persistance.PASS = "W02uh1Om";
+		persistance.USER = "tecalle";
+		persistance.PASS = "Uvp62e79";
 		
 		if(choixDialogue == CONSOLE){
 			new MenuDialogueConsole().start();

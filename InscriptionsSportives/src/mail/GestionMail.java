@@ -24,7 +24,7 @@ public class GestionMail
 	/**
 	 * Méthode qui se charge d'initialiser la connexion au serveur
 	 */
-	public static void open()
+	public static boolean open()
 	{
 		Properties prop = new Properties();
 		prop.put("mail.smtp.host", "smtp.gmail.com");
@@ -52,9 +52,10 @@ public class GestionMail
 			e.printStackTrace();
 		} catch (MessagingException e)
 		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return false;	
+			//e.printStackTrace();
 		}
+		return true;
 
 	}
 
@@ -107,13 +108,14 @@ public class GestionMail
 			msg.setContent(multipart);
 
 			transport.sendMessage(msg, msg.getAllRecipients());
-
 			return true;
+			
 		} catch (MessagingException e)
 		{
-			e.printStackTrace();
+			System.out.println("erreur");
+			return false;
 		}
-		return false;
+		
 	}
 
 	public static void main(String[] args)
